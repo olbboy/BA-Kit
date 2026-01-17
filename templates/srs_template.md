@@ -7,10 +7,10 @@
 
 | Attribute | Value |
 |-----------|-------|
-| **Skill ID** | SKILL-10 |
+| **Template ID** | TMPL-SRS |
 | **Category** | 🟢 Template |
 | **Load When** | Creating detailed software requirements |
-| **Dependencies** | SKILL-01, 02, 03, 04 |
+| **Dependencies** | @ba-writing, @ba-nfr, @ba-traceability |
 | **Standard** | ISO/IEC/IEEE 29148:2018 |
 | **Output** | Complete SRS document |
 
@@ -556,10 +556,10 @@ REVIEW:
 
 | For... | Load |
 |--------|------|
-| NFR details | SKILL-04 |
-| Validation | SKILL-08 |
-| Traceability | SKILL-07 |
-| Agile breakdown | SKILL-12 |
+| NFR details | @ba-nfr |
+| Validation | @ba-validation |
+| Traceability | @ba-traceability |
+| Agile breakdown | @ba-writing (User Stories) |
 
 ---
 

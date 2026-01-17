@@ -78,7 +78,7 @@ Each agent is equipped with **System 2 Thinking** (Reflective Loops) to "Stop & 
 ### 1. Installation
 Copy the workflows into your Agent's brain:
 ```bash
-cp -r ba-kit/.agent/workflows/ ~/.gemini/antigravity/workflows/
+cp -r ba-kit/.agent/skills/* ~/.gemini/antigravity/skills/
 ```
 
 ### 2. Summoning
@@ -112,7 +112,7 @@ All agents now follow a **Reflective Cognitive Loop**:
 ```
 ba-kit/
 │
-├── .agent/workflows/           # 🤖 The Brains (15 Agent Definitions)
+├── .agent/skills/              # 🤖 The Brains (15 Agent Skills)
 ├── docs/knowledge_base/        # 📚 The Knowledge (Skills & Manuals)
 │   ├── core/                   # 🔵 Core Skills
 │   ├── specialized/            # 🟡 Specialized Skills

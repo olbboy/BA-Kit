@@ -1,4 +1,5 @@
 ---
+name: ba-elicitation
 description: [Agentic] Elicitation & Questioning - extract hidden requirements (SKILL-02)
 ---
 

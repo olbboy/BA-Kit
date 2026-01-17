@@ -28,7 +28,7 @@ Each recipe shows exactly which agents to summon (`@`) and in what order to achi
 **The Chain:**
 1.  **`@ba-process`**: "Analyze this description of the current Excel process. Draw the As-Is BPMN diagram."
     *   *(Agent identifies bottlenecks)*
-2.  **`@ba-data`** (via `@ba-master`): "Extract the data entities and relationships from these Excel headers."
+2.  **`@ba-writing`**: "Extract the data entities and relationships from these Excel headers."
 3.  **`@ba-nfr`**: "We are moving from Local Excel to Cloud. Define the Security and Performance constraints."
 4.  **`@ba-traceability`**: "Map the old Excel Formulas to the new System Requirements. Ensure 100% coverage."
 

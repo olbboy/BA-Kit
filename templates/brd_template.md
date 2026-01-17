@@ -7,10 +7,10 @@
 
 | Attribute | Value |
 |-----------|-------|
-| **Skill ID** | SKILL-09 |
+| **Template ID** | TMPL-BRD |
 | **Category** | 🟢 Template |
 | **Load When** | Creating Business Requirements Document |
-| **Dependencies** | SKILL-01, 02, 03 |
+| **Dependencies** | @ba-identity, @ba-elicitation, @ba-writing |
 | **Output** | Complete BRD document |
 
 ---
@@ -351,9 +351,9 @@ D. Process Diagrams (if any)
 
 | After BRD... | Load |
 |--------------|------|
-| Detail requirements | SKILL-10 (SRS) or SKILL-11 (FRD) |
-| Agile breakdown | SKILL-12 (User Stories) |
-| Prioritize features | SKILL-05 |
+| Detail requirements | @ba-writing (SRS/FRD) |
+| Agile breakdown | @ba-writing (User Stories) |
+| Prioritize features | @ba-prioritization |
 
 ---
 

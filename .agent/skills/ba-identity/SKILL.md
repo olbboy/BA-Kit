@@ -1,4 +1,5 @@
 ---
+name: ba-identity
 description: [Agentic] BA Identity & Competencies - establish expert persona and stakeholder framework (SKILL-01)
 ---
 

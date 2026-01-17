@@ -1,4 +1,5 @@
 ---
+name: ba-conflict
 description: [Agentic] Conflict Resolution & Negotiation - resolve stakeholder disagreements (SKILL-06)
 ---
 

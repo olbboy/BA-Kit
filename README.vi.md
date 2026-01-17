@@ -78,7 +78,7 @@ Mỗi chuyên gia được trang bị **Tư duy Hệ thống 2** (Vòng Lặp Ph
 ### 1. Cài Đặt
 Sao chép workflows vào "bộ não" của Agent:
 ```bash
-cp -r ba-kit/.agent/workflows/ ~/.gemini/antigravity/workflows/
+cp -r ba-kit/.agent/skills/* ~/.gemini/antigravity/skills/
 ```
 
 ### 2. Triệu Hồi
@@ -122,7 +122,7 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 ```
 ba-kit/
 │
-├── .agent/workflows/           # 🤖 Bộ não (15 Agent Definitions)
+├── .agent/skills/              # 🤖 Bộ não (15 Agent Skills)
 ├── docs/knowledge_base/        # 📚 Kho Tri thức (Skills & Manuals)
 │   ├── core/                   # 🔵 Core Skills
 │   ├── specialized/            # 🟡 Specialized Skills

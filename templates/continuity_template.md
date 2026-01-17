@@ -1,7 +1,21 @@
 # 📒 CONTINUITY.md (The Squad Ledger)
 
 > **Antigravity Protocol Note**: This file serves as the **Shared Working Memory** for all 15 Agents.
-> **Rule**: Agents MUST read this file (if it exists) at the start of every task to understand the Global Context.
+> **Rule**: Agents (Skills) MUST read this file (if it exists) at the start of every task to understand the Global Context.
+
+---
+
+## 📌 TEMPLATE METADATA
+
+| Attribute | Value |
+|-----------|-------|
+| **Template ID** | TMPL-CTX |
+| **Category** | 🟢 System Artifact |
+| **Load When** | Project Injection (Start of Session) |
+| **Dependencies** | All @ba-* Agents |
+| **Usage** | Copy to project root as `CONTINUITY.md` |
+
+---
 
 ## 🎯 Current Goal
 *   **Objective**: [E.g., "Release v1.0 of the MVP"]

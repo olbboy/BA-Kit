@@ -1,4 +1,4 @@
-# 🏆 BA-Kit Maturity Model: The Legendary Audit
+# 🏆 BA-Kit Maturity Model: The Legendary Audit (v2.6.0)
 
 > **"Are we truly CMMI Level 5? Or are we just hallucinating excellence?"**
 > *-- The Legendary Expert*
@@ -15,7 +15,7 @@ It wraps around a human user (Level 1 or 2) and mechanically forces them to perf
 | :--- | :--- | :--- | :--- |
 | **1. Initial** | Chaotic, Hero-based. | User guesses requirements. | **Impossible**. Agents force structure. |
 | **2. Managed** | Planned, tracked. | User makes a checklist. | **Default**. `@ba-master` enforces routing. |
-| **3. Defined** | Standard processes. | User reads a PDF guide. | **Hard-Coded**. `.agent/workflows` *are* the process. |
+| **3. Defined** | Standard processes. | User reads a PDF guide. | **Hard-Coded**. `.agent/skills` *are* the process. |
 | **4. Managed (Quant)**| Statistical control. | User needs a spreadsheet. | **Enabled**. `@ba-metrics` & `@ba-solution` do the math. |
 | **5. Optimizing** | Continuous Improvement.| User holds a retrospective. | **Simulated**. `@ba-root-cause` & `@ba-innovation`. |
 
@@ -26,7 +26,7 @@ A "True" Level 5 system involves **Recursive Self-Optimization**.
 *   **Level 5 Org**: Analyzes root cause (Process is weak) -> **Rewrites the Process**.
 *   **BA-Kit**: Analyzes root cause -> **Tells YOU to rewrite the Process**.
 
-**The Constraint**: The Agents cannot rewrite their own `.agent/workflows` files (Safety Guardrail).
+**The Constraint**: The Agents cannot rewrite their own `.agent/skills` files (Safety Guardrail).
 **The Potential**: If we allowed `@ba-process` to edit `@ba-writing.md` based on `@ba-metrics` feedback, we would achieve **Singularity Level 5**. (We are not doing this yet for safety).
 
 ## 3. The "CMMI Level 5 Enabler" Claim

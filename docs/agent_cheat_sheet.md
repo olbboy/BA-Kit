@@ -1,4 +1,4 @@
-# 📋 BA-Kit Agent Cheat Sheet (v2.5.0)
+# 📋 BA-Kit Agent Cheat Sheet (v2.6.0)
 
 > **Quick Reference Card: 15 Specialists at Your Fingertips**
 
@@ -56,7 +56,7 @@
 
 ## 🧠 KEY PROTOCOLS
 
-1.  **Context Injection**: Copy `templates/CONTINUITY.md` to root. Fill in Goal/Constraints.
+1.  **Context Injection**: Copy `templates/continuity_template.md` to root as `CONTINUITY.md`. Fill in Goal/Constraints.
 2.  **Visual Input**: Drag & Drop images directly. Use `@[image] @ba-writing ...`
 3.  **Math Verification**: Agents use Python. **Never stop them**.
 4.  **Link Verification**: Agents use Grep. **Never stop them**.

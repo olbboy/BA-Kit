@@ -1,4 +1,5 @@
 ---
+name: ba-metrics
 description: [Agentic] Requirements Metrics & SPC - Statistical Process Control for Quality (SKILL-18)
 ---
 

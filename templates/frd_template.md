@@ -7,10 +7,10 @@
 
 | Attribute | Value |
 |-----------|-------|
-| **Skill ID** | SKILL-11 |
+| **Template ID** | TMPL-FRD |
 | **Category** | 🟢 Template |
 | **Load When** | Detailed functional specifications needed |
-| **Dependencies** | SKILL-01, 02, 03, 04 |
+| **Dependencies** | @ba-writing, @ba-process, @ba-nfr |
 | **Output** | Complete FRD document |
 
 ---
@@ -474,9 +474,9 @@ CONSISTENCY:
 
 | For... | Load |
 |--------|------|
-| NFR specifications | SKILL-04 |
-| Business rules analysis | SKILL-02 |
-| UI prototyping validation | SKILL-08 |
+| NFR specifications | @ba-nfr |
+| Business rules analysis | @ba-elicitation |
+| UI prototyping validation | @ba-validation |
 
 ---
 

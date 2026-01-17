@@ -99,7 +99,7 @@ graph TD
 ```
 ba-kit/
 │
-├── .agent/workflows/       # 🧠 The Brains (The Agents live here)
+├── .agent/skills/          # 🧠 The Brains (The Agent Skills live here)
 ├── docs/knowledge_base/    # 📚 The Knowledge
 │   ├── core/               # 🔵 Core Skills
 │   ├── specialized/        # 🟡 Expert Knowledge

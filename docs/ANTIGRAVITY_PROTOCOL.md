@@ -1,8 +1,8 @@
 # 🧠 Antigravity Native Protocol (ANP)
 
-**Version:** 2.5 (CMMI Level 5 Enabler - Squad Protocol)
-**Date:** 2026-01-07
-**Status:** PRODUCTION READY
+**Version:** 2.6.0 (Agent Skills Framework)
+**Date:** 2026-01-17
+**Status:** PRODUCTION READY (SKILLS MIGRATED)
 
 ## 1. The Core Philosophy
 The **Antigravity Native Protocol (ANP)** enables "Direct Persona Injection".

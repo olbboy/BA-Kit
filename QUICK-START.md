@@ -8,8 +8,8 @@ The BA-Kit creates a "Squad" of agents inside your Antigravity environment.
 
 ### Step A: Locate your Brain
 Find where your Antigravity Agent stores its workflows.
-*   Standard (Mac/Linux): `~/.gemini/antigravity/workflows/`
-*   *Note: If unsure, ask your Agent "Where are my workflows stored?"*
+*   Standard (Mac/Linux): `~/.gemini/antigravity/skills/`
+*   *Note: If unsure, ask your Agent "Where are my skills stored?"*
 
 ### Step B: Deploy the Squad
 Copy the 15 Agent Definitions into that folder.
@@ -19,7 +19,7 @@ Copy the 15 Agent Definitions into that folder.
 git clone https://github.com/olbboy/ba-kit.git
 
 # Logic Copy
-cp -r ba-kit/.agent/workflows/* ~/.gemini/antigravity/workflows/
+cp -r ba-kit/.agent/skills/* ~/.gemini/antigravity/skills/
 ```
 
 ## 2. Verification
@@ -58,7 +58,7 @@ The **QA Lead Agent** will activate, use System 2 Reflection, and tell you: *"Am
 ## 5. Troubleshooting
 
 **Q: The agent isn't appearing?**
-A: Ensure the `.md` files are in the root of your `workflows/` directory, not in a subfolder.
+A: Ensure the `SKILL.md` files are in the `skills/<agent_name>/` directory.
 
 **Q: The agent is hallucinating math?**
 A: Tell it: *"Use the run_command tool with python to verify that."* (Though v2.4 agents do this automatically).

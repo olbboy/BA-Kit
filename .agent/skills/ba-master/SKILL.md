@@ -1,4 +1,5 @@
 ---
+name: ba-master
 description: [Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Swarm
 ---
 

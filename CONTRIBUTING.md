@@ -8,14 +8,14 @@ Since this project uses the **Antigravity Native Protocol**, contributing is sli
 
 ## 🏗️ Architecture Overview
 
-*   **Logic**: The "Logic" is not in Python files; it is in the **Prompts** within `.agent/workflows/`.
+*   **Logic**: The "Logic" is not in Python files; it is in the **Prompts** within `.agent/skills/`.
 *   **Knowledge**: The "Textbook" is in `docs/knowledge_base/` (Markdown).
 *   **Tools**: The "Hands" are standard command-line tools (`grep`, `python`, `curl`).
 
 ## ⚠️ Important Rules
 
-### 1. Modifying Agents (`.agent/workflows/`)
-If you edit an agent's system prompt (the `.md` file):
+### 1. Modifying Skills (`.agent/skills/`)
+If you edit an agent's system prompt (the `SKILL.md` file):
 *   **Do not break the XML**: The `<system_instructions>` tags are crucial.
 *   **Do not remove System 2**: The "Reflective Loop" (Analysis -> Draft -> Reflection -> Output) is mandatory for v2.4 compatibility.
 *   **Test**: You must verify the agent by summoning it in a new conversation:

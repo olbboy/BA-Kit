@@ -1,4 +1,5 @@
 ---
+name: ba-nfr
 description: [Agentic] NFR Framework with ISO 25010 - specify quality attributes and non-functional requirements (SKILL-04)
 ---
 

@@ -1,4 +1,5 @@
 ---
+name: ba-export
 description: [Agentic] Enterprise Document Export - convert MD requirements to DOCX for Bank/Government compliance (SKILL-21)
 ---
 

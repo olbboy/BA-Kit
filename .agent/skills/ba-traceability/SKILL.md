@@ -1,4 +1,5 @@
 ---
+name: ba-traceability
 description: [Agentic] Traceability & Change Management - track requirements and impact (SKILL-07)
 ---
 

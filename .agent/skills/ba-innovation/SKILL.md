@@ -1,4 +1,5 @@
 ---
+name: ba-innovation
 description: [Agentic] Innovation & Improvement (OID) - Experimentation, A/B Testing, and Process Optimization (SKILL-20)
 ---
 

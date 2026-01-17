@@ -1,4 +1,5 @@
 ---
+name: ba-validation
 description: [Agentic] Validation & Verification - ensure quality and correctness (SKILL-08)
 ---
 

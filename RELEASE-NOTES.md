@@ -1,3 +1,33 @@
+# 🚀 Release 2.6.0: The Agent Skills Migration
+
+**Date:** 2026-01-17
+**Codename:** "Super Ultra Deeper Logic"
+
+We have completed the Full Migration to the **Agent Skills Framework**.
+
+---
+
+## 🌟 Major Refactoring
+
+### 1. 🧬 Skill-Based Architecture
+*   **Old**: Monolithic `.agent/workflows/` folder.
+*   **New**: Modular `.agent/skills/<skill-name>/` structure.
+*   **Benefit**: Each specialist is now self-contained, cleaner, and ready for future "Skill Resource" expansion.
+
+### 2. 📝 Template Standardization
+*   Refactored `templates/SKILL-XX-...` to clean, semantic names:
+    *   `brd_template.md`
+    *   `srs_template.md`
+    *   `frd_template.md`
+    *   `agile_artifacts.md`
+*   Updated internal metadata to reference `@ba-*` agents instead of legacy `SKILL-XX` IDs.
+
+### 3. 📚 Knowledge Base Cleanup
+*   Renamed `docs/knowledge_base/` files to remove legacy numbering.
+*   Ensured better readability and logical grouping.
+
+---
+
 # 🚀 Release 2.5.0: The Antigravity Squad Protocol
 
 **Date:** 2026-01-07

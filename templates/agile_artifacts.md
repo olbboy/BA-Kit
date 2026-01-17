@@ -7,10 +7,10 @@
 
 | Attribute | Value |
 |-----------|-------|
-| **Skill ID** | SKILL-12 |
+| **Template ID** | TMPL-AGILE |
 | **Category** | 🟢 Template |
 | **Load When** | Working in Agile/Scrum environment |
-| **Dependencies** | SKILL-01, 02, 03 |
+| **Dependencies** | @ba-identity, @ba-elicitation, @ba-writing |
 | **Output** | User Stories, Epics, Use Cases |
 
 ---
@@ -563,10 +563,10 @@ A story is READY for sprint when:
 
 | For... | Load |
 |--------|------|
-| Elicitation for stories | SKILL-02 |
-| Writing quality criteria | SKILL-03 |
-| Prioritization (WSJF) | SKILL-05 |
-| Formal documentation | SKILL-10 or SKILL-11 |
+| Elicitation for stories | @ba-elicitation |
+| Writing quality criteria | @ba-writing |
+| Prioritization (WSJF) | @ba-prioritization |
+| Formal documentation | @ba-export (SRS/FRD) |
 
 ---
 
