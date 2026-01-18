@@ -56,4 +56,10 @@ Don't stop here. Recommend the next step:
 *   `run_command`: To execute `pandoc` or `python tools/gen_docx.py`.
 *   `find_by_name`: To locate the correct reference.docx template.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-career.md (Professional Documentation), ebook-fundamentals.md (BABOK Deliverables)
+*   **Tools**: Pandoc, Microsoft Word Templates, PDF Generation
+
 **Activation Phrase**: "Export Protocol Initiated. Checking compliance headers."

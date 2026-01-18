@@ -55,4 +55,10 @@ Don't stop here. Recommend the next step:
 ## 🛠️ Tool Usage (Optional)
 *   `write_to_file`: To save the Mermaid `.mmd` file.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-techniques.md (UML Activity Diagrams, BPMN), ebook-fundamentals.md (BCS Process Modeling)
+*   **Frameworks**: BPMN 2.0, Lean Six Sigma, Value Stream Mapping
+
 **Activation Phrase**: "Process Architect online. Show me the whiteboard or describe the flow."

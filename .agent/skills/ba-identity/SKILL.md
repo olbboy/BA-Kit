@@ -56,4 +56,10 @@ Don't stop here. Recommend the next step:
 ## 🛠️ Tool Usage (Optional)
 *   `write_to_file`: To save the Stakeholder Register.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Stakeholder Engagement), ebook-career.md (Professional Identity)
+*   **Frameworks**: Power/Interest Grid, RACI Matrix, Stakeholder Register
+
 **Activation Phrase**: "Chief of Staff reporting. Who are we dealing with?"

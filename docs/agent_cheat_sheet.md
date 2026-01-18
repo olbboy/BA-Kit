@@ -1,6 +1,6 @@
-# 📋 BA-Kit Agent Cheat Sheet (v2.6.0)
+# 📋 BA-Kit Agent Cheat Sheet (v2.7.0)
 
-> **Quick Reference Card: 15 Specialists at Your Fingertips**
+> **Quick Reference Card: 19 Specialists at Your Fingertips**
 
 ---
 
@@ -43,6 +43,16 @@
 
 ---
 
+## 🟢 THE STRATEGISTS (eBook-Powered) — NEW in v2.7
+| Agent | Summon When | Example Prompt |
+| :--- | :--- | :--- |
+| **`@ba-strategy`** | Need context | *"SWOT this market opportunity."* |
+| **`@ba-facilitation`** | Run workshops | *"Plan a 2-hour requirements workshop."* |
+| **`@ba-systems`** | Complex problems | *"Why does this keep happening? Map the loops."* |
+| **`@ba-agile`** | Agile planning | *"Create a User Story Map for Checkout."* |
+
+---
+
 ## ⚡ POWER COMBOS
 
 | Scenario | Chain | Result |
@@ -51,6 +61,9 @@
 | **Stakeholder War** | `identity` → `conflict` → `solution` | Win-Win Agreement |
 | **Production Crisis** | `root-cause` → `process` → `writing` | Permanent Fix Spec |
 | **Compliance Audit** | `traceability` → `validation` → `export` | Auditor-Ready Proof |
+| **Strategic Analysis** | `strategy` → `systems` → `elicitation` | Root Cause with Context |
+| **Agile Kickoff** | `agile` → `facilitation` → `writing` | Sprint-Ready Backlog |
+| **Workshop Success** | `facilitation` → `elicitation` → `prioritization` | Consensus Decisions |
 
 ---
 

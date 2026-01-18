@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png?v=2.5.0" alt="BA-Kit Logo" width="200">
+  <img src="assets/logo.png?v=2.7.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -9,8 +9,8 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-2.5.0-blue?style=for-the-badge" alt="Version 2.5.0">
-  <img src="https://img.shields.io/badge/Agents-15-green?style=for-the-badge" alt="15 Agents">
+  <img src="https://img.shields.io/badge/Version-2.7.0-blue?style=for-the-badge" alt="Version 2.7.0">
+  <img src="https://img.shields.io/badge/Agents-19-green?style=for-the-badge" alt="19 Agents">
   <img src="https://img.shields.io/badge/Protocol-Antigravity%20Native-orange?style=for-the-badge" alt="Antigravity Native">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
 </p>
@@ -20,7 +20,7 @@
 
 <p align="center">
   <strong>Biến AI thành Đội ngũ Business Analyst Đẳng cấp Thế giới</strong><br>
-  15 Chuyên gia Tự Kiểm chứng • Tư duy Hệ thống 2 • Độ Chính xác Toán học
+  19 Chuyên gia Tự Kiểm chứng • Tư duy Hệ thống 2 • Kiến thức từ eBooks
 </p>
 
 ---
@@ -29,16 +29,16 @@
 
 BA-Kit không chỉ là một kho prompt; đây là một **Biệt đội Chuyên gia** được thiết kế cho **Antigravity Native Protocol (ANP)**.
 
-Nó thay thế mô hình "Một Chatbot duy nhất" bằng một **Đội ngũ 15 Chuyên gia**:
+Nó thay thế mô hình "Một Chatbot duy nhất" bằng một **Đội ngũ 19 Chuyên gia**:
 *   Cần viết User Story? Triệu hồi **`@ba-writing`**.
-*   Cần giải quyết xung đột? Triệu hồi **`@ba-conflict`**.
-*   Cần kiểm toán chất lượng? Triệu hồi **`@ba-metrics`**.
+*   Cần phân tích chiến lược? Triệu hồi **`@ba-strategy`**.
+*   Cần tổ chức workshop? Triệu hồi **`@ba-facilitation`**.
 
 Mỗi chuyên gia được trang bị **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư) để "Dừng & Nghĩ" trước khi trả lời, đảm bảo kết quả **Độ tin cậy cao** (High-Assurance).
 
 ---
 
-## 🤖 Biệt Đội Chuyên Gia (15 Personas)
+## 🤖 Biệt Đội Chuyên Gia (19 Personas)
 
 ### 🔴 Bộ Chỉ Huy
 | Agent | Vai trò | Năng lực |
@@ -70,6 +70,14 @@ Mỗi chuyên gia được trang bị **Tư duy Hệ thống 2** (Vòng Lặp Ph
 | **`@ba-metrics`** | Nhà Khoa học Dữ liệu| **Biểu đồ SPC**, Mật độ Lỗi, Cpk. |
 | **`@ba-root-cause`**| Thám Tử | 5 Whys, Fishbone, Pareto. |
 | **`@ba-innovation`**| Nhà Khoa học R&D | **A/B Testing**, Thiết kế Giả thuyết. |
+
+### 🟢 Khối Chiến Lược & eBook (MỚI v2.7)
+| Agent | Vai trò | Năng lực |
+| :--- | :--- | :--- |
+| **`@ba-strategy`** | Chiến Lược Gia | PESTLE, SWOT, Business Model Canvas. |
+| **`@ba-facilitation`** | Điều Phối Viên | Thiết kế Workshop, ODEC Framework. |
+| **`@ba-systems`** | Phân Tích Hệ Thống | Stocks & Flows, Điểm Đòn Bẩy. |
+| **`@ba-agile`** | Phân Tích Agile | User Story Mapping, MVP, Hypothesis-Driven. |
 
 ---
 
@@ -109,11 +117,11 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 
 ## 📒 Hồ Sơ Tác Chiến (Continuity Ledger)
 
-**Mới trong v2.5.0**: Biệt đội chia sẻ một "Bộ nhớ Làm việc".
+**Mới trong v2.7.0**: Biệt đội chia sẻ một "Bộ nhớ Làm việc".
 
 1.  Sao chép `templates/CONTINUITY.md` ra thư mục gốc.
 2.  Điền Mục tiêu và Ràng buộc của bạn.
-3.  **Kết quả**: Tất cả 15 chuyên gia đọc file này trước khi hành động!
+3.  **Kết quả**: Tất cả 19 chuyên gia đọc file này trước khi hành động!
 
 ---
 
@@ -122,11 +130,9 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 ```
 ba-kit/
 │
-├── .agent/skills/              # 🤖 Bộ não (15 Agent Skills)
-├── docs/knowledge_base/        # 📚 Kho Tri thức (Skills & Manuals)
-│   ├── core/                   # 🔵 Core Skills
-│   ├── specialized/            # 🟡 Specialized Skills
-│   └── advanced/               # 🟣 Advanced Skills
+├── .agent/skills/              # 🤖 Bộ não (19 Agent Skills)
+├── ebooks/                     # 📚 eBook Knowledge Base (6 Skills)
+├── docs/knowledge_base/        # 📖 Kho Tri thức
 ├── templates/                  # 🟢 Templates (BRD, SRS, User Stories)
 ├── docs/                       # 📘 Tài liệu Giao thức
 │   └── ANTIGRAVITY_PROTOCOL.md #    Đặc tả Kỹ thuật

@@ -52,4 +52,10 @@ Present the **Quality Health Card**:
 *   `run_command`: Use Python to calculate Standard Deviation ($\sigma$) and Cpk.
 *   `write_to_file`: To generate a Quality Report CSV.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Quality Assurance), ebook-career.md (Value-Driven BA Metrics)
+*   **Frameworks**: SPC Control Charts, Defect Density, Six Sigma, Cpk
+
 **Activation Phrase**: "Quality Control online. Show me the numbers."

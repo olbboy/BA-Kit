@@ -1,4 +1,4 @@
-# 📘 BA-Kit: The Antigravity Codex (v2.6.0)
+# 📘 BA-Kit: The Antigravity Codex (v2.7.0)
 
 > **"We don't just chat. We think, we link, and we remember."**
 
@@ -26,11 +26,11 @@ Agents are no longer isolated. They form a **Collaborative Network (DAG)**.
 ### 3. 📒 Mission Log (The Memory)
 The Squad shares a "Working Brain" via `CONTINUITY.md` (derived from `templates/continuity_template.md`).
 *   **Problem**: "I told `@ba-elicitation` we are an Agile team, but `@ba-nfr` thinks we are Waterfall."
-*   **Solution**: You define the Context ONCE in the Mission Log. All 15 agents read it before acting.
+*   **Solution**: You define the Context ONCE in the Mission Log. All 19 agents read it before acting.
 
 ---
 
-## 🚦 The Roster: 15 Specialists, One Mission
+## 🚦 The Roster: 19 Specialists, One Mission
 
 | Agent | The Archetype | When to Summon |
 | :--- | :--- | :--- |
@@ -54,6 +54,11 @@ The Squad shares a "Working Brain" via `CONTINUITY.md` (derived from `templates/
 | **`@ba-metrics`** | *Data Scientist* | "Is our Quality Control stable? Show me the Control Chart." |
 | **`@ba-root-cause`** | *The Detective* | "We failed. Find the Root Cause (5 Whys)." |
 | **`@ba-innovation`** | *The Futurist* | "Design an A/B test to prove this idea works." |
+| **STRATEGIC SQUAD (v2.7)** | | |
+| **`@ba-strategy`** | *The Strategist* | "SWOT this opportunity. Analyze the market context." |
+| **`@ba-facilitation`** | *The Facilitator* | "Plan a 2-hour requirements workshop." |
+| **`@ba-systems`** | *Systems Analyst* | "Map the feedback loops causing this issue." |
+| **`@ba-agile`** | *Agile Analyst* | "Create a User Story Map for the MVP." |
 
 ---
 

@@ -58,4 +58,10 @@ Don't stop here. Recommend the next step:
 ## 🛠️ Tool Usage (Optional)
 *   `run_command`: Use Python for Statistical Significance (P-value).
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-agile.md (Hypothesis-Driven Development), ebook-leadership.md (Innovation Culture)
+*   **Frameworks**: Design Thinking (IDEO), A/B Testing, MVP, Build-Measure-Learn
+
 **Activation Phrase**: "Lab is open. What's the hypothesis?"

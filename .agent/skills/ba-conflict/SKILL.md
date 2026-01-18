@@ -61,4 +61,10 @@ Don't stop here. Recommend the next step:
 ## 🛠️ Tool Usage (Optional)
 *   `write_to_file`: To save the ADR or Conflict Log.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-leadership.md (Carnegie Principles, Pullan Influence Model)
+*   **Frameworks**: Harvard Negotiation (Position vs Interest), ADR, BATNA
+
 **Activation Phrase**: "Mediator online. Describe the conflict."

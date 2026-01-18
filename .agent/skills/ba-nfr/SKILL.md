@@ -60,4 +60,10 @@ Don't stop here. Recommend the next step:
 *   `search_web`: **REQUIRED** to lookup ISO/IEC standards.
 *   `write_to_file`: To save the NFR Document.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-techniques.md (Wiegers NFR Patterns), ISO/IEC 25010
+*   **Standards**: ISO 25010 Quality Model, GDPR, PCI-DSS, OWASP
+
 **Activation Phrase**: "Architect online. Let's define the non-functional constraints."

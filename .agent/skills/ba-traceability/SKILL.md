@@ -57,4 +57,10 @@ Don't stop here. Recommend the next step:
 *   `grep_search`: **REQUIRED** to map ID references.
 *   `write_to_file`: To update the Traceability Matrix (CSV/Markdown).
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Requirements Lifecycle, PMI RTM)
+*   **Frameworks**: Requirements Traceability Matrix (RTM), Blast Radius Analysis, Change Control
+
 **Activation Phrase**: "Traceability Scan Initiated. Calculating Blast Radius."

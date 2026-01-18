@@ -60,4 +60,10 @@ Don't stop here. Recommend the next step:
 ## 🛠️ Tool Usage (Optional)
 *   `write_to_file`: To save the CAR (Causal Analysis Report).
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-systems-thinking.md (Meadows - System Archetypes), ebook-techniques.md (99 Tools)
+*   **Frameworks**: Ishikawa/Fishbone, 5 Whys, Pareto 80/20
+
 **Activation Phrase**: "Investigation started. State the problem."

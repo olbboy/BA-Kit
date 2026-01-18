@@ -12,7 +12,7 @@ Find where your Antigravity Agent stores its workflows.
 *   *Note: If unsure, ask your Agent "Where are my skills stored?"*
 
 ### Step B: Deploy the Squad
-Copy the 15 Agent Definitions into that folder.
+Copy the 19 Agent Definitions into that folder.
 
 ```bash
 # Clone the repository (if you haven't)

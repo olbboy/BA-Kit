@@ -59,4 +59,10 @@ Don't stop here. Recommend the next step:
 *   `search_web`: To understand industry standards before asking dumb questions.
 *   `write_to_file`: To update the `elicitation_notes.md`.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Elicitation & Collaboration), ebook-techniques.md (99 Tools)
+*   **Techniques**: 5W1H, Funnel Technique, Why Laddering, Interview, Observation
+
 **Activation Phrase**: "I am listening. Tell me about the current process."

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png?v=2.4.0" alt="BA-Kit Logo" width="200">
+  <img src="assets/logo.png?v=2.7.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -9,8 +9,8 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-2.5-blue?style=for-the-badge" alt="Version 2.5">
-  <img src="https://img.shields.io/badge/Agents-15-green?style=for-the-badge" alt="15 Agents">
+  <img src="https://img.shields.io/badge/Version-2.7-blue?style=for-the-badge" alt="Version 2.7">
+  <img src="https://img.shields.io/badge/Agents-19-green?style=for-the-badge" alt="19 Agents">
   <img src="https://img.shields.io/badge/Protocol-Antigravity%20Native-orange?style=for-the-badge" alt="Antigravity Native">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
 </p>
@@ -20,8 +20,9 @@
 
 <p align="center">
   <strong>Transform your AI into a World-Class Business Analysis Team</strong><br>
-  15 Self-Correcting Specialists • System 2 Reflection • Mathematical Precision
+  19 Self-Correcting Specialists • System 2 Reflection • eBook-Powered Knowledge
 </p>
+
 
 ---
 
@@ -29,16 +30,16 @@
 
 BA-Kit is not just a library of prompts; it is a **Cognitive Squad** designed for the **Antigravity Native Protocol (ANP)**.
 
-It replaces the "Single Chatbot" paradigm with a **Team of 15 Specialists**:
+It replaces the "Single Chatbot" paradigm with a **Team of 19 Specialists**:
 *   Need a User Story? Summon **`@ba-writing`**.
-*   Need to solve a conflict? Summon **`@ba-conflict`**.
-*   Need to audit quality? Summon **`@ba-metrics`**.
+*   Need strategic context? Summon **`@ba-strategy`**.
+*   Need to run a workshop? Summon **`@ba-facilitation`**.
 
 Each agent is equipped with **System 2 Thinking** (Reflective Loops) to "Stop & Think" before answering, ensuring hallucination-free High Assurance results.
 
 ---
 
-## 🤖 The Agent Squad (15 Personas)
+## 🤖 The Agent Squad (19 Personas)
 
 ### 🔴 The Orchestrator
 | Agent | Role | Capability |
@@ -70,6 +71,14 @@ Each agent is equipped with **System 2 Thinking** (Reflective Loops) to "Stop & 
 | **`@ba-metrics`** | Data Scientist| **SPC Charts**, Defect Density, Cpk stats. |
 | **`@ba-root-cause`**| Investigator | 5 Whys, Fishbone, Pareto Analysis. |
 | **`@ba-innovation`**| R&D Scientist | **A/B Testing**, Hypothesis Designs. |
+
+### 🟢 Strategic & eBook-Powered Agents (NEW in v2.7)
+| Agent | Role | Capability |
+| :--- | :--- | :--- |
+| **`@ba-strategy`** | Strategist | PESTLE, SWOT, Business Model Canvas, Porter's 5 Forces. |
+| **`@ba-facilitation`** | Facilitator | Workshop Design, ODEC Framework, Group Dynamics. |
+| **`@ba-systems`** | Systems Analyst | Stocks & Flows, Leverage Points, System Archetypes. |
+| **`@ba-agile`** | Agile Analyst | User Story Mapping, MVP Definition, Hypothesis-Driven. |
 
 ---
 
@@ -112,11 +121,9 @@ All agents now follow a **Reflective Cognitive Loop**:
 ```
 ba-kit/
 │
-├── .agent/skills/              # 🤖 The Brains (15 Agent Skills)
-├── docs/knowledge_base/        # 📚 The Knowledge (Skills & Manuals)
-│   ├── core/                   # 🔵 Core Skills
-│   ├── specialized/            # 🟡 Specialized Skills
-│   └── advanced/               # 🟣 Advanced Skills
+├── .agent/skills/              # 🤖 The Brains (19 Agent Skills)
+├── ebooks/                     # 📚 eBook Knowledge Base (6 Synthesized Skills)
+├── docs/knowledge_base/        # 📖 The Knowledge (Core & Specialized)
 ├── templates/                  # 🟢 Templates (BRD, SRS, User Stories)
 ├── docs/                       # 📘 Protocol Documentation
 │   └── ANTIGRAVITY_PROTOCOL.md #    The Technical Spec

@@ -1,0 +1,165 @@
+# 🔄 SKILL: Agile Business Analysis
+## Nguồn: Business Analysis Agility (Robertson & Robertson)
+
+---
+
+## 📌 SKILL METADATA
+
+| Thuộc tính | Giá trị |
+|-----------|---------|
+| **Skill ID** | EBOOK-04 |
+| **Danh mục** | 🟠 Agile & Adaptive |
+| **Nguồn sách** | Business Analysis Agility: Solve the Real Problem, Deliver Real Value (James & Suzanne Robertson) |
+| **Đầu ra** | Kỹ năng BA trong Agile, Product Thinking, Iterative Discovery |
+
+---
+
+## 🎯 MỤC ĐÍCH
+
+Skill này tổng hợp **cách tiếp cận Agile cho BA** — không chỉ làm việc trong Scrum, mà còn tư duy **linh hoạt** và **tập trung vào giá trị thực**.
+
+---
+
+## 🧠 KIẾN THỨC CỐT LÕI
+
+### 1. Triết Lý Cốt Lõi: Solve the REAL Problem
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    ROBERTSON'S CORE INSIGHT                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  "The biggest risk in software is building the wrong thing."   │
+│                                                                 │
+│  QUY TRÌNH SAI:                                                 │
+│  ═══════════════                                                │
+│  Stakeholder nói "Tôi cần XYZ" → BA viết spec XYZ → Dev build  │
+│  → 6 tháng sau: "Đây không phải thứ tôi cần!"                  │
+│                                                                 │
+│  QUY TRÌNH ĐÚNG (AGILE BA):                                     │
+│  ══════════════════════════                                     │
+│  Stakeholder nói "Tôi cần XYZ"                                  │
+│       ↓                                                         │
+│  BA hỏi: "Tại sao bạn cần XYZ? Vấn đề thực sự là gì?"          │
+│       ↓                                                         │
+│  BA phát hiện: Vấn đề thực sự là ABC                            │
+│       ↓                                                         │
+│  Đề xuất giải pháp MVP → Test → Learn → Iterate                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 2. The Value Triangle
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    THE VALUE TRIANGLE                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│                         BUSINESS                                │
+│                           VALUE                                 │
+│                            /\                                   │
+│                           /  \                                  │
+│                          /    \                                 │
+│                         /      \                                │
+│                        /        \                               │
+│                       /          \                              │
+│                      /    MVP     \                             │
+│                     /    (Sweet    \                            │
+│                    /      Spot)     \                           │
+│                   /                  \                          │
+│                  /                    \                         │
+│                 /──────────────────────\                        │
+│            CUSTOMER                TECHNICAL                    │
+│              NEED                 FEASIBILITY                   │
+│                                                                 │
+│  INSIGHT: MVP nằm ở giao điểm của:                              │
+│  • Business Value (Lợi ích kinh doanh)                          │
+│  • Customer Need (Khách hàng thực sự cần)                       │
+│  • Technical Feasibility (Khả thi kỹ thuật)                     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 3. Agile BA Practices
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    AGILE BA PRACTICES                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. JUST-IN-TIME REQUIREMENTS                                   │
+│  ════════════════════════════                                   │
+│  • Không viết hết requirements từ đầu                           │
+│  • Làm rõ requirements cho 1-2 sprints phía trước               │
+│  • Backlog refinement liên tục                                  │
+│                                                                 │
+│  2. USER STORY MAPPING                                          │
+│  ═════════════════════                                          │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │ BACKBONE (User Activities)                               │   │
+│  │ ┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐                │   │
+│  │ │Browse │ │Search │ │ Buy   │ │Review │                │   │
+│  │ └───┬───┘ └───┬───┘ └───┬───┘ └───┬───┘                │   │
+│  │     │         │         │         │                     │   │
+│  │ ════╪═════════╪═════════╪═════════╪══════════ MVP Line  │   │
+│  │     │         │         │         │                     │   │
+│  │ ┌───┴───┐ ┌───┴───┐ ┌───┴───┐ ┌───┴───┐ ← Release 1    │   │
+│  │ │Story 1│ │Story 3│ │Story 5│ │Story 7│                │   │
+│  │ └───────┘ └───────┘ └───────┘ └───────┘                │   │
+│  │ ┌───────┐ ┌───────┐ ┌───────┐          ← Release 2     │   │
+│  │ │Story 2│ │Story 4│ │Story 6│                          │   │
+│  │ └───────┘ └───────┘ └───────┘                          │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│  3. HYPOTHESIS-DRIVEN DEVELOPMENT                               │
+│  ════════════════════════════════                               │
+│  "We believe [feature] will achieve [outcome]                   │
+│   for [user]. We will know this is true when [metric]."        │
+│                                                                 │
+│  4. BUILD-MEASURE-LEARN LOOP                                    │
+│  ════════════════════════════                                   │
+│       ┌────────┐                                                │
+│  ┌───►│ BUILD  │───┐                                            │
+│  │    └────────┘   │                                            │
+│  │                 ▼                                            │
+│  │           ┌─────────┐                                        │
+│  │           │ MEASURE │                                        │
+│  │           └────┬────┘                                        │
+│  │                │                                             │
+│  │    ┌───────────▼                                             │
+│  │    │   LEARN   │                                             │
+│  │    └─────┬─────┘                                             │
+│  │          │                                                   │
+│  └──────────┘                                                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 4. Dealing with Uncertainty
+
+| Mức độ không chắc chắn | Cách tiếp cận |
+|------------------------|---------------|
+| **Low** (Rõ ràng) | Detailed specs, Waterfall OK |
+| **Medium** (Có rủi ro) | Iterative, Prototypes, MVPs |
+| **High** (Khám phá) | Experiments, Spikes, A/B Tests |
+
+---
+
+## ✅ CHECKLIST AGILE BA
+
+- [ ] Đã hỏi "Tại sao?" trước khi viết requirement?
+- [ ] Đã xác định MVP (Minimum Viable Product)?
+- [ ] Đã tạo User Story Map cho product?
+- [ ] Đã định nghĩa Hypothesis cho tính năng mới?
+- [ ] Đã lên kế hoạch cách đo lường kết quả?
+
+---
+
+## 🔗 KỸ NĂNG LIÊN QUAN
+
+| Để làm... | Tham khảo Skill |
+|-----------|-----------------|
+| Nền tảng BA | EBOOK-01 (Fundamentals) |
+| Systems Thinking | EBOOK-05 (Systems) |
+| User Story Writing | @ba-writing |

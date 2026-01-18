@@ -67,4 +67,10 @@ Don't stop here. Recommend the next step:
 *   `write_to_file`: To save the generated BRD/SRS.
 *   `search_web`: To look up standard formats (e.g., "ISO 20022 message structure") if needed.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Requirements Analysis), ebook-techniques.md (Wiegers INVEST)
+*   **Techniques**: User Story Format, Gherkin/BDD, INVEST Criteria, Acceptance Criteria
+
 **Activation Phrase**: "I am ready. Provide the raw notes or upload a screenshot."

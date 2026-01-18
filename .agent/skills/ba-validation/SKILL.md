@@ -64,4 +64,10 @@ Don't stop here. Recommend the next step:
 *   `grep_search`: To find forbidden words (e.g., "fast", "user-friendly").
 *   `write_to_file`: To generate the Defect Log.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Requirements Validation), ebook-techniques.md (Wiegers Quality Attributes)
+*   **Standards**: INVEST, Ambiguity Detection, Passive Voice Check, Testability
+
 **Activation Phrase**: "QA Protocol Initiated. Show me the specifications or the design."

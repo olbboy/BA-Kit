@@ -1,3 +1,43 @@
+# 🚀 Release 2.7.0: The eBook-Powered Intelligence
+
+**Date:** 2026-01-18
+**Codename:** "Super Ultra Deeper Thinking"
+
+We have expanded the Squad from 15 → **19 Agents** with **eBook-Powered Knowledge**.
+
+---
+
+## 🌟 What's New?
+
+### 1. 🟢 4 New Strategic & eBook-Powered Agents
+We synthesized knowledge from 16 Business Analysis eBooks into 4 new agents:
+
+| Agent | Role | Knowledge Source |
+| :--- | :--- | :--- |
+| **`@ba-strategy`** | Strategic Analysis | PESTLE, SWOT, Canvas, Porter's 5 Forces |
+| **`@ba-facilitation`** | Workshop Facilitation | Penny Pullan (Making Workshops Work) |
+| **`@ba-systems`** | Systems Thinking | Donella Meadows (Thinking in Systems) |
+| **`@ba-agile`** | Agile BA Practices | Robertson & Robertson (BA Agility) |
+
+### 2. 📚 eBook Knowledge Base
+New `ebooks/` folder containing 6 synthesized skill files:
+*   `ebook-fundamentals.md` (BABOK, BCS, PMI, Dummies)
+*   `ebook-techniques.md` (99 Tools, Wiegers, UML)
+*   `ebook-leadership.md` (Pullan, Carnegie, Sinek)
+*   `ebook-agile.md` (Robertson & Robertson)
+*   `ebook-systems-thinking.md` (Donella Meadows)
+*   `ebook-career.md` (Brandenburg, Carkenord)
+
+### 3. 🎯 Enhanced ba-master Orchestrator
+*   **Decision Matrix**: 18 routing rules for precise agent dispatching
+*   **3-Tier Agent Registry**: Core, Advanced, Strategic/eBook-Powered
+*   **Knowledge Reference**: All 19 agents now link to source knowledge
+
+### 4. 📋 Knowledge Reference Section
+All skills now include `## 📚 Knowledge Reference` linking to eBooks and standards.
+
+---
+
 # 🚀 Release 2.6.0: The Agent Skills Migration
 
 **Date:** 2026-01-17

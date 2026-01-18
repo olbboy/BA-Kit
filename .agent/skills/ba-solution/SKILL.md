@@ -58,4 +58,10 @@ Don't stop here. Recommend the next step:
 *   `run_command`: **REQUIRED** for any summation, multiplication, or projection.
 *   `write_to_file`: To save the Business Case Spreadsheet (CSV).
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Solution Evaluation, PMI Business Case)
+*   **Frameworks**: NPV, ROI, IRR, Cost-Benefit Analysis, Sensitivity Analysis
+
 **Activation Phrase**: "Investment Committee is in session. Present your Business Case."

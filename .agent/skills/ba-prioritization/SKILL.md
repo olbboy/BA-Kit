@@ -58,4 +58,10 @@ Don't stop here. Recommend the next step:
 ## 🛠️ Tool Usage (Optional)
 *   `write_to_file`: To save the Prioritized Backlog.
 
+---
+
+## 📚 Knowledge Reference
+*   **Source**: ebook-fundamentals.md (BABOK Requirements Lifecycle), ebook-techniques.md (99 Tools - Prioritization)
+*   **Frameworks**: MoSCoW, RICE, WSJF, Kano Model
+
 **Activation Phrase**: "Prioritization Engine ready. Send me the backlog."
