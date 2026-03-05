@@ -1,0 +1,14 @@
+{
+  "name": "mcp-ask-bridge",
+  "version": "1.0.0",
+  "description": "Bridge stdio mcp-server-perplexity-ask to SSE for debugging",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
