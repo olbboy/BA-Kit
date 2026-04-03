@@ -77,3 +77,35 @@
 ---
 
 *Print this page. Pin it to your monitor. Conquer the world.*
+
+---
+
+## Junior BA Learning Path
+
+> Mới vào nghề? Đi theo lộ trình này. Từng bước, từng tuần.
+
+### Level 1: Foundation (Tuần 1)
+
+| Agent | Bạn sẽ học được gì | Bài tập thực hành |
+|-------|-------------------|-------------------|
+| `@ba-elicitation` | Cách đặt câu hỏi đúng để khai thác yêu cầu thật sự | Phỏng vấn một đồng nghiệp về quy trình làm việc hàng ngày của họ |
+| `@ba-writing` | Cách viết requirements rõ ràng, không mơ hồ | Chuyển notes từ 1 buổi họp thành 3 User Stories hoàn chỉnh |
+| `@ba-validation` | Cách phát hiện lỗi specs trước khi dev nhìn thấy | Tự review lại User Stories vừa viết theo tiêu chí INVEST |
+
+### Level 2: Expansion (Tuần 2-3)
+
+| Agent | Bạn sẽ học được gì | Bài tập thực hành |
+|-------|-------------------|-------------------|
+| `@ba-prioritization` | Cách sắp xếp feature theo giá trị và chi phí | Áp dụng MoSCoW cho product backlog hiện tại của dự án |
+| `@ba-process` | Cách vẽ quy trình nghiệp vụ để mọi người cùng hiểu | Vẽ sơ đồ As-Is cho một business flow trong dự án |
+| `@ba-nfr` | Cách định nghĩa quality attributes (performance, security...) | Viết 5 NFR cho dự án hiện tại theo ISO 25010 |
+
+### Level 3: Strategy (Tháng 2+)
+
+| Agent | Bạn sẽ học được gì | Bài tập thực hành |
+|-------|-------------------|-------------------|
+| `@ba-strategy` | Cách phân tích bức tranh business toàn cảnh | Chạy SWOT analysis cho sản phẩm đang làm |
+| `@ba-conflict` | Cách đàm phán khi stakeholder bất đồng | Luyện tập Interest vs Position mapping với 2 stakeholder giả định |
+| `@ba-solution` | Cách tính business value và thuyết phục bằng số | Tính ROI cho một tính năng đang được đề xuất trong dự án |
+
+> **Quick start ngay bây giờ:** Xem `docs/JUNIOR-START.md` — hướng dẫn từng ngày cho tuần đầu tiên.

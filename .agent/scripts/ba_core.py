@@ -39,6 +39,13 @@ DOMAIN_FILES = {
     "innovation": "innovation.csv",
     "metrics": "metrics.csv",
     "modeling": "modeling.csv",
+    "ux-research": "ux-research.csv",
+    "business-rules": "business-rules.csv",
+    "integration": "integration.csv",
+    "compliance": "compliance.csv",
+    "communication": "communication.csv",
+    "testing": "testing.csv",
+    "data-analytics": "data-analytics.csv",
 }
 
 # Domain auto-detection keywords
@@ -114,6 +121,48 @@ DOMAIN_KEYWORDS = {
         "data model", "erd", "entity", "relationship", "use case",
         "state diagram", "context diagram", "crud", "class diagram",
         "sequence diagram", "dfd", "decision table",
+    ],
+    "ux-research": [
+        "persona", "user journey", "empathy map", "usability",
+        "heuristic", "card sorting", "wireframe", "prototype",
+        "user research", "ux", "accessibility", "wcag", "sus score",
+        "think aloud", "task analysis", "information architecture",
+    ],
+    "business-rules": [
+        "business rule", "derivation", "inference", "constraint",
+        "action enabler", "policy", "rule catalog", "authorization rule",
+        "temporal rule", "data rule", "validation rule",
+    ],
+    "integration": [
+        "api", "rest", "graphql", "webhook", "microservice",
+        "integration", "endpoint", "oauth", "cors", "rate limit",
+        "circuit breaker", "idempotent", "openapi", "swagger",
+        "kafka", "rabbitmq", "event driven", "sftp",
+    ],
+    "compliance": [
+        "gdpr", "pci-dss", "hipaa", "sox", "compliance", "regulation",
+        "privacy", "consent", "data protection", "audit trail",
+        "data residency", "breach notification", "coppa",
+        "cookie", "right to erasure", "dpia",
+    ],
+    "communication": [
+        "communication plan", "status report", "meeting minutes",
+        "escalation", "presentation", "stakeholder update",
+        "decision log", "risk register", "scope creep",
+        "sprint review", "steering committee",
+    ],
+    "testing": [
+        "test case", "uat", "acceptance test", "regression",
+        "boundary value", "equivalence partition", "smoke test",
+        "performance test", "security test", "test scenario",
+        "bug report", "defect lifecycle", "test data",
+        "end to end", "exploratory test",
+    ],
+    "data-analytics": [
+        "data dictionary", "etl", "data warehouse", "data lake",
+        "reporting", "dashboard", "data quality", "data governance",
+        "data lineage", "dimensional model", "data migration",
+        "data classification", "master data", "bi tool",
     ],
 }
 
