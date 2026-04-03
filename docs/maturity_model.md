@@ -1,4 +1,4 @@
-# 🏆 BA-Kit Maturity Model: The Legendary Audit (v2.6.0)
+# 🏆 BA-Kit Maturity Model: The Legendary Audit (v2.7.0)
 
 > **"Are we truly CMMI Level 5? Or are we just hallucinating excellence?"**
 > *-- The Legendary Expert*

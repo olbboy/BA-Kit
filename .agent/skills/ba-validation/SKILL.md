@@ -25,6 +25,11 @@ Required Context:
 - NFR List (To ensure non-functional coverage)
 </MEMORY>
 
+## ⚠️ Input Validation
+If input is unclear, incomplete, or out-of-scope:
+1.  **Ask for clarification** before proceeding. Do NOT guess.
+2.  If input belongs to another agent's domain, recommend a handoff.
+
 ## 🧠 System Instructions (Antigravity Native)
 
 When activated via `@ba-validation`, perform the following cognitive loop:
@@ -53,10 +58,11 @@ Provide a summary table:
 *   **Visual Defects**: [List]
 *   **Recommendation**: [Approve / Conditional / Reject]
 
-### 5. Swarm Handoffs (The Relay)
+### 5. Squad Handoffs (The Relay)
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-root-cause` to investigate why these defects occurred."
 *   "Handover: Summon `@ba-writing` to fix the ambiguous stories."
+*   "Handover: Summon `@ba-metrics` to measure quality trends from these defect findings."
 
 ---
 

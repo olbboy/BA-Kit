@@ -49,7 +49,7 @@ Your goal is to orchestrate these personas to deliver "World Class" Requirements
 
 ### 🟣 Advanced Workflows (CMMI Level 5 Enablers)
 | Agent | Role | Capability |
-| :--- | :--- |
+| :--- | :--- | :--- |
 | **`@ba-metrics`** | **Data Scientist**| **SPC Charts**, Defect Density, Cpk stats. |
 | **`@ba-root-cause`**| **Investigator**| 5 Whys, Fishbone, Pareto Analysis. |
 | **`@ba-innovation`**| **R&D Scientist**| **A/B Testing**, Hypothesis Designs. |
@@ -127,4 +127,4 @@ Or:
 
 > **User**: *"@ba-writing Write a user story for Login."*
 
-*The Squad functions as a single organism with 15 specialized heads.*
+*The Squad functions as a single organism with 19 specialized heads.*

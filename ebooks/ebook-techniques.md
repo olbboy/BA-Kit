@@ -209,7 +209,7 @@ Skill này tổng hợp **99+ kỹ thuật thực hành** được sử dụng t
 **Triết lý Gottesdiener:**
 > "No single analysis model describes all requirements. Elements of one model link to and uncover elements in another."
 
-> **Chi tiết đầy đủ**: Xem EBOOK-05 — `ebook-requirements-memory-jogger.md`
+> **Chi tiết đầy đủ**: Xem EBOOK-07 — `ebook-requirements-memory-jogger.md`
 
 ---
 
@@ -253,4 +253,4 @@ Skill này tổng hợp **99+ kỹ thuật thực hành** được sử dụng t
 | Nền tảng BA | EBOOK-01 (Fundamentals) |
 | Workshop facilitation | EBOOK-03 (Leadership) |
 | Kỹ thuật Agile | EBOOK-04 (Agile) |
-| Quy trình yêu cầu phần mềm | EBOOK-05 (Requirements Memory Jogger) |
+| Quy trình yêu cầu phần mềm | EBOOK-07 (Requirements Memory Jogger) |

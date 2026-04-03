@@ -43,7 +43,7 @@
 
 | # | Improvement | Description | Effort |
 | :--- | :--- | :--- | :--- |
-| 4 | **Agent Cheat Sheet** | 1-page PDF/Image with all 15 agents + 1-liner descriptions. | 2 hrs |
+| 4 | **Agent Cheat Sheet** | 1-page PDF/Image with all 19 agents + 1-liner descriptions. | 2 hrs |
 | 5 | **Interactive Demo Flow** | Mermaid diagram showing typical project lifecycle (`identity` -> `elicitation` -> `writing` -> `validation`). | 1 hr |
 | 6 | **Error Handling Protocol** | Document what agents should do when they encounter ambiguity or missing context. | 2 hrs |
 
@@ -76,7 +76,7 @@ If user strongly prefers shorter names, here are **safe alternatives**:
 
 | Category | Score | Notes |
 | :--- | :--- | :--- |
-| **Core Logic** | 10/10 | System 2, Tool Mandates, 15 Agents. |
+| **Core Logic** | 10/10 | System 2, Tool Mandates, 19 Agents. |
 | **Documentation** | 9/10 | Minor sync issues (README.vi). |
 | **Terminology** | 10/10 | "Squad" is professional. |
 | **Extensibility** | 8/10 | No plugin system yet. |

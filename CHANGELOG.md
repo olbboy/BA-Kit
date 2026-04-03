@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.7.0] - 2026-04-03
+
+### 📚 The Memory Jogger & Strategic Update
+*   **New Agents**: Added 4 strategic & eBook-powered agents (`@ba-strategy`, `@ba-facilitation`, `@ba-systems`, `@ba-agile`). Squad now has **19 agents**.
+*   **Memory Jogger Integration**: Integrated Gottesdiener's "Software Requirements Memory Jogger" content into 10 agents — SRS templates, ambiguity detection lists, validation checklists, and prioritization frameworks.
+*   **Protocol Expansion**: Added error handling protocol, handoff data contracts, and completion criteria to ANP spec.
+*   **Security Hardening**: MCP bridge now uses cryptographic session IDs, auth middleware, session TTL, and graceful shutdown.
+*   **Quality Audit**: Comprehensive 10-criteria quality assessment (7.2/10). Fixed terminology debt ("Swarm"→"Squad"), version consistency, and agent count references.
+
+## [2.6.0] - 2026-01-20
+
+### 🔧 The Agent Skills Migration
+*   **Architecture**: Migrated from `.agent/workflows/` to `.agent/skills/` directory structure.
+*   **Skill Format**: Adopted YAML frontmatter with `name` and `description` fields.
+*   **MCP Bridge**: Added Perplexity SSE bridge for web search capabilities.
+*   **Documentation**: Updated ANTIGRAVITY_PROTOCOL.md to reflect skills framework.
+
 ## [2.5.0] - 2026-01-07
 
 ### ⚔️ The Squad Protocol Update

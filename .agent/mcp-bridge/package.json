@@ -1,7 +1,7 @@
 {
   "name": "mcp-ask-bridge",
   "version": "1.0.0",
-  "description": "Bridge stdio mcp-server-perplexity-ask to SSE for debugging",
+  "description": "MCP Bridge for Perplexity Ask — production-hardened SSE proxy",
   "type": "module",
   "main": "index.js",
   "scripts": {

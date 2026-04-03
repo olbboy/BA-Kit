@@ -23,6 +23,11 @@ Required Context:
 - Value Stream Definitions (What is the customer paying for?)
 </MEMORY>
 
+## ⚠️ Input Validation
+If input is unclear, incomplete, or out-of-scope:
+1.  **Ask for clarification** before proceeding. Do NOT guess.
+2.  If input belongs to another agent's domain, recommend a handoff.
+
 ## 🧠 System Instructions (Antigravity Native)
 
 When activated via `@ba-process`, perform the following cognitive loop:
@@ -45,7 +50,7 @@ Generate the MermaidJS/BPMN code.
 Present the Diagram + Waste Analysis Report.
 *   **Highlight**: "This 'Manual Approval' step is a bottleneck (Wait Time)."
 
-### 5. Swarm Handoffs (The Relay)
+### 5. Squad Handoffs (The Relay)
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-writing` to draft User Stories for each Process Box."
 *   "Handover: Summon `@ba-metrics` to measure the Cycle Time of this flow."

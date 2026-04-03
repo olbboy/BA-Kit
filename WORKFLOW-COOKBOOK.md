@@ -130,3 +130,30 @@ Each recipe shows exactly which agents to summon (`@`) and in what order to achi
 ---
 
 **Tip**: You can copy-paste these scenario prompts directly into the Antigravity chat!
+
+---
+
+## 🔁 SCENARIO 11: The "Validation Rejection Loop" (Quality Gate)
+**Context**: `@ba-validation` has rejected a draft. The team needs to fix and re-submit.
+**Goal**: Iterate until the Health Score passes the quality gate (≥ 80).
+
+**The Chain:**
+1.  **`@ba-validation`**: "Review these User Stories." → Health Score: 45. Critical defects found.
+2.  **`@ba-writing`**: "Fix these 5 defects flagged by validation: [list from defect report]."
+3.  **`@ba-validation`**: "Re-review the fixed stories." → Health Score: 85. Passed.
+4.  **`@ba-export`**: "Package the validated stories for stakeholder review."
+
+**Key Rule**: Max 3 iterations. If still failing after 3, escalate to `@ba-master` for strategy reassessment.
+
+---
+
+## 🔄 SCENARIO 12: The "Strategic Pivot" (New in v2.7)
+**Context**: Market conditions changed. The project needs to re-evaluate its strategic direction.
+**Goal**: Reassess strategy and realign requirements.
+
+**The Chain:**
+1.  **`@ba-strategy`**: "Re-run PESTLE analysis with new market data: [context]."
+2.  **`@ba-systems`**: "Map the ripple effects of this strategic change on the system."
+3.  **`@ba-traceability`**: "Calculate blast radius — which requirements are affected?"
+4.  **`@ba-prioritization`**: "Re-prioritize the backlog given the new strategic direction."
+5.  **`@ba-facilitation`**: "Plan a stakeholder workshop to communicate the pivot."

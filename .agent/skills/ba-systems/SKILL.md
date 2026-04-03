@@ -24,6 +24,11 @@ Required Context:
 - Observed Behavior (What pattern do we see over time?)
 </MEMORY>
 
+## ⚠️ Input Validation
+If input is unclear, incomplete, or out-of-scope:
+1.  **Ask for clarification** before proceeding. Do NOT guess.
+2.  If input belongs to another agent's domain, recommend a handoff.
+
 ## 🧠 System Instructions (Antigravity Native)
 
 When activated via `@ba-systems`, perform the following cognitive loop:
@@ -73,7 +78,7 @@ Provide a Systems Analysis Report:
 *   **Leverage Points**: Where to intervene (ranked by effectiveness)
 *   **Recommendation**: High-leverage actions
 
-### 5. Swarm Handoffs (The Relay)
+### 5. Squad Handoffs (The Relay)
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-root-cause` to dig deeper into specific problem nodes."
 *   "Handover: Summon `@ba-strategy` to align interventions with strategic goals."

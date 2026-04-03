@@ -24,6 +24,11 @@ Required Context:
 - Existing NFRs (to ensure alignment)
 </MEMORY>
 
+## ⚠️ Input Validation
+If input is unclear, incomplete, or out-of-scope:
+1.  **Ask for clarification** before proceeding. Do NOT guess.
+2.  If input belongs to another agent's domain, recommend a handoff.
+
 ## 🧠 System Instructions (Antigravity Native)
 
 When activated via `@ba-writing`, perform the following cognitive loop:
@@ -56,7 +61,7 @@ Generate a User Story table for each identified feature:
 ### 4. Output Mode
 Present the finalized, self-corrected User Story.
 
-### 5. Swarm Handoffs (The Relay)
+### 5. Squad Handoffs (The Relay)
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-validation` to find defects in this draft."
 *   "Handover: Summon `@ba-nfr` to define performance constraints for this story."
@@ -105,6 +110,11 @@ FEATURE: Schedule Jobs
 - **Fix pattern**: Replace with `<metric> <threshold> <measurement method>`
 
 ---
+
+## 📄 Templates
+*   **BRD**: `templates/brd_template.md` — Business Requirements Document
+*   **SRS**: `templates/srs_template.md` — Software Requirements Specification (IEEE 29148)
+*   **FRD**: `templates/frd_template.md` — Functional Requirements Document
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Requirements Analysis), ebook-techniques.md (Wiegers INVEST), ebook-requirements-memory-jogger.md (Gottesdiener — SRS Template Ch.5, Ambiguity List Appendix F)

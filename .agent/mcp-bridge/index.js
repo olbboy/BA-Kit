@@ -1,9 +1,46 @@
 
+import crypto from 'crypto';
 import express from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+
+// Session TTL: 5 minutes
+const SESSION_TTL_MS = 5 * 60 * 1000;
+
+const transports = new Map();
+const sessionTimestamps = new Map();
+
+// Auth middleware: Bearer token if MCP_BRIDGE_TOKEN is set, else localhost-only
+function authMiddleware(req, res, next) {
+    const token = process.env.MCP_BRIDGE_TOKEN;
+    if (!token) {
+        // No token configured: allow localhost only
+        const ip = req.ip || req.connection.remoteAddress;
+        if (ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1') {
+            return next();
+        }
+        return res.status(403).send('Remote access requires MCP_BRIDGE_TOKEN');
+    }
+    const auth = req.headers.authorization;
+    if (auth === `Bearer ${token}`) {
+        return next();
+    }
+    return res.status(401).send('Unauthorized');
+}
+
+function shutdown() {
+    console.log('Shutting down MCP Bridge...');
+    for (const [id] of transports) {
+        transports.delete(id);
+        sessionTimestamps.delete(id);
+    }
+    process.exit(0);
+}
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
 
 async function main() {
     console.log('Starting MCP Bridge...');
@@ -16,12 +53,14 @@ async function main() {
 
     if (!process.env.PERPLEXITY_API_KEY) {
         console.error('Error: PERPLEXITY_API_KEY is missing from environment');
-        // process.exit(1); 
+        // process.exit(1);
+    } else {
+        console.log('API key configured.');
     }
 
     // 1. Connect to Stdio Server (Perplexity)
     console.log('Connecting to Perplexity Stdio Server...');
-    const transport = new StdioClientTransport({
+    const stdioTransport = new StdioClientTransport({
         command: 'npx',
         args: ['-y', 'server-perplexity-ask'],
         env: process.env
@@ -31,7 +70,7 @@ async function main() {
         { name: 'bridge-client', version: '1.0.0' },
         { capabilities: {} }
     );
-    await client.connect(transport);
+    await client.connect(stdioTransport);
     console.log('Connected to Perplexity Stdio Server.');
 
     // 2. Discover Tools
@@ -67,46 +106,63 @@ async function main() {
     const app = express();
     const PORT = 3845;
 
-    // Important: Parse JSON bodies for POST requests
     app.use(express.json());
 
-    const transports = new Map();
+    // Periodic cleanup of stale sessions every 60 seconds
+    setInterval(() => {
+        const now = Date.now();
+        for (const [id, ts] of sessionTimestamps) {
+            if (now - ts > SESSION_TTL_MS) {
+                transports.delete(id);
+                sessionTimestamps.delete(id);
+                console.log(`Session expired: ${id}`);
+            }
+        }
+    }, 60_000);
 
-    app.get('/sse', async (req, res) => {
+    app.get('/sse', authMiddleware, async (req, res) => {
         console.log('New SSE connection');
 
-        // Create a unique session ID
-        const sessionId = Date.now().toString();
+        // Cryptographically random session ID
+        const sessionId = crypto.randomUUID();
         const endpoint = `/message?session=${sessionId}`;
 
-        // Create new transport with custom endpoint
-        const transport = new SSEServerTransport(endpoint, res);
+        const sseTransport = new SSEServerTransport(endpoint, res);
 
-        // Store transport
-        transports.set(sessionId, transport);
+        transports.set(sessionId, sseTransport);
+        sessionTimestamps.set(sessionId, Date.now());
 
-        // Connect server to transport
-        await server.connect(transport);
+        await server.connect(sseTransport);
 
-        // Cleanup on close
         res.on('close', () => {
             console.log(`SSE connection closed: ${sessionId}`);
             transports.delete(sessionId);
+            sessionTimestamps.delete(sessionId);
         });
     });
 
-    app.post('/message', async (req, res) => {
+    app.post('/message', authMiddleware, async (req, res) => {
         const sessionId = req.query.session;
         if (!sessionId) {
             return res.status(400).send('Missing session ID');
         }
 
-        const transport = transports.get(sessionId);
-        if (!transport) {
+        const sseTransport = transports.get(sessionId);
+        if (!sseTransport) {
             return res.status(404).send('Session not found');
         }
 
-        await transport.handlePostMessage(req, res);
+        // Refresh session timestamp on activity
+        sessionTimestamps.set(sessionId, Date.now());
+
+        try {
+            await sseTransport.handlePostMessage(req, res);
+        } catch (error) {
+            console.error(`Error handling message for session ${sessionId}:`, error.message);
+            if (!res.headersSent) {
+                res.status(500).send('Internal server error');
+            }
+        }
     });
 
     app.listen(PORT, () => {

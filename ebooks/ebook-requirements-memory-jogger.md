@@ -7,7 +7,7 @@
 
 | Thuộc tính | Giá trị |
 |-----------|---------|
-| **Skill ID** | EBOOK-05 |
+| **Skill ID** | EBOOK-07 |
 | **Danh mục** | 🟣 Quy trình Phát triển & Quản lý Yêu cầu |
 | **Nguồn sách** | The Software Requirements Memory Jogger (Ellen Gottesdiener, 2005, GOAL/QPC) |
 | **Đầu ra** | Bộ mô hình phân tích, Quy trình phát triển yêu cầu, Mẫu SRS/URD, Ma trận truy vết |
