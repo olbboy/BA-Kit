@@ -55,6 +55,13 @@ When activated via `@ba-master` or asked to "coordinate", perform the following 
 | "Workshop", "Facilitation" | `@ba-facilitation` | `@ba-elicitation` |
 | "Systems", "Loops", "Unintended consequences" | `@ba-systems` | `@ba-root-cause` |
 | "Agile", "MVP", "Story mapping" | `@ba-agile` | `@ba-writing` |
+| "API", "Integration", "Webhook", "Microservice" | `@ba-writing` | `@ba-nfr` |
+| "GDPR", "Compliance", "PCI-DSS", "HIPAA", "Regulation" | `@ba-nfr` | `@ba-validation` |
+| "Persona", "User journey", "Usability", "UX research" | `@ba-writing` | `@ba-validation` |
+| "Test case", "UAT", "QA", "Acceptance test" | `@ba-validation` | `@ba-writing` |
+| "Data dictionary", "ETL", "Data warehouse", "Reporting" | `@ba-writing` | `@ba-nfr` |
+| "Communication plan", "Status report", "Stakeholder update" | `@ba-identity` | `@ba-facilitation` |
+| "Business rule", "Policy", "Constraint", "Authorization" | `@ba-writing` | `@ba-validation` |
 | (Unrecognized intent) | `@ba-elicitation` | `@ba-master` |
 
 ### 2. Reflection Mode (System 2: The Strategist)

@@ -133,6 +133,66 @@ Each recipe shows exactly which agents to summon (`@`) and in what order to achi
 
 ---
 
+## 🔌 SCENARIO 13: The "API Integration" (New in v2.8)
+**Context**: You need to integrate with a third-party API (payment, CRM, etc.).
+**Goal**: Write complete integration requirements with contract specs.
+
+**The Chain:**
+1.  **`@ba-elicitation`**: "What data do we need to exchange with [System]? Interview me about the integration requirements."
+2.  **`@ba-writing`**: "Write functional requirements for this API integration. Search: `python3 .agent/scripts/ba_search.py 'REST API contract OAuth' --domain integration`"
+3.  **`@ba-nfr`**: "Define SLA, rate limits, timeout, and error handling requirements for this integration."
+4.  **`@ba-validation`**: "Review the integration spec. Check for missing error codes, edge cases, and security gaps."
+
+---
+
+## 🛡️ SCENARIO 14: The "Compliance Audit Prep" (New in v2.8)
+**Context**: Regulators (GDPR/PCI-DSS/HIPAA) are auditing. Need to prove requirements cover compliance.
+**Goal**: Generate compliance-mapped requirements and traceability.
+
+**The Chain:**
+1.  **`@ba-nfr`**: "Search: `python3 .agent/scripts/ba_search.py 'GDPR data protection rights' --domain compliance`. Map our system requirements to GDPR obligations."
+2.  **`@ba-traceability`**: "Verify every compliance requirement has a linked test case and implementation."
+3.  **`@ba-validation`**: "Audit: Are there any compliance gaps? Any requirement without explicit regulatory mapping?"
+4.  **`@ba-export`**: "Package the compliance matrix for the auditors."
+
+---
+
+## 🎨 SCENARIO 15: The "UX-First Requirements" (New in v2.8)
+**Context**: Design team delivered wireframes. Need requirements from the user perspective.
+**Goal**: Generate persona-driven requirements from UX research.
+
+**The Chain:**
+1.  **`@ba-elicitation`**: "Search: `python3 .agent/scripts/ba_search.py 'persona empathy map journey' --domain ux-research`. Build a Persona Canvas for our primary user."
+2.  **`@ba-writing`**: "Based on this persona, write User Stories for the [Feature] screen."
+3.  **`@ba-validation`**: "Review these stories against Nielsen's 10 Heuristics and WCAG AA."
+4.  **`@ba-prioritization`**: "Apply Kano Model to classify which stories are Must-Be vs Delighters."
+
+---
+
+## 📊 SCENARIO 16: The "Data Project" (New in v2.8)
+**Context**: Building a reporting dashboard or data pipeline. Need data requirements.
+**Goal**: Specify data requirements, ETL rules, and dashboard specs.
+
+**The Chain:**
+1.  **`@ba-elicitation`**: "Interview the data analyst: What reports do they need? What KPIs? What drill-downs?"
+2.  **`@ba-writing`**: "Search: `python3 .agent/scripts/ba_search.py 'data dictionary ETL reporting' --domain data-analytics`. Write the Data Dictionary and ETL requirements."
+3.  **`@ba-nfr`**: "Define data quality rules: completeness, accuracy, timeliness thresholds."
+4.  **`@ba-validation`**: "Review: Is every data field traced to a business KPI? Any orphan fields?"
+
+---
+
+## 🧪 SCENARIO 17: The "Testing Handoff" (New in v2.8)
+**Context**: Requirements are approved. QA team needs test artifacts.
+**Goal**: Generate test cases and UAT plan from requirements.
+
+**The Chain:**
+1.  **`@ba-validation`**: "Search: `python3 .agent/scripts/ba_search.py 'acceptance criteria test case conversion' --domain testing`. Convert each User Story's acceptance criteria into test cases."
+2.  **`@ba-writing`**: "Write the UAT Plan: scope, participants, entry/exit criteria, test data requirements."
+3.  **`@ba-traceability`**: "Generate RTM: Requirement → Test Case → Expected Result. Flag any untested requirements."
+4.  **`@ba-export`**: "Package the Test Plan + RTM for QA sign-off."
+
+---
+
 ## 🔁 SCENARIO 11: The "Validation Rejection Loop" (Quality Gate)
 **Context**: `@ba-validation` has rejected a draft. The team needs to fix and re-submit.
 **Goal**: Iterate until the Health Score passes the quality gate (≥ 80).

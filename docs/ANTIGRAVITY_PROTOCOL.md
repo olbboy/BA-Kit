@@ -117,3 +117,22 @@ A workflow chain is complete when ALL of the following are met:
 2. Fix identified defects.
 3. Re-submit to `@ba-validation`.
 4. Maximum 3 iterations before escalating to user.
+
+## 9. Knowledge Search Engine (BM25+)
+Agents now have access to a searchable knowledge base via BM25+ text ranking.
+
+**Usage**:
+```
+run_command: python3 .agent/scripts/ba_search.py "<query>" --domain <domain>
+```
+
+**23 Domains**: writing, elicitation, validation, nfr, process, prioritization, traceability, conflict, solution, systems, agile, identity, workshop, innovation, metrics, modeling, ux-research, business-rules, integration, compliance, communication, testing, data-analytics.
+
+**Architecture**:
+| Component | File | Purpose |
+| :--- | :--- | :--- |
+| BM25 Engine | `.agent/scripts/ba_core.py` | Search ranking algorithm (0 dependencies) |
+| CLI | `.agent/scripts/ba_search.py` | Agent-facing search interface |
+| Knowledge Data | `.agent/data/*.csv` | 786 entries across 23 CSV files |
+
+**Token Efficiency**: ~460 tokens per search vs ~25,000 tokens loading full files (97% reduction).

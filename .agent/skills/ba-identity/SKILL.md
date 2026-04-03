@@ -69,6 +69,9 @@ Before drafting, search for relevant knowledge:
 *   For cross-cutting concerns: `python3 .agent/scripts/ba_search.py "<query>" --multi-domain`
 *   Use search results to ground your output in verified frameworks and templates.
 
+## 📄 Templates
+*   **Communication Plan**: `templates/communication-plan-template.md` — Stakeholder Communication Plan
+
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Stakeholder Engagement), ebook-career.md (Professional Identity)
 *   **Frameworks**: Power/Interest Grid, RACI Matrix, Stakeholder Register

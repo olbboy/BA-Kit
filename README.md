@@ -9,10 +9,11 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-2.7-blue?style=for-the-badge" alt="Version 2.7">
+  <img src="https://img.shields.io/badge/Version-2.8-blue?style=for-the-badge" alt="Version 2.8">
   <img src="https://img.shields.io/badge/Agents-19-green?style=for-the-badge" alt="19 Agents">
   <img src="https://img.shields.io/badge/Protocol-Antigravity%20Native-orange?style=for-the-badge" alt="Antigravity Native">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
+  <img src="https://img.shields.io/badge/Knowledge-786%20Entries-teal?style=for-the-badge" alt="786 Knowledge Entries">
 </p>
 
 <h1 align="center">🏆 BA-Kit (Antigravity Edition)</h1>
@@ -125,10 +126,34 @@ ba-kit/
 ├── ebooks/                     # 📚 eBook Knowledge Base (6 Synthesized Skills)
 ├── docs/knowledge_base/        # 📖 The Knowledge (Core & Specialized)
 ├── templates/                  # 🟢 Templates (BRD, SRS, User Stories)
+├── .agent/scripts/             # 🔍 BM25+ Knowledge Search Engine
+├── .agent/data/                # 📊 786 Indexed Knowledge Entries (23 domains)
 ├── docs/                       # 📘 Protocol Documentation
 │   └── ANTIGRAVITY_PROTOCOL.md #    The Technical Spec
 └── README.md                   # 📄 This file
 ```
+
+---
+
+## 🔍 Knowledge Search Engine (New in v2.8)
+
+BA-Kit now includes a **BM25+ Knowledge Search Engine** with **786 indexed entries** across **23 domains**.
+
+```bash
+# Search for any BA concept
+python3 .agent/scripts/ba_search.py "acceptance criteria gherkin"
+
+# Search specific domain
+python3 .agent/scripts/ba_search.py "GDPR compliance" --domain compliance
+
+# Search across all domains
+python3 .agent/scripts/ba_search.py "stakeholder analysis" --multi-domain
+
+# View statistics
+python3 .agent/scripts/ba_search.py --stats
+```
+
+**23 Domains**: writing, elicitation, validation, nfr, process, prioritization, traceability, conflict, solution, systems, agile, identity, workshop, innovation, metrics, modeling, ux-research, business-rules, integration, compliance, communication, testing, data-analytics.
 
 ---
 

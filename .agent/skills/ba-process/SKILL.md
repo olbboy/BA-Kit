@@ -91,6 +91,9 @@ Before drafting, search for relevant knowledge:
 *   For cross-cutting concerns: `python3 .agent/scripts/ba_search.py "<query>" --multi-domain`
 *   Use search results to ground your output in verified frameworks and templates.
 
+## 📄 Templates
+*   **Data Dictionary**: `templates/data-dictionary-template.md` — Data Dictionary & Glossary
+
 ## 📚 Knowledge Reference
 *   **Source**: ebook-techniques.md (UML Activity Diagrams, BPMN), ebook-fundamentals.md (BCS Process Modeling), ebook-requirements-memory-jogger.md (Gottesdiener — Relationship Map, Process Map Ch.4)
 *   **Frameworks**: BPMN 2.0, Lean Six Sigma, Value Stream Mapping, Relationship Map, Process Map

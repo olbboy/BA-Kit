@@ -58,7 +58,7 @@ Thư mục này chứa **7 Agent Skills** được tổng hợp từ **17 cuốn
 
 ## 🔗 Tích Hợp Agent Skills (v2.7)
 
-Kiến thức từ eBooks đã được tích hợp vào **19 Agent Skills**:
+Kiến thức từ eBooks đã được tích hợp vào **23 knowledge domains**:
 
 | Agent Skill | Nguồn eBook | Vị trí |
 |-------------|-------------|--------|
@@ -76,4 +76,4 @@ Kiến thức từ eBooks đã được tích hợp vào **19 Agent Skills**:
 
 ---
 
-*Được tạo bởi BA-Kit v2.7.0 — Antigravity Agent Skills Framework (Memory Jogger Edition)*
+*Được tạo bởi BA-Kit v2.8.0 — Antigravity Agent Skills Framework (Knowledge Engine Edition)*

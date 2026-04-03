@@ -121,6 +121,7 @@ Before drafting, search for relevant knowledge:
 *   **BRD**: `templates/brd_template.md` — Business Requirements Document
 *   **SRS**: `templates/srs_template.md` — Software Requirements Specification (IEEE 29148)
 *   **FRD**: `templates/frd_template.md` — Functional Requirements Document
+*   **Use Case**: `templates/use-case-template.md` — Use Case Specification
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Requirements Analysis), ebook-techniques.md (Wiegers INVEST), ebook-requirements-memory-jogger.md (Gottesdiener — SRS Template Ch.5, Ambiguity List Appendix F)

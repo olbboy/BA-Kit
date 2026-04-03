@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.8.0] - 2026-04-03
+
+### 🔍 The Knowledge Engine & Completion Update
+*   **BM25+ Knowledge Engine**: Added Python-based BM25 search engine (`ba_core.py` + `ba_search.py`) with 786 indexed entries across 23 domains. Agents now search knowledge on-demand instead of loading entire files. 97% token reduction per search.
+*   **7 New Domains**: ux-research (45 entries), business-rules (34), integration (35), compliance (35), communication (25), testing (30), data-analytics (24).
+*   **4 New Templates**: Use Case Specification, Data Dictionary, Communication Plan, API Contract.
+*   **Junior BA Onboarding**: Added `docs/JUNIOR-START.md` with 4-week learning path and progressive difficulty (beginner → intermediate → advanced).
+*   **5 New COOKBOOK Scenarios**: API Integration, Compliance Audit, UX-First Requirements, Data Project, Testing Handoff.
+*   **Adversarial Review**: Fixed 2 critical bugs (search_multi crash, MCP bind 0.0.0.0), 306 wrong agent references, PRC-032 CSV corruption. Quality score improved from 6.5 to 8.0.
+
 ## [2.7.0] - 2026-04-03
 
 ### 📚 The Memory Jogger & Strategic Update
