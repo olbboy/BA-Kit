@@ -1,6 +1,6 @@
 # Contributing to BA-Kit (Antigravity Native)
 
-Thank you for your interest in improving the Cognitive Squad! 🎖️
+Thank you for your interest in improving BA-Kit.
 
 Since this project uses the **Antigravity Native Protocol**, contributing is slightly different from a standard Python/JS project.
 

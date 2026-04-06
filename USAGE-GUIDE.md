@@ -2,14 +2,14 @@
 
 > **"We don't just chat. We think, we link, and we remember."**
 
-Welcome to the **Cognitive Squad (Antigravity Native)**.
-This is not a chatbot. It is a **Multi-Agent Expert System** designated to enable **High-Assurance Business Analysis** (inspired by CMMI Level 5).
+Welcome to the **BA-Kit Agent Squad (Antigravity Native)**.
+This is not a chatbot. It is a **Multi-Agent Expert System** for structured Business Analysis.
 
 ---
 
 ## 🌌 The Philosophy: Three Pillars of Intelligence
 
-To master this kit, you must understand how the Squad "thinks".
+To use this kit effectively, understand how the squad works.
 
 ### 1. 🧠 System 2 Cognition (The Brain)
 Standard AI answers instantly (System 1). This is prone to hallucination.

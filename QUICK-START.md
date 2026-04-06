@@ -1,10 +1,10 @@
 # ⚡ Quick Start: BA-Kit (Antigravity Edition)
 
-Start using the World-Class Business Analysis Squad in **2 minutes**.
+Start using the BA-Kit agent squad in **2 minutes**.
 
 ## 1. Installation
 
-The BA-Kit creates a "Squad" of agents inside your Antigravity environment.
+BA-Kit creates a squad of 21 agents inside your Antigravity environment.
 
 ### Step A: Locate your Brain
 Find where your Antigravity Agent stores its workflows.

@@ -2,14 +2,14 @@
 
 > **"Chúng tôi không chỉ chat. Chúng tôi suy nghĩ, liên kết, và ghi nhớ."**
 
-Chào mừng đến với **Biệt Đội Phân Tích (The Cognitive Squad - Antigravity Native)**.
-Đây không phải là chatbot. Đây là một **Hệ thống Chuyên gia Đa Tác tử (Multi-Agent Expert System)** được thiết kế để kích hoạt **Quy trình Phân tích Nghiệp vụ Tiêu chuẩn Quốc tế (High-Assurance)**.
+Chào mừng đến với **Biệt Đội Phân Tích BA-Kit (Antigravity Native)**.
+Đây không phải là chatbot. Đây là một **Hệ thống Chuyên gia Đa Tác tử (Multi-Agent Expert System)** cho phân tích nghiệp vụ có cấu trúc.
 
 ---
 
 ## 🌌 Triết Lý: Ba Trụ Cột Của Trí Tuệ
 
-Để làm chủ bộ kit này, bạn phải hiểu cách Biệt đội này "tư duy".
+Để dùng bộ kit này hiệu quả, bạn cần hiểu cách biệt đội hoạt động.
 
 ### 1. 🧠 Tư Duy Hệ Thống 2 (The Brain)
 AI thông thường trả lời ngay lập tức (Hệ thống 1). Điều này dễ sinh ra ảo giác.

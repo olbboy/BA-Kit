@@ -19,22 +19,24 @@
 <h3 align="center">Biệt Đội Chuyên Gia Phân Tích Nghiệp Vụ</h3>
 
 <p align="center">
-  <strong>Biến AI thành Đội ngũ Business Analyst Đẳng cấp Thế giới</strong><br>
-  19 Chuyên gia Tự Kiểm chứng • Tư duy Hệ thống 2 • Kiến thức từ eBooks
+  <strong>21 Chuyên gia cho Phân tích Yêu cầu Nghiệp vụ</strong><br>
+  Tư duy Hệ thống 2 • Đa Nền tảng (Antigravity • Claude Code • Claude CoWork)
 </p>
 
 ---
 
 ## 🎯 BA-Kit là gì?
 
-BA-Kit không chỉ là một kho prompt; đây là một **Biệt đội Chuyên gia** được thiết kế cho **Antigravity Native Protocol (ANP)**.
+BA-Kit không chỉ là một kho prompt; đây là một **Biệt đội Agent** cho các **nền tảng agentic AI**.
 
-Nó thay thế mô hình "Một Chatbot duy nhất" bằng một **Đội ngũ 19 Chuyên gia**:
-*   Cần viết User Story? Triệu hồi **`@ba-writing`**.
-*   Cần phân tích chiến lược? Triệu hồi **`@ba-strategy`**.
-*   Cần tổ chức workshop? Triệu hồi **`@ba-facilitation`**.
+Nó thay thế mô hình "Một Chatbot duy nhất" bằng **21 Chuyên gia** chạy trên:
+*   **Antigravity IDE** (Google DeepMind) — Agent Skills, MCP, System 2
+*   **Claude Code** (Anthropic) — CLI: project-level reasoning, CI/CD, Git
+*   **Claude CoWork** (Anthropic) — Desktop: non-technical BA, document synthesis
 
-Mỗi chuyên gia được trang bị **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư) để "Dừng & Nghĩ" trước khi trả lời, đảm bảo kết quả **Độ tin cậy cao** (High-Assurance).
+Triệu hồi chuyên gia: `@ba-writing` cho specs, `@ba-strategy` cho chiến lược, `@ba-facilitation` cho workshop.
+
+Mỗi chuyên gia sử dụng **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư) — tự phê bình trước khi trả lời để giảm hallucination.
 
 ---
 

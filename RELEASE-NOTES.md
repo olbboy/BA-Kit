@@ -1,7 +1,7 @@
 # 🚀 Release 2.7.0: The eBook-Powered Intelligence
 
 **Date:** 2026-01-18
-**Codename:** "Super Ultra Deeper Thinking"
+**Codename:** "eBook Intelligence"
 
 We have expanded the Squad from 15 → **19 Agents** with **eBook-Powered Knowledge**.
 
@@ -41,7 +41,7 @@ All skills now include `## 📚 Knowledge Reference` linking to eBooks and stand
 # 🚀 Release 2.6.0: The Agent Skills Migration
 
 **Date:** 2026-01-17
-**Codename:** "Super Ultra Deeper Logic"
+**Codename:** "Skills Migration"
 
 We have completed the Full Migration to the **Agent Skills Framework**.
 
@@ -73,8 +73,8 @@ We have completed the Full Migration to the **Agent Skills Framework**.
 **Date:** 2026-01-07
 **Codename:** "The Specialist Squad"
 
-We have evolved. No longer a "Swarm" of bots, we are now a **Cognitive Squad** of 15 Specialists.
-This release brings **Military-Grade Professionalism** and **High-Assurance Capabilities** to your workflow.
+We have evolved. No longer a "Swarm" of bots, we are now an **Agent Squad** of 15 Specialists.
+This release brings structured, verifiable requirements engineering to your workflow.
 
 ---
 
@@ -151,7 +151,7 @@ If you are coming from v1.x or v2.0 (Python Script era):
 
 ## 🏆 Credits
 
-Developed with the **Super Ultra Deep Reasoning** methodology.
+Developed with the **System 2 Reflective Reasoning** methodology.
 *   **Architecture**: Antigravity Native Protocol v2.4
 *   **Compliance**: CMMI Level 5, ISO 25010, IEEE 29148.
 
