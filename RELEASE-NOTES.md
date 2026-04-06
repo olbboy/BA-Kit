@@ -1,13 +1,61 @@
-# 🚀 Release 2.7.0: The eBook-Powered Intelligence
+# Release 2.9.3: The Standards & Completeness Update
 
-**Date:** 2026-01-18
-**Codename:** "eBook Intelligence"
+**Date:** 2026-04-06
+**Codename:** "Standards & Completeness"
 
-We have expanded the Squad from 15 → **19 Agents** with **eBook-Powered Knowledge**.
+BA-Kit v2.9.3 closes the 3 remaining critical gaps and standardizes the entire documentation suite.
 
 ---
 
-## 🌟 What's New?
+## What's New?
+
+### 1. PRD Template (NEW)
+Product Requirements Document template — the missing bridge between BRD (business case) and SRS (system spec):
+*   12 sections covering Problem → Features → NFR → Release Criteria
+*   OKR-native goals with baseline → target → date format
+*   MoSCoW-integrated feature matrix with objective traceability
+*   AI-specific NFR section (model accuracy, inference latency, hallucination rate)
+*   Quality checklist (16 items across 4 categories)
+*   Location: `templates/prd-template.md`
+
+### 2. Design & Prototype Guide (NEW)
+Comprehensive guide for spec → UI → validated prototype workflows:
+*   **Stitch MCP**: 3 recipes — Spec→Screen, Design System, BA Feedback Loop
+*   **Figma MCP**: Config template + 2 workflows (Figma→Specs, Specs→Figma review)
+*   **Vibe Coding Pipeline**: Spec-First and Prototype-First patterns with anti-pattern warnings
+*   Decision matrix: when to use which tool (Stitch vs Figma vs v0 vs Lovable vs Bolt)
+*   Location: `docs/design-prototype-guide.md`
+
+### 3. Prompt Library (NEW)
+28 copy-paste prompts organized by BA workflow phase:
+*   Phase 1: Discovery & Elicitation (5 prompts)
+*   Phase 2: Analysis & Specification (7 prompts)
+*   Phase 3: Validation & Quality (4 prompts)
+*   Phase 4: Design & Prototype (4 prompts)
+*   Phase 5: Delivery & Publishing (4 prompts)
+*   Phase 6: Strategy & Optimization (6 prompts)
+*   Each prompt includes: agent, expected output, power combo
+*   Location: `docs/prompt-library.md`
+
+### 4. Document Reorganization
+*   All filenames standardized to kebab-case (14 renames)
+*   3 overlapping architecture docs merged into 1: `docs/architecture-decisions.md`
+*   New navigation index: `docs/README.md`
+*   All template headers cleaned (removed legacy SKILL-XX prefixes)
+
+### 5. AI-Slop Purge (Complete)
+*   Zero AI-generated marketing filler remaining across entire codebase
+*   Removed: "Cognitive Squad", "World-Class", "Super Ultra", "Military-Grade", "Legendary"
+*   Consistent professional tone throughout all documentation
+
+### 6. New Cookbook Scenarios
+*   Scenario 21: Stitch MCP UI Pipeline
+*   Scenario 22: Design System Alignment
+*   Scenario 23: PRD-Driven Development
+
+---
+
+# Release 2.7.0: The eBook-Powered Intelligence
 
 ### 1. 🟢 4 New Strategic & eBook-Powered Agents
 We synthesized knowledge from 16 Business Analysis eBooks into 4 new agents:

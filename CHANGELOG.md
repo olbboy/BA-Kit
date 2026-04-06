@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.9.3] - 2026-04-06
+
+### The Standards & Completeness Update
+*   **3 Critical Gaps Closed**:
+    *   **PRD Template**: New `templates/prd-template.md` — 12-section Product Requirements Document with OKR-native goals, MoSCoW-integrated features, AI-specific NFR section, and traceability columns.
+    *   **Design & Prototype Guide**: New `docs/design-prototype-guide.md` — Stitch MCP workflows (3 recipes), Figma MCP setup, v0/Lovable/Bolt vibe-coding pipeline, and tool decision matrix.
+    *   **Prompt Library**: New `docs/prompt-library.md` — 28 copy-paste prompts organized by 6 BA workflow phases (Discovery → Delivery), each with agent assignment and power combos.
+*   **Document Reorganization**: Standardized all file naming to kebab-case. Merged 3 overlapping architecture docs into single `docs/architecture-decisions.md`. Created `docs/README.md` navigation index.
+*   **Header Standardization**: Removed legacy `SKILL-XX:` prefixes and emojis from all template and docs headers.
+*   **AI-Slop Removal**: Purged all remaining AI-generated fingerprints (Cognitive Squad, World-Class, Super Ultra, Military-Grade, etc.) across 17 files. Zero AI-slop remaining.
+*   **3 New Cookbook Scenarios**: Stitch MCP UI Pipeline (#21), Design System Alignment (#22), PRD-Driven Development (#23). Total: 23 scenarios.
+*   **2 New Power Combos**: PRD Pipeline, Stitch UI added to agent cheat sheet.
+*   **Cross-Reference Integrity**: All internal links updated to match renamed files. Zero stale references.
+
 ## [2.9.0] - 2026-04-06
 
 ### 🔗 The Integration & Foundation Update

@@ -1,4 +1,4 @@
-# 🏆 AGENT.MD - The Cognitive Business Analyst Squad
+# AGENT.MD — BA-Kit Agent Squad
 
 <p align="center">
   <img src="assets/logo.png?v=2.7.0" alt="BA-Kit Logo" width="150">

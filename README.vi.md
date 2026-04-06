@@ -9,8 +9,8 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-2.7.0-blue?style=for-the-badge" alt="Version 2.7.0">
-  <img src="https://img.shields.io/badge/Agents-19-green?style=for-the-badge" alt="19 Agents">
+  <img src="https://img.shields.io/badge/Version-2.9.3-blue?style=for-the-badge" alt="Version 2.9.3">
+  <img src="https://img.shields.io/badge/Agents-21-green?style=for-the-badge" alt="21 Agents">
   <img src="https://img.shields.io/badge/Protocol-Antigravity%20Native-orange?style=for-the-badge" alt="Antigravity Native">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
 </p>
@@ -40,7 +40,7 @@ Mỗi chuyên gia sử dụng **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư
 
 ---
 
-## 🤖 Biệt Đội Chuyên Gia (19 Personas)
+## 🤖 Biệt Đội Chuyên Gia (21 Agents)
 
 ### 🔴 Bộ Chỉ Huy
 | Agent | Vai trò | Năng lực |
@@ -123,7 +123,7 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 
 1.  Sao chép `templates/CONTINUITY.md` ra thư mục gốc.
 2.  Điền Mục tiêu và Ràng buộc của bạn.
-3.  **Kết quả**: Tất cả 19 chuyên gia đọc file này trước khi hành động!
+3.  **Kết quả**: Tất cả 21 chuyên gia đọc file này trước khi hành động!
 
 ---
 
@@ -132,13 +132,23 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 ```
 ba-kit/
 │
-├── .agent/skills/              # 🤖 Bộ não (19 Agent Skills)
-├── ebooks/                     # 📚 eBook Knowledge Base (6 Skills)
-├── docs/knowledge_base/        # 📖 Kho Tri thức
-├── templates/                  # 🟢 Templates (BRD, SRS, User Stories)
-├── docs/                       # 📘 Tài liệu Giao thức
-│   └── antigravity-protocol.md #    Đặc tả Kỹ thuật
-└── README.md                   # 📄 File này
+├── .agent/skills/                # 21 Agent Skills
+├── .agent/scripts/               # BM25+ Knowledge Search Engine
+│
+├── docs/                         # Tài liệu & Hướng dẫn
+│   ├── README.md                 # Mục lục tài liệu
+│   ├── agent-cheat-sheet.md      # 21 agents tổng quan
+│   ├── prompt-library.md         # 28 prompt theo workflow phase
+│   ├── design-prototype-guide.md # Stitch MCP, Figma, vibe coding
+│   ├── ai-foundation-for-ba.md   # Nền tảng AI cho BA
+│   └── knowledge_base/           # Kho tri thức BA
+│
+├── templates/                    # Templates (PRD, BRD, SRS, FRD, ...)
+├── ebooks/                       # eBook Knowledge Base (6 files)
+│
+├── AGENT.MD                      # Cấu hình Squad
+├── WORKFLOW-COOKBOOK.md           # 23 kịch bản thực tế
+└── README.md                     # File này
 ```
 
 ---

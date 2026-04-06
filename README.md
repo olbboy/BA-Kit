@@ -9,7 +9,7 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-2.9-blue?style=for-the-badge" alt="Version 2.9">
+  <img src="https://img.shields.io/badge/Version-2.9.3-blue?style=for-the-badge" alt="Version 2.9.3">
   <img src="https://img.shields.io/badge/Agents-21-green?style=for-the-badge" alt="21 Agents">
   <img src="https://img.shields.io/badge/Protocol-Antigravity%20Native-orange?style=for-the-badge" alt="Antigravity Native">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
@@ -42,7 +42,7 @@ Each agent uses **System 2 Thinking** (Reflective Loops) — self-critique befor
 
 ---
 
-## 🤖 The Agent Squad (19 Personas)
+## 🤖 The Agent Squad (21 Agents)
 
 ### 🔴 The Orchestrator
 | Agent | Role | Capability |
@@ -130,19 +130,36 @@ All agents now follow a **Reflective Cognitive Loop**:
 ```
 ba-kit/
 │
-├── .agent/skills/              # 🤖 The Brains (21 Agent Skills)
-├── .agent/skills/ba-jira/      # 🔗 Jira Integration Bridge (NEW)
-├── .agent/skills/ba-confluence/ # 🔗 Confluence Integration Bridge (NEW)
-├── ebooks/                     # 📚 eBook Knowledge Base (6 Synthesized Skills)
-├── docs/knowledge_base/        # 📖 The Knowledge (Core & Specialized)
-├── docs/ai-foundation-for-ba.md # 🧠 AI Foundation for BAs (NEW)
-├── docs/ai-tools-guide.md      # 🛠️ Multi-Tool Guide (NEW)
-├── templates/                  # 🟢 Templates (BRD, SRS, User Stories)
-├── .agent/scripts/             # 🔍 BM25+ Knowledge Search Engine
-├── .agent/data/                # 📊 786 Indexed Knowledge Entries (23 domains)
-├── docs/                       # 📘 Protocol Documentation
-│   └── antigravity-protocol.md #    The Technical Spec
-└── README.md                   # 📄 This file
+├── .agent/skills/                # 21 Agent Skills (ba-master, ba-writing, ba-jira, ...)
+├── .agent/scripts/               # BM25+ Knowledge Search Engine
+├── .agent/data/                  # 786 Indexed Knowledge Entries (23 domains)
+│
+├── docs/                         # Documentation & Guides
+│   ├── README.md                 # Documentation index
+│   ├── agent-cheat-sheet.md      # All 21 agents at a glance
+│   ├── prompt-library.md         # 28 copy-paste prompts by phase
+│   ├── ai-foundation-for-ba.md   # AI Foundation primer (bilingual)
+│   ├── ai-tools-guide.md         # Tool selection matrix
+│   ├── design-prototype-guide.md # Stitch MCP, Figma, vibe coding
+│   ├── antigravity-protocol.md   # Runtime specification
+│   ├── architecture-decisions.md # Naming, identity, CMMI
+│   ├── junior-start.md           # 4-week onboarding for new BAs
+│   └── knowledge_base/           # Core & specialized BA knowledge
+│
+├── templates/                    # Document Templates
+│   ├── prd-template.md           # Product Requirements Document
+│   ├── brd-template.md           # Business Requirements Document
+│   ├── srs-template.md           # Software Requirements Spec (IEEE 29148)
+│   ├── frd-template.md           # Functional Requirements Document
+│   └── ...                       # + 6 more templates
+│
+├── ebooks/                       # Synthesized eBook Knowledge (6 files)
+│
+├── AGENT.MD                      # Squad configuration (Antigravity runtime)
+├── QUICK-START.md                # 2-minute setup
+├── USAGE-GUIDE.md                # How the squad works
+├── WORKFLOW-COOKBOOK.md           # 23 real-world scenario recipes
+└── README.md                     # This file
 ```
 
 ---
