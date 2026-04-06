@@ -20,7 +20,7 @@ Thư mục này chứa **7 Agent Skills** được tổng hợp từ **17 cuốn
 
 ## 🎯 Cách Sử Dụng
 
-### Trong IDE (Antigravity)
+### Trong IDE (Antigravity / Claude Code / CoWork)
 ```
 @[ebooks/ebook-fundamentals.md] Hãy giải thích BABOK Knowledge Areas
 @[ebooks/ebook-leadership.md] Tôi cần chuẩn bị workshop, hãy hướng dẫn
@@ -76,4 +76,4 @@ Kiến thức từ eBooks đã được tích hợp vào **23 knowledge domains*
 
 ---
 
-*Được tạo bởi BA-Kit v2.8.0 — Antigravity Agent Skills Framework (Knowledge Engine Edition)*
+*BA-Kit v2.9.3 — Agent Skills Framework*

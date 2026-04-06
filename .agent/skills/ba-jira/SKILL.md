@@ -36,7 +36,7 @@ If input is unclear, incomplete, or out-of-scope:
 - Jira connector must be configured: `.agent/skills/jira-connector/.env`
 - Test connectivity: `python3 .agent/skills/jira-connector/scripts/jira_search.py --help`
 
-## 🧠 System Instructions (Antigravity Native)
+## System Instructions
 
 When activated via `@ba-jira`, perform the following cognitive loop:
 

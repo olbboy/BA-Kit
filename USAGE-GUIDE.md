@@ -1,9 +1,9 @@
-# 📘 BA-Kit: The Antigravity Codex (v2.7.0)
+# BA-Kit Usage Guide
 
 > **"We don't just chat. We think, we link, and we remember."**
 
-Welcome to the **BA-Kit Agent Squad (Antigravity Native)**.
-This is not a chatbot. It is a **Multi-Agent Expert System** for structured Business Analysis.
+Welcome to the **BA-Kit Agent Squad**.
+This is not a chatbot. It is a **Multi-Agent Expert System** for structured Business Analysis, running on Antigravity IDE, Claude Code, and Claude CoWork.
 
 ---
 

@@ -36,7 +36,7 @@ If input is unclear, incomplete, or out-of-scope:
 - Confluence connector must be configured: `.agent/skills/confluence-connector/.env`
 - Test connectivity: `python3 .agent/skills/confluence-connector/scripts/confluence_search.py --help`
 
-## 🧠 System Instructions (Antigravity Native)
+## System Instructions
 
 When activated via `@ba-confluence`, perform the following cognitive loop:
 

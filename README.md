@@ -11,13 +11,13 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Version-2.9.3-blue?style=for-the-badge" alt="Version 2.9.3">
   <img src="https://img.shields.io/badge/Agents-21-green?style=for-the-badge" alt="21 Agents">
-  <img src="https://img.shields.io/badge/Protocol-Antigravity%20Native-orange?style=for-the-badge" alt="Antigravity Native">
+  <img src="https://img.shields.io/badge/Platforms-Antigravity%20%7C%20Claude%20Code%20%7C%20CoWork-orange?style=for-the-badge" alt="3 Platforms">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
   <img src="https://img.shields.io/badge/Knowledge-786%20Entries-teal?style=for-the-badge" alt="786 Knowledge Entries">
   <img src="https://img.shields.io/badge/Integration-Jira%20%2B%20Confluence-blue?style=for-the-badge" alt="Jira + Confluence">
 </p>
 
-<h1 align="center">🏆 BA-Kit (Antigravity Edition)</h1>
+<h1 align="center">BA-Kit</h1>
 <h3 align="center">Agent Squad for Requirements Engineering</h3>
 
   <strong>21 Agent Specialists for Requirements Engineering</strong><br>
@@ -91,7 +91,7 @@ Each agent uses **System 2 Thinking** (Reflective Loops) — self-critique befor
 
 ---
 
-## 🚀 Quick Start (Antigravity Native)
+## 🚀 Quick Start
 
 ### 1. Installation
 Copy the workflows into your Agent's brain:
@@ -192,6 +192,6 @@ MIT License. Free to use for personal and enterprise projects.
 ---
 
 <p align="center">
-  <strong>Built for the Antigravity Age.</strong><br>
+  <strong>Antigravity • Claude Code • Claude CoWork</strong><br>
   <em>Code Less. Think More.</em>
 </p>

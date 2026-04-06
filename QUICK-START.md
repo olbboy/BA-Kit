@@ -1,64 +1,111 @@
-# ⚡ Quick Start: BA-Kit (Antigravity Edition)
+# Quick Start: BA-Kit
 
 Start using the BA-Kit agent squad in **2 minutes**.
 
-## 1. Installation
+---
 
-BA-Kit creates a squad of 21 agents inside your Antigravity environment.
+## 1. Choose Your Platform
 
-### Step A: Locate your Brain
-Find where your Antigravity Agent stores its workflows.
-*   Standard (Mac/Linux): `~/.gemini/antigravity/skills/`
-*   *Note: If unsure, ask your Agent "Where are my skills stored?"*
+BA-Kit runs on 3 agentic AI platforms. Pick one:
 
-### Step B: Deploy the Squad
-Copy the 19 Agent Definitions into that folder.
+| Platform | Best For | Setup |
+|----------|----------|-------|
+| **Antigravity IDE** | Full agent skills, MCP integration, System 2 | Copy `.agent/skills/` |
+| **Claude Code** | CLI developers, CI/CD, Git-native workflows | Copy `.agent/skills/` |
+| **Claude CoWork** | Non-technical BAs, document synthesis | Copy `.agent/skills/` |
+
+All 3 platforms use the same skill files. The setup is identical.
+
+## 2. Installation
+
+### Step A: Clone the Repository
 
 ```bash
-# Clone the repository (if you haven't)
-git clone https://github.com/olbboy/ba-kit.git
-
-# Logic Copy
-cp -r ba-kit/.agent/skills/* ~/.gemini/antigravity/skills/
+git clone https://github.com/olbboy/BA-Kit.git
 ```
 
-## 2. Verification
+### Step B: Deploy the Squad
 
-Restart your Antigravity session.
+Copy the 21 agent skill files into your platform's workspace:
+
+**Antigravity IDE:**
+```bash
+cp -r BA-Kit/.agent/skills/* <your-project>/.agent/skills/
+cp BA-Kit/AGENT.MD <your-project>/AGENT.MD
+```
+
+**Claude Code:**
+```bash
+cp -r BA-Kit/.agent/skills/* <your-project>/.agent/skills/
+cp BA-Kit/AGENT.MD <your-project>/AGENT.MD
+```
+
+**Claude CoWork:**
+```bash
+# Drag the BA-Kit folder into your CoWork project
+# Or copy .agent/skills/ to your project directory
+```
+
+### Step C: Copy Templates & Knowledge (Optional)
+
+```bash
+cp -r BA-Kit/templates/ <your-project>/templates/
+cp -r BA-Kit/docs/knowledge_base/ <your-project>/docs/knowledge_base/
+cp -r BA-Kit/ebooks/ <your-project>/ebooks/
+```
+
+## 3. Verification
+
+Start a new conversation in your platform.
 Type `@` in the chat box. You should see the auto-complete list:
 *   `@ba-master`
 *   `@ba-writing`
 *   `@ba-validation`
-*   ... (and 12 others)
+*   `@ba-elicitation`
+*   ... (and 17 others)
 
-## 3. Your First Interaction
+## 4. Your First Interaction
 
 ### Scenario: The "Vague Idea"
 You have an idea but no requirements.
-**Type:**
-> `Hi @ba-elicitation I want to build a Tinder for Cats app.`
 
-**Result:**
-The **Journalist Agent** will activate, adopt the persona, and start the "Funnel Questioning" technique to extract your requirements.
+> `@ba-elicitation I want to build a task management app for freelancers.`
+
+**Result:** The agent will start Funnel Questioning to extract your requirements.
 
 ### Scenario: The "Quality Check"
 You have a requirement but aren't sure if it's good.
-**Type:**
+
 > `@ba-validation Review this user story: "User can upload photos."`
 
-**Result:**
-The **QA Lead Agent** will activate, use System 2 Reflection, and tell you: *"Ambiguous. What format? Max size? How many photos? Mobile or Web?"*
+**Result:** The agent will identify ambiguities: *"What format? Max size? How many? Mobile or Web?"*
 
-## 4. Power User Tips
+### Scenario: The "Full Pipeline"
+You want to go from idea to dev-ready specs.
 
-*   **Flash Mode**: Switch agents instantly. `@ba-writing` -> `@ba-nfr` -> `@ba-solution`.
-*   **The Manager**: If you are lost, just type `@ba-master help me`. The Dispatcher will tell you which agent you need.
-*   **Tools**: The agents will automatically use `python` (for math) and `grep` (for search). You don't need to do anything.
+> `@ba-master I need to build a customer feedback portal. Guide me through the full process.`
 
-## 5. Troubleshooting
+**Result:** The orchestrator will route you through: elicitation → writing → prioritization → validation → export.
+
+## 5. Power User Tips
+
+*   **Flash Mode**: Switch agents instantly. `@ba-writing` → `@ba-nfr` → `@ba-solution`.
+*   **The Dispatcher**: If lost, type `@ba-master help me` — it routes to the right specialist.
+*   **Tools**: Agents automatically use `python` (math), `grep` (search), `search_web` (standards).
+*   **Prompt Library**: See `docs/prompt-library.md` for 28 copy-paste prompts.
+*   **Design**: Use Stitch MCP / Figma MCP for UI generation. See `docs/design-prototype-guide.md`.
+
+## 6. Troubleshooting
 
 **Q: The agent isn't appearing?**
-A: Ensure the `SKILL.md` files are in the `skills/<agent_name>/` directory.
+A: Ensure `SKILL.md` files are in `.agent/skills/<agent_name>/` directories.
 
-**Q: The agent is hallucinating math?**
-A: Tell it: *"Use the run_command tool with python to verify that."* (Though v2.4 agents do this automatically).
+**Q: Which platform should I use?**
+A: See `docs/ai-tools-guide.md` for the full comparison matrix.
+
+**Q: Where are the templates?**
+A: `templates/` folder — PRD, BRD, SRS, FRD, Use Case, Data Dictionary, and more.
+
+---
+
+*Antigravity • Claude Code • Claude CoWork — Code Less. Think More.*

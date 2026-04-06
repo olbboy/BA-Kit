@@ -1,8 +1,8 @@
-# Contributing to BA-Kit (Antigravity Native)
+# Contributing to BA-Kit
 
 Thank you for your interest in improving BA-Kit.
 
-Since this project uses the **Antigravity Native Protocol**, contributing is slightly different from a standard Python/JS project.
+BA-Kit runs on **3 agentic AI platforms** (Antigravity IDE, Claude Code, Claude CoWork). All platforms share the same skill files, so contributing works the same way regardless of which platform you use.
 
 ---
 

@@ -11,11 +11,11 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Version-2.9.3-blue?style=for-the-badge" alt="Version 2.9.3">
   <img src="https://img.shields.io/badge/Agents-21-green?style=for-the-badge" alt="21 Agents">
-  <img src="https://img.shields.io/badge/Protocol-Antigravity%20Native-orange?style=for-the-badge" alt="Antigravity Native">
+  <img src="https://img.shields.io/badge/Platforms-Antigravity%20%7C%20Claude%20Code%20%7C%20CoWork-orange?style=for-the-badge" alt="3 Platforms">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
 </p>
 
-<h1 align="center">🏆 BA-Kit (Phiên Bản Antigravity)</h1>
+<h1 align="center">BA-Kit</h1>
 <h3 align="center">Biệt Đội Chuyên Gia Phân Tích Nghiệp Vụ</h3>
 
 <p align="center">
@@ -83,7 +83,7 @@ Mỗi chuyên gia sử dụng **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư
 
 ---
 
-## 🚀 Bắt Đầu Nhanh (Antigravity Native)
+## 🚀 Bắt Đầu Nhanh
 
 ### 1. Cài Đặt
 Sao chép workflows vào "bộ não" của Agent:
@@ -160,6 +160,6 @@ MIT License. Miễn phí sử dụng cho dự án cá nhân và doanh nghiệp.
 ---
 
 <p align="center">
-  <strong>Được xây dựng cho Kỷ nguyên Antigravity.</strong><br>
+  <strong>Antigravity • Claude Code • Claude CoWork</strong><br>
   <em>Code Ít Hơn. Tư Duy Nhiều Hơn.</em>
 </p>

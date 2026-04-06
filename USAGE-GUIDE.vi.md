@@ -1,9 +1,9 @@
-# 📘 BA-Kit: Mật Mã Phản Trọng Lực (The Antigravity Codex v2.7.0)
+# Hướng Dẫn Sử Dụng BA-Kit
 
 > **"Chúng tôi không chỉ chat. Chúng tôi suy nghĩ, liên kết, và ghi nhớ."**
 
-Chào mừng đến với **Biệt Đội Phân Tích BA-Kit (Antigravity Native)**.
-Đây không phải là chatbot. Đây là một **Hệ thống Chuyên gia Đa Tác tử (Multi-Agent Expert System)** cho phân tích nghiệp vụ có cấu trúc.
+Chào mừng đến với **Biệt Đội Phân Tích BA-Kit**.
+Đây không phải là chatbot. Đây là một **Hệ thống Chuyên gia Đa Tác tử (Multi-Agent Expert System)** cho phân tích nghiệp vụ, chạy trên Antigravity IDE, Claude Code, và Claude CoWork.
 
 ---
 
