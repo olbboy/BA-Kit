@@ -75,6 +75,8 @@
 | **Jira Pipeline** | `writing` → `validation` → `jira` | Dev-Ready Tickets |
 | **Confluence Publish** | `writing` → `export` → `confluence` | Wiki Documentation |
 | **Full Pipeline** | `writing` → `validation` → `jira` + `confluence` | Tickets + Docs |
+| **PRD Pipeline** | `elicitation` → `writing` (PRD) → `prioritization` → `nfr` → `validation` | Validated PRD |
+| **Stitch UI** | `writing` (specs) → Stitch MCP (screen) → `validation` (review) | Spec-Driven UI |
 
 ---
 

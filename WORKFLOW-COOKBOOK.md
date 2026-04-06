@@ -259,3 +259,47 @@ Each recipe shows exactly which agents to summon (`@`) and in what order to achi
 6.  **`@ba-confluence`**: "Publish the full spec document to Confluence."
 7.  **[Cursor/Lovable]**: Implement from validated specs + Jira tickets.
 8.  **`@ba-validation`**: "Review generated code against original specs. Flag deviations."
+
+---
+
+## 🖼️ SCENARIO 21: The "Stitch MCP UI Pipeline" (New in v2.9.2)
+**Context**: You have validated specs and need UI screens generated directly from BA-Kit.
+**Goal**: Spec → Generated UI Screen → Validated output, all within Antigravity.
+
+**The Chain:**
+1.  **`@ba-writing`**: "Write Field Specs for the Login screen — all fields, buttons, validation rules, error states."
+2.  **Stitch MCP** → `create_project(title: "Login Feature")`
+3.  **Stitch MCP** → `generate_screen_from_text(prompt: "<paste specs here>", deviceType: "MOBILE")`
+4.  **Stitch MCP** → `get_screen()` to review the generated screen.
+5.  **`@ba-validation`**: "Compare generated screen with Field Specs. Flag missing elements."
+6.  **Stitch MCP** → `edit_screens(prompt: "<fix items from validation>")` if needed.
+
+**Key Rule**: Specs come FIRST. Do not generate screens without validated requirements.
+
+---
+
+## 🎨 SCENARIO 22: The "Design System Alignment" (New in v2.9.2)
+**Context**: Multiple screens need brand consistency across the product.
+**Goal**: Create a design system and apply it to all screens.
+
+**The Chain:**
+1.  **Stitch MCP** → `create_design_system(designSystem: { seedColor: "#1A73E8", fontFamily: "Inter", cornerRadius: "ROUNDED" })`
+2.  **Stitch MCP** → `generate_screen_from_text()` for each screen (Dashboard, Settings, Profile).
+3.  **Stitch MCP** → `apply_design_system()` to all generated screens.
+4.  **`@ba-validation`**: "Review cross-screen consistency — fonts, colors, spacing, component patterns."
+
+---
+
+## 📋 SCENARIO 23: The "PRD-Driven Development" (New in v2.9.2)
+**Context**: Product team needs a validated PRD before engineering starts.
+**Goal**: Full PRD → Validated → Tickets + Wireframes.
+
+**The Chain:**
+1.  **`@ba-elicitation`**: "Interview me about [feature]. Focus on: user goals, constraints, success metrics."
+2.  **`@ba-writing`**: "Draft PRD using `templates/prd_template.md`. Fill all 12 sections."
+3.  **`@ba-prioritization`**: "Apply MoSCoW to the feature list in Section 6."
+4.  **`@ba-nfr`**: "Define NFR for Section 8 (Performance, Security, Accessibility)."
+5.  **`@ba-validation`**: "Validate full PRD. Health Score target: 85+."
+6.  **Stitch MCP** → Generate UI screens for key flows (Section 7).
+7.  **`@ba-jira`**: "Create Jira Epic + Stories from PRD Section 6 features."
+8.  **`@ba-confluence`**: "Publish PRD to Confluence for stakeholder review."

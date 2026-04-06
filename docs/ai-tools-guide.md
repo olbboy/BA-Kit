@@ -11,7 +11,8 @@
 |---------|-----------|-------------|--------------------------------|
 | 💡 Brainstorm nhanh | ChatGPT / Gemini | Nhanh, creative, low-cost | Copy output → `@ba-writing` refine |
 | 🎨 UI Mockup | Figma / v0 / Lovable | Visual-first, interactive | Screenshot → `@ba-writing` Visual Scan |
-| 💻 Vibe Coding | Cursor / Lovable / Bolt | Prototype → code nhanh | Code output → `@ba-validation` review |
+| 🖼️ **AI UI Gen** | **Stitch MCP** ★ | Native MCP, spec → screen | `@ba-writing` spec → generate → `@ba-validation` |
+| 💻 Vibe Coding | Cursor / Lovable / Bolt | Prototype → code nhanh | Code output → `@ba-validation` review. Xem `docs/design-prototype-guide.md` |
 | 🔍 Research | Perplexity / Grok | Real-time web, citations | Findings → `@ba-strategy` PESTLE input |
 | 📊 Presentation | Gemini / Gamma | Slides, visual reports | Outline → `@ba-facilitation` workshop |
 | 🧠 **AI Agent IDE** | **Antigravity** ★ | Agent Skills, MCP, local-first | **Nền tảng chính của BA-Kit** |
