@@ -58,7 +58,7 @@ Don't stop here. Recommend the next step:
 ---
 
 ## 🛠️ Tool Usage (Optional)
-*   `run_command`: To execute `pandoc` or `python tools/gen_docx.py`.
+*   `run_command`: To execute `pandoc` hoặc `python3 .agent/scripts/gen_docx.py`.
 *   `find_by_name`: To locate the correct reference.docx template.
 
 ---
