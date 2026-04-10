@@ -103,62 +103,50 @@ Ràng buộc: Cho phép nhân viên tắt/mở thông báo nhắc nhở cá nhâ
 
 ```mermaid
 graph LR
-    subgraph actors [" 👥 Vai trò người dùng "]
-        NV(["🧑‍💼 Nhân viên"])
-        MGR(["👔 Quản lý"])
-        HR(["📋 HR Admin"])
-        IT(["🔧 IT Admin"])
-        BGD(["🏛️ Ban Giám đốc"])
-        SYS(["⚙️ System Admin"])
+    subgraph Vai trò
+        NV([Nhân viên])
+        MGR([Quản lý])
+        HR([HR Admin])
+        IT([IT Admin])
+        BGD([Ban Giám đốc])
+        SA([System Admin])
     end
 
-    subgraph ess [" 📱 Nhân viên tự phục vụ "]
-        M01["<b>01</b> · Chấm công<br/>& Nhật ký"]
-        M02["<b>02</b> · Trung tâm<br/>Đăng ký"]
-        M03["<b>03</b> · Giải trình<br/>công"]
-        M04["<b>04</b> · Báo cáo<br/>cá nhân"]
+    subgraph Nhân viên tự phục vụ
+        M01[01 Chấm công và Nhật ký]
+        M02[02 Trung tâm Đăng ký]
+        M03[03 Giải trình công]
+        M04[04 Báo cáo cá nhân]
     end
 
-    subgraph admin [" 🛠️ Quản trị & Cấu hình "]
-        M05["<b>05</b> · Quản lý<br/>Nhân sự"]
-        M06["<b>06</b> · Ca làm việc<br/>& Phân ca"]
-        M07["<b>07</b> · Lịch nghỉ<br/>& Ngày lễ"]
-        M08["<b>08</b> · Camera<br/>AI"]
-        M09["<b>09</b> · Cấu hình<br/>Thông báo"]
+    subgraph Quản trị và Cấu hình
+        M05[05 Quản lý Nhân sự]
+        M06[06 Ca làm việc và Phân ca]
+        M07[07 Lịch nghỉ và Ngày lễ]
+        M08[08 Camera AI]
+        M09[09 Cấu hình Thông báo]
     end
 
-    subgraph wf [" ✅ Quy trình & Báo cáo "]
-        M10["<b>10</b> · Trung tâm<br/>Phê duyệt"]
-        M11["<b>11</b> · Báo cáo tổng<br/>& Xuất dữ liệu"]
-    end
-
-    subgraph sys [" 🔐 Quản trị hệ thống "]
-        M12["<b>12</b> · Quản trị<br/>hệ thống"]
+    subgraph Quy trình và Báo cáo
+        M10[10 Trung tâm Phê duyệt]
+        M11[11 Báo cáo tổng và Xuất]
+        M12[12 Quản trị hệ thống]
     end
 
     NV --> M01 & M02 & M03 & M04
     MGR --> M01 & M10 & M11
-    HR --> M05 & M06 & M07 & M09 & M10 & M11
+    HR --> M05 & M06 & M07 & M09 & M10 & M11 & M12
     IT --> M08 & M09
     BGD --> M11
-    SYS --> M12
-    HR --> M12
+    SA --> M12
 
-    style actors fill:none,stroke:#546E7A,stroke-width:2px,stroke-dasharray:5
-    style ess fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1
-    style admin fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#BF360C
-    style wf fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style sys fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef ess fill:#E3F2FD,stroke:#90CAF9
+    classDef admin fill:#FFF3E0,stroke:#FFB74D
+    classDef wf fill:#E8F5E9,stroke:#81C784
 
-    classDef actorNode fill:#37474F,color:#fff,stroke:#263238,stroke-width:2px,font-size:13px
-    classDef essNode fill:#BBDEFB,stroke:#1565C0,color:#0D47A1,stroke-width:1px
-    classDef adminNode fill:#FFE0B2,stroke:#E65100,color:#BF360C,stroke-width:1px
-    classDef wfNode fill:#C8E6C9,stroke:#2E7D32,color:#1B5E20,stroke-width:1px
-    classDef sysNode fill:#E1BEE7,stroke:#6A1B9A,color:#4A148C,stroke-width:1px
-
-    class NV,MGR,HR,IT,BGD,SYS actorNode
-    class M01,M02,M03,M04 essNode
-    class M05,M06,M07,M08,M09 adminNode
-    class M10,M11 wfNode
-    class M12 sysNode
+    class NV,MGR,HR,IT,BGD,SA actor
+    class M01,M02,M03,M04 ess
+    class M05,M06,M07,M08,M09 admin
+    class M10,M11,M12 wf
 ```

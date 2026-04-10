@@ -22,51 +22,25 @@
 
 ```mermaid
 graph TD
-    subgraph input [" 📷 Nguồn dữ liệu "]
-        A(["Camera AI C-Vision<br/>Quét khuôn mặt NV"])
-    end
+    A([Camera AI C-Vision]) -->|Webhook| B[Xác thực HMAC-SHA256]
+    B --> C[Hàng đợi BullMQ]
+    C --> D{Độ tin cậy >= 0.85?}
+    D -->|Không| E[Thất bại — Cần HR xem xét]
+    D -->|Có| F[Ánh xạ personId sang employeeId]
+    F --> G{Xác định hướng}
+    G -->|Cổng vào| H[CHECK_IN]
+    G -->|Cổng ra| I[CHECK_OUT]
+    H & I --> J[(Tạo AttendanceRecord)]
+    J --> K[Cập nhật DailyAttendanceSummary]
+    K --> L([Mini App cập nhật trong 60 giây])
 
-    subgraph processing [" ⚙️ Xử lý Backend "]
-        B["🔐 Xác thực Webhook<br/><i>HMAC-SHA256 + Idempotency</i>"]
-        C["📨 Hàng đợi xử lý<br/><i>BullMQ Queue</i>"]
-        D{"Độ tin cậy<br/>≥ 0.85?"}
-        F["🔗 Ánh xạ danh tính<br/><i>personId → employeeId</i>"]
-        G{"Xác định<br/>hướng ra/vào"}
-    end
+    classDef start fill:#455A64,color:#fff,stroke-width:0
+    classDef fail fill:#EF5350,color:#fff,stroke-width:0
+    classDef ok fill:#66BB6A,color:#fff,stroke-width:0
 
-    subgraph result [" 📊 Kết quả "]
-        H["✅ CHECK_IN"]
-        I["✅ CHECK_OUT"]
-        J[("💾 Tạo bản ghi chấm công<br/><i>AttendanceRecord — APPROVED</i>")]
-        K["📊 Cập nhật tổng hợp ngày<br/><i>DailyAttendanceSummary</i>"]
-        L(["📱 Mini App cập nhật<br/><i>Dashboard + Nhật ký</i><br/><b>⏱️ ≤ 60 giây</b>"])
-    end
-
-    subgraph error [" ❌ Xử lý lỗi "]
-        E["⚠️ Thất bại<br/><i>Cần HR xem xét</i>"]
-    end
-
-    A -->|"Webhook"| B --> C --> D
-    D -->|"Không đạt"| E
-    D -->|"Đạt"| F --> G
-    G -->|"Cổng vào"| H
-    G -->|"Cổng ra"| I
-    H & I --> J --> K --> L
-
-    style input fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    style processing fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style result fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
-    style error fill:#FFEBEE,stroke:#C62828,stroke-width:2px
-
-    classDef camera fill:#7B1FA2,color:#fff,stroke:#4A148C,stroke-width:2px
-    classDef fail fill:#EF5350,color:#fff,stroke:#C62828
-    classDef ok fill:#66BB6A,color:#fff,stroke:#2E7D32
-    classDef app fill:#1565C0,color:#fff,stroke:#0D47A1,stroke-width:2px
-
-    class A camera
+    class A start
     class E fail
-    class H,I ok
-    class L app
+    class H,I,L ok
 ```
 
 ---
@@ -85,42 +59,29 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph actors [" 👥 Vai trò "]
-        NV(["🧑‍💼 Nhân viên"])
-        HRS(["📋 HR Admin"])
-        MGR(["👔 Quản lý"])
-        SYS(["⚙️ Hệ thống"])
-    end
+    NV([Nhân viên])
+    HRS([HR Admin])
+    MGR([Quản lý])
+    SYS([Hệ thống])
 
-    subgraph module [" 📊 Chấm công & Nhật ký "]
-        UC1["Dashboard trạng thái<br/>hôm nay"]
-        UC2["Thanh tiến độ<br/>ca làm việc"]
-        UC3["Thống kê hiệu suất<br/>tháng"]
-        UC4["Tra cứu Nhật ký<br/>+ Ảnh Face ID"]
-    end
+    NV --> UC1[Dashboard trạng thái hôm nay]
+    NV --> UC2[Thanh tiến độ ca làm việc]
+    NV --> UC3[Thống kê hiệu suất tháng]
+    NV --> UC4[Tra cứu Nhật ký và Ảnh Face ID]
+    NV --> UC5[Cảnh báo vi phạm]
+    UC5 -.-> UC6[Giải trình ngay]
 
-    subgraph alert [" ⚠️ Cảnh báo "]
-        UC5["Cảnh báo vi phạm<br/><i>Muộn · Sớm · Vắng</i>"]
-        UC6["Giải trình ngay<br/><i>Tự điền ngày vi phạm</i>"]
-    end
-
-    NV --> UC1 & UC2 & UC3 & UC4 & UC5
-    UC5 -.->|"liên kết"| UC6
     HRS --> UC4
     MGR --> UC3
-    SYS -->|"cập nhật ≤ 60s"| UC1
+    SYS -->|cập nhật realtime| UC1
 
-    style actors fill:none,stroke:#546E7A,stroke-width:2px,stroke-dasharray:5
-    style module fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style alert fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef uc fill:#E3F2FD,stroke:#90CAF9
+    classDef alert fill:#FFF3E0,stroke:#FFB74D
 
-    classDef actorNode fill:#37474F,color:#fff,stroke:#263238,stroke-width:2px
-    classDef ucNode fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
-    classDef alertNode fill:#FFE0B2,stroke:#E65100,color:#BF360C
-
-    class NV,HRS,MGR,SYS actorNode
-    class UC1,UC2,UC3,UC4 ucNode
-    class UC5,UC6 alertNode
+    class NV,HRS,MGR,SYS actor
+    class UC1,UC2,UC3,UC4 uc
+    class UC5,UC6 alert
 ```
 
 ---

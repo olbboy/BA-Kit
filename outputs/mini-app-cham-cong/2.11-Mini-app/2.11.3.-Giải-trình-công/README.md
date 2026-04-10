@@ -23,47 +23,26 @@
 
 ```mermaid
 graph TD
-    subgraph detect [" 🔍 Phát hiện sai lệch "]
-        A(["⚙️ Hệ thống AI quét<br/><i>Chấm công vs Lịch phân ca</i>"])
-        B{"Phát hiện<br/>sai lệch?"}
-        C["✅ Dữ liệu hợp lệ"]
-        D["⚠️ Tạo Anomaly<br/><i>Quên quẹt · Muộn · Sớm · Vắng</i>"]
-    end
+    A([Hệ thống AI quét chấm công]) --> B{Phát hiện sai lệch?}
+    B -->|Không| C[Dữ liệu hợp lệ]
+    B -->|Có| D[Tạo Anomaly]
+    D --> E[Hiển thị danh sách lỗi trên App]
+    E --> F{Trước ngày chốt công?}
+    F -->|Còn hạn| G[CHỜ GIẢI TRÌNH]
+    F -->|Quá hạn| H[VI PHẠM QUY CHẾ — Khóa nút]
+    G --> I[NV nhập lý do và tải minh chứng]
+    I --> J[Gửi đơn PENDING]
+    J --> K{Manager hoặc HR phê duyệt}
+    K -->|Duyệt| L[Cập nhật Nhật ký — Đủ công]
+    K -->|Từ chối| M[Giữ nguyên lỗi — Phản hồi lý do]
 
-    subgraph employee [" 🧑‍💼 Nhân viên xử lý "]
-        E["📱 Hiển thị danh sách lỗi<br/>trên App"]
-        F{"Trước ngày<br/>chốt công?"}
-        G["🔴 <b>CHỜ GIẢI TRÌNH</b><br/><i>NV nhấn tạo đơn</i>"]
-        H["⛔ <b>VI PHẠM QUY CHẾ</b><br/><i>Nút bị vô hiệu hóa</i>"]
-        I["📝 NV nhập Form giải trình<br/><i>Lý do + Tải minh chứng</i>"]
-        J["📤 Gửi đơn → PENDING"]
-    end
+    classDef ok fill:#66BB6A,color:#fff,stroke-width:0
+    classDef fail fill:#EF5350,color:#fff,stroke-width:0
+    classDef warn fill:#FFA726,color:#fff,stroke-width:0
 
-    subgraph approval [" ✅ Phê duyệt "]
-        K{"👔 Manager / HR<br/>phê duyệt"}
-        L["✅ Cập nhật Nhật ký<br/><i>Tính lại trạng thái Đủ công</i>"]
-        M["❌ Giữ nguyên lỗi<br/><i>+ Phản hồi lý do từ chối</i>"]
-    end
-
-    A --> B
-    B -->|"Không"| C
-    B -->|"Có"| D --> E --> F
-    F -->|"Còn hạn"| G --> I --> J --> K
-    F -->|"Quá hạn"| H
-    K -->|"Duyệt"| L
-    K -->|"Từ chối"| M
-
-    style detect fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    style employee fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style approval fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
-
-    classDef warn fill:#FF9800,color:#fff
-    classDef fail fill:#EF5350,color:#fff
-    classDef ok fill:#66BB6A,color:#fff
-
-    class D,G warn
-    class H,M fail
     class C,L ok
+    class H,M fail
+    class D,G warn
 ```
 
 ### **3. NHU CẦU NGƯỜI DÙNG**
@@ -80,33 +59,22 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph actors [" 👥 Vai trò "]
-        NV(["🧑‍💼 Nhân viên"])
-        MGR(["👔 Quản lý"])
-        SYS(["⚙️ Hệ thống"])
-    end
+    NV([Nhân viên])
+    MGR([Quản lý])
+    SYS([Hệ thống])
 
-    subgraph nv_actions [" 📝 Nhân viên thao tác "]
-        UC1["Xem danh sách lỗi<br/>cần giải trình"]
-        UC2["Tạo đơn giải trình<br/><i>Chọn ngày + Lý do</i>"]
-        UC3["Đính kèm minh chứng<br/><i>Ảnh · PDF ≤ 5MB</i>"]
-        UC4["Theo dõi trạng thái đơn"]
-        UC5["Xem lịch sử giải trình"]
-    end
+    NV --> UC1[Xem danh sách lỗi cần giải trình]
+    NV --> UC2[Tạo đơn giải trình]
+    NV --> UC3[Đính kèm minh chứng]
+    NV --> UC4[Theo dõi trạng thái đơn]
+    NV --> UC5[Xem lịch sử giải trình]
+    MGR --> UC6[Phê duyệt hoặc Từ chối]
+    SYS --> UC7[Quét Anomaly cuối ngày]
+    SYS --> UC8[Khóa giải trình sau chốt công]
 
-    subgraph auto [" 🤖 Tự động "]
-        UC6["Phê duyệt / Từ chối<br/>đơn giải trình"]
-        UC7["Quét phát hiện Anomaly<br/><i>Tự động cuối ngày</i>"]
-        UC8["Khóa giải trình<br/><i>Sau ngày chốt công</i>"]
-    end
-
-    NV --> UC1 & UC2 & UC3 & UC4 & UC5
-    MGR --> UC6
-    SYS --> UC7 & UC8
-
-    classDef actor fill:#37474F,color:#fff,stroke-width:2px
-    classDef uc fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
-    classDef sys fill:#F3E5F5,stroke:#7B1FA2,color:#4A148C
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef uc fill:#E3F2FD,stroke:#90CAF9
+    classDef sys fill:#F3E5F5,stroke:#CE93D8
 
     class NV,MGR,SYS actor
     class UC1,UC2,UC3,UC4,UC5 uc

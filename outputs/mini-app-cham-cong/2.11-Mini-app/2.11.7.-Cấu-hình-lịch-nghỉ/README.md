@@ -24,51 +24,25 @@
 
 ```mermaid
 graph TD
-    subgraph config [" 🛠️ HR Admin cấu hình "]
-        A(["📋 HR Admin"])
-        B["📅 Quản lý danh mục ngày nghỉ<br/><i>Lễ quốc gia · Nội bộ · Tùy chỉnh</i>"]
-        C["⚙️ Cấu hình Policy & Rules<br/><i>Sinh nhật · WFH · Thiên tai</i>"]
-    end
+    A([HR Admin]) --> B[Quản lý danh mục ngày nghỉ]
+    A --> C[Cấu hình Policy và Rules]
+    B & C --> D[Batch Job 00:01 — Quét toàn bộ NV]
+    D --> E{Hôm nay là ngày nghỉ lễ?}
+    E -->|Có| F[Gán HỢP LỆ / HƯỞNG LƯƠNG]
+    E -->|Không| G{NV có sinh nhật trong tháng?}
+    G -->|Có và NV chính thức| H[Cộng 1 ngày phép]
+    G -->|Không| I[Bỏ qua]
+    F & H --> J([App NV hiển thị Calendar])
+    C --> K{Kích hoạt nghỉ thiên tai?}
+    K -->|Có| L[Chọn vùng — Gán nghỉ khẩn cấp]
 
-    subgraph batch [" 🔄 Batch Job — 00:01 hằng ngày "]
-        D["Quét toàn bộ nhân viên"]
-        E{"Hôm nay là<br/>ngày nghỉ lễ?"}
-        F["✅ Gán trạng thái<br/><b>HỢP LỆ / HƯỞNG LƯƠNG</b>"]
-        G{"NV có sinh nhật<br/>trong tháng này?"}
-        H["🎂 Cộng 1 ngày phép<br/><i>vào quỹ phép cá nhân</i>"]
-        I["➡️ Bỏ qua"]
-    end
+    classDef ok fill:#66BB6A,color:#fff,stroke-width:0
+    classDef warn fill:#FFA726,color:#fff,stroke-width:0
+    classDef fail fill:#EF5350,color:#fff,stroke-width:0
 
-    subgraph output [" 📱 Kết quả hiển thị "]
-        J["📱 App NV hiển thị<br/><i>Calendar màu sắc + Thông báo</i>"]
-    end
-
-    subgraph emergency [" 🚨 Chế độ khẩn cấp "]
-        K{"Kích hoạt<br/>nghỉ thiên tai?"}
-        L["🌊 Chọn vùng ảnh hưởng<br/><i>Gán nghỉ khẩn cấp cho NV khu vực</i>"]
-    end
-
-    A --> B & C
-    B & C --> D --> E
-    E -->|"Có"| F
-    E -->|"Không"| G
-    G -->|"Có + NV chính thức"| H
-    G -->|"Không"| I
-    F & H --> J
-    C --> K -->|"Có"| L
-
-    style config fill:#FFF3E0,stroke:#E65100,stroke-width:2px
-    style batch fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style output fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
-    style emergency fill:#FFEBEE,stroke:#C62828,stroke-width:2px
-
-    classDef ok fill:#66BB6A,color:#fff
-    classDef special fill:#AB47BC,color:#fff
-    classDef danger fill:#EF5350,color:#fff
-
-    class F ok
-    class H special
-    class L danger
+    class F,J ok
+    class H warn
+    class L fail
 ```
 
 ### **3. NHU CẦU NGƯỜI DÙNG**
@@ -85,44 +59,29 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph actors [" 👥 Vai trò "]
-        HR(["📋 HR Admin"])
-        NV(["🧑‍💼 Nhân viên"])
-        BGD(["🏛️ Ban Lãnh đạo"])
-        SYS(["⚙️ Hệ thống"])
-    end
+    HR([HR Admin])
+    NV([Nhân viên])
+    BGD([Ban Lãnh đạo])
+    SYS([Hệ thống])
 
-    subgraph admin_uc [" 🛠️ Quản trị lịch nghỉ "]
-        UC1["Quản lý danh mục ngày nghỉ<br/><i>Lễ quốc gia · Nội bộ</i>"]
-        UC2["Cấu hình Policy<br/><i>Sinh nhật · WFH · Thiên tai</i>"]
-        UC3["Kích hoạt nghỉ thiên tai<br/><i>Chọn vùng ảnh hưởng</i>"]
-        UC4["Clone lịch nghỉ<br/><i>sang năm mới</i>"]
-    end
+    HR --> UC1[Quản lý danh mục ngày nghỉ]
+    HR --> UC2[Cấu hình Policy nghỉ và WFH]
+    HR --> UC4[Clone lịch nghỉ sang năm mới]
+    BGD --> UC3[Kích hoạt nghỉ thiên tai]
+    NV --> UC5[Xem Calendar cá nhân]
+    NV --> UC6[Xem chi tiết ngày nghỉ]
+    SYS --> UC7[Batch Job gán công hằng ngày]
+    SYS --> UC8[Gửi thông báo trước 3 ngày lễ]
 
-    subgraph emp_uc [" 📱 Nhân viên xem "]
-        UC5["Xem Calendar cá nhân<br/><i>Mã màu Đỏ/Xanh</i>"]
-        UC6["Xem chi tiết ngày nghỉ<br/><i>Loại · Đãi ngộ</i>"]
-    end
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef admin fill:#FFF3E0,stroke:#FFB74D
+    classDef emp fill:#E3F2FD,stroke:#90CAF9
+    classDef sys fill:#F3E5F5,stroke:#CE93D8
 
-    subgraph sys_uc [" 🤖 Tự động "]
-        UC7["Batch Job gán công<br/><i>00:01 hằng ngày</i>"]
-        UC8["Gửi thông báo<br/><i>trước 3 ngày nghỉ lễ</i>"]
-    end
-
-    HR --> UC1 & UC2 & UC4
-    BGD --> UC3
-    NV --> UC5 & UC6
-    SYS --> UC7 & UC8
-
-    style actors fill:none,stroke:#546E7A,stroke-width:2px,stroke-dasharray:5
-    style admin_uc fill:#FFF3E0,stroke:#E65100,stroke-width:2px
-    style emp_uc fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style sys_uc fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-
-    classDef actorNode fill:#37474F,color:#fff,stroke:#263238,stroke-width:2px
-    classDef adminNode fill:#FFE0B2,stroke:#E65100,color:#BF360C
-    classDef empNode fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
-    classDef sysNode fill:#E1BEE7,stroke:#7B1FA2,color:#4A148C
+    class HR,NV,BGD,SYS actor
+    class UC1,UC2,UC3,UC4 admin
+    class UC5,UC6 emp
+    class UC7,UC8 sys
 
     class HR,NV,BGD,SYS actorNode
     class UC1,UC2,UC3,UC4 adminNode

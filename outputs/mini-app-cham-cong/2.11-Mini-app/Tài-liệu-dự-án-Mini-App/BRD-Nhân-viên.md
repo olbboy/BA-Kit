@@ -20,48 +20,27 @@
 
 ```mermaid
 graph TD
-    A(["🧑‍💼 Nhân viên mở Mini App"]) --> B["📊 Dashboard Cá nhân<br/><i>Giờ vào + Thanh tiến độ 8h</i>"]
+    A([Nhân viên mở Mini App]) --> B[Dashboard Cá nhân]
+    B --> C[Nhật ký Chấm công]
+    B --> D[Trung tâm Đăng ký]
+    B --> E[Giải trình công]
+    B --> F[Báo cáo cá nhân]
+    B --> G[Setup Hồ sơ]
 
-    subgraph features [" 📱 6 chức năng ESS "]
-        C["📒 Nhật ký Chấm công<br/><i>In/Out + Ảnh Face ID</i>"]
-        D["📝 Trung tâm Đăng ký<br/><i>Nghỉ phép · Đổi ca · OT</i>"]
-        E["⚠️ Giải trình công<br/><i>Muộn/Sớm + Minh chứng</i>"]
-        F["📈 Báo cáo cá nhân<br/><i>KPI + Điểm chuyên cần</i>"]
-        G["⚙️ Setup Hồ sơ<br/><i>Thông tin + Face ID</i>"]
-    end
+    D & E --> H[Gửi đơn PENDING]
+    H --> I{Manager hoặc HR phê duyệt}
+    I -->|Duyệt| J[Cập nhật dữ liệu]
+    I -->|Từ chối| K[Phản hồi lý do]
 
-    B --> C & D & E & F & G
+    G --> G1[Bước 1: Thông tin cá nhân]
+    G1 --> G2[Bước 2: Định danh Face AI]
+    G2 --> G3[Bước 3: Hoàn tất]
 
-    subgraph approval [" ✅ Luồng phê duyệt "]
-        H["📤 Gửi đơn → PENDING"]
-        I{"👔 Manager / HR<br/>phê duyệt"}
-        J["✅ Cập nhật dữ liệu"]
-        K["❌ Phản hồi lý do<br/>từ chối"]
-    end
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef ok fill:#66BB6A,color:#fff,stroke-width:0
+    classDef fail fill:#EF5350,color:#fff,stroke-width:0
 
-    D & E --> H --> I
-    I -->|"Duyệt"| J
-    I -->|"Từ chối"| K
-
-    subgraph setup [" 🆔 Đăng ký Face ID "]
-        G1["<b>Bước 1</b><br/>Thông tin cá nhân"]
-        G2["<b>Bước 2</b><br/>📷 Định danh khuôn mặt AI"]
-        G3["<b>Bước 3</b><br/>✅ Hoàn tất"]
-    end
-
-    G --> G1 --> G2 --> G3
-
-    style features fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style approval fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
-    style setup fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-
-    classDef start fill:#4CAF50,color:#fff,stroke-width:2px
-    classDef dash fill:#1976D2,color:#fff,stroke-width:2px
-    classDef ok fill:#66BB6A,color:#fff
-    classDef fail fill:#EF5350,color:#fff
-
-    class A start
-    class B dash
+    class A actor
     class J,G3 ok
     class K fail
 ```
@@ -78,32 +57,18 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph actor [" 👤 "]
-        NV(["🧑‍💼 Nhân viên"])
-    end
+    NV([Nhân viên])
 
-    subgraph view [" 👁️ Xem thông tin "]
-        F01["<b>F01</b> Dashboard Cá nhân<br/><i>Giờ vào + Tiến độ 8h</i>"]
-        F02["<b>F02</b> Nhật ký Chấm công<br/><i>In/Out + Tag trạng thái</i>"]
-        F05["<b>F05</b> Báo cáo cá nhân<br/><i>Điểm chuyên cần + KPI</i>"]
-    end
+    NV --> F01[F01 Dashboard Cá nhân]
+    NV --> F02[F02 Nhật ký Chấm công]
+    NV --> F03[F03 Trung tâm Đăng ký]
+    NV --> F04[F04 Giải trình]
+    NV --> F05[F05 Báo cáo cá nhân]
+    NV --> F06[F06 Setup Hồ sơ]
 
-    subgraph action [" ✏️ Thao tác "]
-        F03["<b>F03</b> Trung tâm Đăng ký<br/><i>Nghỉ phép · Đổi ca · OT</i>"]
-        F04["<b>F04</b> Giải trình<br/><i>Muộn/Sớm + Ảnh</i>"]
-        F06["<b>F06</b> Setup Hồ sơ<br/><i>Thông tin + Face ID</i>"]
-    end
-
-    NV --> F01 & F02 & F05
-    NV --> F03 & F04 & F06
-
-    style actor fill:none,stroke:#546E7A,stroke-width:2px,stroke-dasharray:5
-    style view fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style action fill:#FFF3E0,stroke:#E65100,stroke-width:2px
-
-    classDef actorNode fill:#37474F,color:#fff,stroke-width:2px
-    classDef viewNode fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
-    classDef action fill:#FFF3E0,stroke:#E65100,color:#BF360C
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef view fill:#E3F2FD,stroke:#90CAF9
+    classDef action fill:#FFF3E0,stroke:#FFB74D
 
     class NV actor
     class F01,F02,F05 view

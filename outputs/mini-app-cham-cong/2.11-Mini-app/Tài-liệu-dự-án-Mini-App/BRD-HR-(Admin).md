@@ -20,41 +20,26 @@
 
 ```mermaid
 graph TD
-    A(["📋 HR Admin đăng nhập"]) --> B["📊 Dashboard Admin<br/><i>Trực tuyến · WFH · Vắng mặt</i>"]
+    A([HR Admin đăng nhập]) --> B[Dashboard Admin]
+    B --> C[Cơ cấu tổ chức]
+    B --> D[Cấu hình Ca làm việc]
+    B --> E[Lịch và Ngày nghỉ]
+    B --> F[Camera AI]
+    B --> G[Thông báo]
+    B --> H[Phê duyệt]
+    B --> I[Báo cáo và Xuất dữ liệu]
 
-    subgraph modules [" 🛠️ 8 chức năng quản trị "]
-        C["🏢 Cơ cấu tổ chức<br/><i>Sơ đồ cây + Import NV</i>"]
-        D["⏰ Cấu hình Ca<br/><i>In/Out/Break + Punch Limit</i>"]
-        E["📅 Lịch & Ngày nghỉ<br/><i>Lễ tết + Chính sách</i>"]
-        F["📷 Camera AI<br/><i>Thiết bị + Ánh xạ + Giám sát</i>"]
-        G["🔔 Thông báo<br/><i>36 sự kiện × 3 kênh</i>"]
-        H["✅ Phê duyệt<br/><i>Nghỉ/OT/Giải trình/Đổi ca</i>"]
-        I["📈 Báo cáo & Xuất<br/><i>Payroll Excel + KPI</i>"]
-    end
-
-    B --> C & D & E & F & G & H & I
-
-    subgraph engine [" ⚙️ Engine xử lý "]
-        J[("💾 Dữ liệu NV")]
-        K["🔄 Engine tính công"]
-    end
-
-    C -->|"Import Excel"| J
-    D -->|"Áp dụng quy tắc"| K
-    E -->|"Batch Job"| K
-    F -->|"Webhook C-Vision"| K
+    C -->|Import Excel| J[(Dữ liệu NV)]
+    D -->|Áp dụng| K[Engine tính công]
+    E -->|Batch Job| K
+    F -->|Webhook| K
     K --> I
 
-    style modules fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style engine fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef mod fill:#E3F2FD,stroke:#90CAF9
+    classDef eng fill:#FFF3E0,stroke:#FFB74D
 
-    classDef admin fill:#FF9800,color:#fff,stroke-width:2px
-    classDef dash fill:#1976D2,color:#fff,stroke-width:2px
-    classDef mod fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
-    classDef eng fill:#FFE0B2,stroke:#E65100,color:#BF360C
-
-    class A admin
-    class B dash
+    class A actor
     class C,D,E,F,G,H,I mod
     class J,K eng
 ```
@@ -71,29 +56,22 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph actors [" 👥 Vai trò "]
-        HR(["📋 HR Admin"])
-        MGR(["👔 Quản lý"])
-        IT(["🔧 IT Admin"])
-    end
+    HR([HR Admin])
+    MGR([Quản lý])
+    IT([IT Admin])
 
-    subgraph functions [" 🛠️ Chức năng quản trị "]
-        F01["<b>F01</b> Dashboard<br/><i>Quân số + Biểu đồ</i>"]
-        F02["<b>F02</b> Cơ cấu tổ chức<br/><i>NV + Phòng ban</i>"]
-        F03["<b>F03</b> Cấu hình Ca<br/><i>In/Out/Break</i>"]
-        F04["<b>F04</b> Lịch & Ngày nghỉ<br/><i>Lễ + Chính sách</i>"]
-        F05["<b>F05</b> Camera AI<br/><i>Thiết bị + Ánh xạ</i>"]
-        F06["<b>F06</b> Thông báo<br/><i>36 sự kiện + Policy</i>"]
-        F07["<b>F07</b> Phê duyệt<br/><i>Nghỉ/OT/Giải trình</i>"]
-        F08["<b>F08</b> Báo cáo & Xuất<br/><i>Payroll + KPI</i>"]
-    end
-
-    HR --> F01 & F02 & F03 & F04 & F07 & F08
+    HR --> F01[F01 Dashboard quân số]
+    HR --> F02[F02 Cơ cấu tổ chức]
+    HR --> F03[F03 Cấu hình Ca]
+    HR --> F04[F04 Lịch và Ngày nghỉ]
+    HR --> F07[F07 Phê duyệt]
+    HR --> F08[F08 Báo cáo và Xuất]
     MGR --> F01 & F07 & F08
-    IT --> F05 & F06
+    IT --> F05[F05 Camera AI]
+    IT --> F06[F06 Thông báo]
 
-    classDef actor fill:#37474F,color:#fff,stroke-width:2px
-    classDef func fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
+    classDef actor fill:#455A64,color:#fff,stroke-width:0
+    classDef func fill:#E3F2FD,stroke:#90CAF9
 
     class HR,MGR,IT actor
     class F01,F02,F03,F04,F05,F06,F07,F08 func
