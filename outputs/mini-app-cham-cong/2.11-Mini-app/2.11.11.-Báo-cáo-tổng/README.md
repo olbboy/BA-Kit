@@ -94,8 +94,20 @@ HR/Manager truy cập "Báo cáo tổng"
 
 ---
 
+### **EDGE CASES & ERROR HANDLING (toàn module)**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| RP01-E1 | RPT-01 | **Counter không cân bằng** — Tổng NV ≠ Có mặt + Trễ + Vắng + Nghỉ phép | HIGH | Thêm trạng thái "Chưa xác định" = NV chưa qua giờ bắt đầu ca HOẶC NV ca linh hoạt (FREE). Công thức: Tổng = Có mặt + Trễ + Vắng + Nghỉ phép + **Chưa xác định**. Counter luôn cân bằng. |
+| RP02-E1 | RPT-02 | **Payroll exported nhưng có correction sau** — HR xuất payroll ngày 26, ngày 27 có correction được duyệt | CRITICAL | **Payroll Lock:** Sau khi xuất payroll → đánh dấu kỳ đó "LOCKED". Mọi correction sau lock → cảnh báo: "Kỳ lương tháng X đã xuất. Thay đổi này sẽ áp dụng cho kỳ bổ sung". Hiển thị badge "Có X thay đổi sau lần xuất cuối" trên nút Export. Cho phép HR "Xuất lại" (re-export) với timestamp mới. |
+| RP02-E2 | RPT-02 | **CSV encoding tiếng Việt** — MISA/phần mềm kế toán VN đọc UTF-8 sai | MEDIUM | Cung cấp dropdown chọn encoding khi xuất: UTF-8 BOM (default), Windows-1258 (cho MISA), Shift-JIS (cho phần mềm Nhật). Preview 5 dòng đầu trước khi download. |
+| RP03-E1 | RPT-03 | **OT 300h đặc biệt — ai duyệt?** — Giới hạn mở rộng 300h/năm cần phê duyệt đặc biệt | CRITICAL | **Workflow bổ sung:** Khi NV đạt 200h OT/năm → hệ thống chặn đơn OT mới. HR gửi "Yêu cầu mở rộng OT 300h" cho NV, kèm lý do kinh doanh. Phê duyệt: GLOBAL_HR + SITE_MANAGER (2 level). Sau khi duyệt → mở giới hạn cho NV đến hết năm. Báo cáo tuân thủ hiển thị rõ: NV nào đang dùng quota 300h. |
+
+---
+
 ### **7. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Dữ liệu chấm công đã được tổng hợp (DailyAttendanceSummary) cho kỳ báo cáo.
 2. Tất cả đơn nghỉ phép và OT trong kỳ đã được phê duyệt xong.
+3. Payroll Lock: HR nên xuất payroll SAU ngày chốt công + 3 ngày buffer cho correction cuối cùng.
 3. Người dùng có role HR Admin, Manager hoặc cao hơn.

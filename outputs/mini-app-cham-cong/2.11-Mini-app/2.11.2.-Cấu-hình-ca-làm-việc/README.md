@@ -79,6 +79,20 @@ Hệ thống áp dụng cấu hình mới cho chấm công
 
 ---
 
+### **EDGE CASES & ERROR HANDLING (toàn module)**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| S01-E1 | SHIFT-01 | **Xóa ca có NV tương lai** — Ca đang có 200 NV assigned từ tuần sau | HIGH | Chặn xóa. Hiển thị "Không thể xóa — còn X nhân viên được gán. Chuyển NV trước hoặc chuyển ca sang Inactive". Cho phép toggle Inactive thay vì hard delete. |
+| S02-E1 | SHIFT-02 | **Ca 24h (bảo vệ/security)** — Ca 00:00-00:00 | MEDIUM | Logic Ca đêm phát hiện sai khi Giờ Vào = Giờ Ra. Quy ước: nếu startTime == endTime → ca 24h. workingHours bắt buộc nhập thủ công. |
+| S02-E2 | SHIFT-02 | **Thời gian hiệu lực chồng chéo** — Ca A (01/01-31/12) và Ca B (01/06-31/12) cùng NV | HIGH | Unique constraint: tenant + employee + date. Khi import/gán ca → validate: nếu NV đã có ca Active tại ngày X → hiển thị lỗi "Xung đột với ca [Tên ca] từ dd/MM". |
+| S03-E1 | SHIFT-03 | **Punch limit = 0** — HR set giới hạn Check-In sớm = 0 giờ | LOW | Cảnh báo: "Punch limit = 0 sẽ chặn mọi mốc chấm công ngoài khung ca chính xác. Bạn có chắc?" Yêu cầu confirm trước khi lưu. |
+| S04-E1 | SHIFT-04 | **Nhiều khung nghỉ (2+ breaks)** — Ca có nghỉ sáng 10:00-10:15 + nghỉ trưa 12:00-13:00 | MEDIUM | Hỗ trợ mảng breaks[] (EAMS §4.2). UI cho phép "Thêm khung nghỉ" button. Mỗi break: startTime, endTime, isPaid. Tổng thời gian nghỉ = SUM(breaks). |
+| S05-E1 | SHIFT-05 | **NV Inactive trong file import** — File Excel chứa NV đã nghỉ việc | HIGH | Validation: kiểm tra employee.status. NV Inactive/Transferred → ghi vào file lỗi: "Nhân viên [Mã] đã Inactive — không thể gán ca". Skip bản ghi đó. |
+| S05-E2 | SHIFT-05 | **File Excel chứa formulas** — Cell chứa =VLOOKUP() thay vì giá trị | MEDIUM | Backend parse values-only (read cell.value, ignore formulas). Nếu cell trả về null/error → ghi file lỗi: "Ô [column][row] chứa công thức lỗi". |
+
+---
+
 ### **7. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Người dùng đã đăng nhập với role HR Admin hoặc cao hơn.

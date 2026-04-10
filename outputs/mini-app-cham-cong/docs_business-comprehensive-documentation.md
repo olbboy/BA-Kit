@@ -632,6 +632,53 @@ Các cột trong file payroll:
 
 ---
 
+## 12. CROSS-MODULE EDGE CASES & POLICIES
+
+### 12.1 Employee Offboarding
+
+Khi nhân viên nghỉ việc (status → TERMINATED):
+
+| Hệ thống con | Hành động tự động |
+|--------------|-------------------|
+| Đơn PENDING (Leave/OT/Correction) | Auto-cancel tất cả. Push HR: "X đơn của [NV] đã tự động hủy do nghỉ việc". |
+| Leave Balance | Freeze. Tính ngày phép chưa sử dụng → gửi Payroll module để quyết toán. |
+| Shift Assignment | Remove từ ngày hiệu lực (terminationDate + 1). |
+| C-Vision Mapping | Deactivate (soft delete). Webhook với personId cũ → ignored. |
+| Approval Chain | Re-route đơn đang duyệt sang fallback. Remove khỏi approver pool. |
+| Notification | Deactivate Push token. Gửi email cuối cùng: "Tài khoản đã bị vô hiệu hóa". |
+
+### 12.2 Data Retention Policy
+
+| Loại dữ liệu | Thời gian lưu | Cơ sở pháp lý |
+|--------------|---------------|---------------|
+| Attendance Records | 5 năm | Luật Lao động 2019 §12 |
+| Ảnh Face ID (captures) | 90 ngày | NĐ 13/2023 về BVDL cá nhân |
+| Audit Logs | 3 năm | Quy định nội bộ |
+| Payroll Exports | 10 năm | Luật Kế toán |
+| Leave/OT Requests | 3 năm | Quy định nội bộ |
+| C-Vision Mapping | Xóa khi NV nghỉ việc + 90 ngày | NĐ 13/2023 |
+
+Batch job dọn dẹp chạy 00:00 ngày 01 hàng tháng: xóa dữ liệu hết hạn retention.
+
+### 12.3 System Failure & Recovery
+
+| Scenario | Recovery Procedure |
+|----------|-------------------|
+| EAMS Backend down 2h (08:00-10:00) | C-Vision queue webhooks (Redis). Khi recovery → replay toàn bộ từ dead letter queue. BullMQ tự động xử lý backlog. |
+| Database failover | PostgreSQL streaming replication. RTO < 5 phút. Không mất dữ liệu (RPO = 0). |
+| Batch Job 00:01 fail | Per-employee transaction. Retry queue cho NV lỗi. Admin alert + manual retry button. |
+| Push Service down | Exponential backoff retry → fallback Email → dead letter queue. |
+
+### 12.4 Concurrent Modification Protection
+
+| Conflict | Resolution |
+|----------|-----------|
+| HR sửa ca + NV gửi đơn đổi ca cùng lúc | Optimistic locking (version field trên ShiftAssignment). Ai save sau → nhận lỗi "Dữ liệu đã thay đổi, vui lòng tải lại". |
+| 2 HR cùng approve 1 đơn | Pessimistic lock trên ApprovalStep. Người approve sau → nhận thông báo "Đơn đã được [Tên] xử lý". |
+| NV hủy đơn + Manager approve cùng lúc | Approve có priority cao hơn. Nếu approve xong trước → NV nhận "Đơn đã được duyệt, không thể hủy". |
+
+---
+
 ## PHỤ LỤC: THUẬT NGỮ
 
 | Thuật ngữ | Tiếng Việt | Mô tả |

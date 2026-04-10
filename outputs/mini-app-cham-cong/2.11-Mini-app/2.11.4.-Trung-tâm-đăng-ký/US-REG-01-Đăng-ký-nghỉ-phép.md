@@ -62,9 +62,21 @@
 
 ---
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| R01-E1 | **Nghỉ phép trùng OT đã duyệt** — NV có OT approved ngày 20/05, sau đó đăng ký nghỉ phép ngày 20/05 | HIGH | Cross-check OvertimeRequest. Hiển thị cảnh báo: "Bạn có OT đã duyệt ngày 20/05 (18:00-20:00). Nghỉ phép sẽ hủy OT. Xác nhận?". Nếu confirm → tạo đơn nghỉ + auto-cancel OT. |
+| R01-E2 | **Nghỉ phép xuyên 2 tháng** — Nghỉ 28/03 đến 02/04 | MEDIUM | Balance trừ theo tháng thực tế: 2 ngày tháng 3 + 1 ngày tháng 4 (trừ T7/CN). Hệ thống split balance deduction. Hiển thị: "Tháng 3: -2 ngày, Tháng 4: -1 ngày". |
+| R01-E3 | **Carryover hết hạn** — NV còn 5 ngày carryover, hết hạn 31/03. Đăng ký nghỉ 01/04 | CRITICAL | Batch job chạy 00:01 ngày 01/04: carryover balance → 0. Đơn nghỉ ngày 01/04+ trừ vào phép năm mới. Nếu hết phép → chặn. Gửi Push trước 7 ngày: "Bạn còn X ngày carryover sắp hết hạn 31/03". |
+| R01-E4 | **Hủy đơn đã APPROVED** — NV muốn hủy nghỉ phép đã duyệt (kế hoạch thay đổi) | HIGH | Không cho phép hủy trực tiếp. Tạo workflow "Yêu cầu hủy nghỉ phép": NV nhập lý do → gửi HR duyệt. Nếu HR approve cancel → balance.used -= days. Nếu ngày nghỉ đã qua → chặn hủy. |
+| R01-E5 | **NV thử việc (probation)** — NV mới < 12 tháng, phép tính khác | MEDIUM | Hiển thị công thức: "Phép = (12 × số_tháng_làm) / 12 = X ngày". Hiển thị ngay trên form bên cạnh hạn mức để NV hiểu. |
+
+---
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Race condition:** Kiểm thử 2 request đồng thời cho cùng NV → Chỉ 1 request thành công (pessimistic lock).
 2. **Exclusion constraint:** Tạo đơn trùng ngày → DB reject (PostgreSQL exclusion constraint với GiST index).
 3. **Giao diện:** Form responsive, hiển thị tốt trên mobile và web.
-4. **QA:** Kiểm thử tất cả 8 loại phép với các case: đủ phép, hết phép, carryover, nửa ngày.
+4. **QA:** Kiểm thử tất cả 8 loại phép + **carryover expiration, cross-month leave, leave vs OT conflict, cancel approved leave, probation entitlement**.

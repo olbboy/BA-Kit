@@ -54,9 +54,19 @@
 
 ---
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| A04-E1 | **Nhiều loại vi phạm cùng ngày** — NV vừa "Đi muộn" vừa "Thiếu quẹt" | MEDIUM | Hiển thị tất cả vi phạm (mỗi loại 1 dòng). Ưu tiên hiển thị: Vắng mặt > Thiếu quẹt > Đi muộn > Về sớm. Giới hạn 3 cảnh báo mới nhất → "Xem tất cả" cho phần còn lại. |
+| A04-E2 | **Ca thay đổi retroactively** — HR đổi ca cho NV sau khi cảnh báo đã tạo | HIGH | Khi ca thay đổi → batch job re-evaluate toàn bộ anomalies của NV trong ngày. Cảnh báo cũ bị xóa/cập nhật nếu không còn vi phạm với ca mới. Ghi audit log "Cảnh báo tự động xóa do thay đổi ca". |
+| A04-E3 | **NV nghỉ phép nửa ngày + cảnh báo** — NV nghỉ AM, làm PM. Hệ thống báo "Vắng mặt" sáng | MEDIUM | Cross-check đơn nghỉ phép APPROVED trước khi tạo cảnh báo. Nếu có đơn nghỉ AM/PM → chỉ quét buổi còn lại. Nếu có đơn cả ngày → không tạo cảnh báo. |
+
+---
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu thực**: Danh sách cảnh báo phải khớp hoàn toàn với Badge trạng thái trong Nhật ký (Module 01).
 2. **Thông báo (Push)**: Đi kèm với hiển thị trên App, hệ thống nên gửi 1 Push Notification nhắc nhở vào 08:00 AM sáng hôm sau nếu vi phạm chưa được xử lý.
 3. **Giao diện**: Layout Web phải nổi bật màu sắc cảnh báo (Tone màu Cam/Đỏ) để gây chú ý cho người dùng.
-4. **QA**: Kiểm thử logic quét dữ liệu sau 24h đối với 4 loại vi phạm nêu trên.
+4. **QA**: Kiểm thử logic quét dữ liệu sau 24h đối với 4 loại vi phạm — **thêm case: nhiều vi phạm/ngày, thay đổi ca retroactively, nghỉ phép nửa ngày**.

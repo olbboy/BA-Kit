@@ -53,7 +53,21 @@
 
 ### **4. DEFINITION OF DONE (DOD)**
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| E01-E1 | **Ngày chốt công vào T7/CN/Lễ** — Ngày 25 là Chủ nhật | MEDIUM | Quy tắc: đẩy về ngày làm việc gần nhất TRƯỚC ngày chốt (tức thứ 6 ngày 24). Cấu hình tại Module 10 (Phê duyệt). |
+| E01-E2 | **HR đã sửa công trước khi NV giải trình** — HR nhập thủ công (Manual Entry) cho ngày X, NV vẫn thấy lỗi ngày X | HIGH | Cross-check: nếu ngày X đã có Manual Entry APPROVED → ẩn lỗi, hiển thị "Đã được HR điều chỉnh". Nếu NV đã tạo đơn giải trình → thông báo "Ngày công này đã được HR xử lý — đơn giải trình sẽ tự động hủy". |
+| E01-E3 | **Giải trình cho ngày chưa kết thúc** — NV thấy "Thiếu check-out" lúc 15:00 nhưng ca kết thúc 17:30 | MEDIUM | Hệ thống chỉ tạo anomaly "Thiếu check-out" sau khi: ca kết thúc + lateCheckOutMinutes (punch limit) + 1 giờ buffer. Trước mốc đó → không hiển thị lỗi thiếu quẹt. |
+| E01-E4 | **Exception Approval sau chốt công** — Cần workflow duyệt ngoại lệ cho đơn tháng cũ | CRITICAL | **Workflow bổ sung:** Chỉ GLOBAL_HR hoặc SYS_ADMIN có quyền mở khóa (Unlock) đơn giải trình sau chốt. Form "Yêu cầu mở khóa": chọn NV + ngày + lý do ngoại lệ. Mọi Unlock được ghi audit log immutable. Giới hạn: tối đa 30 ngày sau chốt công. |
+
+---
+
+### **4. DEFINITION OF DONE (DOD)**
+
 1. **Logic Locking**: Kiểm thử chuyển ngày hệ thống sang ngày 26 (sau ngày chốt 25) ➔ Đảm bảo tất cả đơn tháng cũ bị khóa nút "Giải trình".
 2. **Thông báo**: Hệ thống tự động gửi Push cảnh báo trước 24h khi đến ngày chốt công cho các nhân viên có lỗi tồn đọng.
 3. **UI/UX**: Trạng thái "Vi phạm quy chế" phải trông khác biệt rõ rệt so với "Chờ giải trình" để người dùng nhận thức được mức độ nghiêm trọng.
 4. **Data Persistence**: Vi phạm không bị mất đi kể cả khi nhân viên cài lại App hoặc chuyển thiết bị.
+5. **Exception Approval**: Kiểm thử GLOBAL_HR mở khóa đơn sau chốt → đơn được xử lý + audit log ghi đầy đủ.

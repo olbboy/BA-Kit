@@ -85,6 +85,17 @@ Admin truy cập "Cấu hình thông báo"
 
 ---
 
+### **EDGE CASES & ERROR HANDLING (toàn module)**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| N01-E1 | NOTIF-01 | **Push service down** — Firebase/APNs down | HIGH | Queue thông báo với exponential backoff retry (1s, 2s, 4s, 8s... max 5 phút). Sau 3 lần fail → fallback sang Email. Sau 5 lần fail tất cả kênh → ghi dead letter queue + alert Admin "Notification service degraded". |
+| N01-E2 | NOTIF-01 | **NV gỡ app** — Push token bị vô hiệu | MEDIUM | Detect invalid token từ Firebase response (410 Gone). Auto-fallback sang Email cho NV đó. Thông báo bắt buộc (phê duyệt, kỷ luật) → gửi Email bất kể. Dashboard Admin hiển thị "X NV không có Push token — chỉ nhận Email". |
+| N02-E1 | NOTIF-02 | **Notification storm** — 500 NV chấm công cùng lúc 8:00 sáng | HIGH | Batching window 10 giây cho sự kiện check-in đồng loạt. Rate limit: tối đa 500 push/giây (Firebase limit). Queue overflow → delay gửi trong 1-2 phút, không drop. |
+| N03-E1 | NOTIF-03 | **Schedule vs Ca đêm** — Khung gửi 07:00-22:00 nhưng NV làm ca đêm | MEDIUM | NV ca đêm (isNightShift=true): exempt khỏi schedule restriction. Thông báo nhắc chấm công ca đêm gửi ngay bất kể giờ. Cấu hình: checkbox "Áp dụng schedule cho NV ca đêm" (default: OFF). |
+
+---
+
 ### **7. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Hệ thống Push Notification đã được tích hợp (Firebase/APNs).

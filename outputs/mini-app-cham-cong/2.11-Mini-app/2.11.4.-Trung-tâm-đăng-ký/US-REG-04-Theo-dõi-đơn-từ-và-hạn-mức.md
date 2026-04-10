@@ -60,9 +60,18 @@
 
 ---
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| R04-E1 | **Self-approval** — NV đồng thời là Manager, gửi đơn và tự duyệt cho chính mình | CRITICAL | **Chặn tuyệt đối.** Backend validate: requestor.id !== approver.id. Nếu NV là Manager → đơn tự động skip level 1, chuyển lên DEPT_HEAD hoặc SITE_HR. Ghi audit: "Self-approval blocked — escalated to [approver]". |
+| R04-E2 | **Approver đi nghỉ** — Manager nghỉ phép 2 tuần, đơn team bị treo | HIGH | Auto-delegation: nếu approver có đơn nghỉ APPROVED trùng ngày → fallback chain tự động kích hoạt (EAMS §7.3): DIRECT_MANAGER → SITE_MANAGER → SITE_HR → GLOBAL_HR. Push cho NV: "Đơn đã chuyển đến [Tên approver mới] do quản lý đang nghỉ phép". |
+
+---
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Hủy đơn:** Kiểm thử hủy đơn PENDING → Balance phải hoàn lại đúng. Hủy đơn APPROVED → Phải bị chặn.
 2. **Lý do từ chối:** Kiểm thử đơn bị reject → Lý do hiển thị đúng từ approver.
 3. **Hiệu năng:** Tải danh sách 100+ đơn ≤ 2 giây.
-4. **QA:** Kiểm thử lọc kết hợp nhiều điều kiện; pagination hoạt động đúng.
+4. **QA:** Kiểm thử lọc kết hợp nhiều điều kiện; pagination; **self-approval blocked; approver delegation**.

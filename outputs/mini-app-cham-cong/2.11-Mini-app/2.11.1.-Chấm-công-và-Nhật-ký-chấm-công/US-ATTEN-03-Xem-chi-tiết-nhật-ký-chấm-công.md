@@ -58,9 +58,20 @@
 
 ---
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| A03-E1 | **Ảnh Face ID không khả dụng** — C-Vision không trả ảnh (lỗi mạng, hết dung lượng) | MEDIUM | Hiển thị placeholder "Ảnh không khả dụng" + icon retry. Không block hiển thị mốc giờ. Lazy-load ảnh riêng biệt. |
+| A03-E2 | **Giải trình đang PENDING** — Ngày có đơn giải trình chưa duyệt | LOW | Hiển thị Badge phụ "Đang giải trình" (Vàng) bên cạnh Badge trạng thái chính. Tooltip: "Đơn giải trình đang chờ duyệt". |
+| A03-E3 | **Data retention — Ảnh Face ID** — Thời gian lưu trữ ảnh cá nhân | CRITICAL | **Chính sách bắt buộc:** Ảnh Face ID lưu tối đa 90 ngày kể từ ngày chấm công (tuân thủ NĐ 13/2023 về BVDL cá nhân). Sau 90 ngày: ảnh bị xóa, Accordion hiển thị "Ảnh đã hết hạn lưu trữ". Mốc giờ + metadata vẫn giữ. |
+
+---
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Chất lượng ảnh**: Ảnh snapshot từ Camera AI phải được hiển thị rõ nét, tốc độ tải ảnh nhanh, không làm chậm trang.
 2. **Độ đồng nhất**: Dữ liệu giờ công trong nhật ký phải khớp 100% với dữ liệu hiển thị tại Thẻ Hub (US-ATTEN-01).
 3. **Giao diện Web**: Hiệu ứng mở rộng/thu gọn mượt.
 4. **Phản quyền**: Đảm bảo nhân viên không thể thay đổi hoặc can thiệp vào dữ liệu nhật ký này (Read-only).
+5. **Data retention**: Kiểm thử ảnh > 90 ngày → hiển thị "Ảnh đã hết hạn lưu trữ" + mốc giờ vẫn hiển thị đúng.

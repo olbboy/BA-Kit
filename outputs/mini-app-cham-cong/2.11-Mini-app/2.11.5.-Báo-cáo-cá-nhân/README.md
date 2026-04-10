@@ -82,6 +82,16 @@ NV chọn kỳ báo cáo (tháng/quý) để xem chi tiết
 
 ---
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| P01-E1 | RPTPRS-01 | **NV chuyển phòng ban giữa kỳ** — NV chuyển từ Phòng A sang Phòng B giữa tháng | MEDIUM | Score so sánh với trung bình phòng tại thời điểm hiện tại (Phòng B). Ghi chú: "Bạn chuyển phòng ngày dd/MM — dữ liệu trước đó tính tại Phòng A". |
+| P01-E2 | RPTPRS-01 | **Dữ liệu đang bị dispute** — NV có 5 đơn giải trình PENDING trong tháng | LOW | Hiển thị label "Tạm tính — X đơn đang chờ duyệt" bên cạnh Score. Sử dụng icon cảnh báo. Score sẽ tự cập nhật khi đơn được duyệt. |
+| P02-E1 | RPTPRS-02 | **Quý chưa kết thúc** — So sánh Q2 (đang giữa) với Q1 (đã kết thúc) không công bằng | LOW | Hiển thị "Dữ liệu tạm tính đến dd/MM/yyyy" + ghi chú "So sánh sẽ chính xác hơn khi quý kết thúc". Mũi tên trend chỉ hiển thị khi quý hiện tại đã qua ≥ 2 tháng. |
+
+---
+
 ### **7. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Nhân viên đã có dữ liệu chấm công ít nhất 1 tháng.

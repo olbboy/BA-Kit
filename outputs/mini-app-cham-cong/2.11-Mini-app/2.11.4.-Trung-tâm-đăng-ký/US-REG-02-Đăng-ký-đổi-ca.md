@@ -55,9 +55,18 @@
 
 ---
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| R02-E1 | **Đổi ca sau khi đã check-in** — NV check-in 8:00 (ca Sáng), đơn đổi sang ca Chiều được duyệt | HIGH | Chặn đổi ca cho ngày đã có dữ liệu chấm công. Hiển thị lỗi: "Không thể đổi ca — đã có mốc chấm công ngày [dd/MM]. Vui lòng giải trình thay vì đổi ca." |
+| R02-E2 | **Đổi ca tương hỗ (swap)** — NV A muốn đổi ca với NV B | MEDIUM | Phase 1: chưa hỗ trợ swap. Hiển thị note: "Để đổi ca với đồng nghiệp, cả 2 cần gửi đơn đổi ca riêng". Phase 2 (future): form Swap Request linking 2 NV. |
+
+---
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu:** Sau khi đơn APPROVED, ca của NV trong ngày đó phải thay đổi trong Database và hiển thị đúng trên Dashboard (Module 01).
 2. **Thông báo:** NV nhận Push notification khi đơn được duyệt/từ chối.
 3. **UI:** Form hiển thị trực quan ca cũ → ca mới dạng so sánh.
-4. **QA:** Kiểm thử case đổi ca đêm, ca xoay, và xung đột nhiều đơn cùng ngày.
+4. **QA:** Kiểm thử case đổi ca đêm, ca xoay, xung đột nhiều đơn cùng ngày, **đổi ca ngày đã check-in**.

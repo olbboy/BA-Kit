@@ -80,3 +80,15 @@ Mapping giữa thuật ngữ Confluence (UI Specs) và EAMS v2.0 (Architecture):
 | Product Owner | — | Phê duyệt scope và ưu tiên |
 | Dev Lead | — | Thực thi theo EAMS v2.0 + User Stories |
 | QA Lead | — | Kiểm thử theo Acceptance Criteria + UAT |
+
+---
+
+## Open Questions (Cần PO/Stakeholder quyết định)
+
+| # | Câu hỏi | Module | Impact |
+|---|---------|--------|--------|
+| OQ-1 | **Grace Period và Ca Đêm:** Grace period tính tại thời điểm bắt đầu ca (20:00) hay bắt đầu ngày mới (00:00)? | 01, 02 | Tính trễ sai cho NV ca đêm |
+| OQ-2 | **Multi-tenant holiday:** Mỗi tenant có lịch nghỉ riêng hay dùng chung lịch quốc gia? | 07 | Ảnh hưởng thiết kế DB + UI |
+| OQ-3 | **OT ca đêm surcharge:** OT từ 22:00-06:00 có tính thêm hệ số ca đêm (night shift premium) ngoài hệ số OT không? | 04, 11 | Tính lương sai |
+| OQ-4 | **WFH tracking:** NV đăng ký WFH nhưng không có mốc chấm công. Coi như "Có mặt" hay "WFH — không kiểm chứng"? | 06, 07 | Ảnh hưởng báo cáo chuyên cần |
+| OQ-5 | **Payroll template:** MISA, SAP, Oracle HCM yêu cầu format khác nhau. Cần configurable template hay cố định 13 cột? | 11 | Scope phát triển export |

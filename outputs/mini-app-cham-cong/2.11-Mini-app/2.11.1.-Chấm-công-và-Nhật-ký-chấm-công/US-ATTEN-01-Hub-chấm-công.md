@@ -58,10 +58,23 @@
 
 ---
 
+### **EDGE CASES & ERROR HANDLING**
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| A01-E1 | **NV multi-site check-in** — NV thuộc 2 site (VD: IT hỗ trợ), check-in tại site không phải Primary | HIGH | Dashboard hiển thị ca của site nơi NV check-in (match siteId từ camera deviceId). Nếu không có ca tại site đó → Badge "Không có ca tại chi nhánh này". |
+| A01-E2 | **Multiple check-in liên tiếp** — Camera glitch gửi 3 check-in cách nhau > 30s nhưng không có check-out | HIGH | De-duplication 30s chỉ lọc trong 30s. Ngoài 30s: lấy mốc CHECK_IN sớm nhất trong ca. Các mốc sau được xử lý theo logic xen kẽ (toggle IN/OUT). |
+| A01-E3 | **Webhook delay > 60s SLA** — C-Vision webhook bị chậm | MEDIUM | App hiển thị mini-banner "Đang đồng bộ dữ liệu..." thay vì Badge xám "Chưa chấm công" gây hiểu lầm. Auto-retry mỗi 15s, timeout sau 5 phút. |
+| A01-E4 | **NV không được gán ca** — NV chưa được HR gán Shift nhưng vẫn quét mặt | MEDIUM | Badge "Chưa có ca làm việc". Thanh tiến độ ẩn. Hiển thị link "Liên hệ HR để được gán ca". Dữ liệu chấm công vẫn được lưu (record status: UNASSIGNED). |
+| A01-E5 | **Confidence = 0.85 (boundary)** | LOW | Threshold inclusive: confidence >= 0.85 → APPROVED. Xác nhận đúng ký hiệu ">=" trong code. |
+| A01-E6 | **Ca đêm qua 2 ngày lễ khác loại** — Ca đêm 20:00 (T) - 06:00 (T+1), T là ngày thường, T+1 là ngày lễ | MEDIUM | Giờ làm trước 00:00 tính theo loại ngày T (weekday). Giờ làm sau 00:00 tính theo loại ngày T+1 (holiday). Split calculation tại mốc 00:00 cho hệ số OT chính xác. |
+
+---
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Phần quyền**: Phân quyền RBAC (NV xem của mình) và ABAC (Lọc theo Team_ID đối với Manager) được áp dụng đúng.
 2. **Độ chính xác**: Tất cả field hiển thị đúng dữ liệu thực từ Camera AI. Sai số ±1 phút do độ trễ mạng.
-3. **Kiểm thử**: Logic thanh tiến độ được Unit Test với các case: Bình thường, Đi muộn, Về sớm, Tăng ca xuyên đêm.
+3. **Kiểm thử**: Logic thanh tiến độ được Unit Test với các case: Bình thường, Đi muộn, Về sớm, Tăng ca xuyên đêm, **Multi-site, No-shift, Ca đêm qua ngày lễ**.
 4. **Báo cáo**: QA xác nhận đầy đủ test case pass (> 90%).
 5. **Giao diện**: Responsive đúng Figma, không vỡ layout

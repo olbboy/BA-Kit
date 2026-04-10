@@ -62,6 +62,18 @@ Organization (Tenant)
 
 ---
 
+### **EDGE CASES & ERROR HANDLING (toàn module)**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| E01-E1 | EMP-01 | **Circular reference trong cây tổ chức** — Dept A là cha của Dept B, Dept B là cha của Dept A (kéo thả sai) | HIGH | Validate DAG (Directed Acyclic Graph) trước khi lưu. Nếu phát hiện cycle → chặn + thông báo "Không thể tạo vòng lặp trong cơ cấu tổ chức". |
+| E04-E1 | EMP-04 | **Import idempotency** — HR upload cùng file 2 lần | MEDIUM | Lần 2: NV đã tồn tại (cùng Mã NV) → Skip toàn bộ. Hiển thị kết quả: "X bản ghi đã tồn tại — bỏ qua". Không tạo duplicate. |
+| E04-E2 | EMP-04 | **Cần rollback import** — Import 5000 NV, 4000 thành công, phát hiện file sai | HIGH | Cung cấp chức năng "Hủy import" trong vòng 30 phút. Sau 30 phút → lock. Hủy import → xóa toàn bộ NV được tạo trong batch đó (theo batchId). Ghi audit log. |
+| E05-E1 | EMP-05 | **NV Công tác (Business Travel)** — Dashboard hiện diện thiếu trạng thái Công tác | MEDIUM | Thêm trạng thái thứ 5: On-site / WFH / Công tác / Vắng mặt / Nghỉ phép. NV có đơn Công tác APPROVED → counter "Công tác". |
+| E05-E2 | EMP-05 | **NV ca linh hoạt (FLEXIBLE/FREE)** — Không có giờ bắt đầu ca cố định | MEDIUM | NV ca FREE: "Vắng mặt" chỉ tính khi hết ngày làm việc (23:59) mà không có mốc check-in nào. Trong ngày: hiển thị "Chưa check-in" (Xám) thay vì "Vắng mặt" (Đỏ). |
+
+---
+
 ### **5. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Người dùng đã đăng nhập với role HR Admin hoặc cao hơn.

@@ -86,6 +86,18 @@ IT Admin truy cập "Cấu hình Camera AI"
 
 ---
 
+### **EDGE CASES & ERROR HANDLING (toàn module)**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| C01-E1 | CAM-01 | **Camera đổi site** — Camera chuyển từ Site A sang Site B | MEDIUM | Cho phép update siteId. Dữ liệu lịch sử giữ nguyên (gán theo siteId tại thời điểm ghi nhận). Audit log: "Camera [X] chuyển từ Site A → Site B bởi [Admin]". |
+| C01-E2 | CAM-01 | **Clock sync** — Camera clock lệch 5 phút so với server | HIGH | **Bắt buộc** dùng server timestamp (receivedAt) thay vì device timestamp (recognitionTime) cho mục đích tính công. recognitionTime chỉ dùng tham khảo. Cảnh báo IT nếu abs(serverTime - deviceTime) > 2 phút. |
+| C02-E1 | CAM-02 | **Duplicate personId** — 1 NV có 2 personId trong C-Vision | CRITICAL | Detect: nếu 2 mapping khác nhau match cùng employeeId → cảnh báo HR "NV [Tên] có 2 personId: [A], [B]". Cho phép merge: chọn personId chính, deactivate personId phụ. Tất cả records cũ với personId phụ → re-map sang personId chính. |
+| C02-E2 | CAM-02 | **NV nghỉ việc — mapping cleanup** — Mapping vẫn active sau khi NV terminated | MEDIUM | Khi NV status → INACTIVE/TERMINATED: auto-deactivate mapping (soft delete). Webhook với personId cũ → log "PersonId [X] mapped to terminated employee — ignored". Không tạo attendance record. |
+| C03-E1 | CAM-03 | **Camera offline + NV quét mặt** — Camera offline, NV quét nhưng không có webhook | HIGH | Push cho toàn bộ NV thuộc site có camera offline: "Camera tại [Tên sảnh] đang bảo trì. Vui lòng sử dụng cổng [Y] hoặc liên hệ HR nhập thủ công." Hiển thị banner đỏ trên Dashboard NV: "Camera tạm ngưng — dữ liệu chấm công có thể chậm". |
+
+---
+
 ### **7. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Camera AI (C-Vision) đã được lắp đặt và kết nối internet ổn định.

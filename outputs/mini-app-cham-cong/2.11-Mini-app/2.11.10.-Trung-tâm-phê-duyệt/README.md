@@ -87,6 +87,18 @@ Approver xem chi tiết → Duyệt / Từ chối (kèm lý do)
 
 ---
 
+### **EDGE CASES & ERROR HANDLING (toàn module)**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| AP01-E1 | APPR-01 | **Approver bị terminated** — Manager nghỉ việc khi có 10 đơn PENDING | CRITICAL | Auto-reassign: khi user status → INACTIVE → batch re-route tất cả đơn PENDING sang fallback chain (SITE_MANAGER → SITE_HR → GLOBAL_HR). Push cho NV: "Đơn đã chuyển đến [Approver mới]". Ghi audit: "Auto-reassigned due to approver termination". |
+| AP01-E2 | APPR-01 | **Auto-approve timeout** — Đơn pending 30 ngày không ai duyệt | HIGH | Cấu hình timeout per loại đơn (default: 7 ngày). Sau timeout: auto-escalate lên level tiếp theo. Nếu đã ở level cao nhất → alert GLOBAL_HR + gửi email "X đơn quá hạn duyệt". Không auto-approve (rủi ro pháp lý). |
+| AP02-E1 | APPR-02 | **Tổ chức thay đổi giữa approval** — NV chuyển phòng khi đơn đang Level 1 APPROVED, chờ Level 2 | MEDIUM | Snapshot approver chain tại thời điểm tạo đơn. Thay đổi tổ chức sau đó KHÔNG ảnh hưởng đơn đang xử lý. Đơn mới sau thay đổi → dùng chain mới. |
+| AP02-E2 | APPR-02 | **Ngày chốt công khác nhau theo site** — Site A chốt 25, Site B chốt 28. NV multi-site | HIGH | Áp dụng closing date của Primary Site (employee.primarySiteId). Hiển thị rõ trên UI: "Ngày chốt công: [dd/MM] (theo chi nhánh [Tên])". |
+| AP03-E1 | APPR-03 | **Batch approve lỗi giữa chừng** — Batch 50 đơn, đơn thứ 25 bị lỗi | MEDIUM | Xử lý tuần tự, không rollback đơn đã xử lý. Kết quả: "24 thành công ✓, 1 thất bại ✗, 25 chưa xử lý ○". Cho phép retry đơn thất bại riêng. NV đã duyệt → nhận thông báo ngay (không chờ batch hoàn tất). |
+
+---
+
 ### **7. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Cấu hình tổ chức đã được thiết lập (Manager → NV relationship).

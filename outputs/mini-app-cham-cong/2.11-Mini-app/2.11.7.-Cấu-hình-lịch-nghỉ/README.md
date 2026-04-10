@@ -131,6 +131,18 @@ graph LR
 
 ---
 
+### **EDGE CASES & ERROR HANDLING (toàn module)**
+
+| # | US | Case | Severity | Expected Behavior |
+|---|-----|------|----------|-------------------|
+| H01-E1 | HOL-01 | **Tết Nguyên Đán — âm lịch** — Ngày Tết thay đổi mỗi năm | CRITICAL | Hệ thống seed danh sách ngày lễ VN theo năm dương lịch (đã convert). Admin **bắt buộc** xác nhận lại ngày Tết mỗi năm trước 01/12. Nếu chưa xác nhận → cảnh báo "Lịch Tết năm [X] chưa được xác nhận". Hỗ trợ tích hợp API âm-dương lịch. |
+| H01-E2 | HOL-01 | **Lịch nghỉ khác nhau theo site** — Chi nhánh HCM và Hà Nội có ngày nghỉ nội bộ khác | HIGH | Hỗ trợ scope: COMPANY (toàn cty) và SITE (chi nhánh). Lịch COMPANY áp dụng tất cả. Lịch SITE chỉ áp dụng NV thuộc site đó. UI: dropdown chọn scope khi tạo ngày nghỉ. |
+| H01-E3 | HOL-01 | **Ngày làm bù (Saturday substitution)** — Chính phủ quy định làm bù thứ 7 khi dịch nghỉ lễ | HIGH | Thêm loại "SUBSTITUTION_WORKDAY" trong holiday config. Ngày này: NV phải chấm công bình thường dù là T7/CN. Hệ thống KHÔNG tự gán "HỢP LỆ", đếm là ngày làm việc. |
+| H02-E1 | HOL-02 | **Nghỉ thiên tai retroactively** — Admin kích hoạt nghỉ ngày 15/03 cho ngày 13-14/03 (2 ngày trước) | MEDIUM | Batch job re-process: cập nhật DailyAttendanceSummary ngày 13-14 → trạng thái "NGHỈ KHẨN CẤP". Xóa anomaly/vi phạm phát sinh trong 2 ngày đó. Ghi audit: "Retroactive emergency leave applied by [Admin]". |
+| H03-E1 | HOL-03 | **Batch job fail giữa chừng** — Job 00:01 bị lỗi khi xử lý NV thứ 3000/5000 | HIGH | Transaction per-employee (không wrap toàn bộ 5000 NV). 3000 NV đã xử lý → giữ nguyên. 2000 NV chưa xử lý → ghi vào retry queue. Admin nhận alert + nút "Chạy lại batch job". Log chi tiết: NV nào thành công, NV nào lỗi. |
+
+---
+
 ### **7. ĐIỀU KIỆN GIẢ ĐỊNH**
 
 1. Hệ thống đã có danh sách nhân sự kèm Ngày sinh chính xác.
