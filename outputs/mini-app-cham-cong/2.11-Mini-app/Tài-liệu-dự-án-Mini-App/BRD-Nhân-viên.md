@@ -20,41 +20,49 @@
 
 ```mermaid
 graph TD
-    A([Nhan vien mo Mini App]) --> B[Dashboard Ca nhan<br/>Gio vao + Progress bar 8h]
+    A(["🧑‍💼 Nhân viên mở Mini App"]) --> B["📊 Dashboard Cá nhân<br/><i>Giờ vào + Thanh tiến độ 8h</i>"]
 
-    subgraph Features["6 chuc nang ESS"]
-        C[Nhat ky Cham cong<br/>In/Out + Anh Face ID]
-        D[Trung tam Dang ky<br/>Nghi phep / Doi ca / OT]
-        E[Giai trinh cong<br/>Muon/Som + Minh chung]
-        F[Bao cao ca nhan<br/>KPI + Score chuyen can]
-        G[Setup Ho so<br/>Thong tin + Face ID]
+    subgraph features [" 📱 6 chức năng ESS "]
+        C["📒 Nhật ký Chấm công<br/><i>In/Out + Ảnh Face ID</i>"]
+        D["📝 Trung tâm Đăng ký<br/><i>Nghỉ phép · Đổi ca · OT</i>"]
+        E["⚠️ Giải trình công<br/><i>Muộn/Sớm + Minh chứng</i>"]
+        F["📈 Báo cáo cá nhân<br/><i>KPI + Điểm chuyên cần</i>"]
+        G["⚙️ Setup Hồ sơ<br/><i>Thông tin + Face ID</i>"]
     end
 
     B --> C & D & E & F & G
 
-    subgraph Approval["Luong phe duyet"]
-        D & E --> H[Gui don - PENDING]
-        H --> I{Manager/HR<br/>phe duyet}
-        I -->|Duyet| J[Cap nhat du lieu]
-        I -->|Tu choi| K[/Phan hoi ly do/]
+    subgraph approval [" ✅ Luồng phê duyệt "]
+        H["📤 Gửi đơn → PENDING"]
+        I{"👔 Manager / HR<br/>phê duyệt"}
+        J["✅ Cập nhật dữ liệu"]
+        K["❌ Phản hồi lý do<br/>từ chối"]
     end
 
-    subgraph Setup["Dang ky Face ID"]
-        G -->|Buoc 1| G1[Thong tin ca nhan]
-        G1 -->|Buoc 2| G2[Dinh danh Face AI]
-        G2 -->|Buoc 3| G3[Hoan tat]
+    D & E --> H --> I
+    I -->|"Duyệt"| J
+    I -->|"Từ chối"| K
+
+    subgraph setup [" 🆔 Đăng ký Face ID "]
+        G1["<b>Bước 1</b><br/>Thông tin cá nhân"]
+        G2["<b>Bước 2</b><br/>📷 Định danh khuôn mặt AI"]
+        G3["<b>Bước 3</b><br/>✅ Hoàn tất"]
     end
+
+    G --> G1 --> G2 --> G3
+
+    style features fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style approval fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style setup fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
 
     classDef start fill:#4CAF50,color:#fff,stroke-width:2px
-    classDef dashboard fill:#1976D2,color:#fff,stroke-width:2px
-    classDef feature fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
-    classDef success fill:#66BB6A,color:#fff,stroke-width:2px
-    classDef fail fill:#EF5350,color:#fff,stroke-width:2px
+    classDef dash fill:#1976D2,color:#fff,stroke-width:2px
+    classDef ok fill:#66BB6A,color:#fff
+    classDef fail fill:#EF5350,color:#fff
 
     class A start
-    class B dashboard
-    class C,D,E,F,G feature
-    class J,G3 success
+    class B dash
+    class J,G3 ok
     class K fail
 ```
 
@@ -70,27 +78,31 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph Actor
-        NV([Nhan vien])
+    subgraph actor [" 👤 "]
+        NV(["🧑‍💼 Nhân viên"])
     end
 
-    subgraph View["Xem thong tin"]
-        F01[F01: Dashboard Ca nhan<br/>Gio vao + Progress 8h]
-        F02[F02: Nhat ky Cham cong<br/>In/Out + Tag trang thai]
-        F05[F05: Bao cao ca nhan<br/>Score + KPI Highlights]
+    subgraph view [" 👁️ Xem thông tin "]
+        F01["<b>F01</b> Dashboard Cá nhân<br/><i>Giờ vào + Tiến độ 8h</i>"]
+        F02["<b>F02</b> Nhật ký Chấm công<br/><i>In/Out + Tag trạng thái</i>"]
+        F05["<b>F05</b> Báo cáo cá nhân<br/><i>Điểm chuyên cần + KPI</i>"]
     end
 
-    subgraph Action["Thao tac"]
-        F03[F03: Trung tam Dang ky<br/>Nghi phep / Doi ca / OT]
-        F04[F04: Giai trinh<br/>Muon/Som + Anh]
-        F06[F06: Setup Ho so<br/>Thong tin + Face ID]
+    subgraph action [" ✏️ Thao tác "]
+        F03["<b>F03</b> Trung tâm Đăng ký<br/><i>Nghỉ phép · Đổi ca · OT</i>"]
+        F04["<b>F04</b> Giải trình<br/><i>Muộn/Sớm + Ảnh</i>"]
+        F06["<b>F06</b> Setup Hồ sơ<br/><i>Thông tin + Face ID</i>"]
     end
 
     NV --> F01 & F02 & F05
     NV --> F03 & F04 & F06
 
-    classDef actor fill:#37474F,color:#fff,stroke-width:2px
-    classDef view fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
+    style actor fill:none,stroke:#546E7A,stroke-width:2px,stroke-dasharray:5
+    style view fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style action fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+
+    classDef actorNode fill:#37474F,color:#fff,stroke-width:2px
+    classDef viewNode fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
     classDef action fill:#FFF3E0,stroke:#E65100,color:#BF360C
 
     class NV actor

@@ -23,37 +23,47 @@
 
 ```mermaid
 graph TD
-    subgraph Detection["Phat hien sai lech"]
-        A([He thong AI quet<br/>Cham cong vs Lich phan ca]) --> B{Phat hien<br/>sai lech?}
-        B -->|Khong| C[Du lieu hop le]
-        B -->|Co| D[Tao Anomaly<br/>Quen quet - Muon - Som - Vang]
+    subgraph detect [" 🔍 Phát hiện sai lệch "]
+        A(["⚙️ Hệ thống AI quét<br/><i>Chấm công vs Lịch phân ca</i>"])
+        B{"Phát hiện<br/>sai lệch?"}
+        C["✅ Dữ liệu hợp lệ"]
+        D["⚠️ Tạo Anomaly<br/><i>Quên quẹt · Muộn · Sớm · Vắng</i>"]
     end
 
-    subgraph Employee["Nhan vien xu ly"]
-        D --> E[Hien thi danh sach loi<br/>tren App]
-        E --> F{Truoc ngay<br/>chot cong?}
-        F -->|Co| G[Badge: CHO GIAI TRINH<br/>NV nhan tao don]
-        F -->|Khong| H[/Badge: VI PHAM QUY CHE<br/>Nut bi vo hieu hoa/]
-        G --> I[NV nhap Form giai trinh<br/>Ly do + Upload minh chung]
-        I --> J[Gui don - PENDING]
+    subgraph employee [" 🧑‍💼 Nhân viên xử lý "]
+        E["📱 Hiển thị danh sách lỗi<br/>trên App"]
+        F{"Trước ngày<br/>chốt công?"}
+        G["🔴 <b>CHỜ GIẢI TRÌNH</b><br/><i>NV nhấn tạo đơn</i>"]
+        H["⛔ <b>VI PHẠM QUY CHẾ</b><br/><i>Nút bị vô hiệu hóa</i>"]
+        I["📝 NV nhập Form giải trình<br/><i>Lý do + Tải minh chứng</i>"]
+        J["📤 Gửi đơn → PENDING"]
     end
 
-    subgraph Approval["Phe duyet"]
-        J --> K{Manager/HR<br/>phe duyet}
-        K -->|Duyet| L[Cap nhat Nhat ky<br/>Tinh lai trang thai Du cong]
-        K -->|Tu choi| M[/Giu nguyen loi<br/>+ Ly do tu choi/]
+    subgraph approval [" ✅ Phê duyệt "]
+        K{"👔 Manager / HR<br/>phê duyệt"}
+        L["✅ Cập nhật Nhật ký<br/><i>Tính lại trạng thái Đủ công</i>"]
+        M["❌ Giữ nguyên lỗi<br/><i>+ Phản hồi lý do từ chối</i>"]
     end
 
-    classDef start fill:#7B1FA2,color:#fff,stroke-width:2px
-    classDef warn fill:#FF9800,color:#fff,stroke-width:2px
-    classDef fail fill:#EF5350,color:#fff,stroke-width:2px
-    classDef success fill:#66BB6A,color:#fff,stroke-width:2px
-    classDef process fill:#42A5F5,color:#fff,stroke-width:1px
+    A --> B
+    B -->|"Không"| C
+    B -->|"Có"| D --> E --> F
+    F -->|"Còn hạn"| G --> I --> J --> K
+    F -->|"Quá hạn"| H
+    K -->|"Duyệt"| L
+    K -->|"Từ chối"| M
 
-    class A start
+    style detect fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style employee fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style approval fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+
+    classDef warn fill:#FF9800,color:#fff
+    classDef fail fill:#EF5350,color:#fff
+    classDef ok fill:#66BB6A,color:#fff
+
     class D,G warn
     class H,M fail
-    class C,L success
+    class C,L ok
 ```
 
 ### **3. NHU CẦU NGƯỜI DÙNG**
@@ -70,24 +80,24 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph Actors
-        NV([Nhan vien])
-        MGR([Quan ly])
-        SYS([He thong])
+    subgraph actors [" 👥 Vai trò "]
+        NV(["🧑‍💼 Nhân viên"])
+        MGR(["👔 Quản lý"])
+        SYS(["⚙️ Hệ thống"])
     end
 
-    subgraph NV_Actions["Nhan vien thao tac"]
-        UC1[Xem danh sach loi can giai trinh]
-        UC2[Tao don giai trinh]
-        UC3[Dinh kem minh chung<br/>Anh - PDF max 5MB]
-        UC4[Theo doi trang thai don]
-        UC5[Xem lich su giai trinh]
+    subgraph nv_actions [" 📝 Nhân viên thao tác "]
+        UC1["Xem danh sách lỗi<br/>cần giải trình"]
+        UC2["Tạo đơn giải trình<br/><i>Chọn ngày + Lý do</i>"]
+        UC3["Đính kèm minh chứng<br/><i>Ảnh · PDF ≤ 5MB</i>"]
+        UC4["Theo dõi trạng thái đơn"]
+        UC5["Xem lịch sử giải trình"]
     end
 
-    subgraph Auto["Tu dong"]
-        UC6[Phe duyet / Tu choi]
-        UC7[Quet phat hien Anomaly<br/>cuoi ngay]
-        UC8[Khoa giai trinh<br/>sau ngay chot cong]
+    subgraph auto [" 🤖 Tự động "]
+        UC6["Phê duyệt / Từ chối<br/>đơn giải trình"]
+        UC7["Quét phát hiện Anomaly<br/><i>Tự động cuối ngày</i>"]
+        UC8["Khóa giải trình<br/><i>Sau ngày chốt công</i>"]
     end
 
     NV --> UC1 & UC2 & UC3 & UC4 & UC5

@@ -24,40 +24,51 @@
 
 ```mermaid
 graph TD
-    subgraph Config["HR Admin cau hinh"]
-        A([HR Admin]) --> B[CRUD Danh muc ngay nghi<br/>Le quoc gia / Noi bo]
-        A --> C[Cau hinh Policy & Rules<br/>Sinh nhat / WFH / Thien tai]
+    subgraph config [" 🛠️ HR Admin cấu hình "]
+        A(["📋 HR Admin"])
+        B["📅 Quản lý danh mục ngày nghỉ<br/><i>Lễ quốc gia · Nội bộ · Tùy chỉnh</i>"]
+        C["⚙️ Cấu hình Policy & Rules<br/><i>Sinh nhật · WFH · Thiên tai</i>"]
     end
 
-    subgraph BatchJob["Batch Job 00:01 hang ngay"]
-        B & C --> D[Quet toan bo NV]
-        D --> E{Ngay hom nay<br/>la ngay nghi?}
-        E -->|Co| F[Gan trang thai<br/>HOP LE / HUONG LUONG]
-        E -->|Khong| G{NV co sinh nhat<br/>trong thang?}
-        G -->|Co + NV chinh thuc| H[Cong 1 ngay phep<br/>vao quy phep ca nhan]
-        G -->|Khong| I[Bo qua]
+    subgraph batch [" 🔄 Batch Job — 00:01 hằng ngày "]
+        D["Quét toàn bộ nhân viên"]
+        E{"Hôm nay là<br/>ngày nghỉ lễ?"}
+        F["✅ Gán trạng thái<br/><b>HỢP LỆ / HƯỞNG LƯƠNG</b>"]
+        G{"NV có sinh nhật<br/>trong tháng này?"}
+        H["🎂 Cộng 1 ngày phép<br/><i>vào quỹ phép cá nhân</i>"]
+        I["➡️ Bỏ qua"]
     end
 
-    subgraph Output["Ket qua"]
-        F & H --> J[App NV hien thi<br/>Calendar mau sac + Thong bao]
+    subgraph output [" 📱 Kết quả hiển thị "]
+        J["📱 App NV hiển thị<br/><i>Calendar màu sắc + Thông báo</i>"]
     end
 
-    subgraph Emergency["Khan cap"]
-        C --> K{Kich hoat<br/>Nghi thien tai?}
-        K -->|Co| L[Chon vung anh huong<br/>Gan nghi khan cap cho NV]
+    subgraph emergency [" 🚨 Chế độ khẩn cấp "]
+        K{"Kích hoạt<br/>nghỉ thiên tai?"}
+        L["🌊 Chọn vùng ảnh hưởng<br/><i>Gán nghỉ khẩn cấp cho NV khu vực</i>"]
     end
 
-    classDef admin fill:#FF9800,color:#fff,stroke-width:2px
-    classDef success fill:#66BB6A,color:#fff,stroke-width:2px
-    classDef special fill:#AB47BC,color:#fff,stroke-width:2px
-    classDef danger fill:#EF5350,color:#fff,stroke-width:2px
-    classDef output fill:#42A5F5,color:#fff,stroke-width:2px
+    A --> B & C
+    B & C --> D --> E
+    E -->|"Có"| F
+    E -->|"Không"| G
+    G -->|"Có + NV chính thức"| H
+    G -->|"Không"| I
+    F & H --> J
+    C --> K -->|"Có"| L
 
-    class A admin
-    class F success
+    style config fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style batch fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style output fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style emergency fill:#FFEBEE,stroke:#C62828,stroke-width:2px
+
+    classDef ok fill:#66BB6A,color:#fff
+    classDef special fill:#AB47BC,color:#fff
+    classDef danger fill:#EF5350,color:#fff
+
+    class F ok
     class H special
     class L danger
-    class J output
 ```
 
 ### **3. NHU CẦU NGƯỜI DÙNG**
@@ -74,28 +85,28 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph Actors
-        HR([HR Admin])
-        NV([Nhan vien])
-        BGD([Ban Lanh dao])
-        SYS([He thong])
+    subgraph actors [" 👥 Vai trò "]
+        HR(["📋 HR Admin"])
+        NV(["🧑‍💼 Nhân viên"])
+        BGD(["🏛️ Ban Lãnh đạo"])
+        SYS(["⚙️ Hệ thống"])
     end
 
-    subgraph Admin_UC["Quan tri"]
-        UC1[CRUD Danh muc ngay nghi]
-        UC2[Cau hinh Policy<br/>Sinh nhat / WFH]
-        UC3[Kich hoat Nghi thien tai<br/>Chon vung anh huong]
-        UC4[Clone lich nghi sang nam moi]
+    subgraph admin_uc [" 🛠️ Quản trị lịch nghỉ "]
+        UC1["Quản lý danh mục ngày nghỉ<br/><i>Lễ quốc gia · Nội bộ</i>"]
+        UC2["Cấu hình Policy<br/><i>Sinh nhật · WFH · Thiên tai</i>"]
+        UC3["Kích hoạt nghỉ thiên tai<br/><i>Chọn vùng ảnh hưởng</i>"]
+        UC4["Clone lịch nghỉ<br/><i>sang năm mới</i>"]
     end
 
-    subgraph Employee_UC["Nhan vien xem"]
-        UC5[Xem Calendar ca nhan<br/>Ma mau Do/Xanh]
-        UC6[Xem chi tiet ngay nghi]
+    subgraph emp_uc [" 📱 Nhân viên xem "]
+        UC5["Xem Calendar cá nhân<br/><i>Mã màu Đỏ/Xanh</i>"]
+        UC6["Xem chi tiết ngày nghỉ<br/><i>Loại · Đãi ngộ</i>"]
     end
 
-    subgraph System_UC["Tu dong"]
-        UC7[Batch Job gan cong<br/>00:01 hang ngay]
-        UC8[Gui thong bao<br/>truoc 3 ngay nghi le]
+    subgraph sys_uc [" 🤖 Tự động "]
+        UC7["Batch Job gán công<br/><i>00:01 hằng ngày</i>"]
+        UC8["Gửi thông báo<br/><i>trước 3 ngày nghỉ lễ</i>"]
     end
 
     HR --> UC1 & UC2 & UC4
@@ -103,15 +114,20 @@ graph LR
     NV --> UC5 & UC6
     SYS --> UC7 & UC8
 
-    classDef actor fill:#37474F,color:#fff,stroke-width:2px
-    classDef admin fill:#FFF3E0,stroke:#E65100,color:#BF360C
-    classDef emp fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
-    classDef sys fill:#F3E5F5,stroke:#7B1FA2,color:#4A148C
+    style actors fill:none,stroke:#546E7A,stroke-width:2px,stroke-dasharray:5
+    style admin_uc fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style emp_uc fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style sys_uc fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
 
-    class HR,NV,BGD,SYS actor
-    class UC1,UC2,UC3,UC4 admin
-    class UC5,UC6 emp
-    class UC7,UC8 sys
+    classDef actorNode fill:#37474F,color:#fff,stroke:#263238,stroke-width:2px
+    classDef adminNode fill:#FFE0B2,stroke:#E65100,color:#BF360C
+    classDef empNode fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
+    classDef sysNode fill:#E1BEE7,stroke:#7B1FA2,color:#4A148C
+
+    class HR,NV,BGD,SYS actorNode
+    class UC1,UC2,UC3,UC4 adminNode
+    class UC5,UC6 empNode
+    class UC7,UC8 sysNode
 ```
 
 ### **5. PHẠM VI CHỨC NĂNG**

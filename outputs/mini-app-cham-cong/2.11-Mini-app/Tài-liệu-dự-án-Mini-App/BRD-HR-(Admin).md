@@ -20,40 +20,43 @@
 
 ```mermaid
 graph TD
-    A([HR Admin dang nhap]) --> B[Dashboard Admin<br/>On-site / WFH / Vang]
+    A(["📋 HR Admin đăng nhập"]) --> B["📊 Dashboard Admin<br/><i>Trực tuyến · WFH · Vắng mặt</i>"]
 
-    subgraph Modules["8 chuc nang quan tri"]
-        C[Co cau to chuc<br/>So do cay + Import NV]
-        D[Cau hinh Ca<br/>In/Out/Break + Punch Limit]
-        E[Lich & Ngay nghi<br/>Le tet + Policy]
-        F[Camera AI<br/>Device + Mapping + Health]
-        G[Thong bao<br/>36 events x 3 channels]
-        H[Phe duyet<br/>Nghi/OT/Giai trinh/Doi ca]
-        I[Bao cao & Xuat<br/>Payroll Excel + KPI]
+    subgraph modules [" 🛠️ 8 chức năng quản trị "]
+        C["🏢 Cơ cấu tổ chức<br/><i>Sơ đồ cây + Import NV</i>"]
+        D["⏰ Cấu hình Ca<br/><i>In/Out/Break + Punch Limit</i>"]
+        E["📅 Lịch & Ngày nghỉ<br/><i>Lễ tết + Chính sách</i>"]
+        F["📷 Camera AI<br/><i>Thiết bị + Ánh xạ + Giám sát</i>"]
+        G["🔔 Thông báo<br/><i>36 sự kiện × 3 kênh</i>"]
+        H["✅ Phê duyệt<br/><i>Nghỉ/OT/Giải trình/Đổi ca</i>"]
+        I["📈 Báo cáo & Xuất<br/><i>Payroll Excel + KPI</i>"]
     end
 
     B --> C & D & E & F & G & H & I
 
-    subgraph Engine["Xu ly"]
-        J[(Master Data NV)]
-        K[Engine tinh cong]
+    subgraph engine [" ⚙️ Engine xử lý "]
+        J[("💾 Dữ liệu NV")]
+        K["🔄 Engine tính công"]
     end
 
-    C -->|Import Excel| J
-    D -->|Ap dung| K
-    E -->|Batch Job| K
-    F -->|Webhook| K
+    C -->|"Import Excel"| J
+    D -->|"Áp dụng quy tắc"| K
+    E -->|"Batch Job"| K
+    F -->|"Webhook C-Vision"| K
     K --> I
 
+    style modules fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style engine fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+
     classDef admin fill:#FF9800,color:#fff,stroke-width:2px
-    classDef dashboard fill:#1976D2,color:#fff,stroke-width:2px
-    classDef module fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
-    classDef engine fill:#FFF3E0,stroke:#E65100,color:#BF360C
+    classDef dash fill:#1976D2,color:#fff,stroke-width:2px
+    classDef mod fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
+    classDef eng fill:#FFE0B2,stroke:#E65100,color:#BF360C
 
     class A admin
-    class B dashboard
-    class C,D,E,F,G,H,I module
-    class J,K engine
+    class B dash
+    class C,D,E,F,G,H,I mod
+    class J,K eng
 ```
 
 ### **3. NHU CẦU NGƯỜI DÙNG**
@@ -68,21 +71,21 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph Actors
-        HR([HR Admin])
-        MGR([Quan ly])
-        IT([IT Admin])
+    subgraph actors [" 👥 Vai trò "]
+        HR(["📋 HR Admin"])
+        MGR(["👔 Quản lý"])
+        IT(["🔧 IT Admin"])
     end
 
-    subgraph Functions["Chuc nang"]
-        F01[F01: Dashboard<br/>Quan so + Bieu do]
-        F02[F02: Co cau to chuc<br/>NV + Phong ban]
-        F03[F03: Cau hinh Ca<br/>In/Out/Break]
-        F04[F04: Lich & Ngay nghi<br/>Le + Policy]
-        F05[F05: Camera AI<br/>Device + Mapping]
-        F06[F06: Thong bao<br/>36 events + Policy]
-        F07[F07: Phe duyet<br/>Nghi/OT/Giai trinh]
-        F08[F08: Bao cao & Xuat<br/>Payroll + KPI]
+    subgraph functions [" 🛠️ Chức năng quản trị "]
+        F01["<b>F01</b> Dashboard<br/><i>Quân số + Biểu đồ</i>"]
+        F02["<b>F02</b> Cơ cấu tổ chức<br/><i>NV + Phòng ban</i>"]
+        F03["<b>F03</b> Cấu hình Ca<br/><i>In/Out/Break</i>"]
+        F04["<b>F04</b> Lịch & Ngày nghỉ<br/><i>Lễ + Chính sách</i>"]
+        F05["<b>F05</b> Camera AI<br/><i>Thiết bị + Ánh xạ</i>"]
+        F06["<b>F06</b> Thông báo<br/><i>36 sự kiện + Policy</i>"]
+        F07["<b>F07</b> Phê duyệt<br/><i>Nghỉ/OT/Giải trình</i>"]
+        F08["<b>F08</b> Báo cáo & Xuất<br/><i>Payroll + KPI</i>"]
     end
 
     HR --> F01 & F02 & F03 & F04 & F07 & F08

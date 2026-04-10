@@ -22,32 +22,51 @@
 
 ```mermaid
 graph TD
-    A([Camera AI C-Vision]) -->|Webhook| B[EAMS Backend<br/>Xac thuc HMAC-SHA256]
-    B -->|Idempotency check| C[Queue Processing<br/>BullMQ]
+    subgraph input [" 📷 Nguồn dữ liệu "]
+        A(["Camera AI C-Vision<br/>Quét khuôn mặt NV"])
+    end
 
-    C --> D{Confidence >= 0.85?}
-    D -->|Khong| E[/Failed - Can HR Review/]
-    D -->|Co| F[Mapping<br/>personId - employeeId]
+    subgraph processing [" ⚙️ Xử lý Backend "]
+        B["🔐 Xác thực Webhook<br/><i>HMAC-SHA256 + Idempotency</i>"]
+        C["📨 Hàng đợi xử lý<br/><i>BullMQ Queue</i>"]
+        D{"Độ tin cậy<br/>≥ 0.85?"}
+        F["🔗 Ánh xạ danh tính<br/><i>personId → employeeId</i>"]
+        G{"Xác định<br/>hướng ra/vào"}
+    end
 
-    F --> G{Xac dinh huong}
-    G -->|IN_ONLY| H[CHECK_IN]
-    G -->|OUT_ONLY| I[CHECK_OUT]
+    subgraph result [" 📊 Kết quả "]
+        H["✅ CHECK_IN"]
+        I["✅ CHECK_OUT"]
+        J[("💾 Tạo bản ghi chấm công<br/><i>AttendanceRecord — APPROVED</i>")]
+        K["📊 Cập nhật tổng hợp ngày<br/><i>DailyAttendanceSummary</i>"]
+        L(["📱 Mini App cập nhật<br/><i>Dashboard + Nhật ký</i><br/><b>⏱️ ≤ 60 giây</b>"])
+    end
 
-    H & I --> J[(Tao AttendanceRecord<br/>status: APPROVED)]
-    J --> K[Cap nhat<br/>DailyAttendanceSummary]
-    K --> L([Mini App<br/>Dashboard + Nhat ky<br/>Real-time nho hon 60s])
+    subgraph error [" ❌ Xử lý lỗi "]
+        E["⚠️ Thất bại<br/><i>Cần HR xem xét</i>"]
+    end
 
-    classDef start fill:#7B1FA2,color:#fff,stroke:#4A148C,stroke-width:2px
-    classDef fail fill:#EF5350,color:#fff,stroke:#C62828,stroke-width:2px
-    classDef success fill:#66BB6A,color:#fff,stroke:#2E7D32,stroke-width:2px
-    classDef process fill:#42A5F5,color:#fff,stroke:#1565C0,stroke-width:1px
-    classDef db fill:#FFA726,color:#fff,stroke:#E65100,stroke-width:2px
+    A -->|"Webhook"| B --> C --> D
+    D -->|"Không đạt"| E
+    D -->|"Đạt"| F --> G
+    G -->|"Cổng vào"| H
+    G -->|"Cổng ra"| I
+    H & I --> J --> K --> L
 
-    class A start
+    style input fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style processing fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style result fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style error fill:#FFEBEE,stroke:#C62828,stroke-width:2px
+
+    classDef camera fill:#7B1FA2,color:#fff,stroke:#4A148C,stroke-width:2px
+    classDef fail fill:#EF5350,color:#fff,stroke:#C62828
+    classDef ok fill:#66BB6A,color:#fff,stroke:#2E7D32
+    classDef app fill:#1565C0,color:#fff,stroke:#0D47A1,stroke-width:2px
+
+    class A camera
     class E fail
-    class H,I,L success
-    class B,C,F,K process
-    class J db
+    class H,I ok
+    class L app
 ```
 
 ---
@@ -66,35 +85,42 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph Actors
-        NV([Nhan vien])
-        HRS([HR Admin])
-        MGR([Quan ly])
-        SYS([He thong])
+    subgraph actors [" 👥 Vai trò "]
+        NV(["🧑‍💼 Nhân viên"])
+        HRS(["📋 HR Admin"])
+        MGR(["👔 Quản lý"])
+        SYS(["⚙️ Hệ thống"])
     end
 
-    subgraph Module["Cham cong & Nhat ky"]
-        UC1[Dashboard trang thai hom nay]
-        UC2[Thanh tien do ca lam viec]
-        UC3[Thong ke hieu suat thang]
-        UC4[Tra cuu Nhat ky + Anh Face ID]
-        UC5[Canh bao vi pham]
-        UC6[Giai trinh ngay - Prefill]
+    subgraph module [" 📊 Chấm công & Nhật ký "]
+        UC1["Dashboard trạng thái<br/>hôm nay"]
+        UC2["Thanh tiến độ<br/>ca làm việc"]
+        UC3["Thống kê hiệu suất<br/>tháng"]
+        UC4["Tra cứu Nhật ký<br/>+ Ảnh Face ID"]
+    end
+
+    subgraph alert [" ⚠️ Cảnh báo "]
+        UC5["Cảnh báo vi phạm<br/><i>Muộn · Sớm · Vắng</i>"]
+        UC6["Giải trình ngay<br/><i>Tự điền ngày vi phạm</i>"]
     end
 
     NV --> UC1 & UC2 & UC3 & UC4 & UC5
-    UC5 -.->|lien ket| UC6
+    UC5 -.->|"liên kết"| UC6
     HRS --> UC4
     MGR --> UC3
-    SYS -->|"Real-time"| UC1
+    SYS -->|"cập nhật ≤ 60s"| UC1
 
-    classDef actor fill:#37474F,color:#fff,stroke:#263238,stroke-width:2px
-    classDef uc fill:#E3F2FD,stroke:#1565C0,color:#0D47A1
-    classDef alert fill:#FFF3E0,stroke:#E65100,color:#BF360C
+    style actors fill:none,stroke:#546E7A,stroke-width:2px,stroke-dasharray:5
+    style module fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style alert fill:#FFF3E0,stroke:#E65100,stroke-width:2px
 
-    class NV,HRS,MGR,SYS actor
-    class UC1,UC2,UC3,UC4 uc
-    class UC5,UC6 alert
+    classDef actorNode fill:#37474F,color:#fff,stroke:#263238,stroke-width:2px
+    classDef ucNode fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
+    classDef alertNode fill:#FFE0B2,stroke:#E65100,color:#BF360C
+
+    class NV,HRS,MGR,SYS actorNode
+    class UC1,UC2,UC3,UC4 ucNode
+    class UC5,UC6 alertNode
 ```
 
 ---
