@@ -89,6 +89,11 @@ graph LR
 | F06 | Cấu hình Thông báo | Cấu hình cho 36 sự kiện. Chọn Policy (Gom tin/Chống nhiễu/Lập lịch). | Là Admin, tôi muốn nhận cảnh báo security tức thời. |
 | F07 | Trung tâm Phê duyệt | Xử lý tập trung đơn Nghỉ/OT/Giải trình/Đổi ca từ nhân viên. | Là Quản lý, tôi muốn duyệt đơn nhanh gọn trên mobile. |
 | F08 | Báo cáo & Xuất | Kết xuất Excel: Payroll chuẩn, Báo cáo Tuân thủ, Báo cáo KPI tổng. | Là HR, tôi muốn xuất dữ liệu chuẩn để tính lương tháng. |
+| F09 | Nhập chấm công thủ công | HR/Manager nhập mốc chấm công khi C-Vision lỗi hoặc NV từ chối biometric. Cần phê duyệt. | Là HR, tôi muốn nhập thủ công khi camera gặp sự cố. |
+| F10 | Cấu hình chính sách phép | Thiết lập phép cơ bản, thâm niên, carryover, pro-rata. Batch recalculate balance toàn hệ thống. | Là HR, tôi muốn cấu hình chính sách phép phù hợp công ty. |
+| F11 | Quản lý chi nhánh | CRUD site: Tên, Mã, Timezone, Ngày chốt công. Deactivate site khi thu hẹp quy mô. | Là Admin, tôi muốn quản lý chi nhánh trên hệ thống. |
+| F12 | Nhật ký hoạt động (Audit Log) | Xem toàn bộ log hệ thống. Filter theo user, module, action, time range. Export CSV. | Là Admin, tôi muốn truy vết mọi thay đổi trong hệ thống. |
+| F13 | Offboarding nhân viên | Quy trình tự động khi NV nghỉ việc: hủy đơn, freeze phép, deactivate camera, re-route approval. | Là HR, tôi muốn xử lý nghỉ việc nhanh gọn không bỏ sót. |
 
 ### **6. YÊU CẦU PHI CHỨC NĂNG**
 
