@@ -289,6 +289,19 @@ FILE_TO_PAGE = {
     '2.11-Mini-app/Tài-liệu-dự-án-Mini-App/BRD-Nhân-viên.md': '196786959',
     '2.11-Mini-app/Tài-liệu-dự-án-Mini-App/Demo-Plan-Sprint-8.md': '196786960',
     '2.11-Mini-app/Tài-liệu-dự-án-Mini-App/UAT-SCENARIOS.md': '196786961',
+    # NEW: US-ATTEN-05
+    '2.11-Mini-app/2.11.1.-Chấm-công-và-Nhật-ký-chấm-công/US-ATTEN-05-Nhập-chấm-công-thủ-công.md': '196787044',
+    # NEW: US-EXPL-02
+    '2.11-Mini-app/2.11.3.-Giải-trình-công/US-EXPL-02-Yêu-cầu-sửa-chấm-công.md': '196787045',
+    # NEW: US-SHIFT-06
+    '2.11-Mini-app/2.11.2.-Cấu-hình-ca-làm-việc/US-SHIFT-06-Phân-ca-theo-pattern.md': '196787046',
+    # NEW: US-REG-05
+    '2.11-Mini-app/2.11.4.-Trung-tâm-đăng-ký/US-REG-05-Cấu-hình-chính-sách-phép-năm.md': '196787047',
+    # NEW: Module 12
+    '2.11-Mini-app/2.11.12.-Quản-trị-hệ-thống/README.md': '196787048',
+    '2.11-Mini-app/2.11.12.-Quản-trị-hệ-thống/US-SYS-01-Quản-lý-chi-nhánh.md': '196787049',
+    '2.11-Mini-app/2.11.12.-Quản-trị-hệ-thống/US-SYS-02-Audit-log-viewer.md': '196787050',
+    '2.11-Mini-app/2.11.12.-Quản-trị-hệ-thống/US-SYS-03-Employee-offboarding.md': '196787051',
 }
 
 # Pages with diagram attachments — preserve image refs, don't overwrite with mermaid
