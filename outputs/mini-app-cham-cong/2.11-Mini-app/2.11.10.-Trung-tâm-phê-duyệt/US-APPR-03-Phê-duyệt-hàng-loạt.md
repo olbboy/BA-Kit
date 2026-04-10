@@ -4,7 +4,7 @@
 
 **AS A** Quản lý / HR Admin,  
 **I WANT TO** chọn nhiều đơn cùng loại và duyệt hoặc từ chối hàng loạt trong một thao tác,  
-**SO THAT** tôi có thể xử lý nhanh khi có nhiều đơn tồn đọng, đặc biệt cuối tháng trước ngày chốt công.
+**SO THAT** tôi có thể xử lý ≤ 50 đơn/lần trong ≤ 3 giây khi có nhiều đơn tồn đọng, đặc biệt cuối tháng trước ngày chốt công.
 
 ---
 
@@ -65,3 +65,13 @@
 2. **Thông báo:** Mỗi NV nhận Push riêng (không gom thành 1 thông báo batch).
 3. **Hiệu năng:** 50 đơn ≤ 3 giây.
 4. **QA:** Kiểm thử batch approve Leave, OT, Correction; case mixed success/failure.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| AP03-E1 | **Batch approve lỗi giữa chừng** — Đơn thứ 25/50 bị lỗi | MEDIUM | Xử lý tuần tự, không rollback đã duyệt. Kết quả: "24 ✓, 1 ✗, 25 ○". Retry riêng đơn lỗi. |
+| AP03-E2 | **Batch quá lớn** — Chọn > 50 đơn | LOW | Chặn: "Tối đa 50 đơn/lần. Đã chọn [N]." |
+| AP03-E3 | **Đơn bị cancel khi đang trong batch** — NV hủy đơn ngay lúc manager batch approve | MEDIUM | Check status trước khi approve. Đơn CANCELLED → skip, ghi nhận "Đã bị hủy bởi NV." |

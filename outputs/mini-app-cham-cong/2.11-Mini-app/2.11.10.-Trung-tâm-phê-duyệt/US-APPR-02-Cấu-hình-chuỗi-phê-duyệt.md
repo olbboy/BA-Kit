@@ -75,3 +75,13 @@ Hệ thống tự động xác định người duyệt:
 2. **Điều kiện:** Đơn 2 ngày → Chỉ level 1; Đơn 5 ngày → Level 1 + 2 + 3.
 3. **Fallback:** Manager nghỉ phép → Đơn tự chuyển sang SITE_MANAGER.
 4. **QA:** Kiểm thử chain 3 level; fallback; ngày chốt công; exception approval.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| AP02-E1 | **Tổ chức thay đổi giữa approval** — NV chuyển phòng khi đơn đang xử lý | MEDIUM | Snapshot approver chain tại thời điểm tạo đơn. Thay đổi tổ chức KHÔNG ảnh hưởng đơn đang pending. |
+| AP02-E2 | **Config approval chain rỗng** — Site mới chưa cấu hình | HIGH | Chặn NV tạo đơn. Hiển thị: "Chưa cấu hình quy trình phê duyệt. Liên hệ HR chi nhánh." |
+| AP02-E3 | **Circular approval** — Manager A approve cho Manager B và ngược lại | HIGH | Validate chain: không cho phép circular. Chặn lưu config nếu phát hiện loop. |

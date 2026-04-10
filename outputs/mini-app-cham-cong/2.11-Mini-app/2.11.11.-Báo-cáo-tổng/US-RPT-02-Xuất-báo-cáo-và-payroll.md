@@ -80,3 +80,14 @@
 2. **Tương thích:** File Excel mở đúng trên MISA, SAP, Oracle HCM.
 3. **Hiệu năng:** Xuất 5,000 NV ≤ 10 giây.
 4. **QA:** Kiểm thử xuất từng loại báo cáo; file CSV encoding UTF-8 BOM cho tiếng Việt.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| RT02-E1 | **Export file > 10MB** — 5000 NV × 12 tháng | MEDIUM | Async export: "File đang được tạo. Bạn sẽ nhận email khi hoàn tất." Không block UI. |
+| RT02-E2 | **Template payroll không khớp** — MISA format khác SAP format | MEDIUM | Dropdown chọn template: MISA / SAP / Oracle / Custom. Preview 5 dòng đầu trước khi export. |
+| RT02-E3 | **Export dữ liệu chưa chốt công** — Tháng chưa complete | HIGH | Cảnh báo: "Dữ liệu tháng [MM] chưa chốt công. File export có thể thay đổi." Yêu cầu confirm. |
+| RT02-E4 | **NV có OT qua 2 tháng** — OT ca đêm T cuối tháng → T+1 đầu tháng kế | MEDIUM | Split: giờ trước 00:00 tính tháng M, giờ sau 00:00 tính tháng M+1. Ghi chú trong file export. |

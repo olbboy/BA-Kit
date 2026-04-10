@@ -62,3 +62,13 @@
 2. **Unmapped alert:** personId chưa mapping → Xuất hiện trong danh sách chờ.
 3. **Bulk:** Import 500 mapping ≤ 15 giây.
 4. **QA:** Kiểm thử trùng personId, NV không tồn tại, mapping cho NV multi-site.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| CM02-E1 | **NV chưa có ảnh khuôn mặt** — Mapping NV mới chưa enroll face | MEDIUM | Trạng thái mapping: PENDING_ENROLLMENT. Alert: "NV [Tên] cần chụp ảnh khuôn mặt tại bộ phận IT." |
+| CM02-E2 | **1 NV map nhiều C-Vision ID** — NV enroll trên 2 device khác nhau | MEDIUM | Cho phép (multi-device). Bảng mapping hiển thị tất cả. De-dup attendance dựa trên employeeId. |
+| CM02-E3 | **Bulk mapping file lỗi** — CSV chứa employeeCode không tồn tại | HIGH | Trả file lỗi kèm cột ghi chú. Không tạo mapping cho dòng lỗi. |

@@ -69,3 +69,12 @@ Hiển thị các chỉ số theo quý:
 2. **So sánh:** Highlight mũi tên phải chính xác khi so 2 quý liên tiếp.
 3. **NV mới:** Không hiển thị so sánh nếu NV chưa có dữ liệu quý trước.
 4. **QA:** Kiểm thử chuyển quý, NV nghỉ thai sản dài hạn, NV chuyển phòng ban giữa quý.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| RP02-E1 | **KPI target chưa được cấu hình** — HR chưa set target cho site | MEDIUM | Hiển thị actual values, cột target hiển thị "N/A". Badge: "Target chưa được thiết lập — liên hệ HR." |
+| RP02-E2 | **Dữ liệu OT bị điều chỉnh sau chốt công** — Review lại số liệu sau correction | LOW | Hiển thị giá trị sau correction kèm icon "Đã điều chỉnh". Tooltip: "Giá trị gốc: X, Sau điều chỉnh: Y." |

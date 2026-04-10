@@ -4,7 +4,7 @@
 
 **AS A** HR,  
 **I WANT TO** tải tệp Excel danh sách nhân viên và tải lên hệ thống để gán vào ca làm việc hiện tại hàng loạt,  
-**SO THAT** tôi có thể triển khai lịch phân ca cho quy mô nhân sự lớn một cách nhanh chóng và chính xác, tránh sai sót khi nhập liệu thủ công từng người.
+**SO THAT** tôi có thể triển khai lịch phân ca cho quy mô nhân sự lớn trong ≤ 30 giây cho 500 bản ghi và chính xác (0 sai sót format), tránh sai sót khi nhập liệu thủ công từng người.
 
 ---
 
@@ -62,3 +62,15 @@ Hệ thống hiển thị Modal thông báo kết quả chi tiết:
 2. **Độ chính xác**: Kiểm thử với dữ liệu thực ➔ Sau khi Import, nhân viên A mở App phải thấy ngay cấu hình Ca làm việc mới trong Nhật ký (Module 01).
 3. **UI/UX**: Modal hiển thị kết quả Import phải rành mạch, dễ hiểu cho người dùng Non-tech.
 4. **QA**: Xác nhận 100% nhân viên trong file Import được gán đúng ID Ca (Shift_ID) vào Database.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| SH05-E1 | **File Excel lỗi format** — Cột thiếu, data type sai | HIGH | Trả file lỗi kèm cột "Lý do lỗi" cho mỗi dòng. Không import dòng lỗi. Hiển thị: "X/Y bản ghi thành công, Z lỗi." |
+| SH05-E2 | **NV đã thuộc ca khác** — Import NV đang active ở ca cũ | MEDIUM | Cảnh báo: "[N] NV đang thuộc ca khác. Chọn: (A) Chuyển sang ca mới, (B) Bỏ qua, (C) Thêm ca phụ." |
+| SH05-E3 | **Mã NV không tồn tại** — File chứa mã NV không có trong hệ thống | HIGH | Mark as ERROR. Ghi nhận vào file kết quả: "Mã NV [X] không tồn tại trong hệ thống." |
+| SH05-E4 | **Import file > 5000 dòng** — Vượt giới hạn batch | MEDIUM | Hiển thị: "File vượt quá 5,000 bản ghi. Vui lòng chia nhỏ file." Chặn upload. |
+| SH05-E5 | **Duplicate trong file** — Cùng 1 mã NV xuất hiện 2 lần | MEDIUM | Lấy dòng cuối cùng (last-write-wins). Log warning: "Mã NV [X] bị trùng tại dòng [A] và [B], lấy dòng [B]." |

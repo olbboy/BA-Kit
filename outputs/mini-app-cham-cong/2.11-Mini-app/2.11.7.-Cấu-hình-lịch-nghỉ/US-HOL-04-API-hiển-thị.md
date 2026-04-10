@@ -52,3 +52,13 @@
 2. **Đồng bộ dữ liệu:** Khi Admin thay đổi 1 ngày nghỉ lễ trên Web ➔ Dữ liệu trên App nhân viên phải cập nhật ngay lập tức sau khi Refresh.
 3. **Tương thích:** Hiển thị ổn định trên cả hệ điều hành iOS và Android của ứng dụng Mini App.
 4. **Audit:** Ghi vết (Log) lịch sử truy cập lịch trình để đảm bảo tính sẵn sàng của dữ liệu.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| HL04-E1 | **API query year = null** — Client không gửi year param | LOW | Default: năm hiện tại. Response header: `X-Default-Year: 2026`. |
+| HL04-E2 | **API rate limit** — Client gọi > 100 req/phút | MEDIUM | 429 Too Many Requests. Header: `Retry-After: 60`. |
+| HL04-E3 | **Không có dữ liệu cho năm** — Query năm chưa có policy | LOW | Trả array rỗng `[]` với HTTP 200 (không phải 404). |

@@ -4,7 +4,7 @@
 
 **AS A** HR Admin,  
 **I WANT TO** cấu hình policy gửi thông báo (Batching, Throttle, Schedule) và cho phép nhân viên tùy chỉnh preference cá nhân,  
-**SO THAT** hệ thống gửi thông báo hiệu quả, không spam, và nhân viên có thể tắt thông báo nhắc nhở nhưng vẫn nhận thông báo bắt buộc.
+**SO THAT** hệ thống gửi ≤ 3 thông báo/giờ cho mỗi NV, không spam, và nhân viên có thể tắt thông báo nhắc nhở nhưng vẫn nhận thông báo bắt buộc.
 
 ---
 
@@ -65,3 +65,13 @@
 2. **Throttle:** Gửi 25 thông báo liên tiếp (limit 20) → 5 thông báo bị queue.
 3. **Bắt buộc:** NV cố tắt thông báo bắt buộc → UI disabled + backend reject.
 4. **QA:** Kiểm thử batching + throttle + schedule kết hợp; thông báo khẩn cấp bypass schedule.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| NF03-E1 | **NV tắt thông báo bắt buộc** — Cố tắt notification phê duyệt | HIGH | UI disable toggle cho thông báo bắt buộc. Backend ignore "mute" request cho mandatory events. |
+| NF03-E2 | **Quiet hours conflict với ca đêm** — Quiet hours 22:00-07:00, NV ca đêm cần check-in reminder | MEDIUM | Ca đêm NV: quiet hours auto-adjusted theo shift schedule. Chỉ mute khi NV KHÔNG có ca. |
+| NF03-E3 | **Batch digest quá lớn** — Daily digest chứa > 50 items | LOW | Truncate tại 20 items + link "Xem thêm [N] thông báo khác trên App." |

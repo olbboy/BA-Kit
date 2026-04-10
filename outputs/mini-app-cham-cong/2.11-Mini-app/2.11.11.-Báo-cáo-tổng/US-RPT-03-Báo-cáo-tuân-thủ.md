@@ -66,3 +66,13 @@
 2. **Vi phạm:** Mức độ phân loại chính xác theo ngưỡng đã cấu hình.
 3. **Giải trình:** Danh sách quá hạn phải khớp với logic ngày chốt công (Module 10).
 4. **QA:** Kiểm thử xuất báo cáo; NV không có vi phạm → Không xuất hiện; NV OT vượt → Badge đỏ.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| RT03-E1 | **OT vượt giới hạn pháp luật** — NV > 200h/năm | CRITICAL | Highlight đỏ trong báo cáo. Alert HR + Ban Giám đốc. Ghi nhận risk: "Vi phạm ND 13/2023 Điều [X]." |
+| RT03-E2 | **Nghỉ phép vượt quota** — NV nghỉ > số phép cho phép (do approved nhầm) | HIGH | Flag trong báo cáo: "Vượt hạn mức [N] ngày." Gợi ý: trừ lương hoặc chuyển sang nghỉ không lương. |
+| RT03-E3 | **Data discrepancy** — Tổng ngày công dashboard ≠ file export | HIGH | Checksum validation trước khi export. Nếu khác biệt > 0.5 ngày → alert: "Dữ liệu không nhất quán. Liên hệ IT." |

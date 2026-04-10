@@ -71,3 +71,13 @@
 2. **RBAC:** Manager chỉ thấy data team mình; GLOBAL_HR thấy tất cả.
 3. **Hiệu năng:** Dashboard tải ≤ 3 giây cho 5,000+ NV.
 4. **QA:** Kiểm thử drill-down; chuyển view thời gian; biểu đồ với 0 NV.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| RT01-E1 | **Phòng ban không có dữ liệu** — Phòng ban mới tạo, chưa có NV chấm công | LOW | Hiển thị "Chưa có dữ liệu" thay vì 0%. Không tính vào average. |
+| RT01-E2 | **Dữ liệu chưa chốt** — Xem dashboard tháng chưa đến ngày chốt | MEDIUM | Badge: "Dữ liệu tạm tính (chưa chốt công)." Màu cam thay vì xanh. Số liệu live update. |
+| RT01-E3 | **RBAC filter** — Manager xem báo cáo phòng ban khác | HIGH | Chặn: chỉ hiển thị phòng ban mà user có quyền. SITE_HR xem toàn site. GLOBAL_HR xem toàn bộ. |

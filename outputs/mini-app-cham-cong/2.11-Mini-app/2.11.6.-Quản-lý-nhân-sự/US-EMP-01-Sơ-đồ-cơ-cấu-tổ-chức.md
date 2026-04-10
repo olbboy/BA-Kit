@@ -4,7 +4,7 @@
 
 **AS A** HR Admin,  
 **I WANT TO** xem sơ đồ cơ cấu tổ chức dạng cây trực quan với khả năng mở rộng/thu gọn và kéo thả điều chuyển,  
-**SO THAT** tôi có thể nắm bắt toàn cảnh cấu trúc nhân sự và thực hiện điều chuyển tổ chức nhanh chóng.
+**SO THAT** tôi có thể nắm bắt toàn cảnh cấu trúc nhân sự và thực hiện điều chuyển tổ chức bằng drag-and-drop trực quan.
 
 ---
 
@@ -66,3 +66,13 @@
 2. **Tìm kiếm:** Kết quả trả về ≤ 0.5 giây.
 3. **Audit:** Mọi thay đổi cấu trúc được ghi log đầy đủ.
 4. **QA:** Kiểm thử cây sâu 5 cấp; kéo thả cross-department; tìm kiếm unicode.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| EM01-E1 | **Sơ đồ > 1000 node** — Tổ chức lớn | MEDIUM | Lazy-load: chỉ render 3 cấp đầu tiên. Expand on-demand. Virtual rendering cho performance. |
+| EM01-E2 | **NV thuộc nhiều phòng ban** — IT support multi-site | MEDIUM | Hiển thị tại Primary department. Icon link "→ Xem thêm" dẫn đến các department phụ. |
+| EM01-E3 | **Drag-drop vào chính nó** — Kéo phòng ban vào chính nó hoặc child | HIGH | Chặn: "Không thể chuyển đơn vị vào chính nó hoặc đơn vị con." |

@@ -4,7 +4,7 @@
 
 **AS A** HR,  
 **I WANT TO** xem danh sách tổng hợp tất cả các ca làm việc hiện có kèm theo các thông số tóm tắt (Giờ làm, Giờ nghỉ, Số lượng nhân sự),  
-**SO THAT** tôi có thể nắm bắt nhanh chóng hiện trạng phân bổ khung giờ làm việc và thực hiện các điều chỉnh (Chỉnh sửa/Xóa/Thêm mới) khi cần thiết.
+**SO THAT** tôi có thể nắm bắt hiện trạng trong ≤ 2 giây tải trang phân bổ khung giờ làm việc và thực hiện các điều chỉnh (Chỉnh sửa/Xóa/Thêm mới) khi cần thiết.
 
 ---
 
@@ -64,3 +64,14 @@ Mỗi Thẻ ca phải hiển thị đầy đủ các trường thông tin sau:
 2. UI/UX: Danh sách Card phải hỗ trợ cuộn (Scroll) nếu số lượng ca vượt quá chiều cao màn hình.
 3. Tương thích: Hiển thị tốt trên trình duyệt Chrome, Edge và Safari.
 4. QA: Đã kiểm thử việc chuyển đổi qua lại giữa các ca mà không xảy ra hiện tượng "trôi" dữ liệu cũ từ ca này sang ca kia.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| SH01-E1 | **Ca không có nhân viên** — Ca mới tạo chưa gán NV | LOW | Thẻ ca hiển thị "0 nhân viên", avatar section trống. Không ẩn thẻ. |
+| SH01-E2 | **Số lượng ca > 50** — Doanh nghiệp lớn có nhiều ca | MEDIUM | Danh sách hỗ trợ virtual scroll, lazy load mỗi batch 20 thẻ. Search bar cho phép tìm theo tên ca. |
+| SH01-E3 | **Ca bị xóa khi đang có NV** — HR xóa ca có 100 NV đang active | HIGH | Chặn xóa. Hiển thị: "Không thể xóa ca đang có [N] nhân viên. Vui lòng chuyển NV sang ca khác trước." |
+| SH01-E4 | **Concurrent edit** — 2 HR cùng sửa 1 ca | MEDIUM | Optimistic locking: HR sửa sau nhận cảnh báo "Ca đã được cập nhật bởi [Tên HR]. Vui lòng tải lại." |

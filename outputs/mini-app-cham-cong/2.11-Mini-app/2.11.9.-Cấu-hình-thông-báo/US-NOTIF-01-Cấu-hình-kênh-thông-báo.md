@@ -4,7 +4,7 @@
 
 **AS A** HR Admin,  
 **I WANT TO** cấu hình các kênh gửi thông báo (Push, Email, Popup) và thiết lập kênh ưu tiên cho từng loại sự kiện,  
-**SO THAT** nhân viên nhận được thông báo qua kênh phù hợp nhất, đảm bảo không bỏ sót thông tin quan trọng.
+**SO THAT** nhân viên nhận được thông báo qua kênh ưu tiên theo cấu hình (Push > Email > In-App), đảm bảo không bỏ sót thông tin quan trọng.
 
 ---
 
@@ -59,3 +59,13 @@
 2. **Fallback:** Kiểm thử Push fail → Email được gửi tự động.
 3. **Giao diện:** Matrix kênh × sự kiện hiển thị rõ ràng, dễ cấu hình.
 4. **QA:** Kiểm thử bật/tắt từng kênh; gửi thông báo qua tất cả kênh.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| NF01-E1 | **NV tắt Push Permission** — iOS/Android block notification | MEDIUM | Fallback sang Email. Dashboard hiển thị: "Push bị tắt — đang dùng Email." Nhắc NV bật Push khi mở app. |
+| NF01-E2 | **Email bounce** — Email NV không hợp lệ | MEDIUM | Mark as FAILED. Retry 1 lần. Log vào dead letter queue. HR dashboard: "[N] NV có email lỗi." |
+| NF01-E3 | **Kênh bị disable toàn hệ thống** — Admin tắt kênh Push | HIGH | Cảnh báo admin: "Tắt kênh Push sẽ ảnh hưởng [N] loại thông báo. Thông báo bắt buộc sẽ chuyển sang Email." |

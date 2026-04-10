@@ -4,7 +4,7 @@
 
 **AS A** HR Admin,  
 **I WANT TO** xem danh sách toàn bộ nhân sự kèm thông tin cơ bản và tìm kiếm nhanh,  
-**SO THAT** tôi có thể tra cứu, quản lý thông tin nhân viên hiệu quả.
+**SO THAT** tôi có thể tra cứu nhân viên trong ≤ 3 thao tác và quản lý thông tin chính xác.
 
 ---
 
@@ -64,3 +64,13 @@
 2. **Tìm kiếm unicode:** Kiểm thử với dấu tiếng Việt (ô, ơ, ư, ă, â, ê).
 3. **RBAC:** SITE_HR không thể xem NV site khác → Phải trả danh sách rỗng.
 4. **QA:** Kiểm thử sort + filter + search kết hợp; danh sách rỗng (site mới).
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| EM03-E1 | **Tìm kiếm không dấu** — VD: "Nguyen" tìm "Nguyễn" | MEDIUM | Full-text search không phân biệt dấu, hoa/thường. Sử dụng unaccent + ILIKE. |
+| EM03-E2 | **Danh sách > 5000 NV** — Load time | MEDIUM | Phân trang server-side (50 NV/trang). Virtual scroll cho smooth UX. |
+| EM03-E3 | **NV status TRANSFERRED** — Đang chuyển chi nhánh | LOW | Hiển thị badge "Đang chuyển" màu vàng. Cho phép xem nhưng không chỉnh sửa. |

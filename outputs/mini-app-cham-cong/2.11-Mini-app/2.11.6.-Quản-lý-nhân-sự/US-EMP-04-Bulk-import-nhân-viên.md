@@ -73,3 +73,14 @@
 2. **File lỗi:** Kiểm thử file có 50% lỗi → File trả về chỉ chứa dòng lỗi + lý do.
 3. **Hiệu năng:** Import 5,000 NV ≤ 30 giây, không timeout.
 4. **QA:** Kiểm thử file rỗng, file sai format (.csv, .doc), file unicode tiếng Việt.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| EM04-E1 | **Email trùng** — Import 2 NV cùng email | HIGH | Mark lỗi: "Email [X] đã tồn tại (NV: [Mã NV cũ])." Không import dòng trùng. |
+| EM04-E2 | **Phòng ban không tồn tại** — File Excel chứa tên phòng ban sai | HIGH | Mark lỗi: "Phòng ban '[X]' không tồn tại. Tạo phòng ban trước hoặc sửa file." |
+| EM04-E3 | **File > 5000 dòng** | MEDIUM | Chặn: "File vượt 5,000 bản ghi. Vui lòng chia nhỏ." |
+| EM04-E4 | **Upload giữa chừng mất mạng** — Processed 2000/5000 dòng | HIGH | Transaction toàn file: rollback toàn bộ nếu lỗi giữa chừng. Hoặc: partial commit kèm report "2000 thành công, 3000 chưa xử lý." |

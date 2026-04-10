@@ -53,3 +53,13 @@
 2. **Unique constraint:** Tạo 2 phòng ban cùng mã → Phải báo lỗi.
 3. **Audit:** Mọi CRUD đều ghi log (ai, thời điểm, hành động).
 4. **QA:** Kiểm thử tạo/sửa/xóa ở tất cả cấp; di chuyển cross-level.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| EM02-E1 | **Xóa phòng ban có NV** — Phòng ban còn 50 NV active | HIGH | Chặn xóa. Hiển thị: "Phòng ban còn [50] nhân viên. Chuyển NV trước khi xóa." |
+| EM02-E2 | **Tên phòng ban trùng** — Tạo 2 phòng ban cùng tên tại 1 site | MEDIUM | Cho phép nhưng cảnh báo: "Đã tồn tại phòng ban '[Tên]' tại chi nhánh này." |
+| EM02-E3 | **Xóa phòng ban cha** — Phòng ban có sub-departments | HIGH | Chặn: "Phòng ban có [N] đơn vị con. Xóa hoặc chuyển đơn vị con trước." |

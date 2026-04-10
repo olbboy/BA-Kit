@@ -61,3 +61,13 @@
 2. **Bắt buộc:** Event bắt buộc không thể tắt (UI disabled + backend reject).
 3. **Template:** Biến động được thay thế đúng khi gửi thông báo thực.
 4. **QA:** Kiểm thử bật/tắt event → Trigger xảy ra → Thông báo gửi/không gửi đúng.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| NF02-E1 | **Trigger event spike** — 5000 NV check-in cùng lúc (đầu ca) | HIGH | Queue-based processing (BullMQ). Rate limit: 100 notification/giây. NV nhận trong ≤ 60s. |
+| NF02-E2 | **Trigger cho NV đã nghỉ việc** — Event cho NV status INACTIVE | LOW | Skip notification. Log: "Skipped notification for inactive employee [ID]." |
+| NF02-E3 | **Duplicate trigger** — Cùng 1 event gửi 2 lần (webhook retry) | MEDIUM | Idempotency key per event. Lần 2 skip, log: "Duplicate event [key], ignored." |

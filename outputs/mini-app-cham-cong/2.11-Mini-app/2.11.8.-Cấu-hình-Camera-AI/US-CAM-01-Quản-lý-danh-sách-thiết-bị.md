@@ -63,3 +63,13 @@ Hệ thống xác định CHECK_IN/CHECK_OUT theo thứ tự ưu tiên:
 2. **Inactive:** Camera Inactive → Không tạo attendance record.
 3. **Unique:** Thêm camera trùng deviceId → Báo lỗi.
 4. **QA:** Kiểm thử thêm/sửa/vô hiệu hóa; kiểm tra direction detection logic.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| CM01-E1 | **Device ID trùng** — Đăng ký camera đã có trong hệ thống | HIGH | Chặn: "Device ID [X] đã được đăng ký tại [Site Y]." |
+| CM01-E2 | **Xóa camera đang active** — Camera đang có NV check-in hằng ngày | HIGH | Soft-delete: set status INACTIVE. Dữ liệu lịch sử giữ nguyên. Cần confirm: "Camera sẽ ngừng nhận dữ liệu chấm công." |
+| CM01-E3 | **Camera chưa có trên C-Vision** — DeviceId không match C-Vision API | MEDIUM | Cảnh báo: "Thiết bị chưa được đăng ký trên C-Vision. Webhook sẽ bị reject." Cho phép lưu draft. |

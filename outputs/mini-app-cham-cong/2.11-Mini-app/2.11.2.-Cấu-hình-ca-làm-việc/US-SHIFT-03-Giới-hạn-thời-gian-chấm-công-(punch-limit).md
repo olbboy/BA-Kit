@@ -32,7 +32,27 @@
 
 ---
 
+### **2. ACCESS CONTROL (RBAC/ABAC)**
+
+| Thông tin | Role | Ghi chú |
+| --- | --- | --- |
+| Cấu hình punch limit | HR Admin | Chỉ HR mới được thay đổi giới hạn. |
+| Xem cấu hình hiện tại | HR, Quản lý | Read-only cho Quản lý. |
+
+---
+
 ### **3. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu rác**: Kiểm thử với mốc quẹt nằm ngoài khung giới hạn ➔ Đảm bảo không làm sai lệch mốc giờ "Vào/Ra" trên Dashboard của nhân viên.
 2. **Thông báo**: Khi NV quẹt ngoài khung, Camera vẫn báo thành công, nhưng App sẽ không hiển thị cập nhật trạng thái làm việc.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| SH03-E1 | **Punch limit = 0** — HR set giờ giới hạn = 0 phút | HIGH | Validation: "Giới hạn chấm công phải ≥ 30 phút." Chặn lưu. |
+| SH03-E2 | **Punch limit > 24h** — Nhập giá trị vô lý | HIGH | Validation: "Giới hạn chấm công không được vượt quá 24 giờ." |
+| SH03-E3 | **NV quẹt ngoài punch limit** — Quẹt trước giờ cho phép | MEDIUM | Mốc quẹt bị reject với status OUTSIDE_PUNCH_LIMIT. NV nhận thông báo: "Chấm công ngoài giới hạn thời gian cho phép." |
+| SH03-E4 | **Ca đêm cross-midnight punch** — Punch limit ca 22:00-06:00 bao gồm 2 ngày | MEDIUM | Giới hạn tính liên tục qua 00:00 (VD: từ 21:00 T đến 07:00 T+1). Không bị cắt tại nửa đêm. |

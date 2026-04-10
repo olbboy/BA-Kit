@@ -49,3 +49,13 @@
 2. **Độ tin cậy:** Batch job không bị treo hay lặp lại việc cộng phép 2 lần cho cùng một người trong tháng.
 3. **Logs:** Toàn bộ lịch sử các lần đồng bộ phải được lưu vết rõ ràng trong cơ sở dữ liệu.
 4. **Bảo mật:** Không cho phép bất kỳ API bên ngoài nào có thể can thiệp vào tiến trình quét tự động này.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| HL03-E1 | **Batch job fail giữa chừng** — Sync 1000 NV, lỗi tại NV thứ 500 | HIGH | Ghi log chi tiết. Đánh dấu NV lỗi. Tiếp tục xử lý NV còn lại. Retry failed batch sau 15 phút. |
+| HL03-E2 | **Duplicate sync event** — 2 instance job chạy đồng thời | MEDIUM | Distributed lock (Redis). Instance thứ 2 skip nếu lock đã active. Log: "Sync already running, skipped." |
+| HL03-E3 | **Config thay đổi giữa batch** — HR thay đổi policy khi batch đang chạy | LOW | Batch dùng snapshot config tại thời điểm bắt đầu. Thay đổi áp dụng cho batch tiếp theo. |

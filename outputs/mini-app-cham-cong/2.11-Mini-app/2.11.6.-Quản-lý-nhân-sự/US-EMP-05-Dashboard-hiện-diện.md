@@ -56,3 +56,13 @@
 2. **Real-time:** Kiểm thử NV check-in → Dashboard cập nhật ≤ 60 giây.
 3. **RBAC:** Manager chỉ thấy NV team mình; SITE_HR thấy toàn site.
 4. **QA:** Kiểm thử các edge case: NV multi-site, NV chuyển phòng ban, NV ca đêm.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| EM05-E1 | **Camera offline** — Không có dữ liệu real-time từ site | MEDIUM | Badge "Offline" trên site card. Hiển thị dữ liệu cuối cùng kèm timestamp "Cập nhật lúc [HH:MM]." |
+| EM05-E2 | **Toàn bộ NV WFH** — On-site = 0 | LOW | Hiển thị đúng "0 on-site". Không ẩn dashboard. Hiển thị chi tiết WFH breakdown. |
+| EM05-E3 | **Timezone khác nhau** — Site ở HCM (UTC+7) vs Site ở HN (UTC+7) nhưng server UTC | LOW | Tất cả giờ hiển thị theo timezone site. Server store UTC, client convert theo site timezone. |

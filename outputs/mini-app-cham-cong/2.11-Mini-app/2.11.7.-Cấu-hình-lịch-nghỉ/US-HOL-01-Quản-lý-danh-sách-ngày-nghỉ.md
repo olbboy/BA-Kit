@@ -70,3 +70,13 @@
 2. **API**: Cung cấp đầy đủ các API CRUD cho bảng `sh_holiday_config`.
 3. **Dữ liệu (Database)**: Các mốc ngày nghỉ được lưu trữ chính xác, hỗ trợ truy vấn nhanh theo năm.
 4. **Kiểm thử (QA)**: Đã kiểm thử trường hợp gán nghỉ Tết ➔ Nhân viên không quẹt thẻ ➔ Dashboard vẫn báo 8h công "Hợp lệ".
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| HL01-E1 | **Ngày nghỉ trùng cuối tuần** — VD: 30/4 rơi vào Chủ nhật | MEDIUM | HR quyết định: (A) Nghỉ bù T2, (B) Không nghỉ bù. Hệ thống hiển thị cảnh báo khi tạo. |
+| HL01-E2 | **Xóa ngày nghỉ đã có đơn nghỉ phép** — NV đã approved leave trùng ngày | HIGH | Chặn xóa. Hiển thị: "[N] đơn nghỉ phép đã approved trùng ngày này. Hủy đơn trước khi xóa." |
+| HL01-E3 | **Ngày nghỉ thiên tai — scope vùng** — Chỉ áp dụng 1 số tỉnh | MEDIUM | Chọn scope: Toàn quốc / Tỉnh cụ thể. Chỉ NV có Primary Site tại tỉnh đó mới bị ảnh hưởng. |

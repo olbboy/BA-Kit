@@ -3,7 +3,7 @@
 ---
 
 **AS A** Quản lý / HR Admin,  
-**I WANT TO** xem danh sách tất cả đơn chờ phê duyệt tại một giao diện tập trung, duyệt hoặc từ chối nhanh kèm lý do,  
+**I WANT TO** xem danh sách tất cả đơn chờ phê duyệt tại một giao diện tập trung, duyệt hoặc từ chối trong ≤ 2 tap trên mobile kèm lý do,  
 **SO THAT** tôi không bỏ sót đơn từ của nhân viên và xử lý kịp thời để không ảnh hưởng đến quyền lợi của họ.
 
 ---
@@ -71,3 +71,14 @@
 2. **Lý do từ chối:** Kiểm thử từ chối không nhập lý do → Phải bị chặn.
 3. **Multi-level:** Kiểm thử luồng 3 level → Đơn chuyển đúng thứ tự.
 4. **QA:** Kiểm thử: approver fallback (manager nghỉ phép), duyệt sau ngày chốt (phải bị chặn).
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| AP01-E1 | **Approver bị terminated** — Manager nghỉ việc khi có đơn PENDING | CRITICAL | Auto-reassign sang fallback chain (SITE_MANAGER → SITE_HR → GLOBAL_HR). Push NV: "Đơn đã chuyển đến [Approver mới]." Audit: "Auto-reassigned." |
+| AP01-E2 | **Self-approve** — Manager gửi đơn nghỉ cho chính mình duyệt | HIGH | Chặn self-approve. Auto-route lên DEPT_HEAD hoặc SITE_HR. |
+| AP01-E3 | **Approver offline > 7 ngày** — Không duyệt đơn nào trong 7 ngày | MEDIUM | Auto-escalate lên level tiếp. Alert HR: "[Tên] có [N] đơn quá hạn." Không auto-approve. |
+| AP01-E4 | **Đơn tạo sát ngày chốt công** — Đơn tạo ngày 24, chốt công ngày 25 | MEDIUM | Cảnh báo approver: "Đơn này cần duyệt trước [DD/MM] (ngày chốt công)." Push reminder 24h trước. |

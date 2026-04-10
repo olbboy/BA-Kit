@@ -65,3 +65,13 @@
 2. **Cảnh báo:** Camera offline → IT nhận alert ≤ 5 phút.
 3. **Uptime:** Biểu đồ hiển thị chính xác so với log thực tế.
 4. **QA:** Kiểm thử: camera ngắt kết nối, camera khôi phục, nhiều camera offline đồng thời.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| CM03-E1 | **Camera offline > 1 giờ** — Health check fail liên tục | HIGH | Escalate: Email IT Manager + Push notification. Dashboard badge đỏ. Log incident. |
+| CM03-E2 | **False offline** — Network hiccup 30 giây | LOW | Grace period: 3 consecutive fails (15 phút) mới đánh dấu offline. Tránh alert spam. |
+| CM03-E3 | **Tất cả camera cùng site offline** — Mất mạng toàn site | CRITICAL | Alert đặc biệt cho SITE_MANAGER + IT. Fallback: cho phép manual check-in. Banner toàn app: "Hệ thống camera tại [Site] đang bảo trì." |

@@ -66,3 +66,14 @@
 2. Độ đồng bộ: Mọi thay đổi trong form cấu hình phải được cập nhật ngay lập tức xuống Thẻ ca tương ứng ở cột bên trái.
 3. Hủy thay đổi: Nút "Xóa thay đổi" phải reset toàn bộ form về dữ liệu ban đầu hoặc xóa trắng nếu là tạo mới.
 4. QA: Kiểm thử với kịch bản ca đêm và ca gãy.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| SH02-E1 | **Giờ kết thúc < Giờ bắt đầu** — VD: 22:00 - 06:00 (Ca đêm) | HIGH | Hệ thống nhận diện ca đêm (cross-midnight). Tự động set endDate = startDate + 1. Hiển thị badge "Ca đêm". |
+| SH02-E2 | **Giờ trùng với ca khác** — 2 ca có overlapping time window | MEDIUM | Cảnh báo (không chặn): "Khung giờ trùng với ca [Tên ca]. NV không thể thuộc cả 2 ca cùng ngày." |
+| SH02-E3 | **Ca có 0h working** — Giờ bắt đầu = Giờ kết thúc | HIGH | Validation chặn: "Tổng giờ làm phải > 0. Vui lòng kiểm tra lại khung giờ." |
+| SH02-E4 | **Ngày áp dụng trong quá khứ** — HR set effective date đã qua | MEDIUM | Cảnh báo: "Ngày hiệu lực trong quá khứ. Dữ liệu chấm công lịch sử sẽ KHÔNG bị tính lại." Cho phép tiếp tục. |

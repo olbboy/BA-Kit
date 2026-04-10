@@ -65,3 +65,13 @@
 2. **Hiệu năng:** Dashboard tải ≤ 2 giây.
 3. **Responsive:** Hiển thị tốt trên mobile (single column) và web (grid layout).
 4. **QA:** Kiểm thử với NV có 0 ngày chấm công, NV mới (< 1 tháng), NV có OT xuyên đêm.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| RP01-E1 | **NV mới < 1 tháng** — Chưa đủ dữ liệu tính score | LOW | Dashboard hiển thị: "Chưa đủ dữ liệu (cần ≥ 1 tháng)." Ẩn biểu đồ trend. Hiển thị dữ liệu raw có sẵn. |
+| RP01-E2 | **NV chuyển site giữa tháng** — Dữ liệu thuộc 2 site | MEDIUM | Gộp dữ liệu cả 2 site cho tháng hiện tại. Ghi chú: "Bao gồm dữ liệu từ [Site A] (01-15) và [Site B] (16-30)." |
+| RP01-E3 | **Ca đêm ảnh hưởng tính toán ngày công** | MEDIUM | Ngày công tính theo ngày bắt đầu ca (VD: ca 22:00 T → 06:00 T+1 = ngày công T). |

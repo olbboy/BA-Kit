@@ -57,3 +57,12 @@ Hệ thống seed sẵn:
 2. **Seed data:** Hệ thống mới phải có 5 cấp bậc mặc định sẵn.
 3. **Phân quyền:** Thay đổi cấp bậc NV → Quyền phê duyệt cập nhật tương ứng.
 4. **QA:** Kiểm thử thêm cấp bậc mới → Gán cho NV → Kiểm tra phân quyền.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| EM06-E1 | **Xóa cấp bậc đang được sử dụng** — 200 NV có cấp bậc "Nhân viên" | HIGH | Chặn xóa: "Cấp bậc đang được gán cho [200] NV. Chuyển NV sang cấp bậc khác trước." |
+| EM06-E2 | **Tên cấp bậc trùng** | MEDIUM | Chặn: "Cấp bậc '[X]' đã tồn tại." |

@@ -54,3 +54,13 @@
 2. **Audit Log:** Mọi hành động Bật/Tắt hoặc thay đổi hạn mức phải được ghi vết cho mục đích hậu kiểm.
 3. **Hiệu năng:** API lưu trữ phải phản hồi trong thời gian dưới 0.3s.
 4. **UX Dashboard:** Trạng thái gạt nút phải đồng bộ hiển thị chính xác cho toàn bộ User Admin cùng lúc.
+
+---
+
+### EDGE CASES & ERROR HANDLING
+
+| # | Case | Severity | Expected Behavior |
+|---|------|----------|-------------------|
+| HL02-E1 | **Policy trùng date range** — 2 policy nghỉ lễ cùng ngày cho cùng site | HIGH | Chặn: "Đã tồn tại policy nghỉ cho ngày [DD/MM] tại [Site]. Vui lòng chỉnh sửa policy hiện có." |
+| HL02-E2 | **Rule nghỉ circular** — Rule A tham chiếu Rule B, Rule B tham chiếu Rule A | HIGH | Validation: phát hiện circular reference. Chặn lưu kèm message rõ ràng. |
+| HL02-E3 | **Policy áp dụng retroactive** — Tạo policy cho ngày đã qua | MEDIUM | Cảnh báo: "Policy áp dụng cho ngày trong quá khứ. Dữ liệu chấm công lịch sử sẽ được tính lại." Yêu cầu xác nhận. |
