@@ -26,7 +26,7 @@ If you edit an agent's system prompt (the `SKILL.md` file):
 *   Update the relevant `SKILL.md` files or `docs/usage-guide.md` if the knowledge is critical.
 
 ### 3. Adding Templates
-*   Place new artifacts in `templates/`.
+*   Place new artifacts in `.agent/templates/`.
 *   Use standard Markdown or verifiable formats.
 
 ## 🐛 Reporting Bugs

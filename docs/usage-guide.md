@@ -24,7 +24,7 @@ Agents are no longer isolated. They form a **Collaborative Network (DAG)**.
 *   **New Way**: `@ba-writing` finishes and *advises you*: "Handover: Summon `@ba-validation` to QA this draft."
 
 ### 3. 📒 Mission Log (The Memory)
-The Squad shares a "Working Brain" via `CONTINUITY.md` (derived from `templates/continuity-template.md`).
+The Squad shares a "Working Brain" via `CONTINUITY.md` (derived from `.agent/templates/continuity-template.md`).
 *   **Problem**: "I told `@ba-elicitation` we are an Agile team, but `@ba-nfr` thinks we are Waterfall."
 *   **Solution**: You define the Context ONCE in the Mission Log. All 26 agents read it before acting.
 
@@ -74,7 +74,7 @@ The Squad shares a "Working Brain" via `CONTINUITY.md` (derived from `templates/
 
 ### Protocol 1: The "Context Injection"
 **Stop repeating yourself.**
-1.  Copy `templates/continuity-template.md` to your root as `CONTINUITY.md`.
+1.  Copy `.agent/templates/continuity-template.md` to your root as `CONTINUITY.md`.
 2.  Fill it out: `Goal: MVP Release`. `Constraint: Mobile Only`.
 3.  **Result**: Every agent now knows this (Skills read this automatically).
 

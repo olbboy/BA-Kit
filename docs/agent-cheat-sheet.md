@@ -1,6 +1,6 @@
 # BA-Kit Agent Cheat Sheet
 
-Tham chiếu nhanh 32 agents — phân loại, khi nào dùng, output chính.
+Tham chiếu nhanh 26 agents — phân loại, khi nào dùng, output chính.
 
 ---
 

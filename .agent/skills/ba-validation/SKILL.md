@@ -178,9 +178,9 @@ Before drafting, search for relevant knowledge:
 *   Use search results to ground your output in verified frameworks and templates.
 
 ## 📄 Templates
-*   **Use Case**: `templates/use-case-template.md` — Use Case Specification (for review)
-*   **Test Case**: `templates/test-case-template.md` — Test Case Specification
-*   **Test Suite**: `templates/test-suite-template.md` — Full Test Suite
+*   **Use Case**: `.agent/templates/use-case-template.md` — Use Case Specification (for review)
+*   **Test Case**: `.agent/templates/test-case-template.md` — Test Case Specification
+*   **Test Suite**: `.agent/templates/test-suite-template.md` — Full Test Suite
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Requirements Validation), ebook-techniques.md (Wiegers Quality Attributes), ebook-requirements-memory-jogger.md (Gottesdiener — Validation Ch.6, SRS Inspection Appendix D)

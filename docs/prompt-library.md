@@ -313,4 +313,4 @@ Dùng trước deployment để đảm bảo cả hệ thống VÀ con người 
 
 ---
 
-> Tip: Tạo `CONTINUITY.md` ở root project (copy từ `templates/continuity-template.md`) để mọi agent tự đọc context — không cần nhắc lại project goal sau mỗi prompt.
+> Tip: Tạo `CONTINUITY.md` ở root project (copy từ `.agent/templates/continuity-template.md`) để mọi agent tự đọc context — không cần nhắc lại project goal sau mỗi prompt.

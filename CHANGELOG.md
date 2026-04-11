@@ -2,6 +2,13 @@
 
 All notable changes to BA-Kit Antigravity.
 
+## [1.3.1] - 2026-04-11
+
+### Fixed
+- Template paths corrected `templates/` → `.agent/templates/` across 9 SKILL.md files (21 references) and 7 doc files
+- Stale agent count 32 → 26 corrected in README.md (6), README.vi.md (6), agent-cheat-sheet.md (1)
+- `README.vi.md` line 149: "32 chuyên gia" → "26 chuyên gia"
+
 ## [1.3.0] - 2026-04-11
 
 ### Changed

@@ -167,13 +167,13 @@ Before drafting, search for relevant knowledge:
 *   Use search results to ground your output in verified frameworks and templates.
 
 ## 📄 Templates
-*   **BRD**: `templates/brd-template.md` — Business Requirements Document
-*   **SRS**: `templates/srs-template.md` — Software Requirements Specification (IEEE 29148)
-*   **FRD**: `templates/frd-template.md` — Functional Requirements Document
-*   **Use Case**: `templates/use-case-template.md` — Use Case Specification
-*   **User Story Spec**: `templates/user-story-spec-template.md` — Detailed User Story Specification
-*   **Test Case**: `templates/test-case-template.md` — Test Case Specification
-*   **Test Suite**: `templates/test-suite-template.md` — Test Suite (7-category coverage)
+*   **BRD**: `.agent/templates/brd-template.md` — Business Requirements Document
+*   **SRS**: `.agent/templates/srs-template.md` — Software Requirements Specification (IEEE 29148)
+*   **FRD**: `.agent/templates/frd-template.md` — Functional Requirements Document
+*   **Use Case**: `.agent/templates/use-case-template.md` — Use Case Specification
+*   **User Story Spec**: `.agent/templates/user-story-spec-template.md` — Detailed User Story Specification
+*   **Test Case**: `.agent/templates/test-case-template.md` — Test Case Specification
+*   **Test Suite**: `.agent/templates/test-suite-template.md` — Test Suite (7-category coverage)
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Requirements Analysis), ebook-techniques.md (Wiegers INVEST), ebook-requirements-memory-jogger.md (Gottesdiener — SRS Template Ch.5, Ambiguity List Appendix F)

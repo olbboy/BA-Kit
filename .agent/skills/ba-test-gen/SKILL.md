@@ -200,8 +200,8 @@ Before generating, search for relevant context:
 *   For cross-cutting concerns: `python3 .agent/scripts/ba_search.py "<query>" --multi-domain`
 
 ## 📄 Templates
-*   **Test Case**: `templates/test-case-template.md` — Individual test case specification
-*   **Test Suite**: `templates/test-suite-template.md` — Full test suite for a User Story
+*   **Test Case**: `.agent/templates/test-case-template.md` — Individual test case specification
+*   **Test Suite**: `.agent/templates/test-suite-template.md` — Full test suite for a User Story
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-techniques.md (Wiegers — Test Case Design), ebook-requirements-memory-jogger.md (Gottesdiener — Validation Ch.6)

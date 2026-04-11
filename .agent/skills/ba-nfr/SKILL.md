@@ -172,7 +172,7 @@ Before drafting, search for relevant knowledge:
 *   Use search results to ground your output in verified frameworks and templates.
 
 ## 📄 Templates
-*   **API Contract**: `templates/api-contract-template.md` — API Integration Contract
+*   **API Contract**: `.agent/templates/api-contract-template.md` — API Integration Contract
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-techniques.md (Wiegers NFR Patterns), ISO/IEC 25010, ebook-requirements-memory-jogger.md (Gottesdiener — Quality Attributes Appendix E)

@@ -296,7 +296,7 @@ Each recipe shows exactly which agents to summon (`@`) and in what order to achi
 
 **The Chain:**
 1.  **`@ba-elicitation`**: "Interview me about [feature]. Focus on: user goals, constraints, success metrics."
-2.  **`@ba-writing`**: "Draft PRD using `templates/prd-template.md`. Fill all 12 sections."
+2.  **`@ba-writing`**: "Draft PRD using `.agent/templates/prd-template.md`. Fill all 12 sections."
 3.  **`@ba-prioritization`**: "Apply MoSCoW to the feature list in Section 6."
 4.  **`@ba-nfr`**: "Define NFR for Section 8 (Performance, Security, Accessibility)."
 5.  **`@ba-validation`**: "Validate full PRD. Health Score target: 85+."

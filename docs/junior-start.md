@@ -137,7 +137,7 @@ EXPERT
 |-----------|-------|
 | `docs/agent-cheat-sheet.md` | Toàn bộ 26 agents + Power Combos |
 | `docs/workflow-cookbook.md` | 23 kịch bản thực tế từ A-Z |
-| `templates/` | 14 template sẵn dùng cho mọi deliverable |
+| `.agent/templates/` | 14 template sẵn dùng cho mọi deliverable |
 | `python3 .agent/scripts/ba_search.py "keyword"` | Tìm kiếm trong knowledge base |
 | `python3 .agent/scripts/coverage_checker.py outputs/<project>/` | Scan sức khỏe dự án tự động |
 

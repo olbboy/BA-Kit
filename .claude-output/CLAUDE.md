@@ -107,7 +107,7 @@ graph TD
 ```
 .claude/skills/ba-*/SKILL.md  — 26 Agent Skills
 .claude/skills/ba-kit-search/ — BM25+ Knowledge Engine
-templates/                     — Document Templates (BRD, SRS, FRD, etc.)
+.agent/templates/              — Document Templates (BRD, SRS, FRD, etc.)
 docs/                          — Knowledge Base & Protocol
 ebooks/                        — Synthesized Book Knowledge
 ```

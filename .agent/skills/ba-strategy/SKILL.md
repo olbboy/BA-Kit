@@ -204,7 +204,7 @@ Before drafting, search for relevant knowledge:
 *   Use search results to ground your output in verified frameworks and templates.
 
 ## 📄 Templates
-*   **BRD**: `templates/brd-template.md` — Business Requirements Document (Strategic Context section)
+*   **BRD**: `.agent/templates/brd-template.md` — Business Requirements Document (Strategic Context section)
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Strategy Analysis), ebook-techniques.md (99 Tools), ebook-requirements-memory-jogger.md (Gottesdiener — Vision Statement Ch.2, Scope Models Ch.4, Project Adaptation Ch.8)

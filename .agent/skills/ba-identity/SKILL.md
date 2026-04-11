@@ -137,7 +137,7 @@ Before drafting, search for relevant knowledge:
 *   Use search results to ground your output in verified frameworks and templates.
 
 ## 📄 Templates
-*   **Communication Plan**: `templates/communication-plan-template.md` — Stakeholder Communication Plan
+*   **Communication Plan**: `.agent/templates/communication-plan-template.md` — Stakeholder Communication Plan
 
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Stakeholder Engagement), ebook-career.md (Professional Identity)

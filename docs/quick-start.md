@@ -47,7 +47,7 @@ cp -r BA-Kit/.agent/skills/* <your-project>/.agent/skills/
 ### Step C: Copy Templates & Knowledge (Optional)
 
 ```bash
-cp -r BA-Kit/templates/ <your-project>/templates/
+cp -r BA-Kit/.agent/templates/ <your-project>/.agent/templates/
 cp -r BA-Kit/docs/knowledge_base/ <your-project>/docs/knowledge_base/
 cp -r BA-Kit/ebooks/ <your-project>/ebooks/
 ```
@@ -102,7 +102,7 @@ A: Ensure `SKILL.md` files are in `.agent/skills/<agent_name>/` directories.
 A: See `docs/ai-tools-guide.md` for the full comparison matrix.
 
 **Q: Where are the templates?**
-A: `templates/` folder — PRD, BRD, SRS, FRD, Use Case, Data Dictionary, and more.
+A: `.agent/templates/` folder — PRD, BRD, SRS, FRD, Use Case, Data Dictionary, and more.
 
 ---
 
