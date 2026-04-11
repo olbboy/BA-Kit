@@ -126,7 +126,7 @@ QUALITY MASTER (v3.0)
   Test Cases → Quality Gate → Cross-Check → Audit
 
 EXPERT
-  @ba-master → full squad orchestration (điều phối toàn bộ 25 agents)
+  @ba-master → full squad orchestration (điều phối toàn bộ 26 agents)
 ```
 
 ---
@@ -135,7 +135,7 @@ EXPERT
 
 | Tài nguyên | Mô tả |
 |-----------|-------|
-| `docs/agent-cheat-sheet.md` | Toàn bộ 25 agents + Power Combos |
+| `docs/agent-cheat-sheet.md` | Toàn bộ 26 agents + Power Combos |
 | `WORKFLOW-COOKBOOK.md` | 12 kịch bản thực tế từ A-Z |
 | `templates/` | 13 template sẵn dùng cho mọi deliverable |
 | `python3 .agent/scripts/ba_search.py "keyword"` | Tìm kiếm trong knowledge base |

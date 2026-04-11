@@ -37,7 +37,7 @@ Required Context:
 
 ```
 .agent/
-├── data/        Tier 1: CURATED (809 entries, human-verified, frozen)
+├── data/        Tier 1: CURATED (786 entries, human-verified, frozen)
 └── wiki/        Tier 2: LIVING (LLM-maintained, compounds)
     ├── index.md      Content catalog — auto-maintained
     ├── log.md        Chronological operation log — append-only

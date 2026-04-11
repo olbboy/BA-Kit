@@ -2,7 +2,7 @@
 
 ## Canonical Source
 
-**`.agent/skills/`** = source of truth (25 BA skills + 2 connectors).
+**`.agent/skills/`** = source of truth (26 BA skills + 2 connectors).
 
 **`.claude-output/`** = pre-built export for Claude Code deployment.
 

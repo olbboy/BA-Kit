@@ -1,12 +1,12 @@
 # .agent/ — BA-Kit Agent System
 
-Core engine của BA-Kit Antigravity: 25 specialized Business Analysis agents.
+Core engine của BA-Kit Antigravity: 26 specialized Business Analysis agents.
 
 ## Cấu trúc
 
 ```
 .agent/
-├── skills/                     25 BA agents + 2 connectors
+├── skills/                     26 BA agents + 2 connectors
 │   ├── _shared/                System prompt fragment (shared identity)
 │   │   └── system-prompt.md    Prepend cho tất cả agents
 │   │
@@ -51,7 +51,7 @@ Core engine của BA-Kit Antigravity: 25 specialized Business Analysis agents.
 │   ├── gen_docx.py             DOCX generation via Pandoc
 │   └── batch_remediate.py      Batch fix/cleanup utility
 │
-├── data/                       Knowledge base (23 CSV files, 809 entries)
+├── data/                       Knowledge base (23 CSV files, 786 entries)
 │   ├── agile.csv               15 entries — Agile practices
 │   ├── elicitation.csv         70 entries — Questioning techniques
 │   ├── writing.csv             50 entries — Requirements writing
@@ -101,7 +101,7 @@ python3 .agent/scripts/coverage_checker.py outputs/project-name/
 ## 2-Tier Knowledge (Karpathy LLM Wiki Pattern)
 
 ```
-Tier 1: data/*.csv      → 809 curated entries (human-verified, frozen)
+Tier 1: data/*.csv      → 786 curated entries (human-verified, frozen)
 Tier 2: wiki/            → Living pages (LLM-maintained, compounds)
          ├── concepts/   BA concept pages
          ├── projects/   Project-specific context

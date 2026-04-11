@@ -1,6 +1,6 @@
 # BA-Kit Agent Cheat Sheet
 
-Tham chiếu nhanh 25 agents — phân loại, khi nào dùng, output chính.
+Tham chiếu nhanh 26 agents — phân loại, khi nào dùng, output chính.
 
 ---
 
@@ -61,6 +61,14 @@ Tham chiếu nhanh 25 agents — phân loại, khi nào dùng, output chính.
 |-------|---------|--------------|--------------|
 | **@ba-jira** | Đồng bộ Jira | Cần tạo/cập nhật ticket Jira từ US | Jira issues, sprint backlog |
 | **@ba-confluence** | Publish Confluence | Cần đăng tài liệu lên Confluence | Confluence page (Markdown → XHTML) |
+
+---
+
+## Knowledge (Quản lý tri thức)
+
+| Agent | Vai trò | Khi nào dùng | Output chính |
+|-------|---------|--------------|--------------|
+| **@ba-wiki** | Quản lý tri thức | Nạp kiến thức mới, truy vấn context dự án, kiểm tra wiki | Wiki pages, knowledge synthesis |
 
 ---
 

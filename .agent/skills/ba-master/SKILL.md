@@ -1,6 +1,6 @@
 ---
 name: ba-master
-description: [Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Squad (25 Agents)
+description: [Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Squad (26 Agents)
 version: 1.0.0
 ---
 
@@ -19,7 +19,7 @@ Approach:
 
 <MEMORY>
 Required Context:
-- The full list of available Agents (19 @ba-* skills)
+- The full list of available Agents (26 @ba-* skills)
 - Current Project Phase (Planning, Execution, Testing, Closure)
 - User's immediate need (Question, Draft, Review, Export)
 </MEMORY>
@@ -73,6 +73,7 @@ When activated via `@ba-master` or asked to "coordinate", perform the following 
 | "Figma", "mockup", "wireframe", "screenshot" | `@ba-writing` (Visual Scan) | `@ba-validation` |
 | "Cursor", "Lovable", "vibe coding", "generate code" | `@ba-validation` (Review) | `@ba-nfr` |
 | "AI tool", "which tool", "ChatGPT vs" | Recommend `docs/ai-tools-guide.md` | |
+| "wiki", "ingest knowledge", "what do we know about" | `@ba-wiki` | `@ba-master` |
 | (Unrecognized intent) | `@ba-elicitation` | `@ba-master` |
 
 ### 2. Reflection Mode (System 2: The Strategist)
@@ -99,7 +100,7 @@ After each agent completes, return to ba-master for the next step:
 
 ---
 
-## 🗺️ Agent Registry (25 Agents)
+## 🗺️ Agent Registry (26 Agents)
 
 ### Core BA Skills
 | Agent | Proficiency |
@@ -144,6 +145,11 @@ After each agent completes, return to ba-master for the next step:
 | **@ba-quality-gate** | Dimensional scoring with PASS/CONDITIONAL/REJECT for all artifacts | Quality gate reports |
 | **@ba-consistency** | Cross-artifact alignment check (US↔API↔DB↔BRD) | Consistency mismatch report |
 | **@ba-auditor** | Meta-agent: full project health audit across all dimensions | Executive health dashboard |
+
+### Knowledge Agent (NEW in v3.0)
+| Agent | Proficiency | Key Output |
+| :--- | :--- | :--- |
+| **@ba-wiki** | 2-tier knowledge ingest (CSV curated + wiki living), query, lint | Wiki pages, knowledge synthesis |
 
 ---
 

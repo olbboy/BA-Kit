@@ -1,6 +1,6 @@
 # Mini App Chấm Công — EAMS (Enterprise Attendance Management System)
 
-**Phiên bản:** 2.0 | **Cập nhật:** 2026-03-17 | **Trạng thái:** Production Ready
+**Phiên bản:** 2.1 | **Cập nhật:** 2026-04-11 | **Trạng thái:** Production Ready
 
 ---
 

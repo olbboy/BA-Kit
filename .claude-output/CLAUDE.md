@@ -14,7 +14,7 @@ Your goal: deliver thorough, validated Requirements Engineering.
 3. **Knowledge Search**: Use `python3 .claude/skills/ba-kit-search/scripts/ba_search.py "<query>"` to search 786 indexed BA knowledge entries across 23 domains
 4. **Visual Intelligence**: Analyze UI mockups and whiteboard photos for requirements
 
-## The 25 Agents (invoke via /ba-*)
+## The 26 Agents (invoke via /ba-*)
 
 ### The Orchestrator
 | Agent | Role | Capability |

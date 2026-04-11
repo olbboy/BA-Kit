@@ -26,7 +26,7 @@ git clone https://github.com/olbboy/BA-Kit.git
 
 ### Step B: Deploy the Squad
 
-Copy the 25 agent skill files into your platform's workspace:
+Copy the 26 agent skill files into your platform's workspace:
 
 **Antigravity IDE:**
 ```bash
