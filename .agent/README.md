@@ -98,6 +98,20 @@ python3 .agent/scripts/coverage_checker.py outputs/project-name/
 4. Tạo CSV tương ứng trong `.agent/data/{domain}.csv` (nếu cần)
 5. Đăng ký trong `ba-master/SKILL.md` decision matrix
 
+## 2-Tier Knowledge (Karpathy LLM Wiki Pattern)
+
+```
+Tier 1: data/*.csv      → 809 curated entries (human-verified, frozen)
+Tier 2: wiki/            → Living pages (LLM-maintained, compounds)
+         ├── concepts/   BA concept pages
+         ├── projects/   Project-specific context
+         └── decisions/  ADRs and key decisions
+```
+
+Operations: `@ba-wiki ingest <source>` | `@ba-wiki query "<question>"` | `@ba-wiki lint`
+
+Search both tiers: `python3 .agent/scripts/ba_search.py "query" --wiki --multi-domain`
+
 ## Cognitive Architecture
 
 Mỗi agent tuân theo System 2 Reflection loop:

@@ -7,6 +7,8 @@ Usage:
   python3 ba-search.py "EARS pattern" --domain writing
   python3 ba-search.py "validate NFR" --multi-domain
   python3 ba-search.py "ambiguous words" --max-results 5
+  python3 ba-search.py "OT holiday rate" --wiki          # Search wiki (Tier 2)
+  python3 ba-search.py "traceability" --multi-domain --wiki  # Both tiers
   python3 ba-search.py --list-domains
 """
 
@@ -70,6 +72,71 @@ def format_output(result):
         lines.append("No results found. Try broader keywords or a different domain.")
         lines.append(f"Available domains with data: {', '.join(d for d, f in DOMAIN_FILES.items() if (DATA_DIR / f).exists())}")
 
+    return "\n".join(lines)
+
+
+def search_wiki(query, max_results=5):
+    """Search Tier 2 wiki pages using simple keyword matching."""
+    wiki_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "wiki")
+    if not os.path.isdir(wiki_dir):
+        return {"query": query, "tier": 2, "count": 0, "results": [], "error": "Wiki directory not found"}
+
+    results = []
+    query_lower = query.lower()
+    query_terms = query_lower.split()
+
+    for root, dirs, files in os.walk(wiki_dir):
+        for fname in files:
+            if not fname.endswith(".md") or fname in ("index.md", "log.md"):
+                continue
+            filepath = os.path.join(root, fname)
+            rel_path = os.path.relpath(filepath, wiki_dir)
+            with open(filepath, "r", encoding="utf-8") as f:
+                content = f.read()
+
+            content_lower = content.lower()
+            # Score: count matching query terms in content
+            score = sum(content_lower.count(term) for term in query_terms)
+            if score == 0:
+                continue
+
+            # Extract title (first # heading)
+            title = fname.replace(".md", "").replace("-", " ").title()
+            for line in content.split("\n"):
+                if line.startswith("# "):
+                    title = line[2:].strip()
+                    break
+
+            # Extract category from path
+            category = os.path.dirname(rel_path) or "root"
+
+            # Extract first paragraph as summary
+            paragraphs = [p.strip() for p in content.split("\n\n") if p.strip() and not p.strip().startswith("#")]
+            summary = paragraphs[0][:200] if paragraphs else ""
+
+            results.append({
+                "path": f"wiki/{rel_path}",
+                "title": title,
+                "category": category,
+                "summary": summary,
+                "_score": round(score, 2),
+            })
+
+    results.sort(key=lambda x: x["_score"], reverse=True)
+    results = results[:max_results]
+
+    return {"query": query, "tier": 2, "count": len(results), "results": results}
+
+
+def format_wiki_output(result):
+    """Format wiki search results for LLM consumption."""
+    lines = [f"## Wiki Search (Tier 2)", f"**Query:** {result['query']} | **Found:** {result['count']}", ""]
+    for i, entry in enumerate(result["results"], 1):
+        lines.append(f"### [{entry['category']}] {entry['title']} — score: {entry['_score']}")
+        lines.append(f"**Path:** .agent/{entry['path']}")
+        lines.append(f"\n{entry['summary']}\n")
+    if result["count"] == 0:
+        lines.append("No wiki results found. Try CSV search: `--multi-domain` without `--wiki`")
     return "\n".join(lines)
 
 
@@ -149,6 +216,7 @@ if __name__ == "__main__":
     parser.add_argument("--json", action="store_true", help="Output as JSON")
     parser.add_argument("--list-domains", "-l", action="store_true", help="List available domains")
     parser.add_argument("--stats", action="store_true", help="Show knowledge base statistics")
+    parser.add_argument("--wiki", "-w", action="store_true", help="Also search wiki pages (Tier 2)")
 
     args = parser.parse_args()
 
@@ -173,3 +241,11 @@ if __name__ == "__main__":
         print(json.dumps(result, indent=2, ensure_ascii=False))
     else:
         print(format_output(result))
+
+    # Wiki search (Tier 2) if requested
+    if args.wiki:
+        wiki_result = search_wiki(args.query, max_results=args.max_results)
+        if args.json:
+            print(json.dumps(wiki_result, indent=2, ensure_ascii=False))
+        else:
+            print("\n" + format_wiki_output(wiki_result))
