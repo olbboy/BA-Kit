@@ -47,7 +47,7 @@
     - Thời gian đầy đủ: Hiển thị mốc [Giờ : Phút : Giây].
     - Tên Camera/Địa điểm: Hiển thị sảnh tòa nhà hoặc văn phòng nơi ghi nhận dữ liệu.
 
-- Web App Logic: Khi mở Accordion của ngày A ➔ Tự động đóng Accordion của ngày B (nếu đang mở) để tối ưu diện tích hiển thị trên điện thoại.
+- Web App Logic: Khi mở Accordion của ngày A ➔ Tự động đóng Accordion của ngày B (nếu đang mở) — chỉ hiển thị 1 Accordion mở tại một thời điểm trên điện thoại.
 
 #### **3.3. Xử lý Trạng thái đặc biệt**
 
@@ -70,7 +70,7 @@
 
 ### **4. DEFINITION OF DONE (DOD)**
 
-1. **Chất lượng ảnh**: Ảnh snapshot từ Camera AI phải được hiển thị rõ nét, tốc độ tải ảnh nhanh, không làm chậm trang.
+1. **Chất lượng ảnh**: Ảnh snapshot từ Camera AI phải được hiển thị rõ nét, tốc độ tải ảnh ≤ 2 giây trên 3G, không block rendering trang (lazy-load).
 2. **Độ đồng nhất**: Dữ liệu giờ công trong nhật ký phải khớp 100% với dữ liệu hiển thị tại Thẻ Hub (US-ATTEN-01).
 3. **Giao diện Web**: Hiệu ứng mở rộng/thu gọn mượt.
 4. **Phản quyền**: Đảm bảo nhân viên không thể thay đổi hoặc can thiệp vào dữ liệu nhật ký này (Read-only).

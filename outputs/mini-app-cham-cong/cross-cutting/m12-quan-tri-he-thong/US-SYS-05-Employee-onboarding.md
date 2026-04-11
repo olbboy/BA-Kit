@@ -4,7 +4,7 @@
 
 **AS A** HR Admin,  
 **I WANT TO** thực hiện quy trình onboarding tập trung qua wizard 7 bước khi nhân viên mới gia nhập,  
-**SO THAT** mọi cài đặt cần thiết (profile, site, shift, Face ID, phép, approval chain, thông báo) được hoàn thành nhanh, đồng bộ, tránh bỏ sót bước khi onboard hàng loạt.
+**SO THAT** mọi cài đặt cần thiết (profile, site, shift, Face ID, phép, approval chain, thông báo) được hoàn thành trong ≤ 5 phút/NV, đồng bộ, tránh bỏ sót bước khi onboard hàng loạt.
 
 ---
 

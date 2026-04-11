@@ -33,7 +33,7 @@
 #### **AC1. Nhập thông tin & Ngày làm việc**
 
 - Tên ca: Phải là trường bắt buộc, không cho phép để trống.
-- Chọn ngày:    - T2-T6 mặc định được chọn. T7, CN cho phép bật/tắt linh hoạt.
+- Chọn ngày:    - T2-T6 mặc định được chọn. T7, CN cho phép bật/tắt toggle cho từng ngày.
     - Dữ liệu trả về: Lưu dạng mảng (VD: [2, 3, 4, 5, 6]).
 
 #### **AC2. Logic Cấu hình Giờ Làm & Xử lý Ca đêm**

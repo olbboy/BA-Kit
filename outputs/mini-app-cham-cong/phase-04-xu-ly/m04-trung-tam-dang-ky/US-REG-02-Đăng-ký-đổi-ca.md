@@ -4,7 +4,7 @@
 
 **AS A** Nhân viên,  
 **I WANT TO** gửi yêu cầu đổi ca làm việc cho một ngày cụ thể trên Mini App,  
-**SO THAT** tôi có thể linh hoạt sắp xếp lịch làm khi có việc đột xuất mà không cần liên hệ HR trực tiếp.
+**SO THAT** tôi có thể chủ động sắp xếp lịch ca khi có việc đột xuất mà không cần liên hệ HR trực tiếp.
 
 ---
 

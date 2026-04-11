@@ -3,7 +3,7 @@
 ---
 
 **AS A** System Admin,  
-**I WANT TO** xem toàn bộ nhật ký hoạt động của hệ thống (ai làm gì, khi nào, dữ liệu gì thay đổi) với bộ lọc linh hoạt,  
+**I WANT TO** xem toàn bộ nhật ký hoạt động của hệ thống (ai làm gì, khi nào, dữ liệu gì thay đổi) với bộ lọc đa tiêu chí (User, Module, Action, Date range),  
 **SO THAT** tôi có thể điều tra sự cố, đảm bảo compliance, và truy vết mọi thay đổi dữ liệu nhạy cảm trong hệ thống.
 
 ---

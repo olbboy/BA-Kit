@@ -31,20 +31,43 @@ def count_acceptance_criteria(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read().lower()
 
-    # Count AC blocks (numbered AC sections or Given/When/Then blocks)
-    ac_pattern = re.findall(r'(given|when|then|khi|nếu|scenario|trạng thái|trường hợp)', content)
+    # Count AC blocks — match patterns like:
+    #   #### **AC1. Title**        (bold heading, e.g. m04-m12)
+    #   #### **3.1. Title**        (numbered sub-section, e.g. m01)
+    #   #### AC-01: Title          (dashed ID)
+    #   ### Scenario 1: Happy Path (Gherkin)
+    #   Given ... When ... Then    (GWT blocks)
+    ac_heading_pattern = re.compile(
+        r'#{2,4}\s+\*{0,2}\s*(?:ac[-\s]?\d|scenario|trường hợp)',
+        re.IGNORECASE
+    )
+    # Also match #### **3.1. Title** sub-section format (numbered AC decomposition)
+    ac_subsection_pattern = re.compile(r'####\s+\*{0,2}\s*\d+\.\d+\.')
+    ac_sections = len(ac_heading_pattern.findall(content)) + len(ac_subsection_pattern.findall(content))
     gwt_blocks = len(re.findall(r'given\s', content))
-
-    # Detect coverage types
-    has_happy = bool(re.search(r'(happy.?path|thành công|đúng giờ|hợp lệ|valid|success)', content))
-    has_edge = bool(re.search(r'(edge.?case|boundary|biên|giới hạn|maximum|minimum|tối đa|tối thiểu|100%|0%|grace|đặc biệt)', content))
-    has_error = bool(re.search(r'(error|lỗi|fail|thất bại|invalid|không hợp lệ|từ chối|reject|exception|ngoại lệ)', content))
-    has_security = bool(re.search(r'(rbac|abac|role|quyền|access|unauthorized|403|bảo mật|phân quyền)', content))
-
-    # Count distinct AC sections
-    ac_sections = len(re.findall(r'#{2,4}\s+.*(?:tiêu chí|acceptance|ac-|scenario|trường hợp)', content))
     if ac_sections == 0:
         ac_sections = max(1, gwt_blocks)
+
+    # Detect coverage types — expanded patterns for Vietnamese BA output
+    has_happy = bool(re.search(
+        r'(happy.?path|thành công|đúng giờ|hợp lệ|valid|success|hiển thị|'
+        r'danh sách|mặc định|cho phép|hỗ trợ|render|trả về)',
+        content
+    ))
+    has_edge = bool(re.search(
+        r'(edge.?case|boundary|biên|giới hạn|maximum|minimum|tối đa|tối thiểu|'
+        r'100%|0%|grace|đặc biệt|ca đêm|cross-|vượt|quá hạn|hết hạn)',
+        content
+    ))
+    has_error = bool(re.search(
+        r'(error|lỗi|fail|thất bại|invalid|không hợp lệ|từ chối|reject|'
+        r'exception|ngoại lệ|chặn|cảnh báo|warning|offline|timeout)',
+        content
+    ))
+    has_security = bool(re.search(
+        r'(rbac|abac|role|quyền|access|unauthorized|403|bảo mật|phân quyền)',
+        content
+    ))
 
     return {
         'total_ac': ac_sections,

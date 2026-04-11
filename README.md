@@ -154,19 +154,18 @@ ba-kit/
 │   ├── junior-start.md           # 4-week onboarding for new BAs
 │   └── knowledge_base/           # Core & specialized BA knowledge
 │
-├── .agent/templates/                    # Document Templates
-│   ├── brd-template.md           # Product Requirements Document
+├── .agent/templates/             # Document Templates
 │   ├── brd-template.md           # Business Requirements Document
 │   ├── srs-template.md           # Software Requirements Spec (IEEE 29148)
 │   ├── frd-template.md           # Functional Requirements Document
-│   └── ...                       # + 8 more templates (incl. test-case, test-suite)
+│   └── ...                       # + 10 more templates (incl. test-case, test-suite)
 │
 ├── .agent/scripts/               # Automation Scripts
 │   ├── ba_search.py              # BM25+ Knowledge Search Engine
 │   ├── coverage_checker.py       # Automated RTM Scanner & Health Scoring
 │   └── gen_docx.py               # DOCX Export Utility
 │
-├── ├── ├── ├── └── README.md                     # This file
+└── README.md                     # This file
 ```
 
 ---

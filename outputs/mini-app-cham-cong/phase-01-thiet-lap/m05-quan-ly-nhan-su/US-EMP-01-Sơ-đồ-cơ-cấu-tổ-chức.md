@@ -14,7 +14,7 @@
 2. **Hiển thị:** Hệ thống render cây: Tổ chức → Chi nhánh (Site) → Phòng ban → Nhóm → Nhân viên.
 3. **Tương tác:**
    - Expand/Collapse từng nhánh.
-   - Tìm kiếm nhanh NV → Highlight vị trí trên cây.
+   - Tìm kiếm NV (trả kết quả ≤ 0.5 giây) → Highlight vị trí trên cây.
    - Kéo thả phòng ban/nhóm sang cấp cha khác (điều chuyển).
 4. **Lưu:** Khi kéo thả → Hệ thống confirm → Lưu thay đổi cấu trúc.
 
@@ -45,7 +45,7 @@
 - Hiệu ứng animation mượt mà (< 300ms).
 - Trạng thái expand/collapse được lưu trong session (không reset khi navigate).
 
-#### **AC3. Tìm kiếm nhanh**
+#### **AC3. Tìm kiếm nhân viên**
 
 - Input search không phân biệt hoa/thường/dấu (VD: "nguyen" tìm được "Nguyễn").
 - Kết quả: Highlight node trên cây + tự động expand path đến node đó.

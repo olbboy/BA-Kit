@@ -47,7 +47,7 @@
 #### **AC3. Logic tham số Chế độ (Side Widgets)**
 
 - **Nghỉ sinh nhật:** Phải thỏa mãn điều kiện **Nhân viên chính thức **mới được hệ thống tự động cộng công.
-- **Thiết lập vùng ảnh hưởng:** Khi nhấn nút, mở ra danh sách Tỉnh/Thành để Admin check chọn nhanh khu vực được nghỉ bão/lụt.
+- **Thiết lập vùng ảnh hưởng:** Khi nhấn nút, mở ra danh sách Tỉnh/Thành để Admin check chọn (multi-select checkbox) khu vực được nghỉ bão/lụt.
 - **Hạn mức WFH:** Badge hiển thị đúng con số hiện tại đã cấu hình (02 ngày/tuần).
 
 #### **AC4. Logic Tự động gán Công (Auto-Attendance Logic)**
@@ -68,7 +68,7 @@
 
 1. **UI/UX**: Giao diện hiển thị đúng 100% trên cả trình duyệt Web và giao diện xem trên Mini App (Read-only).
 2. **API**: Cung cấp đầy đủ các API CRUD cho bảng `sh_holiday_config`.
-3. **Dữ liệu (Database)**: Các mốc ngày nghỉ được lưu trữ chính xác, hỗ trợ truy vấn nhanh theo năm.
+3. **Dữ liệu (Database)**: Các mốc ngày nghỉ được lưu trữ chính xác, truy vấn theo năm ≤ 0.5 giây (indexed by year).
 4. **Kiểm thử (QA)**: Đã kiểm thử trường hợp gán nghỉ Tết ➔ Nhân viên không quẹt thẻ ➔ Dashboard vẫn báo 8h công "Hợp lệ".
 
 ---

@@ -3,7 +3,7 @@
 ---
 
 **AS A** HR Admin,  
-**I WANT TO** xem danh sách toàn bộ nhân sự kèm thông tin cơ bản và tìm kiếm nhanh,  
+**I WANT TO** xem danh sách toàn bộ nhân sự kèm thông tin cơ bản và tìm kiếm (kết quả ≤ 0.5 giây),  
 **SO THAT** tôi có thể tra cứu nhân viên trong ≤ 3 thao tác và quản lý thông tin chính xác.
 
 ---
@@ -37,7 +37,7 @@
 - Phân trang: 50 NV/trang.
 - Badge trạng thái: Active (Xanh), Inactive (Xám), Transferred (Vàng).
 
-#### **AC2. Tìm kiếm nhanh**
+#### **AC2. Tìm kiếm nhân viên**
 
 - Không phân biệt hoa/thường/dấu: "nguyen" → "Nguyễn Văn A".
 - Tìm theo: Tên, Mã NV, Email.

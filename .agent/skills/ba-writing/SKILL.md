@@ -43,14 +43,38 @@ When activated via `@ba-writing`, perform the following cognitive loop:
     - *Inference*: guess the "Implicit Requirements" (e.g., "The field 'Email' implies email validation regex").
 
 ### 2. Drafting Mode (The "INVEST" Filter)
-Generate a User Story table for each identified feature:
+Generate a User Story with these sections:
 
-| Field | Content | Quality Check |
+| Section | Content | Quality Check |
 | :--- | :--- | :--- |
 | **ID** | `US-[Num]` | Unique? |
 | **Story** | "As a [Role], I want to [Action], so that [Benefit]" | Clear value? |
-| **Acceptance Criteria** | **Scenario 1**: Happy Path<br>Given... When... Then...<br>**Scenario 2**: Edge Case | Testable? |
-| **UI Specs** (If Visual) | "Button [X] triggers API [Y]. Label [Z] must be visible." | Explicit? |
+| **Business Flow** | Numbered steps describing the user journey | ≥3 steps? |
+| **RBAC Matrix** | Table: Data Field × Role × Access Right | All roles covered? |
+| **Acceptance Criteria** | Structured AC sections (see format below) | Testable? |
+| **Definition of Done** | Measurable completion criteria | Has metrics? |
+| **Edge Cases** | Table: Case × Severity × Expected Behavior | ≥2 cases? |
+
+#### AC Format (Two Acceptable Styles)
+
+**Style A — Gherkin (preferred for automation):**
+```
+#### AC1. [Title]
+**Scenario**: Happy Path
+- Given [precondition]
+- When [action]
+- Then [expected result]
+```
+
+**Style B — Structured Bullets (preferred for complex UI/workflow):**
+```
+#### AC1. [Title]
+- [Specific behavior with measurable criteria]
+- [Field validation rule with threshold]
+- [UI behavior with response time ≤ Ns]
+```
+
+**Rule:** Both styles are acceptable. Use Gherkin for API/logic-heavy stories; Structured Bullets for UI/configuration stories. Never use vague language in either style.
 
 ### 3. Reflection Mode (System 2: The Self-Critic)
 **STOP & THINK**. Challenge your own draft:
