@@ -51,7 +51,7 @@ Core engine của BA-Kit Antigravity: 26 specialized Business Analysis agents.
 │   ├── gen_docx.py             DOCX generation via Pandoc
 │   └── batch_remediate.py      Batch fix/cleanup utility
 │
-├── data/                       Knowledge base (23 CSV files, 786 entries)
+├── data/                       Knowledge base (23 CSV files, 831 entries)
 │   ├── agile.csv               15 entries — Agile practices
 │   ├── elicitation.csv         70 entries — Questioning techniques
 │   ├── writing.csv             50 entries — Requirements writing
@@ -60,13 +60,13 @@ Core engine của BA-Kit Antigravity: 26 specialized Business Analysis agents.
 │   ├── testing.csv             30 entries — Test design
 │   └── ... (17 more domains)
 │
-└── templates/                  13 BA document templates
+└── templates/                  14 BA document templates
     ├── brd-template.md         Business Requirements Document
     ├── srs-template.md         Software Requirements Specification
     ├── user-story-spec-template.md  User Story Specification
     ├── test-case-template.md   Test Case (Given/When/Then)
     ├── rtm-template.md         Requirements Traceability Matrix
-    └── ... (8 more templates)
+    └── ... (9 more templates)
 ```
 
 ## Cách sử dụng
@@ -101,7 +101,7 @@ python3 .agent/scripts/coverage_checker.py outputs/project-name/
 ## 2-Tier Knowledge (Karpathy LLM Wiki Pattern)
 
 ```
-Tier 1: data/*.csv      → 786 curated entries (human-verified, frozen)
+Tier 1: data/*.csv      → 831 curated entries (human-verified, frozen)
 Tier 2: wiki/            → Living pages (LLM-maintained, compounds)
          ├── concepts/   BA concept pages
          ├── projects/   Project-specific context

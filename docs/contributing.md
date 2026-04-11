@@ -23,7 +23,7 @@ If you edit an agent's system prompt (the `SKILL.md` file):
 
 ### 2. Adding Knowledge
 *   Place new guides in `docs/knowledge_base/`.
-*   Update `AGENT.MD` or `USAGE-GUIDE.md` if the knowledge is critical.
+*   Update the relevant `SKILL.md` files or `docs/usage-guide.md` if the knowledge is critical.
 
 ### 3. Adding Templates
 *   Place new artifacts in `templates/`.

@@ -31,13 +31,11 @@ Copy the 26 agent skill files into your platform's workspace:
 **Antigravity IDE:**
 ```bash
 cp -r BA-Kit/.agent/skills/* <your-project>/.agent/skills/
-cp BA-Kit/AGENT.MD <your-project>/AGENT.MD
 ```
 
 **Claude Code:**
 ```bash
 cp -r BA-Kit/.agent/skills/* <your-project>/.agent/skills/
-cp BA-Kit/AGENT.MD <your-project>/AGENT.MD
 ```
 
 **Claude CoWork:**
@@ -62,7 +60,7 @@ Type `@` in the chat box. You should see the auto-complete list:
 *   `@ba-writing`
 *   `@ba-validation`
 *   `@ba-elicitation`
-*   ... (and 17 others)
+*   ... (and 22 others)
 
 ## 4. Your First Interaction
 
@@ -92,7 +90,7 @@ You want to go from idea to dev-ready specs.
 *   **Flash Mode**: Switch agents instantly. `@ba-writing` → `@ba-nfr` → `@ba-solution`.
 *   **The Dispatcher**: If lost, type `@ba-master help me` — it routes to the right specialist.
 *   **Tools**: Agents automatically use `python` (math), `grep` (search), `search_web` (standards).
-*   **Prompt Library**: See `docs/prompt-library.md` for 28 copy-paste prompts.
+*   **Prompt Library**: See `docs/prompt-library.md` for 33 copy-paste prompts.
 *   **Design**: Use Stitch MCP / Figma MCP for UI generation. See `docs/design-prototype-guide.md`.
 
 ## 6. Troubleshooting

@@ -152,4 +152,4 @@ Tham chiếu nhanh 26 agents — phân loại, khi nào dùng, output chính.
 
 ---
 
-*Xem thêm: `docs/workflow-cookbook.md` (10 scenarios chi tiết) | `docs/prompt-library.md` | `.agent/README.md`*
+*Xem thêm: `docs/workflow-cookbook.md` (23 scenarios chi tiết) | `docs/prompt-library.md` | `.agent/README.md`*

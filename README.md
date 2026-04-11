@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.png?v=2.7.0" alt="BA-Kit Logo" width="200">
+  <img src="docs/assets/logo.png?v=3.0.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Agents-26-green?style=for-the-badge" alt="26 Agents">
   <img src="https://img.shields.io/badge/Platforms-Antigravity%20%7C%20Claude%20Code%20%7C%20CoWork-orange?style=for-the-badge" alt="3 Platforms">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
-  <img src="https://img.shields.io/badge/Knowledge-786%20Entries-teal?style=for-the-badge" alt="786 Knowledge Entries">
+  <img src="https://img.shields.io/badge/Knowledge-831%20Entries-teal?style=for-the-badge" alt="831 Knowledge Entries">
   <img src="https://img.shields.io/badge/Integration-Jira%20%2B%20Confluence-blue?style=for-the-badge" alt="Jira + Confluence">
 </p>
 
@@ -93,7 +93,7 @@ Each agent uses **System 2 Thinking** (Reflective Loops) — self-critique befor
 | Agent | Role | Capability |
 | :--- | :--- | :--- |
 | **`@ba-test-gen`** | QA Architect | AC → 7-category Test Cases (BVA, Decision Tables, State Transitions). |
-| **`@ba-quality-gate`** | Quality Officer | 5-gate dimensional scoring: PASS / CONDITIONAL / REJECT. |
+| **`@ba-quality-gate`** | Quality Officer | 8-dimension quality scoring (5 gates): PASS / CONDITIONAL / REJECT. |
 | **`@ba-consistency`** | Integration Auditor | Cross-artifact alignment check (US↔API↔DB↔BRD). |
 | **`@ba-auditor`** | Chief Auditor | Meta-agent: full project health dashboard + action plan. |
 
@@ -145,7 +145,7 @@ ba-kit/
 │
 ├── .agent/skills/                # 26 Agent Skills + 2 Connectors
 ├── .agent/scripts/               # BM25+ Knowledge Search Engine
-├── .agent/data/                  # 786 Indexed Knowledge Entries (23 domains)
+├── .agent/data/                  # 831 Indexed Knowledge Entries (23 domains)
 │
 ├── docs/                         # Documentation & Guides
 │   ├── README.md                 # Documentation index
@@ -159,11 +159,11 @@ ba-kit/
 │   ├── junior-start.md           # 4-week onboarding for new BAs
 │   └── knowledge_base/           # Core & specialized BA knowledge
 │
-├── .agent/templates/             # Document Templates
+├── .agent/templates/             # Document Templates (14 templates)
 │   ├── brd-template.md           # Business Requirements Document
 │   ├── srs-template.md           # Software Requirements Spec (IEEE 29148)
 │   ├── frd-template.md           # Functional Requirements Document
-│   └── ...                       # + 10 more templates (incl. test-case, test-suite)
+│   └── ...                       # + 11 more templates (incl. PRD, test-case, test-suite)
 │
 ├── .agent/scripts/               # Automation Scripts
 │   ├── ba_search.py              # BM25+ Knowledge Search Engine
@@ -177,7 +177,7 @@ ba-kit/
 
 ## 🔍 Knowledge Search Engine (New in v2.8)
 
-BA-Kit now includes a **BM25+ Knowledge Search Engine** with **786 indexed entries** across **23 domains**.
+BA-Kit now includes a **BM25+ Knowledge Search Engine** with **831 indexed entries** across **23 domains**.
 
 ```bash
 # Search for any BA concept

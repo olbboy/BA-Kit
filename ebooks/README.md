@@ -76,4 +76,4 @@ Kiến thức từ eBooks đã được tích hợp vào **23 knowledge domains*
 
 ---
 
-*BA-Kit v2.9.3 — Agent Skills Framework*
+*BA-Kit v3.0.0 — Agent Skills Framework*

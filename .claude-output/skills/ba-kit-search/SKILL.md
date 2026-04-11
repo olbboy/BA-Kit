@@ -1,6 +1,6 @@
 ---
 name: ba-kit-search
-description: "BM25+ knowledge search across 786 BA entries in 23 domains. Use before drafting requirements, reviewing specs, or analyzing."
+description: "BM25+ knowledge search across 831 BA entries in 23 domains. Use before drafting requirements, reviewing specs, or analyzing."
 user-invocable: true
 argument-hint: "<search query> [--domain <domain>]"
 ---

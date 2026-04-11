@@ -92,7 +92,7 @@ The Squad shares a "Working Brain" via `CONTINUITY.md` (derived from `templates/
 
 ### Protocol 4: The "Knowledge Search" (New in v2.8)
 **Stop loading entire files.**
-1.  When an agent needs specific knowledge, it searches the 786-entry knowledge base.
+1.  When an agent needs specific knowledge, it searches the 831-entry knowledge base.
 2.  Command: `python3 .agent/scripts/ba_search.py "your question" --domain writing`
 3.  **Result**: Top 3 relevant entries (~460 tokens) instead of entire ebook (~25,000 tokens).
 4.  **23 domains** available. Use `--list-domains` to see all.

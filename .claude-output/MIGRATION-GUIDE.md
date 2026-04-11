@@ -25,7 +25,7 @@ cp -r .claude-output/skills/* ~/.claude/skills/
 cp .claude-output/CLAUDE.md .claude/CLAUDE.md
 
 # Verify
-ls ~/.claude/skills/ba-*/SKILL.md | wc -l  # expect: 25+
+ls ~/.claude/skills/ba-*/SKILL.md | wc -l  # expect: 26+
 python3 ~/.claude/skills/ba-kit-search/scripts/ba_search.py --stats
 ```
 

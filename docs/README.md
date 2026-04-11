@@ -22,8 +22,8 @@ ba-kit-antigravity/
 ├── .agent/
 │   ├── skills/         26 BA agents + 2 connectors (.../SKILL.md)
 │   ├── scripts/        Python utilities (search, coverage, docx)
-│   ├── data/           23 CSV knowledge base files (786 entries)
-│   └── templates/      13 BA document templates
+│   ├── data/           23 CSV knowledge base files (831 entries)
+│   └── templates/      14 BA document templates
 ├── docs/               Tài liệu hướng dẫn (folder này)
 ├── ebooks/             7 BA reference ebooks
 └── outputs/            Project outputs (e.g., EAMS)

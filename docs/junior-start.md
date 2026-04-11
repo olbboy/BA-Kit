@@ -1,4 +1,4 @@
-k# BA-Kit: Hướng Dẫn Cho BA Mới (Junior Quick Start)
+# BA-Kit: Hướng Dẫn Cho BA Mới (Junior Quick Start)
 
 > Bạn mới vào team? Đừng lo — đây là tất cả những gì bạn cần để bắt đầu ngay hôm nay.
 > BA-Kit chạy trên **3 nền tảng agentic chính / 3 primary agentic platforms**:
@@ -136,8 +136,8 @@ EXPERT
 | Tài nguyên | Mô tả |
 |-----------|-------|
 | `docs/agent-cheat-sheet.md` | Toàn bộ 26 agents + Power Combos |
-| `WORKFLOW-COOKBOOK.md` | 12 kịch bản thực tế từ A-Z |
-| `templates/` | 13 template sẵn dùng cho mọi deliverable |
+| `docs/workflow-cookbook.md` | 23 kịch bản thực tế từ A-Z |
+| `templates/` | 14 template sẵn dùng cho mọi deliverable |
 | `python3 .agent/scripts/ba_search.py "keyword"` | Tìm kiếm trong knowledge base |
 | `python3 .agent/scripts/coverage_checker.py outputs/<project>/` | Scan sức khỏe dự án tự động |
 

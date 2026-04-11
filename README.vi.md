@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.png?v=2.7.0" alt="BA-Kit Logo" width="200">
+  <img src="docs/assets/logo.png?v=3.0.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -134,7 +134,7 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 
 **Mới trong v2.7.0**: Biệt đội chia sẻ một "Bộ nhớ Làm việc".
 
-1.  Sao chép `templates/CONTINUITY.md` ra thư mục gốc.
+1.  Sao chép `templates/continuity-template.md` ra thư mục gốc.
 2.  Điền Mục tiêu và Ràng buộc của bạn.
 3.  **Kết quả**: Tất cả 26 chuyên gia đọc file này trước khi hành động!
 
@@ -147,6 +147,7 @@ ba-kit/
 │
 ├── .agent/skills/                # 26 Agent Skills + 2 Connectors
 ├── .agent/scripts/               # BM25+ Knowledge Search Engine
+├── .agent/data/                  # 831 Indexed Knowledge Entries (23 domains)
 │
 ├── docs/                         # Tài liệu & Hướng dẫn
 │   ├── README.md                 # Mục lục tài liệu
@@ -156,11 +157,27 @@ ba-kit/
 │   ├── ai-foundation-for-ba.md   # Nền tảng AI cho BA
 │   └── knowledge_base/           # Kho tri thức BA
 │
-├── templates/                    # Templates (PRD, BRD, SRS, FRD, Test Case, ...)
+├── .agent/templates/             # 14 Templates (PRD, BRD, SRS, FRD, Test Case, ...)
 ├── .agent/scripts/               # Scripts tự động (RTM scanner, export, search)
 │
-├── docs/                         # Tài liệu hướng dẫn
 └── README.md                     # File này
+```
+
+---
+
+## 🔍 Công Cụ Tìm Kiếm Tri Thức (BM25+)
+
+BA-Kit tích hợp **BM25+ Knowledge Search Engine** với **831 entries** trên **23 domains**.
+
+```bash
+# Tìm kiếm bất kỳ khái niệm BA
+python3 .agent/scripts/ba_search.py "acceptance criteria gherkin"
+
+# Tìm trong domain cụ thể
+python3 .agent/scripts/ba_search.py "GDPR compliance" --domain compliance
+
+# Tìm trên tất cả domains
+python3 .agent/scripts/ba_search.py "stakeholder analysis" --multi-domain
 ```
 
 ---

@@ -2,6 +2,26 @@
 
 All notable changes to BA-Kit Antigravity.
 
+## [1.3.0] - 2026-04-11
+
+### Changed
+- Knowledge entry count corrected 786 → 831 across 12 references in 8 files
+- Template count corrected 13 → 14 across 4 files (prd-template.md was undocumented)
+- `.claude-output/CLAUDE.md` fully rewritten: 19 → 26 agents, added Integration/Quality/Knowledge sections
+- `docs/antigravity-protocol.md` updated to v3.0.0, added Quality & Knowledge agent sections
+- `README.vi.md` repo structure fixed: correct template path, added Knowledge Search section
+- Scenario count standardized to 23 across agent-cheat-sheet, junior-start, ai-foundation
+- Prompt count corrected 28 → 33 in quick-start.md
+- `ebooks/README.md` version footer updated v2.9.3 → v3.0.0
+
+### Fixed
+- Removed 4 phantom `AGENT.MD` references (file does not exist) in quick-start, contributing
+- `docs/ai-foundation-for-ba.md` English half said "21 agents" while Vietnamese said "26" — unified to 26
+- `docs/junior-start.md` typo `k#` → `#`, broken path `WORKFLOW-COOKBOOK.md` → `docs/workflow-cookbook.md`
+- Logo cache-bust version updated v2.7.0 → v3.0.0 in both READMEs
+- `.claude-output/MIGRATION-GUIDE.md` expected skill count 25+ → 26+
+- Ebook count corrected 6 → 7 in ai-foundation-for-ba.md
+
 ## [1.2.0] - 2026-04-11
 
 ### Added
@@ -43,7 +63,7 @@ All notable changes to BA-Kit Antigravity.
 
 ### Initial Release
 - 26 BA agent skills in `.agent/skills/`
-- 4 Python scripts (ba_core, ba_search, coverage_checker, gen_docx)
+- 5 Python scripts (ba_core, ba_search, coverage_checker, gen_docx, batch_remediate)
 - 23 CSV knowledge base files (786 entries across 23 domains)
 - 7 BA ebooks (fundamentals, agile, techniques, career, leadership, systems thinking, requirements memory jogger)
 - 6 documentation guides in `docs/`

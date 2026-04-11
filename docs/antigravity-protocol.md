@@ -1,6 +1,6 @@
 # Antigravity Native Protocol
 
-**Version:** 2.7.0 (Agent Skills Framework)
+**Version:** 3.0.0 (Agent Skills Framework)
 **Date:** 2026-04-03
 **Status:** PRODUCTION READY (SKILLS MIGRATED)
 
@@ -55,6 +55,19 @@ We repurpose the `@` symbol to represent **Agent Context Switching**.
 | :--- | :--- | :--- |
 | **`@ba-jira`** | **Jira Bridge** | Story→Ticket Transport, Sprint Planning, Transport Gate Reflection. |
 | **`@ba-confluence`** | **Confluence Bridge** | Markdown→XHTML Publishing, Document Import, Version Tracking. |
+
+### 🟠 Quality & Audit Agents (NEW in v3.0)
+| Command | Role | Native Capabilities |
+| :--- | :--- | :--- |
+| **`@ba-test-gen`** | **QA Architect** | AC → 7-category Test Cases (BVA, Decision Tables, State Transitions). |
+| **`@ba-quality-gate`** | **Quality Officer** | 8-dimension quality scoring (5 gates): PASS / CONDITIONAL / REJECT. |
+| **`@ba-consistency`** | **Integration Auditor** | Cross-artifact alignment check (US↔API↔DB↔BRD). |
+| **`@ba-auditor`** | **Chief Auditor** | Meta-agent: full project health dashboard + action plan. |
+
+### 📘 Knowledge Agent (NEW in v3.0)
+| Command | Role | Native Capabilities |
+| :--- | :--- | :--- |
+| **`@ba-wiki`** | **Knowledge Curator** | 2-tier knowledge ingest, wiki query, living documentation. |
 
 ## 3. Tool Usage Mandates (Hardening)
 To prevent "LLM Hallucinations", specific agents MUST use specific tools.
@@ -139,6 +152,6 @@ run_command: python3 .agent/scripts/ba_search.py "<query>" --domain <domain>
 | :--- | :--- | :--- |
 | BM25 Engine | `.agent/scripts/ba_core.py` | Search ranking algorithm (0 dependencies) |
 | CLI | `.agent/scripts/ba_search.py` | Agent-facing search interface |
-| Knowledge Data | `.agent/data/*.csv` | 786 entries across 23 CSV files |
+| Knowledge Data | `.agent/data/*.csv` | 831 entries across 23 CSV files |
 
 **Token Efficiency**: ~460 tokens per search vs ~25,000 tokens loading full files (97% reduction).
