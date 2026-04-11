@@ -15,17 +15,17 @@ Dự án có **2 lớp tài liệu** bổ trợ nhau:
 ### Lớp 1: Kiến trúc nghiệp vụ toàn diện
 | Tài liệu | Mô tả | Đối tượng |
 |-----------|-------|-----------|
-| [EAMS v2.0 — Tài liệu nghiệp vụ toàn diện](./docs_business-comprehensive-documentation.md) | Kiến trúc hệ thống, công thức tính giờ, luồng phê duyệt, tích hợp C-Vision, tuân thủ pháp luật VN, ma trận quyền hạn | Dev Team, Architect, Tech Lead |
+| [EAMS v2.0 — Tài liệu nghiệp vụ toàn diện](./eams-v2-comprehensive.md) | Kiến trúc hệ thống, công thức tính giờ, luồng phê duyệt, tích hợp C-Vision, tuân thủ pháp luật VN, ma trận quyền hạn | Dev Team, Architect, Tech Lead |
 
 ### Lớp 2: BRD & User Stories (Confluence Specs)
 | Section | Mô tả | Số US | Sprint |
 |---------|-------|-------|--------|
-| [2.11 Mini App — BRD Tổng](./2.11-Mini-app/README.md) | Overview 11 modules, mục tiêu, danh sách tính năng | — | — |
-| [2.11.1. Chấm công & Nhật ký](./2.11-Mini-app/2.11.1.-Chấm-công-và-Nhật-ký-chấm-công/) | Dashboard, tiến độ, nhật ký, cảnh báo vi phạm | 4 | Sprint 8 |
-| [2.11.2. Cấu hình ca làm việc](./2.11-Mini-app/2.11.2.-Cấu-hình-ca-làm-việc/) | Danh sách ca, giờ/ngày, punch limit, nghỉ, import NV | 5 | Sprint 8 |
-| [2.11.3. Giải trình công](./2.11-Mini-app/2.11.3.-Giải-trình-công/) | Danh sách lỗi, form giải trình, minh chứng, deadline chốt công | 1 | Sprint 9 |
-| [2.11.7. Cấu hình lịch nghỉ](./2.11-Mini-app/2.11.7.-Cấu-hình-lịch-nghỉ/) | Ngày nghỉ, policy/rules, batch sync, API hiển thị | 4 | Sprint 8 |
-| [Tài liệu dự án](./2.11-Mini-app/Tài-liệu-dự-án-Mini-App/) | BRD HR Admin, BRD Nhân viên, Demo Plan Sprint 8, UAT Scenarios | — | — |
+| [2.11 Mini App — BRD Tổng](./overview/modules-overview.md) | Overview 11 modules, mục tiêu, danh sách tính năng | — | — |
+| [2.11.1. Chấm công & Nhật ký](./phase-03-van-hanh/m01-cham-cong/) | Dashboard, tiến độ, nhật ký, cảnh báo vi phạm | 4 | Sprint 8 |
+| [2.11.2. Cấu hình ca làm việc](./phase-01-thiet-lap/m06-ca-lam-viec/) | Danh sách ca, giờ/ngày, punch limit, nghỉ, import NV | 5 | Sprint 8 |
+| [2.11.3. Giải trình công](./phase-04-xu-ly/m03-giai-trinh/) | Danh sách lỗi, form giải trình, minh chứng, deadline chốt công | 1 | Sprint 9 |
+| [2.11.7. Cấu hình lịch nghỉ](./phase-01-thiet-lap/m07-lich-nghi/) | Ngày nghỉ, policy/rules, batch sync, API hiển thị | 4 | Sprint 8 |
+| [Tài liệu dự án](./overview/) | BRD HR Admin, BRD Nhân viên, Demo Plan Sprint 8, UAT Scenarios | — | — |
 
 ### Cây trang đầy đủ
 → Xem [INDEX.md](./INDEX.md) để duyệt toàn bộ cây trang Confluence.
@@ -36,17 +36,17 @@ Dự án có **2 lớp tài liệu** bổ trợ nhau:
 
 | # | Module | EAMS v2.0 | Confluence | Status |
 |---|--------|-----------|------------|--------|
-| 01 | Chấm công & Nhật ký | §3 | [2.11.1](./2.11-Mini-app/2.11.1.-Chấm-công-và-Nhật-ký-chấm-công/) (4 US) | ✅ Đầy đủ |
-| 02 | Trung tâm Đăng ký (Nghỉ/Đổi ca/OT) | §5, §6 | [2.11.4](./2.11-Mini-app/2.11.4.-Trung-tâm-đăng-ký/) (4 US) | ✅ Đầy đủ |
-| 03 | Giải trình công | §3.3 | [2.11.3](./2.11-Mini-app/2.11.3.-Giải-trình-công/) (1 US) | ✅ Đầy đủ |
-| 04 | Báo cáo cá nhân | §9.1 | [2.11.5](./2.11-Mini-app/2.11.5.-Báo-cáo-cá-nhân/) (2 US) | ✅ Đầy đủ |
-| 05 | Quản lý NV & CCTC | §2 | [2.11.6](./2.11-Mini-app/2.11.6.-Quản-lý-nhân-sự/) (6 US) | ✅ Đầy đủ |
-| 06 | Ca làm việc & Phân ca | §4 | [2.11.2](./2.11-Mini-app/2.11.2.-Cấu-hình-ca-làm-việc/) (5 US) | ✅ Đầy đủ |
-| 07 | Cấu hình Lịch & Ngày nghỉ | §10.2 | [2.11.7](./2.11-Mini-app/2.11.7.-Cấu-hình-lịch-nghỉ/) (4 US) | ✅ Đầy đủ |
-| 08 | Cấu hình Camera AI | §8 | [2.11.8](./2.11-Mini-app/2.11.8.-Cấu-hình-Camera-AI/) (3 US) | ✅ Đầy đủ |
-| 09 | Cấu hình Thông báo | — | [2.11.9](./2.11-Mini-app/2.11.9.-Cấu-hình-thông-báo/) (3 US) | ✅ Đầy đủ |
-| 10 | Trung tâm Phê duyệt | §7 | [2.11.10](./2.11-Mini-app/2.11.10.-Trung-tâm-phê-duyệt/) (3 US) | ✅ Đầy đủ |
-| 11 | Báo cáo tổng & Xuất | §9.2-9.3 | [2.11.11](./2.11-Mini-app/2.11.11.-Báo-cáo-tổng/) (3 US) | ✅ Đầy đủ |
+| 01 | Chấm công & Nhật ký | §3 | [2.11.1](./phase-03-van-hanh/m01-cham-cong/) (4 US) | ✅ Đầy đủ |
+| 02 | Trung tâm Đăng ký (Nghỉ/Đổi ca/OT) | §5, §6 | [2.11.4](./phase-04-xu-ly/m04-trung-tam-dang-ky/) (4 US) | ✅ Đầy đủ |
+| 03 | Giải trình công | §3.3 | [2.11.3](./phase-04-xu-ly/m03-giai-trinh/) (1 US) | ✅ Đầy đủ |
+| 04 | Báo cáo cá nhân | §9.1 | [2.11.5](./phase-05-ket-thuc/m05-bao-cao-ca-nhan/) (2 US) | ✅ Đầy đủ |
+| 05 | Quản lý NV & CCTC | §2 | [2.11.6](./phase-01-thiet-lap/m05-quan-ly-nhan-su/) (6 US) | ✅ Đầy đủ |
+| 06 | Ca làm việc & Phân ca | §4 | [2.11.2](./phase-01-thiet-lap/m06-ca-lam-viec/) (5 US) | ✅ Đầy đủ |
+| 07 | Cấu hình Lịch & Ngày nghỉ | §10.2 | [2.11.7](./phase-01-thiet-lap/m07-lich-nghi/) (4 US) | ✅ Đầy đủ |
+| 08 | Cấu hình Camera AI | §8 | [2.11.8](./phase-02-dinh-danh/m08-camera-ai/) (3 US) | ✅ Đầy đủ |
+| 09 | Cấu hình Thông báo | — | [2.11.9](./phase-01-thiet-lap/m09-thong-bao/) (3 US) | ✅ Đầy đủ |
+| 10 | Trung tâm Phê duyệt | §7 | [2.11.10](./phase-04-xu-ly/m10-phe-duyet/) (3 US) | ✅ Đầy đủ |
+| 11 | Báo cáo tổng & Xuất | §9.2-9.3 | [2.11.11](./phase-05-ket-thuc/m11-bao-cao-tong/) (3 US) | ✅ Đầy đủ |
 
 ---
 
