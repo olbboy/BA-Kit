@@ -26,7 +26,7 @@ git clone https://github.com/olbboy/BA-Kit.git
 
 ### Step B: Deploy the Squad
 
-Copy the 26 agent skill files into your platform's workspace:
+Copy the 32 agent skill files into your platform's workspace:
 
 **Antigravity IDE:**
 ```bash
@@ -90,7 +90,7 @@ You want to go from idea to dev-ready specs.
 *   **Flash Mode**: Switch agents instantly. `@ba-writing` → `@ba-nfr` → `@ba-solution`.
 *   **The Dispatcher**: If lost, type `@ba-master help me` — it routes to the right specialist.
 *   **Tools**: Agents automatically use `python` (math), `grep` (search), `search_web` (standards).
-*   **Prompt Library**: See `docs/prompt-library.md` for 33 copy-paste prompts.
+*   **Prompt Library**: See `docs/prompt-library.md` for 45 copy-paste prompts.
 *   **Design**: Use Stitch MCP / Figma MCP for UI generation. See `docs/design-prototype-guide.md`.
 
 ## 6. Troubleshooting

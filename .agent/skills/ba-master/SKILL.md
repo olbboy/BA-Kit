@@ -1,6 +1,6 @@
 ---
 name: ba-master
-description: [Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Squad (26 Agents)
+description: [Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Squad (32 Agents)
 version: 1.0.0
 ---
 
@@ -114,7 +114,7 @@ After each agent completes, return to ba-master for the next step:
 
 ---
 
-## 🗺️ Agent Registry (26 Agents)
+## 🗺️ Agent Registry (32 Agents)
 
 ### Core BA Skills
 | Agent | Proficiency |

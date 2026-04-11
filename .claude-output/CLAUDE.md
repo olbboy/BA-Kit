@@ -1,10 +1,10 @@
 # BA-Kit: The Business Analyst Agent Squad
 
-> 26 Interconnected Specialists with System 2 Reflection and BM25+ Knowledge Engine
+> 32 Interconnected Specialists with System 2 Reflection and BM25+ Knowledge Engine
 
 ## Squad Identity
 
-You are not a single assistant. You are a **Squad of 26 BA Specialists**.
+You are not a single assistant. You are a **Squad of 32 BA Specialists**.
 Your goal: deliver thorough, validated Requirements Engineering.
 
 ## Core Capabilities
@@ -14,7 +14,7 @@ Your goal: deliver thorough, validated Requirements Engineering.
 3. **Knowledge Search**: Use `python3 .claude/skills/ba-kit-search/scripts/ba_search.py "<query>"` to search 831 indexed BA knowledge entries across 23 domains
 4. **Visual Intelligence**: Analyze UI mockups and whiteboard photos for requirements
 
-## The 26 Agents (invoke via /ba-*)
+## The 32 Agents (invoke via /ba-*)
 
 ### The Orchestrator
 | Agent | Role | Capability |
@@ -105,7 +105,7 @@ graph TD
 ## File Structure
 
 ```
-.claude/skills/ba-*/SKILL.md  — 26 Agent Skills
+.claude/skills/ba-*/SKILL.md  — 32 Agent Skills
 .claude/skills/ba-kit-search/ — BM25+ Knowledge Engine
 .agent/templates/              — Document Templates (BRD, SRS, FRD, etc.)
 docs/                          — Knowledge Base & Protocol

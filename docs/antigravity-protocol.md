@@ -91,7 +91,7 @@ Antigravity Agents are now self-correcting.
 4.  **Output Mode**: Present the finalized, polished thinking.
 
 ## 5. Implementation Status
-**100% Active**. All 26 agents are online and natively supported.
+**100% Active**. All 32 agents are online and natively supported.
 
 ## 6. Error Handling Protocol
 When an agent cannot complete its task:

@@ -6,7 +6,7 @@
 |-----------|-------|-----------|
 | [AI Foundation for BA](./ai-foundation-for-ba.md) | Nền tảng AI cho Business Analysis | BA mới bắt đầu với AI |
 | [AI Tools Guide](./ai-tools-guide.md) | Hướng dẫn sử dụng AI tools trong BA workflow | BA muốn tích hợp AI |
-| [Antigravity Protocol](./antigravity-protocol.md) | Protocol giao tiếp giữa 26 agents | Developers |
+| [Antigravity Protocol](./antigravity-protocol.md) | Protocol giao tiếp giữa 32 agents | Developers |
 | [Architecture Decisions](./architecture-decisions.md) | ADRs — quyết định kiến trúc | Tech Lead |
 | [Design Prototype Guide](./design-prototype-guide.md) | Tạo prototype UI/UX cho BA | BA + Designer |
 | [Junior Start](./junior-start.md) | Onboarding cho Junior BA | Junior BA |

@@ -85,7 +85,7 @@ A true Level 5 system involves **recursive self-optimization** — agents rewrit
 
 | Category | Score | Notes |
 | :--- | :--- | :--- |
-| **Core Logic** | 10/10 | System 2, Tool Mandates, 26 Agents (21 core + 4 quality/audit + ba-wiki) |
+| **Core Logic** | 10/10 | System 2, Tool Mandates, 32 Agents (21 core + 4 quality/audit + 6 lifecycle + ba-wiki) |
 | **Documentation** | 9/10 | Comprehensive with bilingual support |
 | **Terminology** | 10/10 | "Squad" is professional and consistent |
 | **Extensibility** | 8/10 | MCP integration, skill-based architecture |

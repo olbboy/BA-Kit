@@ -23,7 +23,7 @@ LLMs are System 1 machines — fast pattern matching. System 2 reflection forces
 
 ## Agents Using This
 
-All 26 agents. Enforced via `_shared/system-prompt.md`.
+All 32 agents. Enforced via `_shared/system-prompt.md`.
 
 ## Sources
 
