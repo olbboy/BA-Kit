@@ -14,6 +14,22 @@ Base URL: `/api/v1/admin`
 | POST | /admin/audit-logs/export | Xuất audit log ra file | GLOBAL_HR, SYS_ADMIN | US-SYS-02 |
 | POST | /admin/offboarding | Kích hoạt quy trình offboarding NV | HR_ADMIN, SYS_ADMIN | US-SYS-03 |
 | GET | /admin/offboarding/{employeeId}/status | Trạng thái offboarding của NV | HR_ADMIN, SYS_ADMIN | US-SYS-03 |
+| GET | /admin/period-closing | Xem trạng thái chốt công hiện tại (per-site) | HR_ADMIN, SITE_HR | US-SYS-04 |
+| PUT | /admin/period-closing/config | Cấu hình closingDay, graceDays, weekendRule cho site | SYS_ADMIN | US-SYS-04 |
+| POST | /admin/period-closing/lock | Trigger chốt công thủ công (ngoài cron) | GLOBAL_HR, SYS_ADMIN | US-SYS-04 |
+| POST | /admin/period-closing/unlock | Exception unlock cho NV + ngày cụ thể | GLOBAL_HR, SYS_ADMIN | US-SYS-04 |
+| GET | /admin/period-closing/history | Lịch sử các kỳ chốt (timestamp, actor) | HR_ADMIN | US-SYS-04 |
+| POST | /admin/onboarding | Khởi tạo quy trình onboarding NV mới | HR_ADMIN, SYS_ADMIN | US-SYS-05 |
+| GET | /admin/onboarding/{employeeId}/status | Trạng thái onboarding wizard (7 bước) | HR_ADMIN | US-SYS-05 |
+| POST | /admin/onboarding/batch | Bulk onboarding nhiều NV cùng lúc | HR_ADMIN, SYS_ADMIN | US-SYS-05 |
+| GET | /admin/retention-policies | Danh sách data retention policy per category | SYS_ADMIN, SUPER_ADMIN | US-SYS-06 |
+| PUT | /admin/retention-policies/:category | Cập nhật retention cho category (retentionDays, archivePolicy) | SYS_ADMIN, SUPER_ADMIN | US-SYS-06 |
+| GET | /admin/retention-policies/dashboard | Dashboard compliance + dung lượng + sắp hết hạn | SYS_ADMIN, GLOBAL_HR | US-SYS-06 |
+| POST | /admin/retention-policies/preview | Preview impact trước khi áp dụng policy mới | SYS_ADMIN | US-SYS-06 |
+| POST | /admin/retention-policies/purge | Trigger purge thủ công (double confirm) | SUPER_ADMIN | US-SYS-06 |
+| POST | /admin/retention-policies/archive | Trigger archive thủ công | SYS_ADMIN | US-SYS-06 |
+| GET | /admin/retention-policies/compliance | Xuất báo cáo compliance (PDF) | SYS_ADMIN, GLOBAL_HR | US-SYS-06 |
+| POST | /admin/retention-policies/erasure-request | Right to Erasure cho 1 NV (NĐ 13/2023) | SUPER_ADMIN | US-SYS-06 |
 
 ## Sample Request/Response
 

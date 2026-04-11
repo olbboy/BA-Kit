@@ -22,6 +22,9 @@ Base URL: `/api/v1`
 | DELETE | /shifts/:id/employees/:empId | Xóa NV khỏi ca | HR | US-SHIFT-05 |
 | GET | /shift-assignments | Lịch phân ca theo NV hoặc ca (filter: empId, shiftId, month) | HR | US-SHIFT-06 |
 | POST | /shift-assignments/pattern | Phân ca theo pattern (lặp tuần/tháng) | HR | US-SHIFT-06 |
+| GET | /shift-assignments/team | Lịch phân ca team (Manager view: tuần/tháng) | MANAGER, DEPT_HEAD | US-SHIFT-07 |
+| GET | /shift-assignments/team/gaps | Phát hiện thiếu nhân lực (gap detection) | MANAGER, DEPT_HEAD | US-SHIFT-07 |
+| POST | /shift-assignments/team/request-change | Đề xuất đổi ca (Manager gửi HR) | MANAGER, DEPT_HEAD | US-SHIFT-07 |
 
 ## Sample Request/Response
 

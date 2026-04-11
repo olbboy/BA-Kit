@@ -96,8 +96,10 @@ Ràng buộc: Cho phép nhân viên tắt/mở thông báo nhắc nhở cá nhâ
 **Module 12: Quản trị hệ thống**
 
 - Quản lý chi nhánh: CRUD site (Tên, Mã, Timezone, Ngày chốt công). Deactivate site khi thu hẹp.
-- Audit Log: Xem toàn bộ nhật ký hoạt động hệ thống. Filter theo user, module, action, time range. Export CSV.
+- Audit Log: Xem toàn bộ nhật ký hoạt động hệ thống. Filter theo user, module, action, time range. Export CSV. Retention 3 năm.
 - Employee Offboarding: Quy trình 7 bước tự động khi NV nghỉ việc (cancel đơn, freeze phép, deactivate camera, re-route approval).
+- Chốt công tháng (Period Closing): Cấu hình closingDay, graceDays, weekendRule per-site. Auto-lock kỳ lương. Exception unlock với audit trail đầy đủ.
+- Employee Onboarding Wizard: Quy trình 7 bước tự động khi NV mới vào (profile → site → shift → Face ID → phép → approval chain → welcome). Hỗ trợ bulk onboarding.
 
 ### **3. USE CASE DIAGRAM**
 

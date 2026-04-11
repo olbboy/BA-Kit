@@ -18,6 +18,14 @@ Base URL: `/api/v1/notifications`
 | PUT | /notifications/preferences | Cập nhật tuỳ chọn thông báo cá nhân | EMPLOYEE | US-NOTIF-03 |
 | GET | /notifications | Lịch sử thông báo của user hiện tại | EMPLOYEE | US-NOTIF-01 |
 | PATCH | /notifications/:id/read | Đánh dấu đã đọc | EMPLOYEE | US-NOTIF-01 |
+| GET | /notifications/email-templates | Danh sách email templates theo nhóm | HR_ADMIN | US-NOTIF-04 |
+| GET | /notifications/email-templates/:id | Chi tiết template + HTML body + biến | HR_ADMIN | US-NOTIF-04 |
+| PUT | /notifications/email-templates/:id | Cập nhật template (WYSIWYG HTML) | HR_ADMIN | US-NOTIF-04 |
+| POST | /notifications/email-templates/:id/preview | Preview email render với mock data | HR_ADMIN | US-NOTIF-04 |
+| POST | /notifications/email-templates/:id/test-send | Gửi email test (5/ngày max) | HR_ADMIN | US-NOTIF-04 |
+| GET | /notifications/email-templates/:id/versions | Lịch sử versions (max 10) | HR_ADMIN | US-NOTIF-04 |
+| POST | /notifications/email-templates/:id/rollback | Rollback về version cũ | HR_ADMIN | US-NOTIF-04 |
+| PUT | /notifications/branding | Cấu hình branding (logo, color, footer) | HR_ADMIN | US-NOTIF-04 |
 
 ## Sample Request/Response
 
