@@ -1,6 +1,7 @@
 ---
 name: ba-writing
 description: [Agentic] Requirements Writing - transform notes into high-quality user stories (SKILL-03)
+version: 1.0.0
 ---
 
 # 🔵 SKILL-03: Agentic Requirements Writing
@@ -110,6 +111,28 @@ FEATURE: Schedule Jobs
 **ALWAYS scan for these words and replace with testable metrics**:
 - **Forbidden**: adequate, appropriate, as quickly as possible, easy, efficient, fast, flexible, good, intuitive, lightweight, maximize, minimize, normal, optimal, quick, reasonable, robust, seamless, simple, sufficient, timely, transparent, user-friendly, TBD
 - **Fix pattern**: Replace with `<metric> <threshold> <measurement method>`
+
+---
+
+## Example: Rewriting a Weak User Story
+
+**Before (Weak):**
+> Là nhân viên, tôi muốn xem thông tin để biết tình hình.
+
+**INVEST Analysis:**
+- Independent: ❌ "thông tin" quá chung
+- Negotiable: ❌ không rõ scope
+- Valuable: ❌ "biết tình hình" không đo được
+- Estimable: ❌ quá mơ hồ
+- Small: ❌ không biết to nhỏ
+- Testable: ❌ không có tiêu chí
+
+**After (Strong):**
+> **AS A** Nhân viên,
+> **I WANT TO** xem trạng thái chấm công, mốc giờ In/Out và thanh tiến độ thực tế ngay tại Hub Trang chủ,
+> **SO THAT** tôi xác nhận ngay lập tức tình trạng công và chủ động điều phối thời gian để hoàn thành ca.
+
+INVEST: ✅ Independent, ✅ Negotiable, ✅ Valuable, ✅ Estimable (3 SP), ✅ Small, ✅ Testable (3 ACs).
 
 ---
 

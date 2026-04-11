@@ -178,6 +178,22 @@ PASS threshold: ≥ 80%
 
 ---
 
+## Example: Test Cases for US-ATTEN-01 AC1 (Badge trạng thái)
+
+| TC ID | Type | Scenario | Expected | Priority |
+|-------|------|----------|----------|----------|
+| TC-A01-AC1-HP-01 | Happy | NV quẹt mặt thành công, confidence 0.95 | Badge "ĐÃ CHẤM CÔNG" (Xanh), Giờ Vào hiển thị | Critical |
+| TC-A01-AC1-HP-02 | Happy | NV chưa quẹt trong ngày | Badge "CHƯA CHẤM CÔNG" (Xám), Giờ "--:--" | Critical |
+| TC-A01-AC1-EC-01 | Edge | NV quẹt tại site không phải Primary | Badge hiển thị đúng theo site check-in | High |
+| TC-A01-AC1-EC-02 | Edge | Ca đêm 20:00-06:00, quẹt lúc 23:50 | Badge gán vào ngày T (không phải T+1) | High |
+| TC-A01-AC1-ER-01 | Error | Webhook delay > 60s | Banner "Đang đồng bộ..." thay vì badge xám | Medium |
+| TC-A01-AC1-ER-02 | Error | Confidence = 0.84 (dưới ngưỡng) | Không hiển thị badge, cần HR review | High |
+| TC-A01-AC1-SC-01 | Security | NV A cố xem badge NV B qua URL manipulation | Trả 403 Forbidden | Critical |
+
+Coverage: 7 TCs / 1 AC = 7 scenarios. Types: 2 Happy + 2 Edge + 2 Error + 1 Security.
+
+---
+
 ## 🔍 Knowledge Search
 Before generating, search for relevant context:
 *   `run_command`: `python3 .agent/scripts/ba_search.py "<topic keywords>" --domain validation`

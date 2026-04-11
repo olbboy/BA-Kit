@@ -1,6 +1,7 @@
 ---
 name: ba-solution
 description: [Agentic] Solution Evaluation - Business Case, ROI analysis, and Post-Implementation Review (SKILL-17)
+version: 1.0.0
 ---
 
 # 💰 SKILL-17: Agentic Solution Evaluation

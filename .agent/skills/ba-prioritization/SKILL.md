@@ -1,6 +1,7 @@
 ---
 name: ba-prioritization
 description: [Agentic] Prioritization Techniques - rank features and make trade-off decisions (SKILL-05)
+version: 1.0.0
 ---
 
 # 🟡 SKILL-05: Agentic Prioritization
@@ -98,6 +99,67 @@ Before finalizing priority order, identify dependencies:
 | Requirement | Depends On | Blocks | Implication |
 |-------------|-----------|--------|------------|
 | FR-003 | FR-001 | FR-007 | Must implement FR-001 first |
+
+---
+
+## 📋 Workflow
+
+1. **List items** — Thu thập toàn bộ features/requirements cần ưu tiên. Đảm bảo tất cả items ở cùng level of detail (không so sánh epic với task). Ghi rõ business context và constraints (timeline, team size).
+2. **Select technique** — Chọn framework phù hợp: MoSCoW cho tốc độ & alignment, RICE cho growth products, WSJF cho enterprise với nhiều dependencies, Weighted Criteria Matrix khi có nhiều stakeholders khác ý kiến.
+3. **Score** — Áp dụng framework nghiêm túc. Enforce 20% rule cho MoSCoW Must. Tính toán scores thực sự, không "feel". Challenge bất kỳ item nào được mark P1 mà không có data supporting.
+4. **Present ranked list** — Output bảng Prioritized Backlog với explicit rationale cho top/bottom 20%. Ghi rõ cut-line và trade-offs đã chấp nhận.
+
+## 📄 Output Format
+
+### Prioritized Backlog Table
+
+```
+| ID    | Feature / Module                  | MoSCoW | Value (1-9) | Effort (1-9) | Priority Score | Sprint / Release |
+|-------|-----------------------------------|--------|-------------|--------------|----------------|-----------------|
+| m05   | [Feature name]                    | Must   | 9           | 6            | 1.50           | Sprint 1        |
+| m06   | [Feature name]                    | Must   | 9           | 7            | 1.29           | Sprint 1        |
+| m01   | [Feature name]                    | Must   | 8           | 6            | 1.33           | Sprint 2        |
+| m07   | [Feature name]                    | Should | 7           | 5            | 1.40           | Sprint 3        |
+| m08   | [Feature name]                    | Should | 6           | 5            | 1.20           | Sprint 3        |
+| m09   | [Feature name]                    | Could  | 5           | 6            | 0.83           | Sprint 4        |
+| m10   | [Feature name]                    | Could  | 4           | 5            | 0.80           | Sprint 4        |
+
+Priority Score = Value / Effort (higher = more important)
+Must = max 20% of total items | Should = max 20% | Could = max 20% | Won't = remainder
+
+## Cut-line Decision
+Items below cut-line (Sprint N): [list]
+Rationale: [explicit trade-off reasoning]
+```
+
+## 💡 Example
+
+**Context**: Ưu tiên 12 modules của EAMS cho release roadmap.
+
+```
+| ID  | Module                              | MoSCoW | Value | Effort | Score | Sprint    |
+|-----|-------------------------------------|--------|-------|--------|-------|-----------|
+| m05 | Chấm công Camera AI (core)          | Must   | 9     | 7      | 1.29  | Sprint 1  |
+| m06 | Báo cáo chấm công & export payroll  | Must   | 9     | 6      | 1.50  | Sprint 1  |
+| m01 | Quản lý nhân viên & phân quyền      | Must   | 8     | 5      | 1.60  | Sprint 2  |
+| m07 | Đăng ký ca làm việc linh hoạt       | Should | 7     | 5      | 1.40  | Sprint 3  |
+| m08 | OT management & approval workflow   | Should | 7     | 6      | 1.17  | Sprint 3  |
+| m02 | Quản lý site / địa điểm             | Should | 6     | 4      | 1.50  | Sprint 2  |
+| m03 | Notification & alert system         | Should | 6     | 5      | 1.20  | Sprint 3  |
+| m09 | Mobile app cho manager approval     | Could  | 5     | 7      | 0.71  | Sprint 4  |
+| m10 | Dashboard analytics (advanced)      | Could  | 5     | 8      | 0.63  | Sprint 4  |
+| m04 | Trung tâm đăng ký (Registration)    | Should | 7     | 6      | 1.17  | Sprint 3  |
+| m11 | Tích hợp ERP (SAP / Oracle)         | Won't  | 4     | 9      | 0.44  | v2.0      |
+| m12 | AI anomaly detection nâng cao       | Won't  | 4     | 9      | 0.44  | v2.0      |
+
+Must (3/12 = 25% → review): m01, m05, m06 — justified vì đây là MVP core loop
+Should (5/12): m02, m03, m04, m07, m08 — important nhưng system vẫn usable thiếu chúng
+Could (2/12): m09, m10 — nice-to-have, ưu tiên sau khi Must/Should stable
+Won't (2/12): m11, m12 — high effort, low ROI trong v1.0
+
+Cut-line: Sprint 3 end — Anything after Sprint 3 cần sign-off từ Product Owner.
+Trade-off: m09 (Mobile) bị defer dù stakeholder muốn — Effort quá cao so với v1.0 value.
+```
 
 ---
 

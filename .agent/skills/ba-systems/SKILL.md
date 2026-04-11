@@ -1,6 +1,7 @@
 ---
 name: ba-systems
 description: [Agentic] Systems Thinking - analyze complex systems using Stocks, Flows, Loops, and Leverage Points
+version: 1.0.0
 ---
 
 # 🔮 SKILL: Agentic Systems Thinking
@@ -82,6 +83,122 @@ Provide a Systems Analysis Report:
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-root-cause` to dig deeper into specific problem nodes."
 *   "Handover: Summon `@ba-strategy` to align interventions with strategic goals."
+
+---
+
+## 📋 Workflow
+
+1. **Identify system boundary** — Xác định rõ: hệ thống bao gồm những gì (inside) và những gì là external entities (outside). Vẽ Context Diagram với data flows giữa system và external actors.
+2. **Map stocks and flows** — Liệt kê tất cả Stocks (thứ tích lũy: dữ liệu, quyết định, lỗi, user trust). Với mỗi stock, xác định Inflows (tăng stock) và Outflows (giảm stock).
+3. **Find feedback loops** — Tìm Reinforcing Loops (R): khuếch đại thay đổi — vòng tích cực hoặc tiêu cực. Tìm Balancing Loops (B): ổn định hệ thống. Đặt tên mỗi loop và gán archetype nếu phù hợp.
+4. **Identify leverage points** — Xếp hạng leverage points theo Meadows scale: thay đổi thông tin flows > thay đổi rules > thay đổi goals. Recommend can thiệp ở leverage point cao nhất khả thi.
+
+## 📄 Output Format
+
+### System Map Template
+
+```
+## System Analysis: [Tên Hệ Thống / Vấn Đề]
+Analyst: [Name] | Date: [DD/MM/YYYY]
+
+### System Boundary
+- Inside: [components / variables thuộc hệ thống]
+- Outside: [external actors / entities]
+
+### Stocks & Flows
+| Stock              | Inflows (tăng)                    | Outflows (giảm)                    |
+|--------------------|-----------------------------------|------------------------------------|
+| [Stock 1]          | [Inflow A], [Inflow B]            | [Outflow X], [Outflow Y]           |
+
+### Causal Loop Diagram (ASCII)
+[ASCII diagram thể hiện feedback loops]
+
+Legend: (+) = same direction | (−) = opposite direction | (R) = Reinforcing | (B) = Balancing
+
+### Leverage Points
+| # | Leverage Point             | Type                    | Difficulty | Impact   | Recommended Action         |
+|---|----------------------------|-------------------------|------------|----------|----------------------------|
+| 1 | [High leverage point]      | Information flow change | Medium     | High     | [Specific intervention]    |
+| 2 | [Medium leverage point]    | Rules / incentives      | High       | Medium   | [Specific intervention]    |
+```
+
+## Example: Hệ thống EAMS Chấm công
+
+**System Boundary:** EAMS = Camera AI + Backend + Mini App + Approval Engine
+
+**Stocks & Flows:**
+| Stock | Inflows | Outflows |
+|-------|---------|----------|
+| Độ chính xác chấm công | Camera AI data, Manual Entry | Anomaly phát sinh, thiết bị lỗi |
+| Đơn từ tồn đọng | NV gửi đơn mới | Manager duyệt/từ chối |
+| Hài lòng nhân viên | Minh bạch dữ liệu, giải trình nhanh | Lỗi tính công, trễ thông báo |
+
+**Feedback Loops:**
+- **(R) Vòng cải thiện:** Camera chính xác → ít anomaly → ít giải trình → HR nhàn → focus cải thiện camera
+- **(B) Vòng quá tải:** Nhiều NV → nhiều đơn → Manager quá tải → duyệt chậm → NV bất mãn → nhiều khiếu nại
+
+**Leverage Point:** Batch approve (Module 10) — giảm thời gian duyệt 70% → phá vỡ vòng quá tải
+| 3 | [Low leverage point]       | Parameter change        | Low        | Low      | [Quick win action]         |
+
+### Archetype Match
+Pattern: [Fixes that Fail / Limits to Growth / Shifting the Burden / ...]
+Implication: [Standard intervention for this archetype]
+```
+
+## 💡 Example
+
+**Context**: EAMS analyzed as a system — tập trung vào stock "Attendance Accuracy".
+
+```
+## System Analysis: EAMS — Attendance Accuracy Loop
+Date: 10/04/2026
+
+### System Boundary
+- Inside: Camera AI engine, attendance database, correction workflow, payroll export module
+- Outside: Nhân viên (data source), HR Manager (approver), Payroll system (consumer),
+           Site conditions (lighting, hardware), Vietnam Labor Law (regulator)
+
+### Stocks & Flows
+| Stock                 | Inflows (tăng accuracy)                        | Outflows (giảm accuracy)               |
+|-----------------------|------------------------------------------------|----------------------------------------|
+| Attendance Accuracy   | Camera AI recognition thành công               | False positives / negatives            |
+|                       | Manual entry đúng (với note)                   | Manual entry sai / quên               |
+|                       | Approved corrections                           | Unapproved corrections bị bỏ qua      |
+| Correction Backlog    | Anomalies detected (Camera AI flag)            | Corrections approved & resolved        |
+|                       | HR manual review queue                         | Cutoff deadline (end of month)         |
+
+### Causal Loop Diagram (ASCII)
+
+  Camera AI         Attendance    (+)  Payroll        (+)  Employee
+  Data Quality ──(+)──► Accuracy ──────► Export Quality ──────► Trust
+       ▲                  │                                        │
+       │                  │ (−) Anomalies detected                 │ (+)
+       │                  ▼                                        ▼
+       │           Correction Workflow (B) ◄── Anomaly Detection ◄─ Engagement
+       │                  │                        ▲
+       │                  │ (+) Resolved           │ (+)
+       │                  └────────────────────────┘
+       │
+       └──────── Better AI training data ◄─── Approved corrections
+                      (R: Virtuous Cycle)
+
+Loops:
+- (B) Correction Workflow: Anomaly detected → Correction filed → Approved → Accuracy improves → fewer anomalies
+- (R) AI Improvement: More accurate data → Better AI training → Higher recognition → More accurate data
+
+### Leverage Points
+| # | Leverage Point                        | Type                    | Difficulty | Impact | Recommended Action                                     |
+|---|---------------------------------------|-------------------------|------------|--------|--------------------------------------------------------|
+| 1 | Anomaly detection algorithm quality   | Information flow change | Medium     | High   | Continuous AI model retraining từ approved corrections |
+| 2 | Correction approval SLA               | Rules change            | Low        | High   | Enforce 24h SLA cho Team Lead approval                 |
+| 3 | Camera hardware quality per site      | Parameter change        | High       | Medium | Hardware audit + upgrade roadmap cho Q3                |
+| 4 | Manual entry UX (friction reduction)  | Information flow        | Low        | Medium | Required fields + auto-suggest từ schedule             |
+
+### Archetype Match
+Pattern: Limits to Growth — Camera AI accuracy hits ceiling nếu training data không được cập nhật liên tục.
+Implication: Đừng chỉ tối ưu Camera hardware (symptom). Leverage point thực sự là feedback loop:
+             approved corrections → retrain AI model → accuracy ceiling tăng dần theo thời gian.
+```
 
 ---
 

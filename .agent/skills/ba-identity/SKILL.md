@@ -1,6 +1,7 @@
 ---
 name: ba-identity
 description: [Agentic] BA Identity & Competencies - establish expert persona and stakeholder framework (SKILL-01)
+version: 1.0.0
 ---
 
 # 🔵 SKILL-01: Agentic Identity Manager

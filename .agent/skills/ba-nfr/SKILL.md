@@ -1,6 +1,7 @@
 ---
 name: ba-nfr
 description: [Agentic] NFR Framework with ISO 25010 - specify quality attributes and non-functional requirements (SKILL-04)
+version: 1.0.0
 ---
 
 # 🟡 SKILL-04: Agentic NFR Framework (ISO 25010)
@@ -113,6 +114,53 @@ Meter:  Measured at server under full load (500 concurrent users)
 Must:   ≤ 5.0 seconds (p99)
 Plan:   ≤ 2.0 seconds (p95)
 Wish:   ≤ 0.5 seconds (p50)
+```
+
+---
+
+## 📋 Workflow
+
+1. **Identify quality attributes** — Thu thập context hệ thống: architecture, load profile, compliance requirements. Liệt kê tất cả quality concerns từ stakeholders.
+2. **Classify ISO 25010** — Phân loại từng concern vào đúng category: Performance Efficiency, Security, Reliability, Usability, Maintainability, Portability, etc.
+3. **Quantify với metrics** — Áp dụng Planguage pattern: mỗi NFR phải có Scale (đơn vị), Meter (cách đo), Must/Plan/Wish (ngưỡng cụ thể). Không chấp nhận NFR mơ hồ.
+4. **Validate testability** — Review lại từng NFR: có thể viết test case không? Ai đo? Bao giờ đo? Nếu không đo được → viết lại.
+
+## 📄 Output Format
+
+### NFR Specification Table
+
+```
+| ID          | Category (ISO 25010)   | Attribute         | Metric                        | Target (Must)        | Measurement Method                        | Priority |
+|-------------|------------------------|-------------------|-------------------------------|----------------------|-------------------------------------------|----------|
+| NFR-PERF-01 | Performance Efficiency | Response Time     | API p95 latency (ms)          | ≤ 1000ms             | Load test: k6, 5000 concurrent users      | Critical |
+| NFR-PERF-02 | Performance Efficiency | Throughput        | Requests/second               | ≥ 500 rps            | JMeter sustained 10 min                   | High     |
+| NFR-SEC-01  | Security               | Access Control    | RBAC + ABAC enforcement       | 100% coverage        | Penetration test + role matrix audit      | Critical |
+| NFR-REL-01  | Reliability            | Availability      | System uptime % per month     | ≥ 99.5%              | Monitoring: Uptime Robot / Datadog        | High     |
+| NFR-USA-01  | Usability              | Learnability      | Time to complete core task    | ≤ 5 min (new user)   | Usability test with 5 representative users| Medium  |
+```
+
+## 💡 Example
+
+**Context**: EAMS (Employee Attendance Management System) — 5000 người dùng đồng thời, đa site.
+
+| ID          | Category               | Attribute      | Metric                      | Target                              | Measurement Method                     | Priority |
+|-------------|------------------------|----------------|-----------------------------|-------------------------------------|----------------------------------------|----------|
+| NFR-PERF-01 | Performance Efficiency | API Response   | p95 latency                 | ≤ 1000ms tại 5000 concurrent users  | k6 load test — sustained 15 phút       | Critical |
+| NFR-PERF-02 | Performance Efficiency | Camera AI      | Face recognition latency    | ≤ 500ms per frame                   | Benchmark trên hardware tại site       | High     |
+| NFR-SEC-01  | Security               | Access Control | RBAC + ABAC per site        | 0 cross-site data leak              | Role matrix audit + pen test           | Critical |
+| NFR-SEC-02  | Security               | Data at Rest   | Attendance data encryption  | AES-256 (per PCI-DSS v4.0.1)        | Security scan + config audit           | High     |
+| NFR-REL-01  | Reliability            | Availability   | System uptime               | ≥ 99.5% / tháng                     | Uptime Robot monitoring                | High     |
+| NFR-REL-02  | Reliability            | Offline Mode   | Camera AI hoạt động offline | ≥ 4h không cần kết nối server       | Disconnect test tại site thực tế       | Medium   |
+| NFR-MNT-01  | Maintainability        | Modularity     | Module deploy độc lập       | Zero-downtime deploy per module     | Blue-green deployment test             | Medium   |
+
+**Planguage chi tiết cho NFR-PERF-01**:
+```
+Tag:    API Response Time — EAMS Core Endpoints
+Scale:  Milliseconds (p95 latency)
+Meter:  k6 load test, 5000 concurrent users, sustained 15 min, production-like data
+Must:   ≤ 1000ms (p95)
+Plan:   ≤ 500ms (p95)
+Wish:   ≤ 200ms (p95)
 ```
 
 ---

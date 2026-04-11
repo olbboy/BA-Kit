@@ -1,6 +1,7 @@
 ---
 name: ba-validation
 description: [Agentic] Validation & Verification - ensure quality and correctness (SKILL-08)
+version: 1.0.0
 ---
 
 # 🟡 SKILL-08: Agentic Validation & Verification
@@ -141,6 +142,32 @@ python3 .agent/scripts/coverage_checker.py outputs/mini-app-cham-cong/
 # Detailed per-module breakdown  
 python3 .agent/scripts/coverage_checker.py outputs/mini-app-cham-cong/ --verbose
 ```
+
+---
+
+## Example: Validating US-REG-03 (Đăng ký tăng ca)
+
+### INVEST Check
+| Criterion | Score | Issue |
+|-----------|-------|-------|
+| Independent | ✅ | Can be built without US-REG-01 |
+| Negotiable | ✅ | OT limit values configurable |
+| Valuable | ✅ | Direct value: legal compliance |
+| Estimable | ✅ | 5 SP estimated |
+| Small | ✅ | 1 form + 4 validations |
+| Testable | ✅ | 4 ACs with numeric thresholds |
+
+### Ambiguity Scan
+| Line | Text | Issue | Fix |
+|------|------|-------|-----|
+| AC2 | "Giờ bắt đầu OT: mặc định = Giờ tan ca + 1 phút" | OK — specific | — |
+| AC3 | "Vượt giới hạn" | Which limit? Day/week/month/year? | Specify: "Vượt giới hạn [ngày/tuần/tháng/năm]" |
+
+### Security Check
+- ✅ RBAC defined (NV tạo cho mình, HR tạo cho NV khác)
+- ❌ Missing: rate limiting on OT submission (spam prevention)
+
+Verdict: CONDITIONAL (82%) — fix ambiguity in AC3 + add rate limit NFR.
 
 ---
 

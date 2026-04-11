@@ -1,6 +1,7 @@
 ---
 name: ba-elicitation
 description: [Agentic] Elicitation & Questioning - extract hidden requirements (SKILL-02)
+version: 1.0.0
 ---
 
 # 🟡 SKILL-02: Agentic Elicitation (The Detective)

@@ -154,6 +154,37 @@ grep_search("EAMS", "outputs/", ["*/US-*.md"])
 
 ---
 
+## Example: Consistency Check for Module 01 (Chấm công)
+
+### US → API Check
+| US Action | API Endpoint | Match |
+|-----------|-------------|-------|
+| "Xem trạng thái chấm công" | GET /api/v1/attendance/today | ✅ |
+| "Xem thanh tiến độ" | GET /api/v1/attendance/today (progress field) | ✅ |
+| "Nhập thủ công" | POST /api/v1/attendance/manual | ✅ |
+| "Xem cảnh báo vi phạm" | GET /api/v1/attendance/violations | ✅ |
+
+### API → DB Check
+| API Field | DB Column | Match |
+|-----------|-----------|-------|
+| employeeId | attendance_records.employee_id | ✅ |
+| checkInTime | attendance_records.check_in_time | ✅ |
+| shiftName | — (computed from shifts JOIN) | ⚠️ Computed |
+
+### Terminology Check
+| Term | BRD | US | API | DB | Consistent? |
+|------|-----|-----|-----|-----|------------|
+| Nhân viên | Nhân viên | Nhân viên | employee | employee | ✅ (convention) |
+| Giờ vào | Giờ Vào | Check-in | checkInTime | check_in_time | ✅ |
+
+Result: 100% US→API, 95% API→DB (1 computed field), 100% terminology.
+
+---
+
+## 🔍 Knowledge Search
+
+---
+
 ## 📚 Knowledge Reference
 *   **Source**: ebook-fundamentals.md (BABOK Traceability), ebook-techniques.md (Requirements Management)
 *   **Standards**: IEEE 29148 (Requirements Traceability), BABOK v3 Chapter 5

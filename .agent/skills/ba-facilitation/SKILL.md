@@ -1,6 +1,7 @@
 ---
 name: ba-facilitation
 description: [Agentic] Workshop Facilitation - plan, run, and follow-up on effective workshops
+version: 1.0.0
 ---
 
 # 🎪 SKILL: Agentic Workshop Facilitation
@@ -93,6 +94,93 @@ Use these at the end of a requirements phase to improve:
 - *Analysis*: Did we choose the right analysis models? Was documentation sufficient?
 - *Management*: Did change control guard against scope creep? How volatile were requirements and why?
 - *Overall*: What do we want to remember to do again? Top 2 things to improve?
+
+---
+
+## 📋 Workflow
+
+1. **Define objective** — Xác định MỘT câu hỏi cần workshop trả lời. Format: "Sau workshop này, chúng ta sẽ quyết định được [X]." Nếu có nhiều mục tiêu → tách thành nhiều workshop riêng.
+2. **Design agenda** — Thiết kế agenda theo ODEC (Open-Diverge-Explore-Converge): phân bổ thời gian 10%-30%-30%-20%-10%. Chọn technique phù hợp (brainstorm, dot voting, fishbone, story mapping).
+3. **Prepare materials** — Chuẩn bị: template pre-work gửi trước 48h, sticky notes / Miro board, timer, parking lot section, follow-up template.
+4. **Facilitate** — Mở bằng ground rules rõ ràng. Dùng silent brainstorm trước group discussion để tránh anchoring. Ghi parking lot realtime. Chốt decisions với explicit agreement từ stakeholders.
+5. **Follow up within 24h** — Gửi Workshop Summary: decisions made, action items với owner/deadline, parking lot items, next steps. Không có summary = workshop thất bại.
+
+## 📄 Output Format
+
+### Workshop Output Template
+
+```
+# Workshop Summary: [Tên Workshop]
+Date: [DD/MM/YYYY] | Duration: [Xh] | Facilitator: [Tên]
+
+## Objective
+[Câu hỏi cần trả lời / quyết định cần đưa ra]
+
+## Participants
+| Name | Role | Attendance |
+|------|------|-----------|
+| ...  | ...  | Full / Partial |
+
+## Decisions Made
+1. [Decision 1] — Agreed by: [names] — Effective: [date]
+2. [Decision 2] — ...
+
+## Action Items
+| # | Action | Owner | Due Date | Status |
+|---|--------|-------|----------|--------|
+| 1 | ...    | ...   | ...      | Open   |
+
+## Parking Lot
+| Item | Raised By | To Be Addressed By |
+|------|-----------|--------------------|
+| ...  | ...       | [person / next workshop] |
+
+## Next Steps
+- [ ] [Action / date / owner]
+```
+
+## 💡 Example
+
+**Context**: Requirements Workshop cho EAMS Module 04 — Trung tâm Đăng ký (Registration Center).
+
+```
+# Workshop Summary: EAMS Module 04 — Requirements Discovery
+Date: 15/04/2026 | Duration: 3h | Facilitator: Lan (BA Lead)
+
+## Objective
+Xác định các luồng đăng ký chấm công hợp lệ cho nhân viên đa site,
+và quyết định cơ chế phê duyệt điều chỉnh công.
+
+## Participants
+| Name    | Role                          | Attendance |
+|---------|-------------------------------|-----------|
+| Minh    | HR Manager (Site A)           | Full      |
+| Hoa     | Payroll Lead                  | Full      |
+| Tuấn    | Tech Lead                     | Partial   |
+| Lan     | BA Lead (Facilitator)         | Full      |
+
+## Decisions Made
+1. Điều chỉnh công phải có 2-level approval: Team Lead → HR Manager
+2. Camera AI failure → fallback về manual entry với note bắt buộc
+3. Deadline chốt công: ngày 25 hàng tháng, cutoff 23:59
+
+## Action Items
+| # | Action                              | Owner | Due Date   | Status |
+|---|-------------------------------------|-------|------------|--------|
+| 1 | Draft approval flow diagram (BPMN)  | Lan   | 18/04/2026 | Open   |
+| 2 | Confirm 2-level approval với CISO   | Minh  | 17/04/2026 | Open   |
+| 3 | API spec cho Camera AI fallback     | Tuấn  | 20/04/2026 | Open   |
+
+## Parking Lot
+| Item                              | Raised By | To Be Addressed By     |
+|-----------------------------------|-----------|------------------------|
+| OT policy per site khác nhau?     | Hoa       | Workshop M04-Sprint-2  |
+| Mobile app cho manager approval?  | Minh      | Roadmap review Q3      |
+
+## Next Steps
+- [ ] Lan gửi draft BPMN cho team review — 18/04/2026
+- [ ] Workshop tiếp theo: M04 Edge Cases — 22/04/2026
+```
 
 ---
 

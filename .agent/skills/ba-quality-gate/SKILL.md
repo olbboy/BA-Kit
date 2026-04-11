@@ -174,6 +174,24 @@ PASS: ≥ 80   CONDITIONAL: 60-79   REJECT: < 60
 
 ---
 
+## Example: Scoring US-ATTEN-01 (Hub chấm công)
+
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Completeness | 9/10 | All sections present (Story, BF, RBAC, AC, Edge, DoD) |
+| Testability | 8/10 | 3 ACs have measurable criteria; AC3.2 "mượt mà" is vague |
+| Consistency | 9/10 | Terms match glossary; Grace Period aligned with EAMS §4.2 |
+| Traceability | 10/10 | Traces to BRD-01 F01, has API + DB coverage |
+| RBAC Coverage | 9/10 | 3 roles defined; missing SUPER_ADMIN edge case |
+| Edge Cases | 10/10 | 6 edge cases with expected behaviors |
+| NFR Coverage | 7/10 | Performance SLA defined (60s); missing accessibility |
+| Security | 8/10 | ABAC defined; no mention of data encryption at rest |
+| **Overall** | **87.5%** | **PASS** (threshold: 80%) |
+
+Verdict: PASS — route to implementation. Fix AC3.2 wording before sprint.
+
+---
+
 ## 🔍 Knowledge Search
 *   `run_command`: `python3 .agent/scripts/ba_search.py "<topic>" --multi-domain`
 

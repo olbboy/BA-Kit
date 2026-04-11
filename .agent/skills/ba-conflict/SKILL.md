@@ -1,6 +1,7 @@
 ---
 name: ba-conflict
 description: [Agentic] Conflict Resolution & Negotiation - resolve stakeholder disagreements (SKILL-06)
+version: 1.0.0
 ---
 
 # 🟡 SKILL-06: Agentic Conflict Resolution

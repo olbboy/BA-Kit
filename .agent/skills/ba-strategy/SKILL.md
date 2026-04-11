@@ -1,6 +1,7 @@
 ---
 name: ba-strategy
 description: [Agentic] Strategic Analysis - PESTLE, SWOT, Business Model Canvas, Porter's Five Forces
+version: 1.0.0
 ---
 
 # 🏛️ SKILL: Agentic Strategic Analysis
@@ -97,6 +98,102 @@ Vision Statement → Context Diagram → Event-Response Table
 | **Correction** | New errors with changes | Rules, Data, UCs, UAT, Quality |
 | **Adaptation** | Keep existing functionality | Quality Attributes, External Interfaces, UCs |
 | **COTS** | Select/configure right package | Process Map, Actors, UCs, Rules, Data, UAT |
+
+---
+
+## 📋 Workflow
+
+1. **Scan environment** — Thu thập data về macro environment (PESTLE) và internal context (tài liệu, phỏng vấn stakeholders, competitive research). Phân biệt rõ facts vs assumptions.
+2. **Analyze with framework** — Áp dụng framework phù hợp với câu hỏi chiến lược: SWOT cho internal/external alignment, PESTLE cho regulatory & market context, Business Model Canvas cho value proposition, Porter's 5 Forces cho competitive positioning.
+3. **Identify strategic options** — Từ analysis, derive các strategic options: SO (Strengths + Opportunities), ST (Strengths + Threats), WO (Weaknesses + Opportunities), WT (Weaknesses + Threats).
+4. **Recommend** — Đưa ra recommendation rõ ràng: Go / No-Go / Investigate. Mỗi recommendation phải có rationale tracing back tới analysis, không phải opinion.
+
+## 📄 Output Format
+
+### Strategic Analysis Report
+
+```
+# Strategic Analysis: [Product / Initiative Name]
+Analyst: [Name] | Date: [DD/MM/YYYY] | Framework: [SWOT / PESTLE / BMC / Porter's]
+
+## Business Objective
+[Một câu rõ ràng: "Chúng ta đang cố giải quyết vấn đề gì cho ai?"]
+
+## SWOT Matrix
+|                  | Helpful (achieve objective) | Harmful (achieve objective) |
+|------------------|-----------------------------|-----------------------------|
+| **Internal**     | **Strengths**               | **Weaknesses**              |
+| (Origin)         | S1: ...                     | W1: ...                     |
+|                  | S2: ...                     | W2: ...                     |
+| **External**     | **Opportunities**           | **Threats**                 |
+| (Environment)    | O1: ...                     | T1: ...                     |
+|                  | O2: ...                     | T2: ...                     |
+
+## Strategic Options
+| Option  | Rationale                        | Risk Level |
+|---------|----------------------------------|------------|
+| SO: ... | Leverage [S] to capture [O]      | Low        |
+| ST: ... | Use [S] to neutralize [T]        | Medium     |
+| WO: ... | Overcome [W] via [O]             | Medium     |
+| WT: ... | Minimize [W] & avoid [T]         | High       |
+
+## Business Model Canvas (Key Sections)
+- **Value Proposition**: [Core value delivered]
+- **Customer Segments**: [Who benefits]
+- **Key Activities**: [What must we do well]
+- **Revenue Streams**: [How we capture value]
+- **Key Risks**: [What could derail the model]
+
+## Recommendation
+**Decision**: [Go / No-Go / Investigate]
+**Rationale**: [Tracing to SWOT findings]
+**Next Step**: [Specific action with owner and timeline]
+```
+
+## 💡 Example
+
+**Context**: SWOT analysis cho sản phẩm EAMS (Employee Attendance Management System).
+
+```
+# Strategic Analysis: EAMS Product v1.0
+Framework: SWOT | Date: 10/04/2026
+
+## Business Objective
+Cung cấp giải pháp chấm công tự động cho doanh nghiệp Việt Nam nhiều địa điểm,
+thay thế hoàn toàn quy trình thủ công bằng Camera AI + digital workflows.
+
+## SWOT Matrix
+|              | Helpful                                        | Harmful                                          |
+|--------------|------------------------------------------------|--------------------------------------------------|
+| **Internal** | **Strengths**                                  | **Weaknesses**                                   |
+|              | S1: Tích hợp sẵn C-Vision AI (độ chính xác cao)| W1: Export chỉ hỗ trợ Confluence — hạn chế B2B  |
+|              | S2: Multi-site RBAC+ABAC — unique trong market | W2: Mobile app chưa có trong v1.0               |
+|              | S3: Team BA+Dev in-house — iteration nhanh     | W3: Phụ thuộc hardware camera tại site          |
+| **External** | **Opportunities**                              | **Threats**                                      |
+|              | O1: Thị trường tuân thủ Luật Lao Động VN 2024  | T1: Legacy HR systems (SAP, Oracle) tại enterprise|
+|              | O2: Xu hướng hybrid work → flexible attendance | T2: Đối thủ nội địa giá rẻ (feature ít hơn)    |
+|              | O3: FDI vào VN tăng — need multi-site solution | T3: Camera hardware costs tăng theo USD exchange|
+
+## Strategic Options
+| Option | Strategy                                                      | Risk   |
+|--------|---------------------------------------------------------------|--------|
+| SO     | Đẩy mạnh C-Vision AI + compliance story cho FDI enterprises  | Low    |
+| ST     | Build ERP connectors (SAP/Oracle) để giảm switching barrier  | Medium |
+| WO     | Mở rộng export format (Excel, PDF) trước khi tackle mobile   | Low    |
+| WT     | Offer SaaS model để giảm hardware dependency cho SMEs        | Medium |
+
+## Business Model Canvas (Key Sections)
+- **Value Proposition**: Chấm công tự động đa site, tuân thủ luật lao động VN, zero-paper
+- **Customer Segments**: FDI manufacturers, retail chains, logistics companies tại VN (≥200 nhân viên)
+- **Key Activities**: Camera AI integration, payroll export automation, compliance updates
+- **Revenue Streams**: SaaS subscription (per employee/month) + hardware partnership
+- **Key Risks**: Camera accuracy trong điều kiện ánh sáng kém; legal changes in labor law
+
+## Recommendation
+**Decision**: Go — ưu tiên SO strategy cho Q2/2026
+**Rationale**: S1+O1+O3 tạo window cơ hội rõ ràng; W1 cần fix ngay (export formats) để không block enterprise deals
+**Next Step**: Lan (BA) map compliance requirements với Luật Lao Động 2024 — deadline 20/04/2026
+```
 
 ---
 

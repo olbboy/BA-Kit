@@ -1,6 +1,7 @@
 ---
 name: ba-process
 description: [Agentic] Process Modeling - BPMN and As-Is/To-Be analysis (SKILL-16)
+version: 1.0.0
 ---
 
 # 🌀 SKILL-16: Agentic Process Modeling
@@ -83,6 +84,103 @@ When a use case has forks, joins, or parallel flows that text can't express clea
 - Use **Join** (thick bar) to synchronize
 - Use **Decision** (diamond) with guard conditions
 - **When to use**: UC has >3 alternative flows, or involves concurrent tasks
+
+---
+
+## 📋 Workflow
+
+1. **Map As-Is** — Phỏng vấn stakeholders, quan sát quy trình thực tế. Vẽ process map với swimlanes đúng actors. Ghi lại tất cả steps kể cả steps không chính thức / workaround.
+2. **Identify pain points** — Phân tích theo Lean 7 Wastes: Wait Time, Rework, Handoff delays, Manual steps, Redundant approval, Missing data, Unclear ownership. Đánh dấu bottleneck trên diagram.
+3. **Design To-Be** — Loại bỏ waste, tự động hóa manual steps, rút gọn handoffs. Mỗi thay đổi phải justified bằng pain point cụ thể. Không thêm step mới nếu không có business reason.
+4. **Document in BPMN** — Xuất diagram với đầy đủ Gateways (có cả Yes/No paths), Error Events, và End States. Đính kèm Process Metrics: cycle time, số handoffs, automation %.
+
+## 📄 Output Format
+
+### Process Model Template
+
+```
+## Process: [Tên Process]
+Version: [x.x] | Owner: [Role] | Last Updated: [Date]
+
+### As-Is Process (Current State)
+[ASCII BPMN hoặc Mermaid diagram]
+
+Swimlanes: [Nhân viên] | [Team Lead] | [HR] | [Hệ thống]
+
+[Actor A] ──► [Step 1] ──► <Gateway: OK?> ──Yes──► [Step 2] ──► [End]
+                                  │No
+                                  ▼
+                            [Rework Step] ──► <back to Step 1>
+
+### Process Metrics (As-Is)
+| Metric          | Value         | Note                    |
+|-----------------|---------------|-------------------------|
+| Cycle Time      | X ngày        | từ trigger đến complete |
+| Handoffs        | N lần         | cross-role transfers    |
+| Manual Steps    | M / Total     | % automation hiện tại   |
+| Wait Time       | Y giờ avg     | thời gian chờ approval  |
+| Rework Rate     | Z%            | % cases cần làm lại     |
+
+### To-Be Process (Future State)
+[ASCII BPMN hoặc Mermaid diagram — chỉ hiển thị thay đổi]
+
+### Improvement Summary
+| Pain Point          | Root Cause        | To-Be Solution          | Expected Gain       |
+|---------------------|-------------------|-------------------------|---------------------|
+| [Pain point 1]      | [Cause]           | [Solution]              | [Metric improvement]|
+```
+
+## 💡 Example
+
+**Context**: EAMS — Quy trình điều chỉnh công (Attendance Correction) As-Is vs To-Be.
+
+```
+### As-Is: Điều chỉnh công thủ công (Manual Paper Process)
+
+[Nhân viên]  ──► Viết phiếu ──► Nộp HR ──────────────────────────────────────┐
+                                                                               │
+[HR]          ◄── Nhận phiếu ◄──────── <Kiểm tra: hợp lệ?> ──No──► Trả lại  │
+                │                                                              │
+                ▼ Yes                                                          │
+[Team Lead]   ──► Ký duyệt thủ công ──────────────────────────────────────────┤
+                │                                                              │
+                ▼                                                              │
+[HR]          ──► Nhập tay vào Excel ──► Lưu file ──► Cuối tháng gửi payroll │
+                                                                               │
+                          ◄── Nhân viên không biết status ◄────────────────────┘
+
+Process Metrics (As-Is):
+| Metric       | Value        | Note                          |
+|--------------|--------------|-------------------------------|
+| Cycle Time   | 3–5 ngày     | phụ thuộc Team Lead có mặt   |
+| Handoffs     | 4 lần        | NV→HR→TL→HR→Payroll          |
+| Manual Steps | 6/6 (0%)     | toàn bộ thủ công              |
+| Wait Time    | ~48h avg     | chờ Team Lead ký              |
+| Rework Rate  | ~25%         | phiếu thiếu thông tin         |
+
+---
+
+### To-Be: Điều chỉnh công số hóa (EAMS Module 04 + Camera AI)
+
+[Nhân viên]  ──► Submit form trên app ──► <Camera AI verify?> ──Yes──► Auto-submit
+                                                   │No (anomaly)
+                                                   ▼
+                                          Add note bắt buộc ──► Submit với flag
+
+[Hệ thống]   ──► Gửi notification ──► [Team Lead] review online ──► Approve/Reject
+                                                   │Approve
+                                                   ▼
+[Hệ thống]   ──► Auto-update attendance record ──► Notify NV ──► Ready for payroll
+
+Process Metrics (To-Be):
+| Metric       | As-Is    | To-Be    | Improvement |
+|--------------|----------|----------|-------------|
+| Cycle Time   | 3–5 ngày | 4–8h     | -80%        |
+| Handoffs     | 4 lần    | 2 lần    | -50%        |
+| Manual Steps | 6/6      | 1/5      | 80% automated|
+| Wait Time    | ~48h     | ~2h      | -95%        |
+| Rework Rate  | ~25%     | ~5%      | -80%        |
+```
 
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: ba-root-cause
 description: [Agentic] Root Cause Analysis & Resolution (CAR) - Fishbone and 5 Whys (SKILL-19)
+version: 1.0.0
 ---
 
 # 🐟 @ba-root-cause: The Problem Solver

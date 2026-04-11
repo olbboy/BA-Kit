@@ -1,6 +1,7 @@
 ---
 name: ba-agile
 description: [Agentic] Agile BA Practices - User Story Mapping, MVP Definition, Hypothesis-Driven Development
+version: 1.0.0
 ---
 
 # 🔄 SKILL: Agentic Agile Business Analysis

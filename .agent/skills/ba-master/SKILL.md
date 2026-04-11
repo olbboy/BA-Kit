@@ -1,6 +1,7 @@
 ---
 name: ba-master
 description: [Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Squad (25 Agents)
+version: 1.0.0
 ---
 
 # 🎯 @ba-master: The Dispatcher
