@@ -1,6 +1,6 @@
 # BA-Kit Agent Cheat Sheet
 
-Tham chiếu nhanh 26 agents — phân loại, khi nào dùng, output chính.
+Tham chiếu nhanh 32 agents — phân loại, khi nào dùng, output chính.
 
 ---
 
@@ -61,6 +61,19 @@ Tham chiếu nhanh 26 agents — phân loại, khi nào dùng, output chính.
 |-------|---------|--------------|--------------|
 | **@ba-jira** | Đồng bộ Jira | Cần tạo/cập nhật ticket Jira từ US | Jira issues, sprint backlog |
 | **@ba-confluence** | Publish Confluence | Cần đăng tài liệu lên Confluence | Confluence page (Markdown → XHTML) |
+
+---
+
+## Lifecycle (Vòng đời BA — NEW in v3.1)
+
+| Agent | Vai trò | Khi nào dùng | Output chính |
+|-------|---------|--------------|--------------|
+| **@ba-questioning** | Chuẩn bị câu hỏi | Trước meeting, review, phỏng vấn, khi cần challenge assumptions | Question set 3-tier (Must/Should/Could), listening triggers |
+| **@ba-communication** | Truyền thông BA | Cần status report, executive summary, meeting minutes, email draft | Reports, summaries, minutes theo audience |
+| **@ba-ux** | Nghiên cứu UX | Cần persona, user journey, empathy map, usability test | Persona cards, journey maps, test protocols |
+| **@ba-data** | Kiến trúc dữ liệu | Cần ERD, data dictionary, DFD, data mapping, migration plan | ERD (Mermaid), data dictionary, mapping tables |
+| **@ba-change** | Quản lý thay đổi | Triển khai hệ thống mới, cần training plan, go-live checklist | ADKAR assessment, training plan, go-live checklist |
+| **@ba-business-rules** | Quản lý quy tắc nghiệp vụ | Cần decision table, rule catalog, kiểm tra conflict | Decision tables, rule catalogs, conflict reports |
 
 ---
 
@@ -149,6 +162,12 @@ Tham chiếu nhanh 26 agents — phân loại, khi nào dùng, output chính.
 | Cần tạo ticket Jira | `@ba-jira` | `@ba-writing` |
 | Cần publish lên Confluence | `@ba-confluence` | `@ba-export` |
 | Cần audit toàn bộ dự án | `@ba-auditor` | `@ba-quality-gate` |
+| Chuẩn bị câu hỏi cho meeting | `@ba-questioning` | `@ba-elicitation` |
+| Cần viết status report / email | `@ba-communication` | `@ba-identity` |
+| Cần tạo persona / journey map | `@ba-ux` | `@ba-writing` |
+| Cần ERD / data dictionary | `@ba-data` | `@ba-writing` |
+| Cần plan go-live / training | `@ba-change` | `@ba-communication` |
+| Cần decision table / rule catalog | `@ba-business-rules` | `@ba-validation` |
 
 ---
 

@@ -162,11 +162,53 @@ Health check the wiki for quality issues.
 
 ---
 
+## Operation 4: Glossary (`@ba-wiki glossary <action>`)
+
+Manage the project's **Ubiquitous Language** — a single-source glossary ensuring consistent terminology across all artifacts.
+
+### Actions
+
+| Action | Description |
+|--------|-------------|
+| `glossary build` | Scan project artifacts and extract domain-specific terms into `wiki/glossary.md` |
+| `glossary add "<term>" "<definition>"` | Add a new term with definition, source, and aliases |
+| `glossary check <file-path>` | Scan a file for undefined terms or inconsistent usage |
+| `glossary export` | Export glossary as a table for inclusion in BRD/SRS |
+
+### Glossary Page Format
+
+```markdown
+# Domain Glossary: [Project Name]
+Last Updated: [DD/MM/YYYY] | Terms: [N]
+
+| Term | Definition | Aliases | Source | Used In |
+|------|-----------|---------|--------|---------|
+| Chấm công | Ghi nhận thời gian vào/ra ca của nhân viên | Attendance, Check-in | HR Policy 2024 | US-ATT-*, BRD M03 |
+| Điều chỉnh công | Yêu cầu thay đổi bản ghi chấm công sau khi đã chốt | Adjustment, Correction | Workshop M04 | US-ADJ-* |
+```
+
+### Glossary Quality Rules
+- **No synonyms in specs**: If glossary says "Chấm công", all artifacts use "Chấm công" — not "điểm danh" or "check-in" interchangeably
+- **No homonyms**: If "Site" means "physical location" in this project, flag any usage meaning "website"
+- **Bidirectional**: Vietnamese ↔ English term mapping for bilingual teams
+- **Living document**: Update glossary whenever @ba-writing creates new terms in specs
+
+### Synonym/Homonym Detection
+
+When running `glossary check`:
+1. Extract all nouns and noun phrases from the target file
+2. Compare against glossary terms and aliases
+3. Flag: **Undefined terms** (used but not in glossary) and **Inconsistent terms** (synonym of a glossary term used instead of the canonical form)
+4. Output a report with line numbers and suggested fixes
+
+---
+
 ## Squad Handoffs
 
 - "Handover: `@ba-traceability` to verify wiki decisions are reflected in RTM."
 - "Handover: `@ba-auditor` to include wiki health in project audit."
 - "Handover: `@ba-writing` to formalize wiki concepts into proper BRD sections."
+- "Handover: `@ba-business-rules` to document rules discovered in wiki as formal rules."
 
 ---
 

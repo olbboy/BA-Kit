@@ -112,6 +112,42 @@ Don't stop here. Recommend the next step:
 
 ---
 
+## 📏 Estimation Facilitation (BA-Assisted Sizing)
+
+BA supports estimation by providing clarity — not by estimating for the dev team.
+
+### Estimation Techniques
+
+| Technique | When to Use | BA Role |
+|-----------|-------------|---------|
+| **Planning Poker** | Sprint planning, story-level | Clarify AC, answer questions, split stories if too large |
+| **T-Shirt Sizing** | Roadmap, epic-level | Provide scope description, risk factors, dependency list |
+| **Story Point Calibration** | Team onboarding, baseline | Prepare reference stories (1SP, 3SP, 8SP examples) |
+| **#NoEstimates** | Mature teams, flow-based | Ensure stories are roughly equal size (split large ones) |
+
+### BA Checklist Before Estimation Session
+- [ ] All stories have clear AC (Gherkin or structured bullets)
+- [ ] Dependencies identified and communicated
+- [ ] Technical unknowns flagged as spikes
+- [ ] Edge cases documented (not hidden surprises)
+- [ ] NFRs attached where relevant (performance, security)
+
+### Story Splitting Patterns (When Story > 8 SP)
+1. **By Workflow Step**: Login → separate from Registration
+2. **By Business Rule**: Basic validation → separate from complex rules
+3. **By Data Variation**: Single record → separate from bulk import
+4. **By Interface**: API → separate from UI
+5. **By Operation**: Read → separate from Write/Update/Delete
+6. **By Happy/Sad Path**: Happy path → separate from error handling
+
+### Estimation Anti-Patterns (BA Should Flag)
+- ❌ "Padding" estimates because AC is unclear → Fix the AC instead
+- ❌ Estimating spikes as stories → Spikes are timeboxed research, not deliverables
+- ❌ "It depends" without stating on WHAT → BA asks: "What specifically is uncertain?"
+- ❌ Estimating without seeing AC → BA provides AC before estimation session
+
+---
+
 ## 🔍 Knowledge Search
 Before drafting, search for relevant knowledge:
 *   `run_command`: `python3 .agent/scripts/ba_search.py "<topic keywords>" --domain agile`

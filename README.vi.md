@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.png?v=3.0.0" alt="BA-Kit Logo" width="200">
+  <img src="docs/assets/logo.png?v=3.1.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -9,8 +9,8 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-3.0.0-blue?style=for-the-badge" alt="Version 3.0.0">
-  <img src="https://img.shields.io/badge/Agents-26-green?style=for-the-badge" alt="26 Agents">
+  <img src="https://img.shields.io/badge/Version-3.1.0-blue?style=for-the-badge" alt="Version 3.1.0">
+  <img src="https://img.shields.io/badge/Agents-32-green?style=for-the-badge" alt="32 Agents">
   <img src="https://img.shields.io/badge/Platforms-Antigravity%20%7C%20Claude%20Code%20%7C%20CoWork-orange?style=for-the-badge" alt="3 Platforms">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
 </p>
@@ -19,7 +19,7 @@
 <h3 align="center">Biệt Đội Chuyên Gia Phân Tích Nghiệp Vụ</h3>
 
 <p align="center">
-  <strong>26 Chuyên gia cho Phân tích Yêu cầu Nghiệp vụ</strong><br>
+  <strong>32 Chuyên gia cho Phân tích Yêu cầu Nghiệp vụ</strong><br>
   Tư duy Hệ thống 2 • Đa Nền tảng (Antigravity • Claude Code • Claude CoWork)
 </p>
 
@@ -29,7 +29,7 @@
 
 BA-Kit không chỉ là một kho prompt; đây là một **Biệt đội Agent** cho các **nền tảng agentic AI**.
 
-Nó thay thế mô hình "Một Chatbot duy nhất" bằng **26 Chuyên gia** chạy trên:
+Nó thay thế mô hình "Một Chatbot duy nhất" bằng **32 Chuyên gia** chạy trên:
 *   **Antigravity IDE** (Google DeepMind) — Agent Skills, MCP, System 2
 *   **Claude Code** (Anthropic) — CLI: project-level reasoning, CI/CD, Git
 *   **Claude CoWork** (Anthropic) — Desktop: non-technical BA, document synthesis
@@ -40,7 +40,7 @@ Mỗi chuyên gia sử dụng **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư
 
 ---
 
-## 🤖 Biệt Đội Chuyên Gia (26 Agents + 2 Connectors)
+## 🤖 Biệt Đội Chuyên Gia (32 Agents + 2 Connectors)
 
 ### 🔴 Bộ Chỉ Huy
 | Agent | Vai trò | Năng lực |
@@ -89,10 +89,20 @@ Mỗi chuyên gia sử dụng **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư
 | **`@ba-consistency`** | Kiểm Toán Viên | Kiểm tra đồng bộ US↔API↔DB↔BRD. |
 | **`@ba-auditor`** | Tổng Kiểm Toán | Meta-agent: dashboard sức khỏe dự án + kế hoạch hành động. |
 
+### 🔵 Lifecycle Agents (MỚI trong v3.1)
+| Agent | Vai trò | Khả năng |
+| :--- | :--- | :--- |
+| **`@ba-questioning`** | Chuyên gia hỏi | Câu hỏi Context-Free, chuẩn bị phỏng vấn, phát hiện giả định. |
+| **`@ba-communication`** | Truyền thông | Báo cáo trạng thái, tóm tắt điều hành, biên bản họp. |
+| **`@ba-ux`** | Nghiên cứu UX | Persona, Journey Map, Empathy Map, JTBD, kiểm thử khả dụng. |
+| **`@ba-data`** | Kiến trúc dữ liệu | ERD, Data Dictionary, DFD, Data Mapping, Migration. |
+| **`@ba-change`** | Quản lý thay đổi | ADKAR, đánh giá sẵn sàng, kế hoạch đào tạo, Go-Live. |
+| **`@ba-business-rules`** | Quản lý quy tắc | Decision Table, Decision Tree, Rule Catalog, phát hiện xung đột. |
+
 ### 📘 Knowledge Agent (MỚI trong v3.0)
 | Agent | Vai trò | Khả năng |
 | :--- | :--- | :--- |
-| **`@ba-wiki`** | Quản lý tri thức | Nạp kiến thức 2 tầng, truy vấn wiki, tài liệu sống. |
+| **`@ba-wiki`** | Quản lý tri thức | Nạp kiến thức 2 tầng, truy vấn wiki, tài liệu sống, **quản lý glossary**. |
 
 ---
 
@@ -136,7 +146,7 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 
 1.  Sao chép `templates/continuity-template.md` ra thư mục gốc.
 2.  Điền Mục tiêu và Ràng buộc của bạn.
-3.  **Kết quả**: Tất cả 26 chuyên gia đọc file này trước khi hành động!
+3.  **Kết quả**: Tất cả 32 chuyên gia đọc file này trước khi hành động!
 
 ---
 
@@ -145,13 +155,13 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 ```
 ba-kit/
 │
-├── .agent/skills/                # 26 Agent Skills + 2 Connectors
+├── .agent/skills/                # 32 Agent Skills + 2 Connectors
 ├── .agent/scripts/               # BM25+ Knowledge Search Engine
 ├── .agent/data/                  # 831 Indexed Knowledge Entries (23 domains)
 │
 ├── docs/                         # Tài liệu & Hướng dẫn
 │   ├── README.md                 # Mục lục tài liệu
-│   ├── agent-cheat-sheet.md      # 26 agents tổng quan
+│   ├── agent-cheat-sheet.md      # 32 agents tổng quan
 │   ├── prompt-library.md         # 33 prompt theo workflow phase
 │   ├── design-prototype-guide.md # Stitch MCP, Figma, vibe coding
 │   ├── ai-foundation-for-ba.md   # Nền tảng AI cho BA

@@ -74,6 +74,20 @@ When activated via `@ba-master` or asked to "coordinate", perform the following 
 | "Cursor", "Lovable", "vibe coding", "generate code" | `@ba-validation` (Review) | `@ba-nfr` |
 | "AI tool", "which tool", "ChatGPT vs" | Recommend `docs/ai-tools-guide.md` | |
 | "wiki", "ingest knowledge", "what do we know about" | `@ba-wiki` | `@ba-master` |
+| "prepare questions", "interview prep", "what to ask" | `@ba-questioning` | `@ba-elicitation` |
+| "meeting prep", "challenge assumption", "feasibility question" | `@ba-questioning` | `@ba-conflict` |
+| "status report", "executive summary", "meeting minutes" | `@ba-communication` | `@ba-identity` |
+| "present to stakeholder", "email draft", "sprint review summary" | `@ba-communication` | `@ba-export` |
+| "persona", "user journey", "empathy map", "JTBD" | `@ba-ux` | `@ba-writing` |
+| "usability test", "card sorting", "accessibility", "WCAG" | `@ba-ux` | `@ba-nfr` |
+| "ERD", "data dictionary", "data model", "data flow" | `@ba-data` | `@ba-writing` |
+| "data mapping", "data migration", "ETL", "analytics requirement" | `@ba-data` | `@ba-nfr` |
+| "change management", "go-live", "training plan", "adoption" | `@ba-change` | `@ba-communication` |
+| "readiness assessment", "ADKAR", "transition plan" | `@ba-change` | `@ba-facilitation` |
+| "decision table", "decision tree", "business rule catalog" | `@ba-business-rules` | `@ba-writing` |
+| "rule conflict", "rule validation", "policy constraint" | `@ba-business-rules` | `@ba-validation` |
+| "glossary", "ubiquitous language", "domain terminology" | `@ba-wiki` (Glossary) | `@ba-business-rules` |
+| "estimation", "story points", "t-shirt sizing", "planning poker" | `@ba-agile` (Estimation) | `@ba-prioritization` |
 | (Unrecognized intent) | `@ba-elicitation` | `@ba-master` |
 
 ### 2. Reflection Mode (System 2: The Strategist)
@@ -146,10 +160,20 @@ After each agent completes, return to ba-master for the next step:
 | **@ba-consistency** | Cross-artifact alignment check (US↔API↔DB↔BRD) | Consistency mismatch report |
 | **@ba-auditor** | Meta-agent: full project health audit across all dimensions | Executive health dashboard |
 
+### Lifecycle Skills (NEW in v3.1)
+| Agent | Proficiency | Key Output |
+| :--- | :--- | :--- |
+| **@ba-questioning** | Context-Free Questions, Interview Prep, Assumption Surfacing | Tiered question sets, listening triggers |
+| **@ba-communication** | Audience Adaptation, Status Reports, Executive Summaries | Reports, minutes, stakeholder updates |
+| **@ba-ux** | Persona, Journey Map, Empathy Map, JTBD, Usability Testing | Persona cards, journey maps, test protocols |
+| **@ba-data** | ERD, Data Dictionary, DFD, Data Mapping, Migration Planning | Data models, dictionaries, migration plans |
+| **@ba-change** | ADKAR, Readiness Assessment, Training Plans, Go-Live | Change plans, training materials, checklists |
+| **@ba-business-rules** | Decision Tables, Decision Trees, Rule Catalog, Conflict Detection | Rule catalogs, decision tables, conflict reports |
+
 ### Knowledge Agent (NEW in v3.0)
 | Agent | Proficiency | Key Output |
 | :--- | :--- | :--- |
-| **@ba-wiki** | 2-tier knowledge ingest (CSV curated + wiki living), query, lint | Wiki pages, knowledge synthesis |
+| **@ba-wiki** | 2-tier knowledge ingest (CSV curated + wiki living), query, lint, glossary | Wiki pages, knowledge synthesis, domain glossary |
 
 ---
 

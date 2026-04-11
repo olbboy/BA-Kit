@@ -1,6 +1,6 @@
 # BA-Kit Prompt Library
 
-> 33 copy-paste prompts tổ chức theo vòng đời BA. Mỗi prompt được thiết kế để kích hoạt đúng agent, đúng lúc.
+> 45 copy-paste prompts tổ chức theo vòng đời BA. Mỗi prompt được thiết kế để kích hoạt đúng agent, đúng lúc.
 
 **Cách dùng:** Copy prompt, thay nội dung trong `[...]`, dán vào chat.
 
@@ -180,6 +180,84 @@ Mục tiêu: Đóng gói artifacts thành tài liệu bàn giao chuyên nghiệp
 
 ---
 
+## Phase 8: Questioning & Interview Prep (NEW in v3.1)
+
+Mục tiêu: Chuẩn bị câu hỏi phù hợp tình huống — không chỉ elicitation mà toàn bộ lifecycle.
+
+```
+34. @ba-questioning Tôi có meeting với [vai trò stakeholder] về [chủ đề] ngày mai. Mục tiêu: [quyết định/hiểu rõ X]. Chuẩn bị question set 3-tier cho tôi.
+```
+
+```
+35. @ba-questioning Review tài liệu sau và liệt kê tất cả assumptions ẩn cần được challenge: [dán nội dung tài liệu]
+```
+
+```
+36. @ba-questioning Dev team nói [tính năng X] "bất khả thi". Chuẩn bị câu hỏi feasibility probing để hiểu constraint cụ thể và tìm alternative.
+```
+
+---
+
+## Phase 9: Communication & Reporting (NEW in v3.1)
+
+Mục tiêu: Truyền thông BA artifacts đúng người, đúng format, đúng lúc.
+
+```
+37. @ba-communication Viết status report Sprint [N] cho [tên project]. Audience: [Sponsor/PM/Dev]. Dữ liệu: [hoàn thành X US, block Y, risk Z].
+```
+
+```
+38. @ba-communication Tóm tắt BRD sau thành Executive Summary 1 trang cho C-suite. Chỉ giữ business impact và decisions needed: [dán BRD hoặc link]
+```
+
+```
+39. @ba-communication Soạn meeting minutes cho cuộc họp vừa kết thúc. Participants: [danh sách]. Nội dung thảo luận: [dán notes thô]
+```
+
+---
+
+## Phase 10: UX Research (NEW in v3.1)
+
+Mục tiêu: Hiểu user thật sự trước khi viết requirements.
+
+```
+40. @ba-ux Tạo Persona đầy đủ cho user type [mô tả user] trong dự án [tên dự án]. Bao gồm demographics, goals, frustrations, behaviors, accessibility needs.
+```
+
+```
+41. @ba-ux Vẽ User Journey Map cho hành trình [mô tả hành trình] của persona [tên persona]. Gồm touchpoints, emotions, pain points, và opportunities.
+```
+
+---
+
+## Phase 11: Data Architecture (NEW in v3.1)
+
+Mục tiêu: Xây nền tảng dữ liệu chắc chắn trước khi code.
+
+```
+42. @ba-data Thiết kế ERD (Mermaid) + Data Dictionary cho module [tên module]. Entities chính: [liệt kê]. Gồm constraints, indexes, và audit fields.
+```
+
+---
+
+## Phase 12: Change Management & Business Rules (NEW in v3.1)
+
+Mục tiêu: Đảm bảo người dùng ADOPT hệ thống và business rules rõ ràng.
+
+```
+43. @ba-change Thực hiện ADKAR assessment cho [nhóm user] khi chuyển từ [hệ thống cũ] sang [hệ thống mới]. Xác định barrier point và đề xuất actions.
+```
+
+```
+44. @ba-business-rules Tạo Decision Table cho quy trình [mô tả quy trình]. Liệt kê tất cả conditions, actions, và kiểm tra completeness + conflicts.
+```
+
+```
+45. @ba-business-rules Tạo Business Rules Catalog cho module [tên module]. Source: [policy/regulation]. Phân loại: Constraint, Computation, Inference, Authorization.
+```
+
+---
+
 ## Pro Tips: Power-User Combinations
 
 ### Combo 1: Zero-to-BRD trong 4 bước
@@ -215,6 +293,22 @@ Dùng sau khi phát hiện requirement defect ở môi trường production.
 
 ```
 @ba-root-cause [mô tả defect] → @ba-validation [requirements gốc] → @ba-metrics [trend analysis] → @ba-writing [corrected requirements]
+```
+
+### Combo 5: Interview → Requirements → Data Model (v3.1)
+
+Dùng khi bắt đầu module mới cần cả user research và data design.
+
+```
+@ba-questioning [meeting prep] → @ba-ux [persona + journey] → @ba-elicitation [deep-dive] → @ba-writing [US + AC] → @ba-data [ERD + data dictionary] → @ba-business-rules [decision tables]
+```
+
+### Combo 6: Go-Live Readiness Pipeline (v3.1)
+
+Dùng trước deployment để đảm bảo cả hệ thống VÀ con người sẵn sàng.
+
+```
+@ba-change [ADKAR assessment] → @ba-communication [change announcement] → @ba-facilitation [training workshop] → @ba-change [go-live checklist]
 ```
 
 ---

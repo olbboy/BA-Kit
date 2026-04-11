@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.png?v=3.0.0" alt="BA-Kit Logo" width="200">
+  <img src="docs/assets/logo.png?v=3.1.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -9,8 +9,8 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-3.0.0-blue?style=for-the-badge" alt="Version 3.0.0">
-  <img src="https://img.shields.io/badge/Agents-26-green?style=for-the-badge" alt="26 Agents">
+  <img src="https://img.shields.io/badge/Version-3.1.0-blue?style=for-the-badge" alt="Version 3.1.0">
+  <img src="https://img.shields.io/badge/Agents-32-green?style=for-the-badge" alt="32 Agents">
   <img src="https://img.shields.io/badge/Platforms-Antigravity%20%7C%20Claude%20Code%20%7C%20CoWork-orange?style=for-the-badge" alt="3 Platforms">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
   <img src="https://img.shields.io/badge/Knowledge-831%20Entries-teal?style=for-the-badge" alt="831 Knowledge Entries">
@@ -20,7 +20,7 @@
 <h1 align="center">BA-Kit</h1>
 <h3 align="center">Agent Squad for Requirements Engineering</h3>
 
-  <strong>26 Agent Specialists for Requirements Engineering</strong><br>
+  <strong>32 Agent Specialists for Requirements Engineering</strong><br>
   System 2 Reflection • Multi-Platform (Antigravity • Claude Code • Claude CoWork)
 </p>
 
@@ -31,7 +31,7 @@
 
 BA-Kit is not a library of prompts. It is an **agent squad** for **agentic AI platforms**.
 
-It replaces the single-chatbot approach with **26 specialists** running on:
+It replaces the single-chatbot approach with **32 specialists** running on:
 *   **Antigravity IDE** (Google DeepMind) — Agent Skills, MCP, System 2
 *   **Claude Code** (Anthropic) — CLI: project-level reasoning, CI/CD, Git
 *   **Claude CoWork** (Anthropic) — Desktop: non-technical BA, document synthesis
@@ -42,7 +42,7 @@ Each agent uses **System 2 Thinking** (Reflective Loops) — self-critique befor
 
 ---
 
-## 🤖 The Agent Squad (26 Agents)
+## 🤖 The Agent Squad (32 Agents)
 
 ### 🔴 The Orchestrator
 | Agent | Role | Capability |
@@ -97,10 +97,20 @@ Each agent uses **System 2 Thinking** (Reflective Loops) — self-critique befor
 | **`@ba-consistency`** | Integration Auditor | Cross-artifact alignment check (US↔API↔DB↔BRD). |
 | **`@ba-auditor`** | Chief Auditor | Meta-agent: full project health dashboard + action plan. |
 
+### 🔵 Lifecycle Agents (NEW in v3.1)
+| Agent | Role | Capability |
+| :--- | :--- | :--- |
+| **`@ba-questioning`** | Master Interviewer | Context-Free Questions, Interview Prep, Assumption Surfacing. |
+| **`@ba-communication`** | Communicator | Audience Adaptation, Status Reports, Executive Summaries. |
+| **`@ba-ux`** | UX Researcher | Persona, Journey Map, Empathy Map, JTBD, Usability Testing. |
+| **`@ba-data`** | Data Architect | ERD, Data Dictionary, DFD, Data Mapping, Migration Planning. |
+| **`@ba-change`** | Change Agent | ADKAR, Readiness Assessment, Training Plans, Go-Live. |
+| **`@ba-business-rules`** | Rules Engine | Decision Tables, Decision Trees, Rule Catalog, Conflict Detection. |
+
 ### 📘 Knowledge Agent (NEW in v3.0)
 | Agent | Role | Capability |
 | :--- | :--- | :--- |
-| **`@ba-wiki`** | Knowledge Curator | 2-tier knowledge ingest, wiki query, living documentation. |
+| **`@ba-wiki`** | Knowledge Curator | 2-tier knowledge ingest, wiki query, living documentation, **glossary management**. |
 
 ---
 
@@ -143,13 +153,13 @@ All agents now follow a **Reflective Cognitive Loop**:
 ```
 ba-kit/
 │
-├── .agent/skills/                # 26 Agent Skills + 2 Connectors
+├── .agent/skills/                # 32 Agent Skills + 2 Connectors
 ├── .agent/scripts/               # BM25+ Knowledge Search Engine
 ├── .agent/data/                  # 831 Indexed Knowledge Entries (23 domains)
 │
 ├── docs/                         # Documentation & Guides
 │   ├── README.md                 # Documentation index
-│   ├── agent-cheat-sheet.md      # All 26 agents at a glance
+│   ├── agent-cheat-sheet.md      # All 32 agents at a glance
 │   ├── prompt-library.md         # 33 copy-paste prompts by phase
 │   ├── ai-foundation-for-ba.md   # AI Foundation primer (bilingual)
 │   ├── ai-tools-guide.md         # Tool selection matrix
