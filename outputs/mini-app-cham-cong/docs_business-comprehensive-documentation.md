@@ -18,8 +18,14 @@
 7. [Quy trình phê duyệt](#7-quy-trình-phê-duyệt)
 8. [Tích hợp C-Vision](#8-tích-hợp-c-vision)
 9. [Dashboard & báo cáo](#9-dashboard--báo-cáo)
-10. [Tuân thủ pháp luật Việt Nam](#10-tuân-thủ-pháp-luật-việt-nam)
-11. [Ma trận quyền hạn](#11-ma-trận-quyền-hạn)
+10. [Ngày chốt công](#10-ngày-chốt-công-closing-date)
+11. [Hệ thống thông báo](#11-hệ-thống-thông-báo)
+12. [Đăng ký khuôn mặt (Face ID)](#12-đăng-ký-khuôn-mặt-face-id-enrollment)
+13. [Cấu hình chính sách phép năm](#13-cấu-hình-chính-sách-phép-năm-leave-policy)
+14. [Quản trị hệ thống](#14-quản-trị-hệ-thống)
+15. [Tuân thủ pháp luật Việt Nam](#15-tuân-thủ-pháp-luật-việt-nam)
+16. [Ma trận quyền hạn](#16-ma-trận-quyền-hạn)
+17. [Cross-module edge cases & policies](#17-cross-module-edge-cases--policies)
 
 ---
 
@@ -555,11 +561,197 @@ Các cột trong file payroll:
 | 12 | Số ngày về sớm | Early leave count |
 | 13 | Tổng phút đi trễ | Sum late minutes |
 
+### 9.4 Báo cáo cá nhân (Employee Self-Service)
+
+Nhân viên xem trực tiếp trên Mini App:
+
+| Chỉ số | Công thức | Cập nhật |
+|--------|-----------|---------|
+| Score chuyên cần | (Ngày đúng giờ / Tổng ngày làm) × 100 | Real-time |
+| Tổng giờ làm tháng | SUM(netHours) | Real-time |
+| Tổng ngày nghỉ | COUNT(LeaveRequest APPROVED) | Khi đơn duyệt |
+| Giờ OT lũy kế | SUM(approvedOTHours) | Khi đơn duyệt |
+| Biểu đồ trend | Score theo tuần (4 điểm) | Cuối mỗi tuần |
+| KPI Highlights quý | So sánh quý hiện tại vs quý trước | Cuối mỗi quý |
+
+**Scope dữ liệu:** NV chỉ xem dữ liệu cá nhân (ABAC: User_ID). Trung bình phòng ban hiển thị ẩn danh.
+
+### 9.5 Cảnh báo vi phạm
+
+Hệ thống quét cuối mỗi ngày, so khớp chấm công thực tế với lịch phân ca:
+
+| Loại vi phạm | Điều kiện | Hiển thị |
+|-------------|----------|---------|
+| ĐI MUỘN (LATE) | CheckIn > ShiftStart + GracePeriod | Badge đỏ + số phút trễ |
+| VỀ SỚM (EARLY) | CheckOut < ShiftEnd | Badge đỏ + số phút sớm |
+| THIẾU QUẸT (MISSING) | Chỉ có CheckIn, không có CheckOut sau 24h | Badge vàng "Quên check-out" |
+| VẮNG MẶT (ABSENT) | Không có record nào + không có đơn phép | Badge đỏ "Vắng không phép" |
+
+- Cảnh báo hiển thị tối đa 3 mới nhất trên Dashboard NV
+- Nút "Giải trình ngay" → chuyển sang Module 03 với ngày vi phạm tự điền
+- Cảnh báo biến mất khi NV gửi đơn giải trình (PENDING)
+- Push notification nhắc nhở 08:00 sáng hôm sau nếu chưa xử lý
+
+### 9.6 Payroll Lock
+
+Cơ chế khóa dữ liệu sau khi xuất payroll:
+
+- **Khi HR xuất payroll:** Hệ thống đánh dấu kỳ lương "LOCKED" (tháng + site)
+- **Sau LOCKED:** Mọi correction/approval → cảnh báo "Kỳ lương tháng X đã xuất"
+- **Thay đổi sau lock:** Ghi nhận vào "Kỳ bổ sung" (supplementary payroll)
+- **Re-export:** HR có thể xuất lại (tạo version mới, giữ lịch sử version cũ)
+
 ---
 
-## 10. TUÂN THỦ PHÁP LUẬT VIỆT NAM
+## 10. NGÀY CHỐT CÔNG (CLOSING DATE)
 
-### 10.1 Luật Lao động 2019 & Nghị định 13/2023
+### 10.1 Định nghĩa
+
+Ngày chốt công là mốc thời gian hàng tháng, sau đó:
+- Dữ liệu chấm công tháng cũ bị **khóa** (read-only)
+- Đơn giải trình cho tháng cũ bị **vô hiệu hóa** (nút disabled)
+- Vi phạm chưa giải trình chuyển thành **"VI PHẠM QUY CHẾ"** vĩnh viễn
+
+### 10.2 Cấu hình
+
+| Tham số | Mặc định | Mô tả |
+|---------|----------|-------|
+| closingDay | 25 | Ngày chốt (1-28) |
+| closingScope | PER_SITE | Mỗi site cấu hình riêng |
+| graceDays | 3 | Số ngày buffer sau chốt cho correction cuối cùng |
+| weekendRule | PREV_WORKDAY | Nếu ngày chốt rơi vào T7/CN → đẩy về thứ 6 trước đó |
+
+### 10.3 Exception Approval (sau chốt)
+
+- Chỉ **GLOBAL_HR** hoặc **SYS_ADMIN** có quyền mở khóa (Unlock)
+- Form: chọn NV + ngày + lý do ngoại lệ
+- Giới hạn: tối đa 30 ngày sau chốt công
+- Mọi Unlock ghi audit log immutable
+
+---
+
+## 11. HỆ THỐNG THÔNG BÁO
+
+### 11.1 Kênh thông báo
+
+| Kênh | Mô tả | Ưu tiên |
+|------|-------|---------|
+| App Push Notification | Thông báo đẩy trên điện thoại (Firebase/APNs) | 1 (chính) |
+| Email | Gửi qua SMTP, cho đơn từ cần lưu trữ | 2 (dự phòng) |
+| Popup Dashboard | Hiển thị trên giao diện web | 3 (bổ sung) |
+
+**Fallback chain:** Push fail → Email → Popup → Dead letter queue + Admin alert.
+
+### 11.2 Sự kiện kích hoạt (36 events)
+
+| Nhóm | Ví dụ | Bắt buộc |
+|------|-------|----------|
+| Chấm công | Check-in/out thành công, nhận diện thất bại | Không |
+| Đơn từ | Đơn được duyệt/từ chối, đơn mới cần duyệt | Có |
+| Cảnh báo | Vi phạm quy chế, gần hạn chốt công, vượt OT | Có |
+| Nhắc nhở | Nhắc chấm công đầu/cuối ca, lịch nghỉ lễ | Không |
+| Hệ thống | Camera offline, batch job lỗi, security event | Có (Admin) |
+
+**Thông báo bắt buộc:** NV không thể tắt (kết quả phê duyệt, kỷ luật lao động).
+
+### 11.3 Policy gửi
+
+| Policy | Mô tả | Mặc định |
+|--------|-------|----------|
+| Batching | Gom nhiều event cùng loại → 1 thông báo tổng hợp | 15 phút |
+| Throttle | Tối đa N thông báo/giờ/NV | 20/giờ |
+| Schedule | Chỉ gửi trong khung giờ (trừ khẩn cấp) | 07:00-22:00 |
+| Night Shift | NV ca đêm exempt khỏi schedule restriction | ON |
+
+---
+
+## 12. ĐĂNG KÝ KHUÔN MẶT (FACE ID ENROLLMENT)
+
+### 12.1 Quy trình 3 bước
+
+```
+Bước 1: Xác nhận thông tin cá nhân (read-only từ hệ thống)
+    ↓
+Bước 2: Chụp ảnh khuôn mặt
+    ├─ Camera trước điện thoại
+    ├─ Kiểm tra tự động: face detection, ánh sáng, góc, không che mặt
+    └─ Tối đa 5 lần chụp lại/phiên
+    ↓
+Bước 3: Đồng bộ C-Vision
+    ├─ Gửi ảnh → POST /persons → nhận personId
+    ├─ Tự động tạo CVisionPersonMapping
+    └─ NV có thể chấm công Face ID ngay lập tức
+```
+
+### 12.2 Trạng thái Enrollment
+
+| Trạng thái | Mô tả |
+|------------|-------|
+| NOT_ENROLLED | NV chưa đăng ký |
+| PENDING | Ảnh đã gửi, đang chờ C-Vision xử lý |
+| ENROLLED | Thành công, NV chấm công được |
+| FAILED | Thất bại, cho phép thử lại |
+| RE_ENROLLMENT | HR yêu cầu đăng ký lại |
+
+### 12.3 Bảo mật
+
+- Ảnh truyền qua HTTPS
+- Lưu trữ theo Data Retention Policy (90 ngày)
+- Chỉ dùng cho mục đích chấm công (tuân thủ NĐ 13/2023)
+
+---
+
+## 13. CẤU HÌNH CHÍNH SÁCH PHÉP NĂM (LEAVE POLICY)
+
+### 13.1 Tham số cấu hình
+
+| Tham số | Mặc định | Mô tả |
+|---------|----------|-------|
+| baseEntitlement | 12 | Số ngày phép năm cơ bản |
+| seniorityBonus | 1 ngày / 5 năm | Thâm niên cộng thêm |
+| carryoverMax | 5 | Số ngày tối đa chuyển tiếp |
+| carryoverExpiry | 31/03 | Hạn sử dụng carryover |
+| proRataMethod | MONTHLY | Tính phép cho NV mới: (entitlement × months) / 12 |
+| halfDayAllowed | true | Cho phép nghỉ nửa ngày (AM/PM) |
+
+### 13.2 Batch Recalculate
+
+- Khi HR thay đổi policy → chạy batch recalculate balance cho toàn bộ NV
+- Hiển thị preview: "Thay đổi sẽ ảnh hưởng X NV. Balance trung bình thay đổi ±Y ngày."
+- Yêu cầu confirm trước khi áp dụng
+- Ghi audit log: policy cũ → policy mới
+
+---
+
+## 14. QUẢN TRỊ HỆ THỐNG
+
+### 14.1 Quản lý chi nhánh (Site Management)
+
+| Hành động | Mô tả |
+|-----------|-------|
+| Tạo site | Tên, Mã, Timezone, Ngày chốt công, Địa chỉ |
+| Sửa site | Cập nhật thông tin (không đổi Mã sau khi có dữ liệu) |
+| Deactivate | Vô hiệu hóa site khi thu hẹp. NV phải chuyển trước. |
+
+### 14.2 Audit Log Viewer
+
+- Xem toàn bộ nhật ký hoạt động: ai, làm gì, khi nào, dữ liệu thay đổi
+- Filter: user, module, action (CREATE/UPDATE/DELETE), time range
+- Export CSV cho compliance
+- Retention: 3 năm
+
+### 14.3 Phê duyệt hàng loạt (Batch Approve)
+
+- Chọn nhiều đơn cùng loại → duyệt/từ chối 1 lần
+- Giới hạn: tối đa 50 đơn/batch
+- Xử lý tuần tự, không rollback đơn đã xử lý thành công
+- Kết quả: hiển thị thành công/thất bại/chưa xử lý cho từng đơn
+
+---
+
+## 15. TUÂN THỦ PHÁP LUẬT VIỆT NAM
+
+### 15.1 Luật Lao động 2019 & Nghị định 13/2023
 
 | Quy định | Cách tuân thủ trong EAMS |
 |----------|-------------------------|
@@ -572,7 +764,7 @@ Các cột trong file payroll:
 | Thai sản 6 tháng | LeavePolicy: 180 ngày mặc định |
 | Ngày lễ quốc gia | HolidayService seed tự động (Tết, 30/4, 1/5...) |
 
-### 10.2 Ngày lễ Việt Nam (tự động seed)
+### 15.2 Ngày lễ Việt Nam (tự động seed)
 
 | Ngày lễ | Ngày | Ghi chú |
 |---------|------|---------|
@@ -585,9 +777,9 @@ Các cột trong file payroll:
 
 ---
 
-## 11. MA TRẬN QUYỀN HẠN
+## 16. MA TRẬN QUYỀN HẠN
 
-### 11.1 Quyền theo module
+### 16.1 Quyền theo module
 
 | Module/Hành động | EMPLOYEE | MANAGER | DEPT_HEAD | SITE_HR | SITE_MGR | GLOBAL_HR | SYS_ADMIN | SUPER |
 |-------------------|----------|---------|-----------|---------|----------|-----------|-----------|-------|
@@ -619,7 +811,7 @@ Các cột trong file payroll:
 | Audit log | - | - | - | - | - | - | ✓ | ✓ |
 | Circuit breaker | - | - | - | - | - | - | ✓ | ✓ |
 
-### 11.2 Phạm vi dữ liệu
+### 16.2 Phạm vi dữ liệu
 
 | Vai trò | Dữ liệu được xem |
 |---------|------------------|
@@ -632,7 +824,7 @@ Các cột trong file payroll:
 
 ---
 
-## 12. CROSS-MODULE EDGE CASES & POLICIES
+## 17. CROSS-MODULE EDGE CASES & POLICIES
 
 ### 12.1 Employee Offboarding
 
