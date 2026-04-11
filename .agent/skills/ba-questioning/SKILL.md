@@ -1,7 +1,7 @@
 ---
 name: ba-questioning
 description: "[Agentic] Questioning & Interview Prep — Paul-Elder Critical Thinking Framework for generating context-appropriate questions in ANY BA situation"
-version: 2.0.0
+version: 2.1.0
 ---
 
 # 🎯 SKILL: Agentic Questioning (The Questioner)
@@ -160,6 +160,26 @@ Prior questions (Level 2, drilling into "What problems exist?"):
 
 ---
 
+### 5b. Interdisciplinary Domain Decomposition
+
+> *"When addressing a complex question covering more than one domain of thought, target prior questions by formulating questions according to domain."* — Elder & Paul
+
+Complex BA requirements almost always span multiple domains. **Identify which domains are embedded**, then formulate domain-specific questions:
+
+| Domain | BA Trigger | Key Questions |
+|--------|-----------|---------------|
+| **Legal/Compliance** | Regulation, policy, GDPR, labor law | "What regulations apply? Are we compliant? What are penalties for non-compliance?" |
+| **Financial** | Budget, ROI, cost | "What is the cost? Who bears it? What is the opportunity cost of NOT doing this?" |
+| **Technical** | Architecture, performance, integration | "What technical constraints exist? Is this feasible with current stack? What dependencies?" |
+| **Organizational** | Process, roles, change management | "Who is affected? How does this change current workflows? Is the org ready?" |
+| **User Experience** | Usability, accessibility, adoption | "Can the target user actually do this? What are the accessibility needs?" |
+| **Data** | Privacy, quality, migration | "What data do we need? Where does it come from? Who owns it? Quality?" |
+| **Ethical** | Fairness, privacy, harm | "Could this harm any user group? Are we being fair to all stakeholders?" |
+
+**Process**: For any complex requirement, ask: "What domains are embedded in this question?" Then formulate ≥1 question per relevant domain. This prevents blind spots from single-domain thinking.
+
+---
+
 ### 6. Socratic Questioning Protocol
 
 > *"The Socratic questioner deeply probes thinking. What the word 'Socratic' adds to ordinary questioning is systematicity, depth, and a keen interest in assessing the truth."* — Elder & Paul
@@ -180,6 +200,31 @@ A structured probing sequence for **deep discovery** when surface answers are in
 - Treat all assertions as **connecting points** to further questions
 - All thinking presupposes **prior thinking** — be open to the questions behind the questions
 - Never accept a stopping point — every answer generates a new question
+
+---
+
+### 6b. Decision-Making & Problem-Solving Questions
+
+> *"To make rational decisions, we need to use our understanding of the logic of decision-making to routinely ask questions that improve the quality of our decisions."* — Elder & Paul
+
+#### When Helping Stakeholders DECIDE (Architecture, Prioritization, Buy-vs-Build, Scope)
+
+| Step | Key Questions |
+|------|--------------|
+| 1. Recognize | "Is there actually a decision to be made here? Or are we debating a preference?" |
+| 2. Alternatives | "What are ALL the alternatives — including 'do nothing'? Are we missing options?" |
+| 3. Evaluate | "What are the pros/cons of each option? By what criteria do we judge? Are these criteria fair to all stakeholders?" |
+| 4. Act | "What is the best option given the evidence? What is the decision owner's confidence level? What's the rollback plan?" |
+
+#### When Helping Teams SOLVE PROBLEMS (Bugs, Process Failures, Requirement Gaps)
+
+| Step | Key Questions |
+|------|--------------|
+| 1. Define | "What precisely is the problem? Is it multi-dimensional — do we need to break it into sub-problems?" |
+| 2. Classify | "Did we create this problem (our decisions/behavior) or is it external? Can we solve it, or is it beyond our control?" |
+| 3. Information | "What information do we need? How can we obtain it? Are we being close-minded about interpretation?" |
+| 4. Options | "What can we do short-term? Long-term? What's under our control? How are we limited by budget, time, power?" |
+| 5. Monitor | "Have we actually solved the problem, or does it still exist? Do we need to revise our strategy?" |
 
 ---
 
@@ -245,6 +290,31 @@ When reviewing ANY document (BRD, Spec, Proposal, PRD, RFC), apply **Author's Re
 
 ---
 
+### 9b. Questioning While WRITING (BA Self-Assessment)
+
+> *"To write well is to produce written work that is both clear and well-reasoned."* — Elder & Paul
+
+When the BA is **writing** specs (BRD, SRS, User Stories), apply self-questioning using the same Elements of Reasoning:
+
+| Element | Self-Question |
+|---------|--------------|
+| **Purpose** | "Is my purpose for writing this piece clear? Will the reader understand what I want them to decide or do?" |
+| **Question** | "What question am I trying to answer with this spec? Is it the right question?" |
+| **Information** | "Is all the information I've included accurate and from credible sources? Am I missing critical data?" |
+| **Concepts** | "Have I defined key terms clearly? Could two readers interpret a term differently?" |
+| **Assumptions** | "What am I taking for granted? Should I explicitly state my assumptions?" |
+| **Inferences** | "Am I asking the reader to accept conclusions that don't follow from the evidence?" |
+| **Point of View** | "Am I representing only one perspective? Should I include other viewpoints?" |
+| **Implications** | "Am I clear about what I'm implying? Will the reader understand what follows from this?" |
+
+**Intellectual Standards Self-Check (while writing)**:
+- **Clarity**: Can each paragraph be understood in ONE interpretation?
+- **Precision**: Have I provided enough detail to implement without guessing?
+- **Relevance**: Does every paragraph contribute to the spec's purpose?
+- **Fairness**: Have I presented opposing viewpoints fairly, not just to dismiss them?
+
+---
+
 ### 10. Bias Detection (Ego & Socio)
 
 > *"One of the primary barriers to the development of insightful thinking is the natural human tendency toward egocentric thought."* — Elder & Paul
@@ -273,6 +343,24 @@ Questions to detect group-think:
 - "Are we dismissing an approach because it comes from outside our organization/team?"
 - "Is there unspoken pressure to conform to the group's position?"
 - "Would someone outside our organization find this reasoning sound?"
+
+---
+
+### 10b. Intellectual Virtues for the BA Questioner
+
+> *"These attributes are essential to excellence of thought. They determine with what insight and integrity we think."* — Elder & Paul
+
+The quality of your questions reflects your **intellectual character**. Cultivate these 7 virtues:
+
+| Virtue | Definition | BA Self-Check |
+|--------|-----------|---------------|
+| **Intellectual Humility** | Know what you DON'T know | "Am I aware of my biases and the limitations of my viewpoint on this domain?" |
+| **Intellectual Courage** | Question beliefs you hold strongly | "Am I willing to challenge a popular decision if evidence says otherwise?" |
+| **Intellectual Empathy** | Reconstruct opposing viewpoints accurately | "Can I state the dev's objection so accurately that they'd say 'yes, exactly'?" |
+| **Intellectual Integrity** | Hold yourself to the same standard as others | "Am I applying the same scrutiny to MY assumptions as I apply to stakeholders'?" |
+| **Intellectual Perseverance** | Work through complexity, don't give up | "Am I willing to dig deeper on this ambiguous requirement, or am I taking the easy answer?" |
+| **Confidence in Reason** | Trust evidence over authority | "Am I changing my position because of evidence, or because of who said it?" |
+| **Intellectual Autonomy** | Think for yourself, don't just conform | "Is my conclusion my own reasoned judgment, or am I just agreeing with the loudest voice?" |
 
 ---
 
@@ -335,11 +423,12 @@ When reviewing any document, plan, or proposal:
 
 1. **Understand situation** — Gặp ai? Về chủ đề gì? Mục tiêu cuối cuộc họp? BA đã biết gì? Tài liệu đọc trước?
 2. **Classify question space** — One-System / No-System / Conflicting-System? Đừng tranh luận preference, đừng chắc chắn sai về judgment.
-3. **Select question strategy** — Chọn từ Situation Matrix + Components: Elements of Reasoning, Wilson Method, Prior Questions, Socratic Protocol.
-4. **Generate & tier** — Tạo câu hỏi 3 tier (Must/Should/Could). Mỗi câu có PURPOSE + Element of Reasoning mục tiêu.
-5. **Audit against standards** — 8 Intellectual Standards. Kiểm tra leading bias, compound questions, assumptions ẩn, fairness.
-6. **Detect biases** — Check ego bias (BA's own), socio bias (group-think), stakeholder bias.
-7. **Prepare listening triggers** — Chuẩn bị follow-up: "Nếu họ nói X → hỏi tiếp Y." Xác định red flags.
+3. **Decompose domains** — Câu hỏi phức tạp? Identify domains nhúng bên trong (Legal, Financial, Technical, Organizational, UX, Data). ≥1 question per domain.
+4. **Select question strategy** — Elements of Reasoning, Wilson Method, Prior Questions, Socratic Protocol, Decision-Making, Problem-Solving.
+5. **Generate & tier** — 3 tier (Must/Should/Could). Mỗi câu có PURPOSE + Element of Reasoning mục tiêu.
+6. **Audit against standards** — 8 Intellectual Standards. Kiểm tra leading bias, compound questions, fairness.
+7. **Detect biases** — Ego (BA's own), socio (group-think), stakeholder bias. Apply intellectual virtues.
+8. **Prepare listening triggers** — Follow-up: "Nếu họ nói X → hỏi tiếp Y." Red flags. Meta-question.
 
 ## 📄 Output Format
 
@@ -443,8 +532,8 @@ Before drafting, search for relevant knowledge:
 
 ## 📚 Knowledge Reference
 *   **Source**: Elder & Paul — The Art of Asking Essential Questions (Paul-Elder Critical Thinking Framework), Gause & Weinberg — Exploring Requirements (Context-Free Questions), BABOK v3 — Elicitation & Collaboration, Gottesdiener — Requirements Memory Jogger (Meta-Questions), Wilson — Thinking With Concepts (Concept Analysis)
-*   **Frameworks**: 8 Elements of Reasoning, 8 Intellectual Standards, 3 Question Types (One/No/Conflicting System), Socratic Questioning Protocol, Wilson's 4-Case Concept Analysis, Prior Questions Decomposition
-*   **Techniques**: Context-Free Questions, Meta-Questions, Assumption Surfacing, Tiered Question Sets, Listening Triggers, Bias Detection (Ego/Socio)
+*   **Frameworks**: 8 Elements of Reasoning, 8 Intellectual Standards, 3 Question Types (One/No/Conflicting System), Socratic Questioning Protocol, Wilson's 4-Case Concept Analysis, Prior Questions Decomposition, Interdisciplinary Domain Decomposition, Decision-Making Logic (4 Keys), Problem-Solving Logic (5 Steps), 7 Intellectual Virtues
+*   **Techniques**: Context-Free Questions, Meta-Questions, Assumption Surfacing, Tiered Question Sets, Listening Triggers, Bias Detection (Ego/Socio), Questioning While Writing (self-assessment)
 *   **Deep Dive**: docs/knowledge_base/core/questioning.md
 
 **Activation Phrase**: "Questioner ready. Describe the situation — who, what, why, when."
