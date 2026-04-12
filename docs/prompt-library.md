@@ -1,342 +1,523 @@
 # BA-Kit Prompt Library
 
-> 48 copy-paste prompts tổ chức theo vòng đời BA. Mỗi prompt được thiết kế để kích hoạt đúng agent, đúng lúc.
+> 48 copy-paste prompts tổ chức theo vòng đời BA. Thay `[placeholder]` bằng context thực tế rồi dán vào chat.
 
-**Cách dùng:** Copy prompt, thay nội dung trong `[...]`, dán vào chat.
-
----
-
-## Phase 1: Project Initiation (Khởi động dự án)
-
-Mục tiêu: Xác định bối cảnh, stakeholder, và chiến lược trước khi viết bất kỳ requirement nào.
-
-```
-1. @ba-master Tôi muốn xây dựng [tên hệ thống/tính năng]. Hãy phân tích yêu cầu và đề xuất chuỗi agent phù hợp để bắt đầu.
-```
-
-```
-2. @ba-identity Dự án [tên dự án] phục vụ [ngành/lĩnh vực]. Hãy tạo RACI matrix và Power/Interest grid cho các stakeholder chính.
-```
-
-```
-3. @ba-strategy Hãy thực hiện SWOT analysis cho [tên dự án/tính năng], tập trung vào bối cảnh [thị trường/ngành] tại Việt Nam.
-```
-
-```
-4. @ba-identity Tạo communication plan cho dự án [tên dự án]: tần suất báo cáo, kênh liên lạc, và template status update cho từng nhóm stakeholder.
-```
-
-```
-5. @ba-systems Phân tích các feedback loop và unintended consequences tiềm ẩn khi triển khai [tên tính năng/quy trình].
-```
+**Cách dùng:** Copy prompt → thay nội dung trong `[...]` → gửi.
 
 ---
 
-## Phase 2: Elicitation (Thu thập yêu cầu)
+## Phase 1: Discovery & Strategy (6 prompts)
 
-Mục tiêu: Khai thác yêu cầu thật sự từ stakeholder, không phải requirements giả định.
+### 1. Route Request
+**Agent:** `@ba-master`
 
-```
-6. @ba-elicitation Phỏng vấn tôi theo phương pháp Funnel để khai thác requirements cho [tên tính năng]. Bắt đầu với câu hỏi mở rộng nhất.
-```
+> Tôi muốn xây dựng `[tên hệ thống/tính năng]`. Phân tích yêu cầu và đề xuất chuỗi agent phù hợp để bắt đầu.
 
-```
-7. @ba-elicitation Tôi là [vai trò stakeholder]. Hãy đặt câu hỏi 5W1H để xác định nhu cầu thật sự đằng sau yêu cầu: "[mô tả yêu cầu thô]".
-```
-
-```
-8. @ba-facilitation Thiết kế chương trình workshop 2 giờ để thu thập requirements cho [tên module/tính năng] với [số lượng] người tham gia gồm [danh sách vai trò].
-```
-
-```
-9. @ba-elicitation Đây là ghi chú từ buổi phỏng vấn stakeholder: [dán ghi chú thô]. Hãy phân tích và trích xuất requirements rõ ràng theo định dạng có cấu trúc.
-```
-
-```
-10. @ba-agile Tạo User Story Map cho MVP của [tên sản phẩm/tính năng], phân chia theo backbone activities và walking skeleton.
-```
+**Output:** Workflow chain gợi ý, agent sequence, dependencies.
 
 ---
 
-## Phase 3: Writing (Viết tài liệu yêu cầu)
+### 2. Stakeholder Mapping
+**Agent:** `@ba-identity`
 
-Mục tiêu: Chuyển hóa inputs thô thành artifacts chất lượng cao, có thể kiểm tra được.
+> Dự án `[tên dự án]` phục vụ `[ngành/lĩnh vực]`. Tạo RACI matrix và Power/Interest grid cho các stakeholder chính. Đề xuất communication plan cho từng nhóm.
 
-```
-11. @ba-writing Viết User Story đầy đủ cho tính năng: "[mô tả tính năng]". Bao gồm INVEST analysis, Acceptance Criteria Gherkin, RBAC matrix, và edge cases.
-```
-
-```
-12. @ba-writing Tạo Business Requirements Document (BRD) cho [tên dự án] sử dụng template chuẩn. Context: [mô tả ngắn về mục tiêu kinh doanh và phạm vi].
-```
-
-```
-13. @ba-writing Viết Software Requirements Specification (SRS - IEEE 29148) cho module [tên module]. Danh sách tính năng cần cover: [liệt kê tính năng].
-```
-
-```
-14. @ba-writing Thiết kế API Specification cho endpoint [GET/POST/PUT/DELETE] `[path]`. Bao gồm request/response schema, error codes, rate limiting, và authentication.
-```
-
-```
-15. @ba-writing Tạo database schema cho [tên entity/module]. Bao gồm ERD text, data dictionary, constraints, indexes, và business rules theo từng field.
-```
-
-```
-16. @ba-process Vẽ BPMN diagram dạng text/Mermaid cho quy trình: [mô tả quy trình nghiệp vụ]. Bao gồm swimlane theo vai trò: [danh sách vai trò].
-```
-
-```
-17. @ba-writing @[image] Đây là mockup/wireframe. Hãy phân tích và chuyển đổi thành Field Specifications đầy đủ với validation rules cho từng element UI.
-```
+**Output:** RACI matrix, Power/Interest grid, communication plan template.
 
 ---
 
-## Phase 4: Validation (Kiểm tra chất lượng)
+### 3. SWOT / PESTLE Analysis
+**Agent:** `@ba-strategy`
 
-Mục tiêu: Phát hiện defects trước khi dev — không phải sau khi release.
+> Thực hiện SWOT + PESTLE analysis cho `[tên dự án/tính năng]`. Bối cảnh: `[thị trường/ngành/khu vực địa lý]`. Ưu tiên yếu tố ảnh hưởng lớn nhất đến khả năng thành công.
 
-```
-18. @ba-validation Đây là User Story: [dán nội dung US]. Hãy thực hiện INVEST check đầy đủ và Ambiguity Scan, trả về Health Score và danh sách defects theo severity.
-```
-
-```
-19. @ba-validation Quét toàn bộ tài liệu sau và liệt kê tất cả từ ngữ mơ hồ (ambiguity list) kèm đề xuất thay thế có metric cụ thể: [dán nội dung tài liệu].
-```
-
-```
-20. @ba-quality-gate Đánh giá BRD/User Story sau theo thang điểm 8 chiều (PASS/CONDITIONAL/REJECT): [dán nội dung]. Trả về score chi tiết từng dimension.
-```
-
-```
-21. @ba-consistency Kiểm tra tính nhất quán cross-artifact giữa: User Story [US-XXX], API Spec [tên endpoint], và DB Schema [tên bảng]. Báo cáo mọi mismatch.
-```
-
-```
-22. @ba-nfr Định nghĩa Non-Functional Requirements theo ISO 25010 cho tính năng [tên tính năng]. Tập trung: Performance, Security, Reliability. Mọi metric phải có threshold đo được.
-```
+**Output:** SWOT matrix, PESTLE breakdown, strategic recommendations.
 
 ---
 
-## Phase 5: Testing (Sinh test cases)
+### 4. Interview Prep
+**Agent:** `@ba-questioning`
 
-Mục tiêu: Biến Acceptance Criteria thành test cases có thể thực thi ngay.
+> Tôi có meeting với `[vai trò stakeholder]` về `[chủ đề]` vào `[ngày/giờ]`. Mục tiêu: `[quyết định cần đạt / thông tin cần khai thác]`. Chuẩn bị question set 3-tier (mở → thăm dò → xác nhận) cho tôi.
 
-```
-23. @ba-test-gen Sinh test suite đầy đủ từ Acceptance Criteria của [US-XXX]. Cover 7 categories: Happy Path, Edge Case, Error Handling, Security, Concurrency, Data Validation, Performance.
-```
-
-```
-24. @ba-test-gen Tạo UAT script cho tính năng [tên tính năng] dành cho [vai trò người dùng]. Bao gồm preconditions, test steps, expected results, và pass/fail criteria.
-```
-
-```
-25. @ba-quality-gate Chạy coverage analysis cho project tại [đường dẫn outputs]. Báo cáo: tỷ lệ US có đủ 3 AC (happy/edge/error), missing scenarios, và ambiguous terms detected.
-```
-
-```
-26. @ba-validation So sánh implementation thực tế [mô tả hoặc screenshot] với Acceptance Criteria gốc [dán AC]. Liệt kê mọi deviation theo severity level.
-```
+**Output:** Question set 3-tier, backup questions, red flags cần chú ý.
 
 ---
 
-## Phase 6: Integration (Tích hợp công cụ)
+### 5. Feedback Loop Analysis
+**Agent:** `@ba-systems`
 
-Mục tiêu: Đồng bộ artifacts vào Jira/Confluence — không copy-paste thủ công.
+> Phân tích các feedback loop và unintended consequences tiềm ẩn khi triển khai `[tên tính năng/quy trình]` trong bối cảnh `[mô tả hệ thống hiện tại]`.
 
-```
-27. @ba-jira Tạo Jira tickets từ các User Stories sau: [dán danh sách US]. Ánh xạ: Story Title → Summary, Acceptance Criteria → Description, Priority → Priority field.
-```
-
-```
-28. @ba-jira Đồng bộ trạng thái backlog: import stories từ [nguồn] vào Sprint [số]. Gán cho team member theo RACI matrix đã định nghĩa.
-```
-
-```
-29. @ba-confluence Publish BRD của [tên module] lên Confluence space [tên space]. Format Markdown → XHTML. Tạo page hierarchy: Project > Module > BRD.
-```
-
-```
-30. @ba-confluence Tạo Requirements Wiki page cho [tên tính năng] trên Confluence: executive summary, stakeholder table, US list có link đến Jira, và decision log.
-```
+**Output:** Causal loop diagram (text), risk scenarios, mitigation suggestions.
 
 ---
 
-## Phase 7: Export & Closure (Xuất tài liệu & đóng dự án)
+### 6. Persona Creation
+**Agent:** `@ba-ux`
 
-Mục tiêu: Đóng gói artifacts thành tài liệu bàn giao chuyên nghiệp.
+> Tạo Persona đầy đủ cho user type `[mô tả user]` trong dự án `[tên dự án]`. Bao gồm demographics, goals, frustrations, behaviors, và accessibility needs.
 
-```
-31. @ba-export Compile toàn bộ artifacts của [tên dự án] thành DOCX bàn giao. Bao gồm: BRD, SRS, RTM, và Test Suite. Format theo chuẩn [tên client/tổ chức].
-```
+**Output:** Persona canvas, User Journey Map, pain points, opportunities.
 
-```
-32. @ba-auditor Chạy full project health audit cho [tên dự án]. Output: executive dashboard gồm Coverage Score, Risk Heatmap, và danh sách open items cần xử lý trước closure.
-```
-
-```
-33. @ba-traceability Tạo Requirements Traceability Matrix (RTM) đầy đủ: BRD → User Story → Acceptance Criteria → Test Case. Highlight mọi requirement chưa có test coverage.
-```
+**Power combo:** `@ba-questioning` (interview prep) → `@ba-ux` (persona) → `@ba-elicitation` (deep dive).
 
 ---
 
-## Phase 8: Questioning & Interview Prep (NEW in v3.1)
+## Phase 2: Elicitation (5 prompts)
 
-Mục tiêu: Chuẩn bị câu hỏi phù hợp tình huống — không chỉ elicitation mà toàn bộ lifecycle.
+### 7. Funnel Interview
+**Agent:** `@ba-elicitation`
 
-```
-34. @ba-questioning Tôi có meeting với [vai trò stakeholder] về [chủ đề] ngày mai. Mục tiêu: [quyết định/hiểu rõ X]. Chuẩn bị question set 3-tier cho tôi.
-```
+> Phỏng vấn tôi theo phương pháp Funnel để khai thác requirements cho `[tên tính năng]`. Bắt đầu từ câu hỏi mở rộng nhất, thu hẹp dần đến chi tiết implementation.
 
-```
-35. @ba-questioning Review tài liệu sau và liệt kê tất cả assumptions ẩn cần được challenge: [dán nội dung tài liệu]
-```
-
-```
-36. @ba-questioning Dev team nói [tính năng X] "bất khả thi". Chuẩn bị câu hỏi feasibility probing để hiểu constraint cụ thể và tìm alternative.
-```
+**Output:** Structured requirements list, assumption log, open questions.
 
 ---
 
-## Phase 9: Communication & Reporting (NEW in v3.1)
+### 8. Edge Case Deep Dive
+**Agent:** `@ba-elicitation`
 
-Mục tiêu: Truyền thông BA artifacts đúng người, đúng format, đúng lúc.
+> Tôi là `[vai trò stakeholder]`. Đặt câu hỏi 5W1H + worst-case scenarios để xác định nhu cầu thật sự đằng sau yêu cầu: "`[mô tả yêu cầu thô]`". Đừng accept câu trả lời đầu tiên.
 
-```
-37. @ba-communication Viết status report Sprint [N] cho [tên project]. Audience: [Sponsor/PM/Dev]. Dữ liệu: [hoàn thành X US, block Y, risk Z].
-```
-
-```
-38. @ba-communication Tóm tắt BRD sau thành Executive Summary 1 trang cho C-suite. Chỉ giữ business impact và decisions needed: [dán BRD hoặc link]
-```
-
-```
-39. @ba-communication Soạn meeting minutes cho cuộc họp vừa kết thúc. Participants: [danh sách]. Nội dung thảo luận: [dán notes thô]
-```
+**Output:** Refined requirements, edge cases catalog, hidden constraints.
 
 ---
 
-## Phase 10: UX Research (NEW in v3.1)
+### 9. Workshop Design
+**Agent:** `@ba-facilitation`
 
-Mục tiêu: Hiểu user thật sự trước khi viết requirements.
+> Thiết kế chương trình workshop `[thời lượng]` để thu thập requirements cho `[tên module/tính năng]` với `[số lượng]` người tham gia gồm `[danh sách vai trò]`. Bao gồm agenda, activities, và facilitation guide.
 
-```
-40. @ba-ux Tạo Persona đầy đủ cho user type [mô tả user] trong dự án [tên dự án]. Bao gồm demographics, goals, frustrations, behaviors, accessibility needs.
-```
-
-```
-41. @ba-ux Vẽ User Journey Map cho hành trình [mô tả hành trình] của persona [tên persona]. Gồm touchpoints, emotions, pain points, và opportunities.
-```
+**Output:** Workshop agenda, activity templates, decision log template.
 
 ---
 
-## Phase 11: Data Architecture (NEW in v3.1)
+### 10. Assumption Challenge
+**Agent:** `@ba-questioning`
 
-Mục tiêu: Xây nền tảng dữ liệu chắc chắn trước khi code.
+> Review tài liệu sau và liệt kê tất cả assumptions ẩn cần được challenge, kèm câu hỏi cụ thể để validate từng assumption: `[dán nội dung tài liệu]`
 
-```
-42. @ba-data Thiết kế ERD (Mermaid) + Data Dictionary cho module [tên module]. Entities chính: [liệt kê]. Gồm constraints, indexes, và audit fields.
-```
-
----
-
-## Phase 12: Change Management & Business Rules (NEW in v3.1)
-
-Mục tiêu: Đảm bảo người dùng ADOPT hệ thống và business rules rõ ràng.
-
-```
-43. @ba-change Thực hiện ADKAR assessment cho [nhóm user] khi chuyển từ [hệ thống cũ] sang [hệ thống mới]. Xác định barrier point và đề xuất actions.
-```
-
-```
-44. @ba-business-rules Tạo Decision Table cho quy trình [mô tả quy trình]. Liệt kê tất cả conditions, actions, và kiểm tra completeness + conflicts.
-```
-
-```
-45. @ba-business-rules Tạo Business Rules Catalog cho module [tên module]. Source: [policy/regulation]. Phân loại: Constraint, Computation, Inference, Authorization.
-```
+**Output:** Assumption log, challenge questions, validation criteria.
 
 ---
 
-## Phase 13: Diagramming & Visualization (NEW in v3.1)
+### 11. User Story Map
+**Agent:** `@ba-agile`
 
-Mục tiêu: Visualize mọi BA artifact bằng Mermaid v11, sẵn sàng publish Confluence.
+> Tạo User Story Map cho MVP của `[tên sản phẩm/tính năng]`. Phân chia theo backbone activities và walking skeleton. Đề xuất release slicing cho 3 sprint đầu.
 
-```
-46. @ba-diagram Vẽ flowchart BPMN với swimlanes cho quy trình [mô tả quy trình]. Actors: [danh sách vai trò]. Output cả Mermaid source và Confluence embedding.
-```
-
-```
-47. @ba-diagram Vẽ ERD (Mermaid erDiagram) cho module [tên module]. Entities: [danh sách entities]. Include PK/FK, cardinality, và data types chính.
-```
-
-```
-48. @ba-diagram Vẽ sequence diagram cho luồng [mô tả interaction]. Actors: [danh sách]. Gồm happy path và error handling. Confluence-ready.
-```
+**Output:** Story map (text/table), backbone activities, walking skeleton, sprint plan.
 
 ---
 
-## Pro Tips: Power-User Combinations
+## Phase 3: Writing & Modeling (8 prompts)
 
-### Combo 1: Zero-to-BRD trong 4 bước
+### 12. User Story (INVEST + Gherkin)
+**Agent:** `@ba-writing`
 
+> Viết User Story đầy đủ cho tính năng: "`[mô tả tính năng]`". Bao gồm INVEST analysis, Acceptance Criteria theo format Gherkin (Given/When/Then), RBAC matrix, và edge cases quan trọng.
+
+**Output:** User Story hoàn chỉnh, Gherkin AC, RBAC table, edge case list.
+
+---
+
+### 13. BRD
+**Agent:** `@ba-writing`
+
+> Tạo Business Requirements Document (BRD) cho `[tên dự án]`. Context: `[mô tả ngắn về mục tiêu kinh doanh, phạm vi, và constraints]`. Dùng template chuẩn với đầy đủ sections.
+
+**Output:** BRD hoàn chỉnh với executive summary, business objectives, scope, stakeholders, requirements.
+
+---
+
+### 14. SRS (IEEE 29148)
+**Agent:** `@ba-writing`
+
+> Viết Software Requirements Specification (IEEE 29148) cho module `[tên module]`. Danh sách tính năng cần cover: `[liệt kê tính năng]`. Phân biệt rõ functional vs non-functional requirements.
+
+**Output:** SRS đúng chuẩn IEEE 29148 với functional requirements, NFR, constraints, và assumptions.
+
+---
+
+### 15. API Specification
+**Agent:** `@ba-writing`
+
+> Thiết kế API Specification cho endpoint `[GET/POST/PUT/DELETE]` `[path]`. Bao gồm: request/response schema, error codes, rate limiting, authentication method, và example payloads.
+
+**Output:** API spec (OpenAPI-style), error code table, example curl commands.
+
+---
+
+### 16. BPMN Process Diagram
+**Agent:** `@ba-process`
+
+> Vẽ BPMN diagram dạng Mermaid cho quy trình: `[mô tả quy trình nghiệp vụ]`. Swimlanes theo vai trò: `[danh sách vai trò]`. Bao gồm cả happy path và exception flows.
+
+**Output:** Mermaid BPMN source, swimlane diagram, exception handling notes.
+
+---
+
+### 17. ERD + Data Dictionary
+**Agent:** `@ba-data`
+
+> Thiết kế ERD (Mermaid erDiagram) + Data Dictionary cho module `[tên module]`. Entities chính: `[liệt kê entities]`. Bao gồm constraints, indexes, audit fields, và business rules theo từng field.
+
+**Output:** ERD Mermaid source, Data Dictionary table, constraints list.
+
+**Power combo:** `@ba-data` (ERD) → `@ba-business-rules` (decision tables) → `@ba-writing` (SRS data section).
+
+---
+
+### 18. Decision Table
+**Agent:** `@ba-business-rules`
+
+> Tạo Decision Table cho quy trình `[mô tả quy trình]`. Liệt kê tất cả conditions, actions. Kiểm tra completeness (không có rule gaps) và conflicts (không có contradictions).
+
+**Output:** Decision table, completeness check report, conflict detection results.
+
+---
+
+### 19. Visual UI Scan
+**Agent:** `@ba-writing`
+
+> `@[image]` Đây là mockup/wireframe. Phân tích và chuyển đổi thành Field Specifications đầy đủ: tên field, kiểu dữ liệu, validation rules, error messages, và interaction states cho từng element UI.
+
+**Output:** Field Spec table, validation rules, error state catalog.
+
+**Power combo:** `@ba-writing` (visual scan) → `@ba-validation` (INVEST check) → `@ba-jira` (tạo tickets).
+
+---
+
+## Phase 4: Validation & Testing (6 prompts)
+
+### 20. INVEST Check + Ambiguity Scan
+**Agent:** `@ba-validation`
+
+> Đây là User Story: `[dán nội dung US]`. Thực hiện INVEST check đầy đủ và Ambiguity Scan. Trả về Health Score (0-100) và danh sách defects theo severity (Critical/Major/Minor).
+
+**Output:** Health Score, INVEST breakdown, ambiguity list với đề xuất thay thế.
+
+---
+
+### 21. Quality Gate Scoring
+**Agent:** `@ba-quality-gate`
+
+> Đánh giá artifact sau theo thang điểm 8 chiều (PASS/CONDITIONAL/REJECT): `[dán nội dung BRD/SRS/US]`. Trả về score chi tiết từng dimension và action items để đạt PASS.
+
+**Output:** 8-dimension score card, gate decision (PASS/CONDITIONAL/REJECT), remediation list.
+
+---
+
+### 22. Cross-Artifact Consistency Check
+**Agent:** `@ba-consistency`
+
+> Kiểm tra tính nhất quán cross-artifact giữa: User Story `[US-XXX]`, API Spec `[tên endpoint]`, và DB Schema `[tên bảng]`. Báo cáo mọi mismatch và đề xuất resolution.
+
+**Output:** Consistency report, mismatch table, resolution recommendations.
+
+---
+
+### 23. NFR (ISO 25010)
+**Agent:** `@ba-nfr`
+
+> Định nghĩa Non-Functional Requirements theo ISO 25010 cho tính năng `[tên tính năng]`. Tập trung: Performance, Security, Reliability. Mọi metric phải có threshold đo được (ví dụ: p95 < 200ms).
+
+**Output:** NFR catalog với measurable thresholds, acceptance criteria cho từng NFR.
+
+---
+
+### 24. 7-Category Test Suite
+**Agent:** `@ba-test-gen`
+
+> Sinh test suite đầy đủ từ Acceptance Criteria của `[US-XXX/tên tính năng]`. Cover 7 categories: Happy Path, Edge Case, Error Handling, Security, Concurrency, Data Validation, Performance.
+
+**Output:** Test suite table với test ID, category, steps, expected results.
+
+---
+
+### 25. UAT Script
+**Agent:** `@ba-test-gen`
+
+> Tạo UAT script cho tính năng `[tên tính năng]` dành cho `[vai trò người dùng]`. Bao gồm: preconditions, test steps, expected results, pass/fail criteria, và rollback procedure.
+
+**Output:** UAT script hoàn chỉnh, test data requirements, sign-off checklist.
+
+---
+
+## Phase 5: Visualization (3 prompts)
+
+### 26. Flowchart BPMN
+**Agent:** `@ba-diagram`
+
+> Vẽ flowchart BPMN với swimlanes cho quy trình `[mô tả quy trình]`. Actors: `[danh sách vai trò]`. Output cả Mermaid source và hướng dẫn embed Confluence.
+
+**Output:** Mermaid flowchart source, Confluence macro embedding code.
+
+---
+
+### 27. ERD (Mermaid)
+**Agent:** `@ba-diagram`
+
+> Vẽ ERD (Mermaid erDiagram) cho module `[tên module]`. Entities: `[danh sách entities]`. Include PK/FK, cardinality, và data types chính.
+
+**Output:** Mermaid erDiagram source, relationship descriptions.
+
+---
+
+### 28. Sequence Diagram
+**Agent:** `@ba-diagram`
+
+> Vẽ sequence diagram cho luồng `[mô tả interaction]`. Actors: `[danh sách]`. Bao gồm happy path, error handling, và timeout scenarios. Confluence-ready format.
+
+**Output:** Mermaid sequence diagram source, interaction notes.
+
+---
+
+## Phase 6: Communication & Change (4 prompts)
+
+### 29. Status Report
+**Agent:** `@ba-communication`
+
+> Viết status report Sprint `[N]` cho `[tên project]`. Audience: `[Sponsor/PM/Dev/Stakeholder]`. Dữ liệu: `[hoàn thành X US, block Y items, risk Z]`. Tone: professional, action-oriented.
+
+**Output:** Status report theo format chuẩn, next actions, escalation items.
+
+---
+
+### 30. Executive Summary
+**Agent:** `@ba-communication`
+
+> Tóm tắt tài liệu sau thành Executive Summary 1 trang cho C-suite. Chỉ giữ business impact, key decisions needed, và risks: `[dán BRD/SRS hoặc mô tả nội dung]`
+
+**Output:** 1-page executive summary, key decisions table, risk highlights.
+
+---
+
+### 31. Meeting Minutes
+**Agent:** `@ba-communication`
+
+> Soạn meeting minutes cho cuộc họp vừa kết thúc. Participants: `[danh sách]`. Nội dung thảo luận: `[dán notes thô]`. Bao gồm decisions made, action items (ai làm gì, deadline), và open questions.
+
+**Output:** Formatted meeting minutes, action items table, follow-up schedule.
+
+---
+
+### 32. ADKAR Assessment
+**Agent:** `@ba-change`
+
+> Thực hiện ADKAR assessment cho `[nhóm user]` khi chuyển từ `[hệ thống/quy trình cũ]` sang `[hệ thống/quy trình mới]`. Xác định barrier point và đề xuất change management actions cụ thể.
+
+**Output:** ADKAR scorecard, barrier analysis, change management action plan.
+
+---
+
+## Phase 7: Integration (4 prompts)
+
+### 33. Create Jira Tickets
+**Agent:** `@ba-jira`
+
+> Tạo Jira tickets từ các User Stories sau: `[dán danh sách US]`. Ánh xạ: Story Title → Summary, Acceptance Criteria → Description, Priority → Priority field. Kiểm tra duplicates trước khi tạo.
+
+**Output:** Jira ticket list với fields đầy đủ, duplicate check report.
+
+---
+
+### 34. Sync Backlog
+**Agent:** `@ba-jira`
+
+> Đồng bộ backlog: import `[danh sách stories]` vào Sprint `[số]`. Gán cho team member theo RACI matrix `[mô tả RACI]`. Set story points dựa trên complexity estimate.
+
+**Output:** Sprint backlog updated, assignment list, unresolved items report.
+
+---
+
+### 35. Publish Confluence Page
+**Agent:** `@ba-confluence`
+
+> Publish `[tên tài liệu: BRD/SRS/Module Spec]` lên Confluence space `[tên space]`. Format Markdown → XHTML. Tạo page hierarchy: `[Project > Module > Document]`. Kiểm tra duplicate pages.
+
+**Output:** Confluence page URL, page hierarchy, version conflict report.
+
+---
+
+### 36. Create Requirements Wiki
+**Agent:** `@ba-confluence`
+
+> Tạo Requirements Wiki page cho `[tên tính năng]` trên Confluence: executive summary, stakeholder table, US list có link đến Jira, decision log, và open questions.
+
+**Output:** Wiki page hoàn chỉnh với embedded Jira links, decision log table.
+
+---
+
+## Phase 8: Export & Closure (4 prompts)
+
+### 37. Compile DOCX
+**Agent:** `@ba-export`
+
+> Compile toàn bộ artifacts của `[tên dự án]` thành DOCX bàn giao. Bao gồm: BRD, SRS, RTM, và Test Suite. Format theo chuẩn `[tên client/tổ chức]`. Kiểm tra cross-references trước khi export.
+
+**Output:** DOCX package, table of contents, cross-reference validation report.
+
+---
+
+### 38. Full Health Audit
+**Agent:** `@ba-auditor`
+
+> Chạy full project health audit cho `[tên dự án]`. Output: executive dashboard gồm Coverage Score, Risk Heatmap, Quality Metrics, và danh sách open items phải xử lý trước closure.
+
+**Output:** Audit dashboard, Coverage Score, Risk Heatmap, open items list.
+
+---
+
+### 39. RTM (Requirements Traceability Matrix)
+**Agent:** `@ba-traceability`
+
+> Tạo Requirements Traceability Matrix (RTM) đầy đủ: BRD → User Story → Acceptance Criteria → Test Case → Implementation. Highlight mọi requirement chưa có test coverage.
+
+**Output:** RTM table, coverage gap report, untested requirements list.
+
+---
+
+### 40. Ingest Learnings
+**Agent:** `@ba-wiki`
+
+> Ingest lessons learned từ dự án `[tên dự án]` vào knowledge base. Source: `[retrospective notes / post-mortem report]`. Phân loại theo: Process, Technical, Communication, Stakeholder.
+
+**Output:** Knowledge entries added, categorization summary, reusable templates extracted.
+
+---
+
+## Phase 9: Estimation & Prioritization (3 prompts)
+
+### 41. MoSCoW Ranking
+**Agent:** `@ba-prioritization`
+
+> Áp dụng MoSCoW framework cho danh sách features sau: `[liệt kê features]`. Constraints: budget `[X]`, timeline `[Y sprint]`, team size `[Z]`. Justify từng classification với business impact.
+
+**Output:** MoSCoW matrix, justification table, MVP scope recommendation.
+
+---
+
+### 42. Estimation Facilitation
+**Agent:** `@ba-agile`
+
+> Facilitate estimation session cho `[danh sách User Stories]`. Dùng Planning Poker scale. Bao gồm: complexity factors, dependency risks, và confidence level cho mỗi estimate.
+
+**Output:** Story points table, complexity breakdown, velocity projection.
+
+---
+
+### 43. ROI Calculation
+**Agent:** `@ba-solution`
+
+> Tính ROI cho `[tên giải pháp/tính năng]`. Inputs: investment `[X VND/USD]`, expected benefits `[mô tả]`, timeframe `[Y tháng]`. So sánh với alternative `[mô tả alternative]`.
+
+**Output:** ROI calculation, payback period, break-even analysis, recommendation.
+
+---
+
+## Phase 10: Problem Solving (5 prompts)
+
+### 44. Root Cause Analysis (5 Whys + Fishbone)
+**Agent:** `@ba-root-cause`
+
+> Incident: `[mô tả vấn đề/defect cụ thể]`. Thực hiện 5 Whys và Fishbone diagram (6M: Man, Machine, Method, Material, Measurement, Mother Nature). Xác định root cause và preventive actions.
+
+**Output:** 5 Whys chain, Fishbone diagram (text), root cause statement, preventive action plan.
+
+---
+
+### 45. Stakeholder Conflict Resolution
+**Agent:** `@ba-conflict`
+
+> `[Stakeholder A]` muốn `[yêu cầu A]`. `[Stakeholder B]` muốn `[yêu cầu B]`. Hai yêu cầu mâu thuẫn tại `[điểm xung đột cụ thể]`. Đề xuất win-win solution và negotiation strategy.
+
+**Output:** Conflict analysis, win-win options, negotiation script, escalation path.
+
+---
+
+### 46. A/B Test Design
+**Agent:** `@ba-innovation`
+
+> Thiết kế A/B test cho `[tính năng/hypothesis]`. Control: `[hiện trạng]`. Variants: `[đề xuất thay đổi]`. Bao gồm: sample size, success metrics, duration, và statistical significance threshold.
+
+**Output:** A/B test plan, sample size calculation, metrics dashboard template.
+
+---
+
+### 47. Feasibility Probing
+**Agent:** `@ba-questioning`
+
+> Dev team/stakeholder nói `[yêu cầu X]` "bất khả thi" / "quá phức tạp". Chuẩn bị câu hỏi feasibility probing để hiểu constraint cụ thể, tách "technical constraint" vs "effort concern", và tìm creative alternatives.
+
+**Output:** Feasibility question set, constraint categorization, alternative options to explore.
+
+---
+
+### 48. Quality Dashboard
+**Agent:** `@ba-metrics`
+
+> Tạo Quality Dashboard cho `[tên project/sprint]`. Metrics cần track: Requirements Completeness, Defect Density, Test Coverage, Requirement Stability. Data hiện tại: `[dán data thô]`.
+
+**Output:** Quality Dashboard (table/chart), trend analysis, quality gate thresholds.
+
+---
+
+## Power Combos (5 combos)
+
+### Combo 1: Zero to BRD
 Dùng khi bắt đầu dự án mới từ đầu, không có tài liệu gốc.
 
 ```
-Bước 1: @ba-master [mô tả dự án] — nhận workflow chain
-Bước 2: @ba-elicitation — phỏng vấn thu thập requirements
-Bước 3: @ba-writing — viết BRD + User Stories từ output bước 2
-Bước 4: @ba-quality-gate — score và phê duyệt trước khi chuyển dev
+@ba-master [mô tả dự án ngắn]
+→ @ba-strategy [SWOT/PESTLE]
+→ @ba-elicitation [funnel interview]
+→ @ba-writing [BRD + User Stories]
+→ @ba-quality-gate [score và phê duyệt]
+→ @ba-export [package bàn giao]
 ```
 
-### Combo 2: Sprint-Ready Validation Pipeline
+**Thời gian:** 2-4 giờ.
 
-Dùng trước mỗi sprint planning để đảm bảo stories đủ chất lượng.
+---
+
+### Combo 2: Sprint-Ready Validation Pipeline
+Dùng trước sprint planning để đảm bảo stories đủ chất lượng.
 
 ```
 @ba-validation [US] → @ba-test-gen [validated AC] → @ba-consistency [US + API + DB] → @ba-quality-gate [full artifact set]
 ```
 
-### Combo 3: Screenshot-to-Jira Ticket
+**Kết quả cần:** Health Score ≥ 80 trước khi chuyển dev.
 
+---
+
+### Combo 3: Screenshot to Jira
 Dùng khi có mockup từ designer, cần tạo ticket nhanh cho dev.
 
 ```
-@ba-writing @[image mockup] → @ba-validation [output] → @ba-jira [validated stories]
+@ba-writing @[image mockup] → @ba-validation [INVEST check] → @ba-test-gen [test cases] → @ba-jira [create tickets]
 ```
 
-### Combo 4: Post-Mortem và Root Cause
+---
 
-Dùng sau khi phát hiện requirement defect ở môi trường production.
+### Combo 4: Production Postmortem
+Dùng sau khi phát hiện defect nghiêm trọng ở production.
 
 ```
 @ba-root-cause [mô tả defect] → @ba-validation [requirements gốc] → @ba-metrics [trend analysis] → @ba-writing [corrected requirements]
 ```
 
-### Combo 5: Interview → Requirements → Data Model (v3.1)
+---
 
-Dùng khi bắt đầu module mới cần cả user research và data design.
-
-```
-@ba-questioning [meeting prep] → @ba-ux [persona + journey] → @ba-elicitation [deep-dive] → @ba-writing [US + AC] → @ba-data [ERD + data dictionary] → @ba-business-rules [decision tables]
-```
-
-### Combo 6: Requirements → Diagrams → Confluence (v3.1)
-
-Dùng khi cần publish documentation đầy đủ với diagrams lên Confluence.
+### Combo 5: New Domain Discovery
+Dùng khi bắt đầu module mới cần cả user research lẫn data design.
 
 ```
-@ba-writing [US + AC] → @ba-data [ERD] → @ba-process [BPMN] → @ba-diagram [render all diagrams] → @ba-confluence [publish with embedded diagrams]
-```
-
-### Combo 7: Go-Live Readiness Pipeline (v3.1)
-
-Dùng trước deployment để đảm bảo cả hệ thống VÀ con người sẵn sàng.
-
-```
-@ba-change [ADKAR assessment] → @ba-communication [change announcement] → @ba-facilitation [training workshop] → @ba-change [go-live checklist]
+@ba-questioning [meeting prep] → @ba-ux [persona + journey] → @ba-elicitation [deep dive] → @ba-writing [US + AC] → @ba-data [ERD + data dictionary] → @ba-business-rules [decision tables]
 ```
 
 ---
 
-> Tip: Tạo `CONTINUITY.md` ở root project (copy từ `.agent/templates/continuity-template.md`) để mọi agent tự đọc context — không cần nhắc lại project goal sau mỗi prompt.
+> **Tip:** Tạo `CONTINUITY.md` ở root project (copy từ `.agent/templates/continuity-template.md`) để mọi agent tự đọc context — không cần nhắc lại project goal sau mỗi prompt.

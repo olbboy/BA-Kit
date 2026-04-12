@@ -14,17 +14,21 @@
 | **v0** (Vercel) | Code Generator | Export → Review | Prompt → React component |
 | **Lovable** | Full-stack prototype | Export → Review | Prompt → working app |
 | **Bolt** (StackBlitz) | In-browser dev | Export → Review | Prompt → deployable prototype |
+| **`@ba-ux`** | BA-Kit UX Agent | Native — không cần tool bên ngoài | UX Research, Persona Validation trước khi prototype |
+| **`@ba-diagram`** | BA-Kit Diagram Agent | Native — Mermaid v11 | Flowchart, BPMN, ERD cho tài liệu thiết kế |
 
 ### Khi nào dùng tool nào / When to Use What
 
 | Tình huống | Tool phù hợp | Lý do |
 |-----------|-------------|-------|
+| Cần UX research trước khi thiết kế | **`@ba-ux`** | Persona validation, usability check trước prototype |
 | Cần UI nhanh từ text spec | **Stitch MCP** | Native MCP, generate trực tiếp từ prompt |
 | Đã có Figma design, cần specs | **Figma MCP** | Đọc design → `@ba-writing` Visual Scan |
 | Cần React component prototype | **v0** | Optimized cho React/Next.js output |
 | Cần full-stack working app | **Lovable** | Database + API + UI trong 1 prompt |
 | Cần edit code trực tiếp | **Bolt** | In-browser IDE, iterate nhanh |
 | Chỉ cần Field Specs từ screenshot | **`@ba-writing`** | Visual Scan — không cần tool bên ngoài |
+| Cần diagram/flowchart cho tài liệu | **`@ba-diagram`** | Mermaid v11, BPMN, ERD — không ASCII |
 
 ---
 
@@ -174,11 +178,13 @@ Bước 4: @ba-validation "So sánh spec gốc với Figma design. Tìm deviatio
 ### Pattern A: Spec-First (Khuyến nghị)
 
 ```
-1. @ba-elicitation → thu thập yêu cầu
-2. @ba-writing → viết PRD/User Stories
-3. @ba-validation → validate specs (Health Score ≥ 80)
-4. Copy validated specs → v0 / Lovable / Bolt
-5. @ba-validation → review generated code against specs
+1. @ba-ux → UX research, persona validation, usability heuristics
+2. @ba-elicitation → thu thập yêu cầu
+3. @ba-writing → viết PRD/User Stories
+4. @ba-diagram → vẽ flowchart / user flow (Mermaid) cho docs
+5. @ba-validation → validate specs (Health Score ≥ 80)
+6. Copy validated specs → v0 / Lovable / Bolt
+7. @ba-validation → review generated code against specs
 ```
 
 ### Pattern B: Prototype-First (Khám phá)
@@ -239,10 +245,16 @@ Khi đã có prototype output, dùng prompts sau để review:
 ### Flowchart quyết định
 
 ```
+Bước 0: UX Research cần thiết không?
+  ├─ Có → @ba-ux (persona, usability research) → tiếp tục bên dưới
+  └─ Không → tiếp tục bên dưới
+
 Bạn có Figma design sẵn?
   ├─ Có → Figma MCP → @ba-writing Visual Scan
   └─ Không
        ├─ Cần mockup nhanh? → Stitch MCP
        ├─ Cần working code? → v0 / Lovable / Bolt
        └─ Chỉ cần specs? → @ba-writing (text-based, no tool needed)
+
+Cần diagram cho tài liệu? → @ba-diagram (Mermaid: flowchart / BPMN / ERD)
 ```

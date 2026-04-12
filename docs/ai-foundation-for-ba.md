@@ -228,7 +228,7 @@ BA-Kit dùng 33 agents chuyên biệt, mỗi agent giỏi 1 lĩnh vực, phối 
 ┌─────────────────────────────────────────────────────────────┐
 │  Platform: Antigravity / Claude Code / Claude CoWork       │
 │  ┌─────────────────────────────────────────────────────┐  │
-│  │              BA-Kit Agent (1 of 26)                   │  │
+│  │              BA-Kit Agent (1 of 33)                   │  │
 │  │                                                     │  │
 │  │  ┌──────────┐  ┌──────────┐  ┌────────────────┐ │  │
 │  │  │   LLM    │  │  Tools   │  │   Memory         │ │  │

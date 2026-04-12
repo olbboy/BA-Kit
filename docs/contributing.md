@@ -1,43 +1,103 @@
 # Contributing to BA-Kit
 
-Thank you for your interest in improving BA-Kit.
-
-BA-Kit runs on **3 agentic AI platforms** (Antigravity IDE, Claude Code, Claude CoWork). All platforms share the same skill files, so contributing works the same way regardless of which platform you use.
+BA-Kit v3.1.0: 33 agents, 831 knowledge entries, 23 domains, 14 templates, 48 prompts.
 
 ---
 
-## 🏗️ Architecture Overview
+## How to Add a New Agent
 
-*   **Logic**: The "Logic" is not in Python files; it is in the **Prompts** within `.agent/skills/`.
-*   **Knowledge**: The "Textbook" is in `docs/knowledge_base/` (Markdown).
-*   **Tools**: The "Hands" are standard command-line tools (`grep`, `python`, `curl`).
+1. Tạo thư mục: `.agent/skills/ba-{name}/`
+2. Tạo file: `.agent/skills/ba-{name}/SKILL.md`
+3. Tuân theo cấu trúc bắt buộc:
 
-## ⚠️ Important Rules
+```markdown
+## AGENCY
+[Mô tả role, scope, và khi nào agent được gọi]
 
-### 1. Modifying Skills (`.agent/skills/`)
-If you edit an agent's system prompt (the `SKILL.md` file):
-*   **Do not break the XML**: The `<system_instructions>` tags are crucial.
-*   **Do not remove System 2**: The "Reflective Loop" (Analysis -> Draft -> Reflection -> Output) is mandatory for v2.4 compatibility.
-*   **Test**: You must verify the agent by summoning it in a new conversation:
-    > "Hi @ba-modified-agent, run a self-test on task X."
+## MEMORY
+[Files agent cần đọc — CONTINUITY.md, data CSVs, v.v.]
 
-### 2. Adding Knowledge
-*   Place new guides in `docs/knowledge_base/`.
-*   Update the relevant `SKILL.md` files or `docs/usage-guide.md` if the knowledge is critical.
+## System Instructions
+[Prompt chính — PHẢI có System 2 Reflection loop]
 
-### 3. Adding Templates
-*   Place new artifacts in `.agent/templates/`.
-*   Use standard Markdown or verifiable formats.
+## Handoffs
+[Agents nào nên được gọi sau agent này và trong tình huống nào]
+```
 
-## 🐛 Reporting Bugs
-*   If an Agent hallucinations, report the **Prompt ID** or the specific interaction.
-*   If a Tool fails, ensure you have the required CLI installed (e.g., `graphviz` for diagrams).
+**Bắt buộc trong System Instructions:**
+- Vòng lặp: `Analysis → Draft → Reflect → Output`
+- Không được bỏ Reflective Loop — đây là yêu cầu của v3.x
+- Handoff protocol: agent PHẢI suggest agent tiếp theo khi xong việc
 
-## 🚀 Pull Request Process
-1.  Fork the repo.
-2.  Create a branch (`feature/new-agent-capability`).
-3.  Commit changes.
-4.  Open a PR describing *why* the Agent behavior needs changing.
+**Kiểm tra sau khi tạo:**
+```
+@ba-{tên-mới} "Run a self-test on task [X]"
+```
+
+---
+
+## How to Add Knowledge
+
+1. Xác định domain phù hợp trong `.agent/data/` (23 domains hiện có)
+2. Thêm entries vào file CSV tương ứng: `.agent/data/{domain}.csv`
+3. Nếu cần domain mới: tạo file `.agent/data/{domain-mới}.csv`
+
+**Format CSV:**
+```
+id,domain,topic,content,source,tags
+KE-{DOMAIN}-{NUMBER},{domain},{topic},{nội dung ngắn gọn},{nguồn},{tags}
+```
+
+**Kiểm tra sau khi thêm:**
+```bash
+python3 .agent/scripts/ba_search.py "{keyword trong entry mới}"
+```
+
+---
+
+## How to Add Templates
+
+1. Đặt file vào `.agent/templates/{tên-template}.md`
+2. Dùng Markdown chuẩn, có placeholders rõ ràng: `[TÊN DỰ ÁN]`, `[NGÀY]`, v.v.
+3. Cập nhật danh sách trong `docs/quick-start.md` nếu template quan trọng
+
+**14 templates hiện có:** agile-artifacts, api-contract, brd, communication-plan, continuity, data-dictionary, frd, prd, rtm, srs, test-case, test-suite, use-case, user-story-spec
+
+---
+
+## Code Style — SKILL.md Conventions
+
+| Rule | Chi tiết |
+|------|---------|
+| System 2 Reflection | Bắt buộc — `Analysis → Draft → Reflect → Output` |
+| Handoff protocol | Mỗi agent PHẢI suggest agent tiếp theo |
+| No hallucination | Dùng Python cho math, Grep cho file search |
+| CONTINUITY.md | Agent phải đọc file này nếu tồn tại |
+| Scope | Một agent = một domain, không overlap |
+
+---
+
+## Pull Requests
+
+```bash
+# Branch từ main
+git checkout -b feat/ba-{tên-agent}-skill
+
+# Conventional commits
+git commit -m "feat: add @ba-{name} agent for {purpose}"
+git commit -m "feat: add {N} knowledge entries to {domain} domain"
+git commit -m "fix: correct handoff routing in @ba-{name}"
+
+# Mở PR
+gh pr create --title "feat: add @ba-{name}" --body "..."
+```
+
+**PR checklist:**
+- [ ] SKILL.md có đủ AGENCY / MEMORY / System Instructions / Handoffs
+- [ ] System 2 Reflection loop có trong System Instructions
+- [ ] Agent đã được self-test thủ công
+- [ ] Không có thông tin nhạy cảm (API keys, credentials)
+- [ ] CHANGELOG cập nhật nếu thêm agent mới
 
 ---
 

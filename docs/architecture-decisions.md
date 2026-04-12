@@ -81,7 +81,38 @@ A true Level 5 system involves **recursive self-optimization** — agents rewrit
 
 ---
 
-## 4. Production Readiness Score
+## 4. v3.1 Architecture Decision Records
+
+### ADR-001: @ba-questioning as Separate Agent from @ba-elicitation
+
+| Factor | Decision |
+| :--- | :--- |
+| **Problem** | `@ba-elicitation` conflated two modes: stakeholder interviews (open-ended exploration) and structured requirement questioning (gap-filling, clarification). |
+| **Decision** | Split into two agents. `@ba-elicitation` = Journalist mode — funnel questioning, discovery, "Colombo" technique. `@ba-questioning` = Analyst mode — targeted gap analysis, structured probing, ambiguity resolution. |
+| **Rationale** | Single Responsibility Principle. A BA in interview mode thinks differently than a BA in review mode. Separate agents = sharper, more consistent outputs. |
+| **Trade-off** | +1 agent to remember. Mitigated by `@ba-master` routing automatically. |
+
+### ADR-002: @ba-diagram as Centralized Diagram Agent
+
+| Factor | Decision |
+| :--- | :--- |
+| **Problem** | Multiple agents (writing, process, traceability) each partially generated diagrams — inconsistent Mermaid syntax, mixed styles, no standard. |
+| **Decision** | Centralize all diagram generation into `@ba-diagram`. Other agents describe WHAT diagram is needed; `@ba-diagram` generates the Mermaid/BPMN artifact. |
+| **Rationale** | DRY principle. One agent owns diagram syntax knowledge, versioning, and Mermaid v11 compliance. Eliminates syntax drift across 33 agents. |
+| **Mandatory Tool** | `@ba-diagram` MUST use Mermaid syntax (not ASCII) for all flowcharts, sequence diagrams, ERDs, and BPMNs. |
+
+### ADR-003: outputs/ Excluded from Git
+
+| Factor | Decision |
+| :--- | :--- |
+| **Problem** | Generated artifacts (BRDs, SRS, specs) were being committed, causing bloat and false "code changes" in PRs. |
+| **Decision** | `outputs/` directory is listed in `.gitignore`. All generated documents live outside version control. |
+| **Rationale** | Generated output is ephemeral. Source of truth = agent skills + knowledge base + templates. Regenerate on demand. Keeps git history clean (structural changes only). |
+| **Exception** | Templates in `.agent/templates/` ARE committed — they are source, not output. |
+
+---
+
+## 5. Production Readiness Score
 
 | Category | Score | Notes |
 | :--- | :--- | :--- |
@@ -97,7 +128,7 @@ A true Level 5 system involves **recursive self-optimization** — agents rewrit
 
 ---
 
-## 5. Improvement Roadmap
+## 6. Improvement Roadmap
 
 ### Tier 1: Quick Wins
 

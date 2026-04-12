@@ -1,108 +1,108 @@
-# Quick Start: BA-Kit
+# Quick Start — BA-Kit v3.1.0
 
-Start using the BA-Kit agent squad in **2 minutes**.
+Bắt đầu trong 5 phút. 33 agents, 831 knowledge entries, 14 templates.
 
 ---
 
-## 1. Choose Your Platform
+## Prerequisites
 
-BA-Kit runs on 3 agentic AI platforms. Pick one:
+Chỉ cần một trong 3 platforms bên dưới. Không cần cài thêm gì khác.
 
-| Platform | Best For | Setup |
-|----------|----------|-------|
-| **Antigravity IDE** | Full agent skills, MCP integration, System 2 | Copy `.agent/skills/` |
-| **Claude Code** | CLI developers, CI/CD, Git-native workflows | Copy `.agent/skills/` |
-| **Claude CoWork** | Non-technical BAs, document synthesis | Copy `.agent/skills/` |
+---
 
-All 3 platforms use the same skill files. The setup is identical.
+## Installation
 
-## 2. Installation
-
-### Step A: Clone the Repository
+### Clone repo
 
 ```bash
 git clone https://github.com/olbboy/BA-Kit.git
+cd BA-Kit
 ```
 
-### Step B: Deploy the Squad
+### Deploy theo platform
 
-Copy the 33 agent skill files into your platform's workspace:
+| Platform | Command | Ghi chú |
+|----------|---------|---------|
+| **Antigravity IDE** | `cp -r .agent/skills/* ~/.gemini/antigravity/skills/` | Full experience, MCP support |
+| **Claude Code** | Clone repo vào project, skills tự nhận diện | CLI-native, git workflows |
+| **Claude CoWork** | Upload từng `SKILL.md` làm project knowledge | Dễ dùng nhất cho BA truyền thống |
 
-**Antigravity IDE:**
-```bash
-cp -r BA-Kit/.agent/skills/* <your-project>/.agent/skills/
-```
-
-**Claude Code:**
-```bash
-cp -r BA-Kit/.agent/skills/* <your-project>/.agent/skills/
-```
-
-**Claude CoWork:**
-```bash
-# Drag the BA-Kit folder into your CoWork project
-# Or copy .agent/skills/ to your project directory
-```
-
-### Step C: Copy Templates & Knowledge (Optional)
+### Copy templates & data (khuyến nghị)
 
 ```bash
-cp -r BA-Kit/.agent/templates/ <your-project>/.agent/templates/
-cp -r BA-Kit/docs/knowledge_base/ <your-project>/docs/knowledge_base/
-cp -r BA-Kit/ebooks/ <your-project>/ebooks/
+cp -r .agent/templates/ <your-project>/.agent/templates/
+cp -r .agent/data/      <your-project>/.agent/data/
 ```
 
-## 3. Verification
+### Kiểm tra cài đặt
 
-Start a new conversation in your platform.
-Type `@` in the chat box. You should see the auto-complete list:
-*   `@ba-master`
-*   `@ba-writing`
-*   `@ba-validation`
-*   `@ba-elicitation`
-*   ... (and 22 others)
+Gõ `@` trong chat — phải thấy autocomplete list bắt đầu bằng `@ba-master`, `@ba-writing`, v.v.
 
-## 4. Your First Interaction
+---
 
-### Scenario: The "Vague Idea"
-You have an idea but no requirements.
+## First Use — 3 ví dụ nhanh
 
-> `@ba-elicitation I want to build a task management app for freelancers.`
+**Bắt đầu dự án mới:**
+```
+@ba-master "New project: [tên dự án]. Where do I start?"
+```
 
-**Result:** The agent will start Funnel Questioning to extract your requirements.
+**Viết User Story:**
+```
+@ba-writing "Write User Story for [tính năng] — Gherkin format, 3 ACs minimum"
+```
 
-### Scenario: The "Quality Check"
-You have a requirement but aren't sure if it's good.
+**Review spec:**
+```
+@ba-validation "Review this spec: [paste nội dung]"
+```
 
-> `@ba-validation Review this user story: "User can upload photos."`
+---
 
-**Result:** The agent will identify ambiguities: *"What format? Max size? How many? Mobile or Web?"*
+## Knowledge Search
 
-### Scenario: The "Full Pipeline"
-You want to go from idea to dev-ready specs.
+Tìm kiếm trong 831 entries × 23 domains:
 
-> `@ba-master I need to build a customer feedback portal. Guide me through the full process.`
+```bash
+# Tìm theo keyword
+python3 .agent/scripts/ba_search.py "MoSCoW prioritization"
 
-**Result:** The orchestrator will route you through: elicitation → writing → prioritization → validation → export.
+# Tìm trong domain cụ thể
+python3 .agent/scripts/ba_search.py "user story" --domain writing
 
-## 5. Power User Tips
+# Xem tất cả domains
+python3 .agent/scripts/ba_search.py --list-domains
+```
 
-*   **Flash Mode**: Switch agents instantly. `@ba-writing` → `@ba-nfr` → `@ba-solution`.
-*   **The Dispatcher**: If lost, type `@ba-master help me` — it routes to the right specialist.
-*   **Tools**: Agents automatically use `python` (math), `grep` (search), `search_web` (standards).
-*   **Prompt Library**: See `docs/prompt-library.md` for 48 copy-paste prompts.
-*   **Design**: Use Stitch MCP / Figma MCP for UI generation. See `docs/design-prototype-guide.md`.
+---
 
-## 6. Troubleshooting
+## What's Next
 
-**Q: The agent isn't appearing?**
-A: Ensure `SKILL.md` files are in `.agent/skills/<agent_name>/` directories.
+| Tài liệu | Nội dung |
+|----------|---------|
+| `docs/usage-guide.md` | Cách squad 33 agents hoạt động, workflow chains |
+| `docs/agent-cheat-sheet.md` | Toàn bộ 33 agents + power combos |
+| `docs/prompt-library.md` | 48 copy-paste prompts theo tình huống |
+| `docs/junior-start.md` | Lộ trình 4 tuần cho BA mới |
 
-**Q: Which platform should I use?**
-A: See `docs/ai-tools-guide.md` for the full comparison matrix.
+---
 
-**Q: Where are the templates?**
-A: `.agent/templates/` folder — PRD, BRD, SRS, FRD, Use Case, Data Dictionary, and more.
+## FAQ
+
+**Q: Không thấy agent trong autocomplete?**
+Kiểm tra `SKILL.md` có đúng đường dẫn `.agent/skills/<tên-agent>/SKILL.md` không.
+
+**Q: Dùng platform nào tốt nhất?**
+Technical BA → Antigravity IDE. BA truyền thống → Claude CoWork. DevOps BA → Claude Code.
+
+**Q: Templates ở đâu?**
+`.agent/templates/` — 14 files: BRD, SRS, FRD, PRD, User Story Spec, RTM, Use Case, v.v.
+
+**Q: Knowledge base có gì?**
+831 entries, 23 domains (writing, validation, elicitation, nfr, process, v.v.). Search bằng `ba_search.py`.
+
+**Q: Bắt đầu không biết gọi agent nào?**
+Luôn gọi `@ba-master` — nó sẽ dispatch đến đúng specialist.
 
 ---
 

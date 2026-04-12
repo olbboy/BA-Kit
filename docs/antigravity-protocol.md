@@ -1,8 +1,8 @@
 # Antigravity Native Protocol
 
-**Version:** 3.0.0 (Agent Skills Framework)
-**Date:** 2026-04-03
-**Status:** PRODUCTION READY (SKILLS MIGRATED)
+**Version:** 3.1.0 (Agent Skills Framework)
+**Date:** 2026-04-11
+**Status:** PRODUCTION READY (33 AGENTS ONLINE)
 
 ## 1. The Core Philosophy
 The **Antigravity Native Protocol (ANP)** enables "Direct Persona Injection".
@@ -21,7 +21,9 @@ We repurpose the `@` symbol to represent **Agent Context Switching**.
 | :--- | :--- | :--- |
 | **`@ba-identity`** | **Chief of Staff** | Persona Routing, Stakeholder Mapping. |
 | **`@ba-elicitation`**| **Journalist** | Funnel Questioning, "Colombo" Method. |
+| **`@ba-questioning`**| **Gap Analyst** | Structured Probing, Ambiguity Resolution. |
 | **`@ba-writing`** | **Architect** | **Vision (UI Scan)**, Gherkin Drafting. |
+| **`@ba-communication`**| **Communicator** | Stakeholder Reports, Status Updates, Messaging. |
 
 ### 🟡 Specialized Workflows (The Experts)
 | Command | Role | Native Capabilities |
@@ -34,6 +36,11 @@ We repurpose the `@` symbol to represent **Agent Context Switching**.
 | **`@ba-solution`** | **Investor** | **Python-Verified** ROI & NPV Math. |
 | **`@ba-conflict`** | **Mediator** | Harvard Negotiation, ADR Drafting. |
 | **`@ba-export`** | **Publisher** | Compliance Check, formatting. |
+| **`@ba-ux`** | **UX Researcher** | User Research, Persona Validation, Usability Heuristics. |
+| **`@ba-data`** | **Data Analyst** | Data Modeling, Schema Design, Analytics Requirements. |
+| **`@ba-change`** | **Change Manager** | Impact Assessment, Change Readiness, Transition Plans. |
+| **`@ba-business-rules`**| **Rules Engine** | Business Rule Extraction, Decision Tables, Constraint Mapping. |
+| **`@ba-diagram`** | **Visual Architect** | **Mermaid-Mandatory**: Flowcharts, BPMN, ERD, Sequence Diagrams. |
 
 ### 🟣 Advanced Workflows (CMMI Level 5 - Optimization)
 | Command | Role | Native Capabilities |
@@ -79,6 +86,7 @@ To prevent "LLM Hallucinations", specific agents MUST use specific tools.
 | **@ba-traceability**| Broken Links | `grep_search` |
 | **@ba-nfr** | Old Standards | `search_web` |
 | **@ba-innovation** | Bad P-Values | `run_command(python)` |
+| **@ba-diagram** | ASCII diagrams / hallucinated syntax | Mermaid v11 syntax only (no ASCII art) |
 
 ## 4. System 2 Thinking (Reflective Loop)
 Antigravity Agents are now self-correcting.
@@ -91,7 +99,7 @@ Antigravity Agents are now self-correcting.
 4.  **Output Mode**: Present the finalized, polished thinking.
 
 ## 5. Implementation Status
-**100% Active**. All 33 agents are online and natively supported.
+**100% Active**. All 33 agents are online and natively supported (v3.1.0).
 
 ## 6. Error Handling Protocol
 When an agent cannot complete its task:

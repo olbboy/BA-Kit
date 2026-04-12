@@ -1,305 +1,295 @@
-# 📖 BA-Kit Workflow Cookbook (10 Real-World Scenarios)
+# BA-Kit Workflow Cookbook
 
-**"How do I use these agents in a real fight?"**
+> 15 kịch bản thực tế — copy workflow chain, thay context là chạy được.
 
-This cookbook provides **10 Battle-Tested Workflows** ("Recipes") for common complex scenarios.
-Each recipe shows exactly which agents to summon (`@`) and in what order to achieve a specific outcome.
-
----
-
-## 🟢 SCENARIO 1: The "Startup Founder" (Zero to MVP)
-**Context**: A client has a "vague idea" for an app but no details.
-**Goal**: Turn a 1-sentence idea into a Dev-Ready Backlog.
-
-**The Chain:**
-1.  **`@ba-elicitation`**: "I have an idea for 'Uber for Dog Walkers'. Interview me to find the features."
-    *   *(Agent uses Funnel Questioning to define User Personas and Core Loop)*
-2.  **`@ba-writing`**: "Based on that interview, draft the MVP Feature List."
-3.  **`@ba-prioritization`**: "Apply MoSCoW mapping to these features. We only have budget for 3 months."
-    *   *(Agent cuts scope ruthlessly)*
-4.  **`@ba-writing`**: "Write Gherkin User Stories for the MUST HAVE features only."
+**Cách đọc:** Mỗi scenario có Chain (chuỗi agent), When to Use, Step-by-step, và Pro Tip.
 
 ---
 
-## 🟡 SCENARIO 2: The "Legacy Migration" (The Rewrite)
-**Context**: You are replacing an old Excel-based process with a Web App.
-**Goal**: Ensure no data logic is lost during the migration.
+## Scenario 1: Zero to BRD (Dự án mới từ đầu)
 
-**The Chain:**
-1.  **`@ba-process`**: "Analyze this description of the current Excel process. Draw the As-Is BPMN diagram."
-    *   *(Agent identifies bottlenecks)*
-2.  **`@ba-writing`**: "Extract the data entities and relationships from these Excel headers."
-3.  **`@ba-nfr`**: "We are moving from Local Excel to Cloud. Define the Security and Performance constraints."
-4.  **`@ba-traceability`**: "Map the old Excel Formulas to the new System Requirements. Ensure 100% coverage."
+**Chain:** `master → strategy → elicitation → writing → validation → quality-gate → export`
+**Thời gian:** 2-4 giờ
 
----
+**When to Use:** Client có ý tưởng mơ hồ, chưa có tài liệu nào. Cần đi từ 0 đến BRD bàn giao được.
 
-## 🔴 SCENARIO 3: The "Stakeholder War" (Conflict Resolution)
-**Context**: Sales wants "Feature A" (Fast entry). Compliance wants "Feature B" (Slow validation). They are blocking the project.
-**Goal**: Unblock the team.
+**Steps:**
+1. `@ba-master [mô tả dự án 1-2 câu]` — nhận workflow chain gợi ý và prioritized questions
+2. `@ba-strategy` — SWOT/PESTLE analysis, xác định strategic fit và constraints
+3. `@ba-elicitation` — Funnel interview để khai thác requirements thực sự
+4. `@ba-writing` — Viết BRD + User Stories từ output elicitation
+5. `@ba-validation` — INVEST check, ambiguity scan, health score
+6. `@ba-quality-gate` — 8-dimension scoring (target: PASS hoặc CONDITIONAL)
+7. `@ba-export` — Compile DOCX package bàn giao
 
-**The Chain:**
-1.  **`@ba-identity`**: "Map these two stakeholders (Sales VP vs Compliance Officer) on the Power/Interest Grid."
-2.  **`@ba-conflict`**: "They are fighting about the 'Customer Onboarding' flow. Sales wants it < 2 mins. Compliance wants 5 documents. Find a win-win."
-    *   *(Agent proposes "Automated Background Check" - Fast AND Secure)*
-3.  **`@ba-solution`**: "Calculate the ROI of buying an Automated KYC tool ($5/check) vs losing 20% of leads."
+**Pro Tip:** Dùng `@ba-master` ở bước 1 để không bỏ sót agent nào cần thiết cho domain cụ thể.
 
 ---
 
-## 🔵 SCENARIO 4: The "Agile Sprint Planning" (The Grunt Work)
-**Context**: Sprint starts in 2 days. The Product Owner just gave you a raw requirement dump.
-**Goal**: Groom the backlog and get Use Stories "Ready".
+## Scenario 2: Sprint Planning (Chuẩn bị sprint)
 
-**The Chain:**
-1.  **`@ba-writing`**: "Convert this raw text dump into User Stories with Acceptance Criteria."
-2.  **`@ba-validation`**: "Review these stories for INVEST criteria. Flag any ambiguous ones."
-    *   *(Agent finds 'User interface should be fast' and flags it)*
-3.  **`@ba-elicitation`**: "Generate 3 clarifying questions for the PO about the ambiguous stories."
+**Chain:** `writing → validation → elicitation → prioritization → jira`
+**Thời gian:** 1-2 giờ
 
----
+**When to Use:** Sprint bắt đầu trong 2 ngày. PO vừa dump raw requirements, cần groom backlog và đảm bảo stories "Ready".
 
-## 🟣 SCENARIO 5: The "Production Crisis" (Root Cause Analysis)
-**Context**: Users are reporting "Data disappears". The Dev team is blaming the Network team.
-**Goal**: Find the actual breakdown and prevent it.
+**Steps:**
+1. `@ba-writing [raw requirement dump]` — chuyển text thô thành User Stories có Gherkin AC
+2. `@ba-validation [stories]` — INVEST check, flag ambiguous stories
+3. `@ba-elicitation [ambiguous stories]` — sinh clarifying questions gửi PO
+4. `@ba-prioritization [refined stories]` — MoSCoW, cắt scope nếu cần
+5. `@ba-jira [validated stories]` — tạo tickets với fields đầy đủ, assign sprint
 
-**The Chain:**
-1.  **`@ba-root-cause`**: "Incident: Users claim data vanishes after clicking Save. Act as Lead Investigator. Use 5 Whys."
-    *   *(Agent drills down: Save -> Timeout -> No Retry Logic -> UI Design)*
-2.  **`@ba-process`**: "Draw the 'Unhappy Path' for a Network Timeout situation."
-3.  **`@ba-writing`**: "Write a Requirement for 'Offline Mode / Retry Logic' to fix this forever."
+**Pro Tip:** Health Score ≥ 80 là điều kiện cần trước khi chuyển bất kỳ story nào sang dev.
 
 ---
 
-## 🟢 SCENARIO 6: The "API Integration" (Technical Spec)
-**Context**: You need to integrate with a 3rd party Payment Gateway.
-**Goal**: Write a tech spec for developers.
+## Scenario 3: Screenshot to Jira (Từ mockup đến ticket)
 
-**The Chain:**
-1.  **`@ba-elicitation`**: "Analyze this Stripe API Documentation URL. Summary the key constraints."
-2.  **`@ba-process`**: "Draw the Sequence Diagram for a Successful Payment."
-3.  **`@ba-nfr`**: "Define the error handling and timeout SLAs for this integration."
-4.  **`@ba-writing`**: "Write the 'Payment Failed' User Story including specific Error Codes."
+**Chain:** `writing (visual scan) → validation → test-gen → jira`
+**Thời gian:** 30-60 phút
 
----
+**When to Use:** Designer gửi mockup/wireframe, cần tạo Jira tickets nhanh mà không mất thông tin.
 
-## 🟡 SCENARIO 7: The "Visual UX Design" (Screen First)
-**Context**: You have a screenshot/mockup of a UI. You need requirements.
-**Goal**: Generate specs from visual input.
+**Steps:**
+1. `@ba-writing @[image mockup]` — scan UI, extract Field Specs, validation rules, interaction states
+2. `@ba-validation [field specs]` — INVEST check, phát hiện gaps so với AC chuẩn
+3. `@ba-test-gen [validated specs]` — sinh test cases cover 7 categories
+4. `@ba-jira [specs + test cases]` — tạo tickets kèm test cases trong Description
 
-**The Chain:**
-1.  **`@ba-writing`**: "(Drag Image) Scan this UI. List every button, field, and interaction state."
-2.  **`@ba-validation`**: "Compare this UI list against our standard Accessibility (WCAG) NFRs. What is missing?"
-    *   *(Agent notes: 'Missing Alt Text', 'Contrast too low')*
-3.  **`@ba-writing`**: "Draft the 'View Profile' Use Case specification based on the corrected list."
+**Pro Tip:** Chụp cả error states và empty states trong mockup để `@ba-writing` không bỏ sót.
 
 ---
 
-## 🔴 SCENARIO 8: The "Compliance Audit" (The Paperwork)
-**Context**: The Auditors are coming. They need proof that "Requirement 1.2" was tested.
-**Goal**: Pass the audit.
+## Scenario 4: Stakeholder War (Xung đột giữa các bên)
 
-**The Chain:**
-1.  **`@ba-traceability`**: "Scan all my markdown files. Generate a Traceability Matrix (Requirement -> Test Case)."
-    *   *(Agent uses Grep to verify links)*
-2.  **`@ba-validation`**: "Identify any Requirement that DOES NOT have a linked Test Case."
-3.  **`@ba-export`**: "Export this Matrix to a formal DOCX using the 'Bank Template'."
+**Chain:** `identity → conflict → solution → facilitation`
+**Thời gian:** 1-2 giờ
 
----
+**When to Use:** Hai hoặc nhiều stakeholder có yêu cầu mâu thuẫn, đang block dự án.
 
-## 🔵 SCENARIO 9: The "Innovative Pivot" (The Lab)
-**Context**: Metrics show users are dropping off at the "Sign Up" page.
-**Goal**: Propose a fix and prove it works.
+**Steps:**
+1. `@ba-identity [stakeholder profiles]` — map Power/Interest grid, xác định influence level của từng bên
+2. `@ba-conflict [conflict description]` — phân tích root conflict, đề xuất win-win options
+3. `@ba-solution [win-win options]` — tính ROI/TCO của từng option để có data-driven argument
+4. `@ba-facilitation` — thiết kế conflict resolution workshop với agenda cụ thể
 
-**The Chain:**
-1.  **`@ba-metrics`**: "Analyze these drop-off numbers. Is this variation normal?"
-2.  **`@ba-innovation`**: "Propose 3 A/B tests to improve Sign-Up conversion. Suggest a Radical option."
-    *   *(Agent suggests 'Social Login' or 'Magic Link')*
-3.  **`@ba-solution`**: "Calculate the potential Revenue lift if conversion improves by 2%."
+**Pro Tip:** Đừng đi thẳng vào `@ba-conflict` mà không có Power/Interest map — biết ai có quyền quyết định cuối cùng là critical.
 
 ---
 
-## 🟣 SCENARIO 10: The "Vendor Selection" (RFP)
-**Context**: We need to buy a CRM. Salesforce vs HubSpot.
-**Goal**: Make a data-driven choice.
+## Scenario 5: Production Postmortem (Sự cố production)
 
-**The Chain:**
-1.  **`@ba-elicitation`**: "Draft 10 questions for the RFP (Request for Proposal) focusing on Security and Customization."
-2.  **`@ba-prioritization`**: "Here are the answers from Salesforce and HubSpot. Rank them based on our 'Must Have' criteria."
-3.  **`@ba-solution`**: "Compare the 3-year TCO (Total Cost of Ownership) of both options."
+**Chain:** `root-cause → validation → metrics → writing`
+**Thời gian:** 1-3 giờ
 
----
+**When to Use:** Defect nghiêm trọng được phát hiện ở production. Cần tìm root cause và ngăn tái phát.
 
-**Tip**: You can copy-paste these scenario prompts directly into the Antigravity chat!
+**Steps:**
+1. `@ba-root-cause [incident description]` — 5 Whys + Fishbone, xác định root cause thực sự
+2. `@ba-validation [original requirements]` — so sánh implementation với AC gốc, phát hiện gap
+3. `@ba-metrics [incident data]` — trend analysis, defect density, impact assessment
+4. `@ba-writing` — viết corrected requirements và updated AC ngăn incident tái phát
 
----
-
-## 🔌 SCENARIO 13: The "API Integration" (New in v2.8)
-**Context**: You need to integrate with a third-party API (payment, CRM, etc.).
-**Goal**: Write complete integration requirements with contract specs.
-
-**The Chain:**
-1.  **`@ba-elicitation`**: "What data do we need to exchange with [System]? Interview me about the integration requirements."
-2.  **`@ba-writing`**: "Write functional requirements for this API integration. Search: `python3 .agent/scripts/ba_search.py 'REST API contract OAuth' --domain integration`"
-3.  **`@ba-nfr`**: "Define SLA, rate limits, timeout, and error handling requirements for this integration."
-4.  **`@ba-validation`**: "Review the integration spec. Check for missing error codes, edge cases, and security gaps."
+**Pro Tip:** Yêu cầu `@ba-root-cause` phân loại root cause theo: Process gap, Communication gap, hay Technical gap — ba hướng fix khác nhau hoàn toàn.
 
 ---
 
-## 🛡️ SCENARIO 14: The "Compliance Audit Prep" (New in v2.8)
-**Context**: Regulators (GDPR/PCI-DSS/HIPAA) are auditing. Need to prove requirements cover compliance.
-**Goal**: Generate compliance-mapped requirements and traceability.
+## Scenario 6: Quality Audit (Kiểm tra toàn diện)
 
-**The Chain:**
-1.  **`@ba-nfr`**: "Search: `python3 .agent/scripts/ba_search.py 'GDPR data protection rights' --domain compliance`. Map our system requirements to GDPR obligations."
-2.  **`@ba-traceability`**: "Verify every compliance requirement has a linked test case and implementation."
-3.  **`@ba-validation`**: "Audit: Are there any compliance gaps? Any requirement without explicit regulatory mapping?"
-4.  **`@ba-export`**: "Package the compliance matrix for the auditors."
+**Chain:** `consistency → quality-gate → traceability → auditor`
+**Thời gian:** 2-3 giờ
 
----
+**When to Use:** Trước milestone quan trọng (go-live, stakeholder review, compliance deadline). Cần snapshot chất lượng toàn project.
 
-## 🎨 SCENARIO 15: The "UX-First Requirements" (New in v2.8)
-**Context**: Design team delivered wireframes. Need requirements from the user perspective.
-**Goal**: Generate persona-driven requirements from UX research.
+**Steps:**
+1. `@ba-consistency [artifacts list]` — cross-artifact check: US vs API Spec vs DB Schema
+2. `@ba-quality-gate [full artifact set]` — 8-dimension scoring, identify REJECT items
+3. `@ba-traceability` — RTM: BRD → US → AC → Test Case, highlight coverage gaps
+4. `@ba-auditor` — executive audit dashboard: Coverage Score, Risk Heatmap, open items
 
-**The Chain:**
-1.  **`@ba-elicitation`**: "Search: `python3 .agent/scripts/ba_search.py 'persona empathy map journey' --domain ux-research`. Build a Persona Canvas for our primary user."
-2.  **`@ba-writing`**: "Based on this persona, write User Stories for the [Feature] screen."
-3.  **`@ba-validation`**: "Review these stories against Nielsen's 10 Heuristics and WCAG AA."
-4.  **`@ba-prioritization`**: "Apply Kano Model to classify which stories are Must-Be vs Delighters."
+**Pro Tip:** Chạy scenario này ít nhất 1 lần trước sprint review để tránh bị surprise audit.
 
 ---
 
-## 📊 SCENARIO 16: The "Data Project" (New in v2.8)
-**Context**: Building a reporting dashboard or data pipeline. Need data requirements.
-**Goal**: Specify data requirements, ETL rules, and dashboard specs.
+## Scenario 7: Confluence Documentation (Publish docs)
 
-**The Chain:**
-1.  **`@ba-elicitation`**: "Interview the data analyst: What reports do they need? What KPIs? What drill-downs?"
-2.  **`@ba-writing`**: "Search: `python3 .agent/scripts/ba_search.py 'data dictionary ETL reporting' --domain data-analytics`. Write the Data Dictionary and ETL requirements."
-3.  **`@ba-nfr`**: "Define data quality rules: completeness, accuracy, timeliness thresholds."
-4.  **`@ba-validation`**: "Review: Is every data field traced to a business KPI? Any orphan fields?"
+**Chain:** `writing → diagram → export → confluence`
+**Thời gian:** 1-2 giờ
 
----
+**When to Use:** BRD/SRS đã validated, cần publish lên Confluence với đầy đủ diagrams cho team review.
 
-## 🧪 SCENARIO 17: The "Testing Handoff" (New in v2.8)
-**Context**: Requirements are approved. QA team needs test artifacts.
-**Goal**: Generate test cases and UAT plan from requirements.
+**Steps:**
+1. `@ba-writing` — finalize document với đầy đủ sections, không còn placeholder
+2. `@ba-diagram` — render BPMN flowchart, ERD, sequence diagrams dạng Mermaid
+3. `@ba-export` — formatting check, verify cross-references, đảm bảo Confluence-ready
+4. `@ba-confluence` — publish với page hierarchy đúng, labels, và embedded diagrams
 
-**The Chain:**
-1.  **`@ba-validation`**: "Search: `python3 .agent/scripts/ba_search.py 'acceptance criteria test case conversion' --domain testing`. Convert each User Story's acceptance criteria into test cases."
-2.  **`@ba-writing`**: "Write the UAT Plan: scope, participants, entry/exit criteria, test data requirements."
-3.  **`@ba-traceability`**: "Generate RTM: Requirement → Test Case → Expected Result. Flag any untested requirements."
-4.  **`@ba-export`**: "Package the Test Plan + RTM for QA sign-off."
+**Pro Tip:** Dùng `@ba-diagram` trước `@ba-confluence` — agent sẽ tạo Confluence macro syntax sẵn, chỉ cần paste.
 
 ---
 
-## 🔁 SCENARIO 11: The "Validation Rejection Loop" (Quality Gate)
-**Context**: `@ba-validation` has rejected a draft. The team needs to fix and re-submit.
-**Goal**: Iterate until the Health Score passes the quality gate (≥ 80).
+## Scenario 8: New Domain Discovery (Tìm hiểu domain mới)
 
-**The Chain:**
-1.  **`@ba-validation`**: "Review these User Stories." → Health Score: 45. Critical defects found.
-2.  **`@ba-writing`**: "Fix these 5 defects flagged by validation: [list from defect report]."
-3.  **`@ba-validation`**: "Re-review the fixed stories." → Health Score: 85. Passed.
-4.  **`@ba-export`**: "Package the validated stories for stakeholder review."
+**Chain:** `questioning → elicitation → ux → data → writing`
+**Thời gian:** 3-5 giờ
 
-**Key Rule**: Max 3 iterations. If still failing after 3, escalate to `@ba-master` for strategy reassessment.
+**When to Use:** Bắt đầu module mới trong domain chưa quen. Cần build understanding từ đầu trước khi viết requirement.
 
----
+**Steps:**
+1. `@ba-questioning [domain + stakeholder]` — chuẩn bị question set 3-tier cho domain exploration
+2. `@ba-elicitation` — funnel interview, khai thác mental model của domain expert
+3. `@ba-ux [user type description]` — tạo Persona + User Journey Map
+4. `@ba-data` — thiết kế ERD sơ bộ, xác định entities và relationships chính
+5. `@ba-writing` — viết User Stories từ insights đã thu thập
 
-## 🔄 SCENARIO 12: The "Strategic Pivot" (New in v2.7)
-**Context**: Market conditions changed. The project needs to re-evaluate its strategic direction.
-**Goal**: Reassess strategy and realign requirements.
-
-**The Chain:**
-1.  **`@ba-strategy`**: "Re-run PESTLE analysis with new market data: [context]."
-2.  **`@ba-systems`**: "Map the ripple effects of this strategic change on the system."
-3.  **`@ba-traceability`**: "Calculate blast radius — which requirements are affected?"
-4.  **`@ba-prioritization`**: "Re-prioritize the backlog given the new strategic direction."
-5.  **`@ba-facilitation`**: "Plan a stakeholder workshop to communicate the pivot."
+**Pro Tip:** `@ba-questioning` ở bước 1 giúp bạn không hỏi những câu "ngây thơ" với domain expert — tạo impression tốt hơn.
 
 ---
 
-## 🔗 SCENARIO 18: The "Jira Pipeline" (BA → PM) (New in v2.9)
-**Context**: You have validated User Stories and need them in Jira for sprint planning.
-**Goal**: Publish BA artifacts to Jira with zero data loss.
+## Scenario 9: Go-Live Readiness (Chuẩn bị triển khai)
 
-**The Chain:**
-1.  **`@ba-writing`**: "Write User Stories for the Login feature with Gherkin AC."
-2.  **`@ba-validation`**: "Review these stories. Ensure Health Score ≥ 80."
-3.  **`@ba-jira`**: "Create Jira tickets in project PROJ from these validated stories. Set priority based on MoSCoW."
-    *   *(Agent runs Transport Gate: duplicate check, field completeness, format validation)*
-4.  **`@ba-jira`**: "Assign these tickets to Sprint 5. Set story points based on estimates."
+**Chain:** `change → communication → facilitation → change`
+**Thời gian:** 2-4 giờ
 
----
+**When to Use:** System đã build xong, cần đảm bảo người dùng và tổ chức sẵn sàng adopt — không chỉ deploy xong là xong.
 
-## 📚 SCENARIO 19: The "Confluence Publisher" (Docs → Wiki) (New in v2.9)
-**Context**: BRD/SRS is ready. Team needs it on Confluence for stakeholder review.
-**Goal**: Publish polished docs to Confluence with proper formatting and hierarchy.
+**Steps:**
+1. `@ba-change [user groups + old system]` — ADKAR assessment, xác định barrier points theo từng nhóm
+2. `@ba-communication` — soạn change announcement tailored cho từng audience (end users, managers, IT)
+3. `@ba-facilitation` — thiết kế training workshop cho user adoption
+4. `@ba-change` — go-live checklist: readiness criteria, rollback plan, hypercare plan
 
-**The Chain:**
-1.  **`@ba-writing`**: "Draft the SRS for the Payment module."
-2.  **`@ba-validation`**: "Validate spec quality. Ensure no placeholder markers remain."
-3.  **`@ba-export`**: "Final formatting check. Verify all cross-references are valid."
-4.  **`@ba-confluence`**: "Publish to Confluence space PROJ under parent page 'Technical Specs'. Add labels: srs, payment, v2.0."
-    *   *(Agent runs Publishing Gate: duplicate page check, XHTML validation, version conflict check)*
+**Pro Tip:** ADKAR barrier thường nằm ở "Ability" (thiếu training) hoặc "Reinforcement" (không có incentive) — đừng assume là Awareness.
 
 ---
 
-## 🌐 SCENARIO 20: The "Multi-Tool Pipeline" (New in v2.9)
-**Context**: Design team has Figma mockups. Need to turn them into validated specs, Jira tickets, and Confluence docs.
-**Goal**: Full design-to-delivery pipeline using multiple tools.
+## Scenario 10: Data-Driven Feature (Tính năng phụ thuộc dữ liệu)
 
-**The Chain:**
-1.  **[Figma/v0]**: Design the Payment screen UI.
-2.  **`@ba-writing`**: "(Upload screenshot) Scan this UI. Extract Field Specs, buttons, validation rules."
-3.  **`@ba-nfr`**: "Define WCAG accessibility and performance constraints for the extracted elements."
-4.  **`@ba-validation`**: "Review specs against INVEST criteria. Health Score target: 85+."
-5.  **`@ba-jira`**: "Create Jira tickets from validated specs in project PROJ."
-6.  **`@ba-confluence`**: "Publish the full spec document to Confluence."
-7.  **[Cursor/Lovable]**: Implement from validated specs + Jira tickets.
-8.  **`@ba-validation`**: "Review generated code against original specs. Flag deviations."
+**Chain:** `data → business-rules → writing → test-gen`
+**Thời gian:** 2-3 giờ
 
----
+**When to Use:** Feature liên quan đến data transformation, reporting, hoặc business logic phức tạp (pricing engine, eligibility check, v.v.).
 
-## 🖼️ SCENARIO 21: The "Stitch MCP UI Pipeline" (New in v2.9.2)
-**Context**: You have validated specs and need UI screens generated directly from BA-Kit.
-**Goal**: Spec → Generated UI Screen → Validated output, all within Antigravity.
+**Steps:**
+1. `@ba-data [module description]` — thiết kế ERD + Data Dictionary, xác định data flows
+2. `@ba-business-rules [business logic description]` — Decision Table, kiểm tra completeness và conflicts
+3. `@ba-writing [data + business rules]` — viết User Stories với data acceptance criteria cụ thể
+4. `@ba-test-gen` — sinh test cases cover data validation, boundary values, và business rule exceptions
 
-**The Chain:**
-1.  **`@ba-writing`**: "Write Field Specs for the Login screen — all fields, buttons, validation rules, error states."
-2.  **Stitch MCP** → `create_project(title: "Login Feature")`
-3.  **Stitch MCP** → `generate_screen_from_text(prompt: "<paste specs here>", deviceType: "MOBILE")`
-4.  **Stitch MCP** → `get_screen()` to review the generated screen.
-5.  **`@ba-validation`**: "Compare generated screen with Field Specs. Flag missing elements."
-6.  **Stitch MCP** → `edit_screens(prompt: "<fix items from validation>")` if needed.
-
-**Key Rule**: Specs come FIRST. Do not generate screens without validated requirements.
+**Pro Tip:** Decision Table từ `@ba-business-rules` thường expose contradiction mà stakeholder không biết đang tồn tại.
 
 ---
 
-## 🎨 SCENARIO 22: The "Design System Alignment" (New in v2.9.2)
-**Context**: Multiple screens need brand consistency across the product.
-**Goal**: Create a design system and apply it to all screens.
+## Scenario 11: UX-Driven Feature (Thiết kế UX trước)
 
-**The Chain:**
-1.  **Stitch MCP** → `create_design_system(designSystem: { seedColor: "#1A73E8", fontFamily: "Inter", cornerRadius: "ROUNDED" })`
-2.  **Stitch MCP** → `generate_screen_from_text()` for each screen (Dashboard, Settings, Profile).
-3.  **Stitch MCP** → `apply_design_system()` to all generated screens.
-4.  **`@ba-validation`**: "Review cross-screen consistency — fonts, colors, spacing, component patterns."
+**Chain:** `ux → questioning → writing → validation → diagram`
+**Thời gian:** 2-3 giờ
+
+**When to Use:** Feature mới quan trọng về trải nghiệm người dùng, cần hiểu user trước khi viết bất kỳ requirement nào.
+
+**Steps:**
+1. `@ba-ux [user type]` — tạo Persona đầy đủ và User Journey Map
+2. `@ba-questioning [journey pain points]` — chuẩn bị câu hỏi để validate assumptions với real users
+3. `@ba-writing [persona + journey insights]` — viết User Stories từ góc nhìn user, không phải system
+4. `@ba-validation` — INVEST check, ambiguity scan
+5. `@ba-diagram` — vẽ sequence diagram cho key user flows
+
+**Pro Tip:** Dùng `@ba-ux` để tạo "Job-to-be-done" statements trước — giúp `@ba-writing` viết stories đúng problem space.
 
 ---
 
-## 📋 SCENARIO 23: The "PRD-Driven Development" (New in v2.9.2)
-**Context**: Product team needs a validated PRD before engineering starts.
-**Goal**: Full PRD → Validated → Tickets + Wireframes.
+## Scenario 12: Agile Kickoff (Bắt đầu Agile project)
 
-**The Chain:**
-1.  **`@ba-elicitation`**: "Interview me about [feature]. Focus on: user goals, constraints, success metrics."
-2.  **`@ba-writing`**: "Draft PRD using `.agent/templates/prd-template.md`. Fill all 12 sections."
-3.  **`@ba-prioritization`**: "Apply MoSCoW to the feature list in Section 6."
-4.  **`@ba-nfr`**: "Define NFR for Section 8 (Performance, Security, Accessibility)."
-5.  **`@ba-validation`**: "Validate full PRD. Health Score target: 85+."
-6.  **Stitch MCP** → Generate UI screens for key flows (Section 7).
-7.  **`@ba-jira`**: "Create Jira Epic + Stories from PRD Section 6 features."
-8.  **`@ba-confluence`**: "Publish PRD to Confluence for stakeholder review."
+**Chain:** `agile → facilitation → writing → prioritization`
+**Thời gian:** 3-5 giờ
+
+**When to Use:** Project mới chuyển sang Agile hoặc bắt đầu Agile từ đầu. Cần setup backlog, ceremonies, và definition of ready/done.
+
+**Steps:**
+1. `@ba-agile` — tạo User Story Map, xác định MVP và release slicing
+2. `@ba-facilitation` — thiết kế kickoff workshop agenda: team agreements, DoR/DoD, working agreements
+3. `@ba-writing [story map]` — viết User Stories đầy đủ cho Sprint 1-2
+4. `@ba-prioritization [full backlog]` — MoSCoW ranking, capacity planning cho sprint đầu
+
+**Pro Tip:** `@ba-agile` giỏi tạo Walking Skeleton — dùng đó để team align về architecture trước khi estimate.
+
+---
+
+## Scenario 13: Compliance Audit (Kiểm tra tuân thủ)
+
+**Chain:** `nfr → validation → traceability → export`
+**Thời gian:** 2-4 giờ
+
+**When to Use:** Auditor đến kiểm tra. Cần chứng minh requirements cover compliance và có test evidence.
+
+**Steps:**
+1. `@ba-nfr [regulation: GDPR/PCI-DSS/ISO 27001]` — map system requirements vào compliance obligations
+2. `@ba-validation` — audit mọi requirement: có compliance mapping không? có test case không?
+3. `@ba-traceability` — RTM từ regulation → requirement → test case → evidence, highlight gaps
+4. `@ba-export` — package compliance matrix dạng DOCX theo format auditor yêu cầu
+
+**Pro Tip:** `@ba-traceability` có thể scan file system để auto-generate RTM — chỉ cần cung cấp đúng file paths.
+
+---
+
+## Scenario 14: Meeting Prep → Action Items (Từ họp đến hành động)
+
+**Chain:** `questioning → facilitation → communication → jira`
+**Thời gian:** 30-90 phút
+
+**When to Use:** Chuẩn bị cho cuộc họp quan trọng, và sau đó chuyển output thành action items có track được.
+
+**Steps:**
+1. `@ba-questioning [meeting objective + attendees]` — chuẩn bị agenda, question set, desired outcomes
+2. `@ba-facilitation` — thiết kế meeting structure để đảm bảo đạt mục tiêu trong thời gian
+3. `@ba-communication [meeting notes thô]` — soạn minutes chuẩn: decisions, action items, owners, deadlines
+4. `@ba-jira [action items]` — tạo Jira tasks từ action items, assign owner, set due dates
+
+**Pro Tip:** Gửi agenda (output bước 1-2) trước meeting ít nhất 24h — tăng meeting effectiveness rõ rệt.
+
+---
+
+## Scenario 15: Full Pipeline (End-to-end)
+
+**Chain:** `strategy → elicitation → writing → validation → test-gen → jira + confluence`
+**Thời gian:** 1-2 ngày
+
+**When to Use:** Feature lớn hoặc project phức tạp cần đi qua toàn bộ BA lifecycle trước khi dev bắt đầu.
+
+**Steps:**
+1. `@ba-strategy` — SWOT/PESTLE, xác định strategic alignment và success metrics
+2. `@ba-elicitation` — funnel interview, khai thác requirements từ tất cả stakeholders
+3. `@ba-writing` — BRD + SRS + User Stories với Gherkin AC
+4. `@ba-validation + @ba-consistency` — quality check toàn diện (parallel)
+5. `@ba-test-gen` — 7-category test suite cho mọi stories
+6. `@ba-jira` — tạo Epic + Stories trong Jira với test cases
+7. `@ba-confluence` — publish BRD/SRS lên Confluence với diagrams
+
+**Pro Tip:** Bước 4 chạy `@ba-validation` và `@ba-consistency` song song để tiết kiệm thời gian — output không phụ thuộc nhau.
+
+---
+
+## Quick Reference
+
+| Scenario | Chain Length | Time | Trigger |
+|---|---|---|---|
+| 1. Zero to BRD | 7 agents | 2-4h | Dự án mới, không có tài liệu |
+| 2. Sprint Planning | 5 agents | 1-2h | Sprint bắt đầu trong 2 ngày |
+| 3. Screenshot to Jira | 4 agents | 30-60m | Designer gửi mockup |
+| 4. Stakeholder War | 4 agents | 1-2h | Conflict block dự án |
+| 5. Production Postmortem | 4 agents | 1-3h | Defect production nghiêm trọng |
+| 6. Quality Audit | 4 agents | 2-3h | Trước milestone/go-live |
+| 7. Confluence Docs | 4 agents | 1-2h | Cần publish docs |
+| 8. New Domain | 5 agents | 3-5h | Domain chưa quen |
+| 9. Go-Live Readiness | 4 agents | 2-4h | Chuẩn bị deploy |
+| 10. Data Feature | 4 agents | 2-3h | Business logic/data phức tạp |
+| 11. UX Feature | 5 agents | 2-3h | Feature quan trọng về UX |
+| 12. Agile Kickoff | 4 agents | 3-5h | Bắt đầu Agile project |
+| 13. Compliance Audit | 4 agents | 2-4h | Auditor kiểm tra |
+| 14. Meeting → Action | 4 agents | 30-90m | Họp quan trọng cần track |
+| 15. Full Pipeline | 7 agents | 1-2 ngày | Feature/project lớn |
+
+---
+
+> **Tip:** Bắt đầu với `@ba-master [mô tả situation]` nếu không chắc scenario nào phù hợp — agent sẽ recommend đúng chain.
