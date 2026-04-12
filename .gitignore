@@ -1,4 +1,9 @@
-# BA-Kit - System files
+# BA-Kit .gitignore
+# Last updated: 2026-04-12
+
+# ============================================
+# System / OS files
+# ============================================
 .DS_Store
 .DS_Store?
 ._*
@@ -7,7 +12,9 @@
 ehthumbs.db
 Thumbs.db
 
+# ============================================
 # IDE / Editor
+# ============================================
 .vscode/
 .idea/
 *.swp
@@ -16,31 +23,47 @@ Thumbs.db
 .project
 .settings/
 
-# Logs
+# ============================================
+# Python artifacts
+# ============================================
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+*.egg
+
+# ============================================
+# Logs & Temporary files
+# ============================================
 *.log
 logs/
-
-# Temporary files
 *.tmp
 *.temp
 .cache/
-
-# OS generated files
 *.bak
 *.backup
 
-# Package managers (if any future tooling is added)
+# ============================================
+# Package managers (if future tooling added)
+# ============================================
 node_modules/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
+# ============================================
 # Build outputs
+# ============================================
 dist/
 build/
 out/
 
-# Environment files (credentials - NEVER commit these)
+# ============================================
+# Environment files (NEVER commit secrets)
+# ============================================
 .env
 **/.env
 .env.local
@@ -48,16 +71,32 @@ out/
 !.env.example
 !**/.env.example
 
+# ============================================
+# Claude Code session state (local per-machine)
+# ============================================
+.claude/session-state/
+.claude/agent-memory/
+
+# ============================================
+# Plans & Reports (local working files)
+# ============================================
+plans/
+
+# ============================================
 # Local development artifacts
+# ============================================
 *.local.md
 drafts/
 scratch/
 
-plans/
+# ============================================
+# Generated diagram outputs (re-generate via CLI)
+# ============================================
+*.mmd.svg
+*.mmd.png
+*.mmd.pdf
 
-# User templates (ignore subfolders, keep root files)
-templates/*/
-
-plans
-# Archived legacy content
+# ============================================
+# Legacy / Archived content
+# ============================================
 legacy/
