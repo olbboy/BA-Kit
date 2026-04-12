@@ -47,6 +47,22 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    MGR[👨‍💼 Approver]
+    HR[👩‍💼 HR Admin]
+    SYS[⚙️ System]
+
+    MGR --> UC1[Inbox phê duyệt]
+    MGR --> UC3[Phê duyệt hàng loạt]
+    HR --> UC2[Cấu hình chuỗi phê duyệt]
+    SYS --> UC4[Auto-escalation]
+    SYS --> UC5[Notification trigger]
+```
+
+
 ```
 NV gửi đơn → Hệ thống tạo Approval workflow
         ↓

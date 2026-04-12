@@ -44,6 +44,22 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    HR[👩‍💼 HR Admin]
+    SYS[⚙️ System]
+
+    HR --> UC1[Cấu hình kênh thông báo]
+    HR --> UC2[Cấu hình sự kiện kích hoạt]
+    HR --> UC3[Quản lý Policy thông báo]
+    HR --> UC4[Quản lý Template Email]
+    SYS --> UC5[Dispatch thông báo]
+    SYS --> UC6[Retry & Dead-letter Queue]
+```
+
+
 ```
 Admin truy cập "Cấu hình thông báo"
         ↓

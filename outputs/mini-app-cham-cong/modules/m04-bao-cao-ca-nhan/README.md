@@ -41,6 +41,20 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    NV[👤 Nhân viên]
+    SYS[⚙️ System]
+
+    NV --> UC1[Dashboard hiệu suất cá nhân]
+    NV --> UC2[Bảng KPI & Highlights]
+    SYS --> UC3[Tính toán metrics]
+    SYS --> UC4[Aggregate tháng/tuần]
+```
+
+
 ```
 NV mở mục "Báo cáo cá nhân" trên Mini App
         ↓

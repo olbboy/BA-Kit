@@ -46,6 +46,24 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    IT[🔧 IT Admin]
+    HR[👩‍💼 HR Admin]
+    SYS[⚙️ System]
+
+    IT --> UC1[Quản lý chi nhánh]
+    IT --> UC2[Audit Log Viewer]
+    IT --> UC6[Cấu hình Data Retention]
+    HR --> UC3[Employee Offboarding]
+    HR --> UC5[Employee Onboarding]
+    HR --> UC4[Chốt công tháng]
+    SYS --> UC7[Cleanup & Archival]
+```
+
+
 ```
 System Admin / GLOBAL_HR
 ├── Quản lý chi nhánh (CRUD site)

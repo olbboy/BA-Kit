@@ -48,6 +48,23 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    IT[🔧 IT Admin]
+    HR[👩‍💼 HR Admin]
+    SYS[⚙️ System]
+
+    IT --> UC1[Quản lý danh sách Camera]
+    IT --> UC2[Health Check & Monitoring]
+    HR --> UC3[Mapping Camera ↔ NV]
+    HR --> UC4[Đăng ký khuôn mặt NV]
+    SYS --> UC5[Webhook → Attendance Record]
+    SYS --> UC6[Face Enrollment Wizard]
+```
+
+
 ```
 IT Admin truy cập "Cấu hình Camera AI"
         ↓

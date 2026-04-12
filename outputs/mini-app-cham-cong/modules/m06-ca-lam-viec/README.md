@@ -43,6 +43,25 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    HR[👩‍💼 HR Admin]
+    MGR[👨‍💼 Manager]
+    SYS[⚙️ System]
+
+    HR --> UC1[CRUD Ca làm việc]
+    HR --> UC2[Cấu hình giờ & ngày]
+    HR --> UC3[Cấu hình Punch Limit]
+    HR --> UC4[Cấu hình giờ nghỉ]
+    HR --> UC5[Import NV vào ca]
+    HR --> UC6[Phân ca theo Pattern]
+    MGR --> UC7[Xem lịch phân ca team]
+    SYS --> UC8[Validate overlap]
+```
+
+
 ```
 HR truy cập "Cấu hình ca làm việc"
         ↓

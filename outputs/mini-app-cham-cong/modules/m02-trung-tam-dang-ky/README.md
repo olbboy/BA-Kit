@@ -48,6 +48,26 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    NV[👤 Nhân viên]
+    MGR[👨‍💼 Manager]
+    HR[👩‍💼 HR Admin]
+    SYS[⚙️ System]
+
+    NV --> UC1[Đăng ký Nghỉ phép]
+    NV --> UC2[Đăng ký Đổi ca]
+    NV --> UC3[Đăng ký Tăng ca]
+    NV --> UC4[Theo dõi đơn từ & Hạn mức]
+    NV --> UC5[Đăng ký Công tác/WFH]
+    HR --> UC6[Cấu hình Chính sách phép]
+    MGR --> UC4
+    SYS --> UC7[Validate Hạn mức & Policy]
+```
+
+
 ```
 NV mở Trung tâm đăng ký trên Mini App
         ↓

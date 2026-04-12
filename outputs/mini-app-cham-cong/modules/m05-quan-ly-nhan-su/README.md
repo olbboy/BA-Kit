@@ -62,6 +62,58 @@ Organization (Tenant)
 
 ---
 
+### **5. PROCESS FLOW**
+
+```mermaid
+graph TD
+    A[HR Admin đăng nhập] --> B{Chọn chức năng}
+    B --> C[Xem CCTC Tree]
+    B --> D[CRUD Phòng ban]
+    B --> E[Danh sách NV]
+    B --> F[Bulk Import]
+    B --> G[Dashboard hiện diện]
+    C --> C1[Expand/Collapse nhánh]
+    C --> C2[Kéo thả điều chuyển NV]
+    C2 --> C3{Validate DAG}
+    C3 -->|OK| C4[Lưu thay đổi]
+    C3 -->|Cycle| C5[Báo lỗi vòng lặp]
+    D --> D1[Thêm/Sửa phòng ban]
+    D --> D2{Xóa phòng ban?}
+    D2 -->|Còn NV| D3[Chặn xóa]
+    D2 -->|Trống| D4[Xóa OK]
+    E --> E1[Tìm kiếm NV]
+    E --> E2[Xem chi tiết / Sửa]
+    F --> F1[Upload Excel .xlsx]
+    F1 --> F2{Validate dữ liệu}
+    F2 -->|Pass| F3[Import thành công]
+    F2 -->|Fail| F4[Trả file lỗi + ghi chú]
+    G --> G1[Real-time counters]
+    G1 --> G2[On-site / WFH / Vắng / Nghỉ / Công tác]
+```
+
+### **6. USE CASE DIAGRAM**
+
+```mermaid
+graph LR
+    HR[👩‍💼 HR Admin]
+    MGR[👨‍💼 Manager]
+    SYS[⚙️ System]
+
+    HR --> UC1[Xem CCTC Tree]
+    HR --> UC2[CRUD Phòng ban]
+    HR --> UC3[Quản lý NV]
+    HR --> UC4[Bulk Import Excel]
+    HR --> UC5[Quản lý Cấp bậc]
+    MGR --> UC6[Dashboard hiện diện]
+    MGR --> UC1
+    SYS --> UC7[Validate DAG]
+    SYS --> UC8[Real-time Sync]
+    UC4 -.-> UC7
+    UC6 -.-> UC8
+```
+
+---
+
 ### **EDGE CASES & ERROR HANDLING (toàn module)**
 
 | # | US | Case | Severity | Expected Behavior |

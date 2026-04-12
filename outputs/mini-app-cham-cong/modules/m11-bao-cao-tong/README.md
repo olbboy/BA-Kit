@@ -46,6 +46,23 @@ graph TD
 ```
 
 
+### USE CASE DIAGRAM
+
+```mermaid
+graph LR
+    MGR[👨‍💼 Manager]
+    HR[👩‍💼 HR Admin]
+    SYS[⚙️ System]
+
+    MGR --> UC1[Dashboard quản lý]
+    HR --> UC2[Xuất báo cáo & Payroll]
+    HR --> UC3[Báo cáo tuân thủ]
+    HR --> UC4[Khóa kỳ lương]
+    SYS --> UC5[Schedule export]
+    SYS --> UC6[Data aggregation]
+```
+
+
 ```
 HR/Manager truy cập "Báo cáo tổng"
         ↓

@@ -234,3 +234,59 @@
 | TC-ID | Precondition | Steps | Input | Expected Result | Priority |
 |-------|-------------|-------|-------|-----------------|----------|
 | TC-A05-DI-01 | Manual entry approved → daily summary | 1. Approve 2. Check summary | — | daily_attendance_summaries updated. source="MANUAL" in record. | P2-High |
+
+---
+
+## Boundary Value Analysis (BVA)
+
+### gracePeriodMinutes (US-ATTEN-01)
+
+| Boundary | Value | Input | Expected |
+|----------|-------|-------|----------|
+| Min | 0 | grace=0, checkIn 08:01 | Trễ 1 phút |
+| Below threshold | 14 | grace=15, checkIn 08:14 | Đúng giờ |
+| At threshold | 15 | grace=15, checkIn 08:15 | Đúng giờ (inclusive) |
+| Above threshold | 16 | grace=15, checkIn 08:16 | Trễ 1 phút |
+| Max | 60 | grace=60, checkIn 08:59 | Đúng giờ |
+| Invalid | -1 | grace=-1 | 400 Validation Error |
+
+### confidenceThreshold (US-ATTEN-01, Camera AI)
+
+| Boundary | Value | Input | Expected |
+|----------|-------|-------|----------|
+| Min valid | 0.00 | conf=0.00 | Reject (below 0.85 threshold) |
+| Below threshold | 0.84 | conf=0.84 | Reject — cần HR review |
+| At threshold | 0.85 | conf=0.85 | Accepted (boundary inclusive) |
+| Above threshold | 0.86 | conf=0.86 | Accepted |
+| High | 0.99 | conf=0.99 | Accepted |
+| Max | 1.00 | conf=1.00 | Accepted |
+
+### webhookDelaySLA (US-ATTEN-01)
+
+| Boundary | Value | Input | Expected |
+|----------|-------|-------|----------|
+| Instant | 0s | delay=0s | Processed immediately |
+| Normal | 30s | delay=30s | Processed OK |
+| At SLA | 60s | delay=60s | Processed (at limit) |
+| Over SLA | 61s | delay=61s | Mini-banner "Đang đồng bộ..." |
+| Timeout | 300s | delay=300s | Auto-retry exhausted. Alert HR. |
+
+### fileSize (US-ATTEN-05, Evidence upload)
+
+| Boundary | Value | Input | Expected |
+|----------|-------|-------|----------|
+| Empty | 0 KB | file=0KB | 400: "File trống" |
+| Min valid | 1 KB | file=1KB | Upload OK |
+| Normal | 2 MB | file=2MB | Upload OK |
+| At limit | 5 MB | file=5MB | Upload OK (at boundary) |
+| Over limit | 5.1 MB | file=5.1MB | 400: "File quá lớn. Tối đa 5MB." |
+
+### deduplicationWindow (US-ATTEN-01, Webhook)
+
+| Boundary | Value | Input | Expected |
+|----------|-------|-------|----------|
+| Same second | 0s | gap=0s | De-dup: keep first |
+| Within window | 29s | gap=29s | De-dup: keep first |
+| At boundary | 30s | gap=30s | De-dup: keep first (inclusive) |
+| Outside window | 31s | gap=31s | Both records kept |
+
