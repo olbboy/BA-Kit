@@ -54,3 +54,30 @@
 | TC-N04-SEC-01 | NOTIF-04 | Security | HTML injection `<script>` | Sanitize: strip `<script>`, `<iframe>`, `onclick`. Chỉ safe HTML tags. | P1 |
 | TC-N04-SEC-02 | NOTIF-04 | Security | NV truy cập template editor | 403: Chỉ HR_ADMIN. | P1 |
 | TC-N04-DI-01 | NOTIF-04 | Data | Template version history ≤ 10 | Max 10 versions. Version 11 → purge oldest. Audit log. | P2 |
+
+---
+
+## Boundary Value Analysis (BVA)
+
+
+### Số lần retry gửi thông báo (`retryCount`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-RETRYC-01 | 0 lần | MIN | ✅ Accept (minimum) |
+| BVA-RETRYC-03 | 2 lần | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-RETRYC-04 | 3 lần | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-RETRYC-05 | 4 lần | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-RETRYC-06 | 5 lần | MAX | ✅ Accept (maximum) |
+| BVA-RETRYC-07 | 6 lần | ABOVE_MAX | ❌ Reject: vượt giới hạn |
+
+### Số biến trong template (`templateVarCount`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-TEMPLA-01 | 0 biến | MIN | ✅ Accept (minimum) |
+| BVA-TEMPLA-03 | 9 biến | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-TEMPLA-04 | 10 biến | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-TEMPLA-05 | 11 biến | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-TEMPLA-06 | 20 biến | MAX | ✅ Accept (maximum) |
+| BVA-TEMPLA-07 | 21 biến | ABOVE_MAX | ❌ Reject: vượt giới hạn |

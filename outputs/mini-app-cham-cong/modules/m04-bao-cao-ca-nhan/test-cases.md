@@ -33,3 +33,31 @@
 | TC-RP02-SEC-01 | RPTPRS-02 | Security | NV xem KPI NV khác | 403. ABAC. | P1 |
 | TC-RP02-DI-01 | RPTPRS-02 | Data | KPI khớp attendance data | Cross-verify score với daily_attendance_summaries. | P1 |
 | TC-RP02-PERF-01 | RPTPRS-02 | Perf | Load KPI Q1 (90 ngày) | ≤ 3 giây. | P2 |
+
+---
+
+## Boundary Value Analysis (BVA)
+
+
+### Điểm chuyên cần (`attendanceScore`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-ATTEND-01 | 0 % | MIN | ✅ Accept (minimum) |
+| BVA-ATTEND-03 | 79 % | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-ATTEND-04 | 80 % | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-ATTEND-05 | 81 % | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-ATTEND-06 | 100 % | MAX | ✅ Accept (maximum) |
+| BVA-ATTEND-07 | 101 % | ABOVE_MAX | ❌ Reject: vượt giới hạn |
+
+### Số tuần hiện trend (`trendWeeks`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-TRENDW-01 | 1 tuần | MIN | ✅ Accept (minimum) |
+| BVA-TRENDW-02 | 0 tuần | BELOW_MIN | ❌ Reject: dưới giới hạn |
+| BVA-TRENDW-03 | 3 tuần | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-TRENDW-04 | 4 tuần | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-TRENDW-05 | 5 tuần | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-TRENDW-06 | 12 tuần | MAX | ✅ Accept (maximum) |
+| BVA-TRENDW-07 | 13 tuần | ABOVE_MAX | ❌ Reject: vượt giới hạn |

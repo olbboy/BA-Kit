@@ -54,3 +54,19 @@
 | TC-H04-SEC-01 | HOL-04 | Security | Cross-tenant xem holidays | 403: Chỉ holidays thuộc tenant. National shared. | P1 |
 | TC-H04-DI-01 | HOL-04 | Data | API response khớp DB | JSON fields match holidays table columns. | P2 |
 | TC-H04-PERF-01 | HOL-04 | Perf | Load calendar + 50 holidays | ≤ 1 giây. Cached. | P2 |
+
+---
+
+## Boundary Value Analysis (BVA)
+
+
+### Số ngày lễ/năm (`holidayCount`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-HOLIDA-01 | 0 ngày | MIN | ✅ Accept (minimum) |
+| BVA-HOLIDA-03 | 10 ngày | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-HOLIDA-04 | 11 ngày | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-HOLIDA-05 | 12 ngày | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-HOLIDA-06 | 30 ngày | MAX | ✅ Accept (maximum) |
+| BVA-HOLIDA-07 | 31 ngày | ABOVE_MAX | ❌ Reject: vượt giới hạn |

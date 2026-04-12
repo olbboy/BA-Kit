@@ -108,3 +108,59 @@
 | TC-R06-ER-02 | Error | Công tác thiếu địa điểm | POST trip no location | 400: VALIDATION_ERROR. "Địa điểm công tác là bắt buộc." | P2 |
 | TC-R06-SEC-01 | Security | NV đăng ký WFH cho NV khác | POST empId=other | 403 Forbidden. | P1 |
 | TC-R06-DI-01 | Data | WFH approved → dashboard presence | After approve | EMP-05 dashboard hiện "WFH" thay vì "Vắng mặt". | P2 |
+
+---
+
+## Boundary Value Analysis (BVA)
+
+
+### Số ngày phép năm (`leaveDays`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-LEAVED-01 | 0.5 ngày | MIN | ✅ Accept (minimum) |
+| BVA-LEAVED-02 | 0.0 ngày | BELOW_MIN | ❌ Reject: dưới giới hạn |
+| BVA-LEAVED-03 | 11 ngày | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-LEAVED-04 | 12 ngày | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-LEAVED-05 | 13 ngày | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-LEAVED-06 | 30 ngày | MAX | ✅ Accept (maximum) |
+| BVA-LEAVED-07 | 31 ngày | ABOVE_MAX | ❌ Reject: vượt giới hạn |
+
+### Kích thước file đính kèm (`fileSize`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-FILESI-01 | 0 MB | MIN | ✅ Accept (minimum) |
+| BVA-FILESI-03 | 4 MB | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-FILESI-04 | 5 MB | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-FILESI-05 | 6 MB | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-FILESI-06 | 5 MB | MAX | ✅ Accept (maximum) |
+| BVA-FILESI-07 | 6 MB | ABOVE_MAX | ❌ Reject: vượt giới hạn |
+
+### Thời hạn báo trước (`advanceNoticeDays`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-ADVANC-01 | 0 ngày | MIN | ✅ Accept (minimum) |
+| BVA-ADVANC-03 | 2 ngày | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-ADVANC-04 | 3 ngày | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-ADVANC-05 | 4 ngày | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-ADVANC-06 | 30 ngày | MAX | ✅ Accept (maximum) |
+| BVA-ADVANC-07 | 31 ngày | ABOVE_MAX | ❌ Reject: vượt giới hạn |
+
+---
+
+## State Transition Testing — Leave Request Lifecycle
+
+**States:** `DRAFT` → `PENDING` → `APPROVED` → `REJECTED` → `CANCELLED`
+
+| TC-STATE | From | To | Trigger | Validity | Expected |
+|----------|------|----|---------|----------|----------|
+| TC-STATE-01 | `DRAFT` | `PENDING` | NV submit đơn | **Valid** | ✅ Transition OK |
+| TC-STATE-02 | `PENDING` | `APPROVED` | Manager approve | **Valid** | ✅ Transition OK |
+| TC-STATE-03 | `PENDING` | `REJECTED` | Manager reject + lý do | **Valid** | ✅ Transition OK |
+| TC-STATE-04 | `PENDING` | `CANCELLED` | NV hủy đơn | **Valid** | ✅ Transition OK |
+| TC-STATE-05 | `APPROVED` | `CANCELLED` | NV hủy sau duyệt (đk: chưa đến ngày nghỉ) | **Valid** | ✅ Transition OK |
+| TC-STATE-06 | `REJECTED` | `PENDING` | NV sửa và gửi lại | **Valid** | ✅ Transition OK |
+| TC-STATE-07 | `APPROVED` | `DRAFT` | Direct revert | **INVALID** | ❌ 400/403 — Transition không hợp lệ |
+| TC-STATE-08 | `CANCELLED` | `APPROVED` | Tự approve đơn đã hủy | **INVALID** | ❌ 400/403 — Transition không hợp lệ |

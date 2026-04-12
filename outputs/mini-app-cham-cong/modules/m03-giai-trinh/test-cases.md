@@ -38,3 +38,31 @@
 | TC-EX02-SEC-02 | EXPL-02 | Security | NV tự approve correction | 403: SELF_APPROVE_FORBIDDEN. | P1 |
 | TC-EX02-CON-01 | EXPL-02 | Concurrency | Approve correction khi daily summary đang recalculate | DB transaction. Recalculate trong transaction. No partial state. | P2 |
 | TC-EX02-DI-01 | EXPL-02 | Data | Correction → attendance_corrections + summary | correction entry + daily_summary updated atomically. | P1 |
+
+---
+
+## Boundary Value Analysis (BVA)
+
+
+### Độ dài lý do giải trình (`reasonLength`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-REASON-01 | 20 ký tự | MIN | ✅ Accept (minimum) |
+| BVA-REASON-02 | 19 ký tự | BELOW_MIN | ❌ Reject: dưới giới hạn |
+| BVA-REASON-03 | 19 ký tự | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-REASON-04 | 20 ký tự | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-REASON-05 | 21 ký tự | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-REASON-06 | 500 ký tự | MAX | ✅ Accept (maximum) |
+| BVA-REASON-07 | 501 ký tự | ABOVE_MAX | ❌ Reject: vượt giới hạn |
+
+### Kích thước file evidence (`fileSize`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-FILESI-01 | 0 MB | MIN | ✅ Accept (minimum) |
+| BVA-FILESI-03 | 4 MB | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-FILESI-04 | 5 MB | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-FILESI-05 | 6 MB | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-FILESI-06 | 5 MB | MAX | ✅ Accept (maximum) |
+| BVA-FILESI-07 | 6 MB | ABOVE_MAX | ❌ Reject: vượt giới hạn |

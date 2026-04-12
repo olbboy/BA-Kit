@@ -58,3 +58,31 @@
 | TC-RT04-SEC-02 | RPT-04 | Security | Unlock không có audit trail | Enforce: audit log bắt buộc. Block nếu reason rỗng. | P1 |
 | TC-RT04-CON-01 | RPT-04 | Concurrency | 2 HR lock cùng kỳ | Idempotent: lần 2 → "Kỳ đã được khóa." | P2 |
 | TC-RT04-DI-01 | RPT-04 | Data | Lock → read-only constraint | Verify: INSERT/UPDATE attendance cho tháng locked → 423 error. | P1 |
+
+---
+
+## Boundary Value Analysis (BVA)
+
+
+### Khoảng thời gian báo cáo (`reportPeriodDays`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-REPORT-01 | 1 ngày | MIN | ✅ Accept (minimum) |
+| BVA-REPORT-02 | 0 ngày | BELOW_MIN | ❌ Reject: dưới giới hạn |
+| BVA-REPORT-03 | 30 ngày | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-REPORT-04 | 31 ngày | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-REPORT-05 | 32 ngày | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-REPORT-06 | 366 ngày | MAX | ✅ Accept (maximum) |
+| BVA-REPORT-07 | 367 ngày | ABOVE_MAX | ❌ Reject: vượt giới hạn |
+
+### Số dòng export Excel (`exportRows`)
+
+| TC-BVA | Value | Type | Expected |
+|--------|-------|------|----------|
+| BVA-EXPORT-01 | 0 dòng | MIN | ✅ Accept (minimum) |
+| BVA-EXPORT-03 | 999 dòng | JUST_BELOW | ✅/⚠️ Accept nhưng gần ngưỡng |
+| BVA-EXPORT-04 | 1000 dòng | BOUNDARY | ✅ Accept (ngưỡng chính xác) |
+| BVA-EXPORT-05 | 1001 dòng | JUST_ABOVE | ✅ Accept (vượt ngưỡng 1 đơn vị) |
+| BVA-EXPORT-06 | 10000 dòng | MAX | ✅ Accept (maximum) |
+| BVA-EXPORT-07 | 10001 dòng | ABOVE_MAX | ❌ Reject: vượt giới hạn |
