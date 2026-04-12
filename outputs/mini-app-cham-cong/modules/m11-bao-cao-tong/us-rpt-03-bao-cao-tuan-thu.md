@@ -60,6 +60,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-RPT-03
+  As a HR Admin
+  I want to xem báo cáo tuân thủ quy chế lao động: vi phạm chuyên cần, giới hạn OT theo Nghị định 13/2023, và giải trình quá hạn
+  So that tôi có thể đảm bảo công ty tuân thủ pháp luật lao động Việt Nam và xử lý kịp thời các trường hợp vi phạm.
+
+  Scenario: AC1 — Báo cáo vi phạm chuyên cần
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Báo cáo vi phạm chuyên cần"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Giới hạn OT theo Nghị định 13/2023
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Giới hạn OT theo Nghị định 13/2023"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Giải trình quá hạn
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Giải trình quá hạn"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Xuất báo cáo tuân thủ
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin yêu cầu "Xuất báo cáo tuân thủ"
+    Then hệ thống tạo file đúng định dạng
+    And file chứa đầy đủ dữ liệu theo filter
+
+  Scenario: Error1 — OT vượt giới hạn pháp luật
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "OT vượt giới hạn pháp luật"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Nghỉ phép vượt quota
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Nghỉ phép vượt quota"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Data discrepancy
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Data discrepancy"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **OT limit:** Dữ liệu OT lũy kế phải khớp với tổng từ OvertimeRequest APPROVED.

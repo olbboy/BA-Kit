@@ -64,6 +64,62 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-HOL-01
+  As a HR Admin
+  I want to thiết lập và quản lý danh sách các ngày nghỉ lễ chính thức và nội bộ của công ty
+  So that hệ thống có căn cứ để tự động tính công "Hợp lệ" cho nhân viên mà họ không cần phải chấm công vào những ngày này.
+
+  Scenario: AC1 — Hiển thị Calendar & Badge
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Hiển thị Calendar & Badge"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Quản lý Card List (Lịch lễ)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Quản lý Card List (Lịch lễ)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Logic tham số Chế độ (Side Widgets)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Logic tham số Chế độ (Side Widgets)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Logic Tự động gán Công (Auto-Attendance Logic)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Logic Tự động gán Công (Auto-Attendance Logic)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC5 — Ràng buộc dữ liệu (Validation Rules)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: Error1 — Ngày nghỉ trùng cuối tuần
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Ngày nghỉ trùng cuối tuần"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Xóa ngày nghỉ đã có đơn nghỉ phép
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Xóa ngày nghỉ đã có đơn nghỉ phép"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Ngày nghỉ thiên tai
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Ngày nghỉ thiên tai"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **UI/UX**: Giao diện hiển thị đúng 100% trên cả trình duyệt Web và giao diện xem trên Mini App (Read-only).

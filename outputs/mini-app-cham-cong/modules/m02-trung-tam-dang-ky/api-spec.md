@@ -17,6 +17,12 @@ Base URL: `/api/v1`
 | GET | /leave-requests/tracking | Theo dõi trạng thái đơn từ | EMPLOYEE | US-REG-04 |
 | GET | /leave-policies | Danh sách chính sách phép năm | HR, MANAGER | US-REG-05 |
 | PUT | /leave-policies/{id} | Cập nhật cấu hình chính sách phép | HR_ADMIN | US-REG-05 |
+| GET | /business-trips | Danh sách đơn công tác | EMPLOYEE, HR, MANAGER | US-REG-06 |
+| POST | /business-trips | Tạo đơn đăng ký công tác | EMPLOYEE | US-REG-06 |
+| PUT | /business-trips/{id}/cancel | Hủy đơn công tác (trước ngày bắt đầu) | EMPLOYEE | US-REG-06 |
+| GET | /wfh-requests | Danh sách đơn WFH | EMPLOYEE, HR, MANAGER | US-REG-06 |
+| POST | /wfh-requests | Tạo đơn đăng ký WFH | EMPLOYEE | US-REG-06 |
+| GET | /wfh-requests/quota | Xem hạn mức WFH còn lại (tuần/tháng) | EMPLOYEE | US-REG-06 |
 
 ## Sample Request/Response
 
@@ -71,6 +77,60 @@ Response `201`:
 }
 ```
 
+### POST /business-trips
+Request:
+```json
+{
+  "startDate": "2025-06-10",
+  "endDate": "2025-06-12",
+  "destination": "Chi nhánh Hồ Chí Minh",
+  "purpose": "Họp đối tác Q2",
+  "contactPerson": "Nguyễn Văn B",
+  "attachments": []
+}
+```
+Response `201`:
+```json
+{
+  "id": "BT-2025-00034",
+  "status": "PENDING",
+  "workingDays": 3,
+  "autoAttendance": true
+}
+```
+
+### POST /wfh-requests
+Request:
+```json
+{
+  "dates": ["2025-06-09", "2025-06-13"],
+  "reason": "Cần tập trung hoàn thành report"
+}
+```
+Response `201`:
+```json
+{
+  "id": "WFH-2025-00089",
+  "status": "PENDING",
+  "dates": ["2025-06-09", "2025-06-13"],
+  "quotaUsed": 4,
+  "quotaLimit": 8,
+  "exceedsQuota": false
+}
+```
+
+### GET /wfh-requests/quota
+Response `200`:
+```json
+{
+  "weekUsed": 1,
+  "weekLimit": 2,
+  "monthUsed": 4,
+  "monthLimit": 8,
+  "remaining": 4
+}
+```
+
 ## Error Codes
 
 | HTTP | Code | Message |
@@ -79,5 +139,7 @@ Response `201`:
 | 400 | INSUFFICIENT_BALANCE | Không đủ số ngày phép |
 | 400 | ADVANCE_NOTICE_REQUIRED | Cần báo trước tối thiểu N ngày |
 | 400 | ATTACHMENT_REQUIRED | Loại phép này yêu cầu đính kèm tài liệu |
+| 400 | WFH_QUOTA_EXCEEDED | Vượt hạn mức WFH (đơn route đến HR) |
+| 400 | TRIP_DATE_CONFLICT | Ngày công tác trùng với nghỉ phép/OT đã duyệt |
 | 409 | LEAVE_OT_CONFLICT | Xung đột với OT đã được duyệt ngày này |
 | 423 | PERIOD_LOCKED | Kỳ công đã chốt, không thể tạo đơn |

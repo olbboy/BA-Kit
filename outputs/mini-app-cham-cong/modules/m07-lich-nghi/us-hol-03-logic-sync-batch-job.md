@@ -59,3 +59,48 @@
 | HL03-E1 | **Batch job fail giữa chừng** — Sync 1000 NV, lỗi tại NV thứ 500 | HIGH | Ghi log chi tiết. Đánh dấu NV lỗi. Tiếp tục xử lý NV còn lại. Retry failed batch sau 15 phút. |
 | HL03-E2 | **Duplicate sync event** — 2 instance job chạy đồng thời | MEDIUM | Distributed lock (Redis). Instance thứ 2 skip nếu lock đã active. Log: "Sync already running, skipped." |
 | HL03-E3 | **Config thay đổi giữa batch** — HR thay đổi policy khi batch đang chạy | LOW | Batch dùng snapshot config tại thời điểm bắt đầu. Thay đổi áp dụng cho batch tiếp theo. |
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-HOL-03
+  As a người dùng
+
+  So that dữ liệu chấm công và ngày nghỉ của nhân viên luôn được cập nhật chính xác tuyệt đối mà không cần HR phải can thiệp thủ công.
+
+  Scenario: AC1 — Đồng bộ Ngày nghỉ lễ
+    Given người dùng đã đăng nhập vào hệ thống
+    When người dùng thực hiện "Đồng bộ Ngày nghỉ lễ"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Logic Cộng phép sinh nhật
+    Given người dùng đã đăng nhập vào hệ thống
+    When người dùng thực hiện "Logic Cộng phép sinh nhật"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Hiệu năng & Ràng buộc đồng bộ
+    Given người dùng đã đăng nhập vào hệ thống
+    When người dùng nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: Error1 — Batch job fail giữa chừng
+    Given người dùng đã đăng nhập
+    When xảy ra điều kiện "Batch job fail giữa chừng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Duplicate sync event
+    Given người dùng đã đăng nhập
+    When xảy ra điều kiện "Duplicate sync event"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Config thay đổi giữa batch
+    Given người dùng đã đăng nhập
+    When xảy ra điều kiện "Config thay đổi giữa batch"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

@@ -58,6 +58,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EMP-03
+  As a HR Admin
+  I want to xem danh sách toàn bộ nhân sự kèm thông tin cơ bản và tìm kiếm (kết quả ≤ 0.5 giây)
+  So that tôi có thể tra cứu nhân viên trong ≤ 3 thao tác và quản lý thông tin chính xác.
+
+  Scenario: AC1 — Hiển thị bảng danh sách
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Hiển thị bảng danh sách"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Tìm kiếm nhân viên
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Tìm kiếm nhân viên"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Bộ lọc
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Bộ lọc"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Validate ảnh chân dung
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Validate ảnh chân dung"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Tìm kiếm không dấu
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Tìm kiếm không dấu"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Danh sách > 5000 NV
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Danh sách > 5000 NV"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — NV status TRANSFERRED
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV status TRANSFERRED"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Hiệu năng:** Tải danh sách 5,000+ NV ≤ 2 giây với phân trang.

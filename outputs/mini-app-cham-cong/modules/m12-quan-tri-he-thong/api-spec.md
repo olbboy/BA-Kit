@@ -19,6 +19,7 @@ Base URL: `/api/v1/admin`
 | POST | /admin/period-closing/lock | Trigger chốt công thủ công (ngoài cron) | GLOBAL_HR, SYS_ADMIN | US-SYS-04 |
 | POST | /admin/period-closing/unlock | Exception unlock cho NV + ngày cụ thể | GLOBAL_HR, SYS_ADMIN | US-SYS-04 |
 | GET | /admin/period-closing/history | Lịch sử các kỳ chốt (timestamp, actor) | HR_ADMIN | US-SYS-04 |
+| GET | /admin/period-closing/audit-trail | Audit trail thay đổi cấu hình chốt công (ai đổi gì, khi nào) | SYS_ADMIN, GLOBAL_HR | US-SYS-04 |
 | POST | /admin/onboarding | Khởi tạo quy trình onboarding NV mới | HR_ADMIN, SYS_ADMIN | US-SYS-05 |
 | GET | /admin/onboarding/{employeeId}/status | Trạng thái onboarding wizard (7 bước) | HR_ADMIN | US-SYS-05 |
 | POST | /admin/onboarding/batch | Bulk onboarding nhiều NV cùng lúc | HR_ADMIN, SYS_ADMIN | US-SYS-05 |

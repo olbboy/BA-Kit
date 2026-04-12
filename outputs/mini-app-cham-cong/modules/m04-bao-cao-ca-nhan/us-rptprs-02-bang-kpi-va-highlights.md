@@ -63,6 +63,49 @@ Hiển thị các chỉ số theo quý:
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-RPTPRS-02
+  As a Nhân viên
+  I want to xem bảng tổng hợp KPI chuyên cần theo quý kèm Performance Highlights so sánh với kỳ trước
+  So that tôi có thể đánh giá xu hướng hiệu suất dài hạn và biết mình cần cải thiện ở đâu.
+
+  Scenario: AC1 — Bảng KPI Scorecard
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Bảng KPI Scorecard"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Performance Highlights
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Performance Highlights"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — So sánh trung bình phòng ban
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "So sánh trung bình phòng ban"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Chọn kỳ báo cáo
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Chọn kỳ báo cáo"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — KPI target chưa được cấu hình
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "KPI target chưa được cấu hình"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Dữ liệu OT bị điều chỉnh sau chốt công
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Dữ liệu OT bị điều chỉnh sau chốt công"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu:** KPI phải khớp với Dashboard hiệu suất (US-RPTPRS-01) khi cùng kỳ tháng.

@@ -71,3 +71,47 @@
 3. **Constraint**: Unique constraint (tenant + employee + date) không bị vi phạm.
 4. **Edge Cases Tested**: Cross-payroll, NV nghỉ việc, ca deactivate.
 5. **Integration**: Ca từ pattern hiển thị đúng trên US-ATTEN-01 (Hub chấm công).
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SHIFT-06
+  As a HR Admin
+  I want to thiết lập lịch phân ca xoay tự động theo pattern (VD: Sáng → Chiều → Đêm → Nghỉ) lặp lại trong khoảng thời gian xác định
+  So that tôi không phải gán ca thủ công từng ngày cho nhân viên làm ca luân phiên, giảm lỗi phân ca và tiết kiệm thời gian quản lý.
+
+  Scenario: AC1 — Pattern Builder
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Pattern Builder"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Preview Calendar
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Preview Calendar"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Conflict Resolution
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Conflict Resolution"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Pattern vượt ngày chốt công
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Pattern vượt ngày chốt công"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV nghỉ việc giữa pattern
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV nghỉ việc giữa pattern"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Xóa pattern đang active
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Xóa pattern đang active"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

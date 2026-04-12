@@ -64,6 +64,52 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-ATTEN-04
+  As a Nhân viên
+  I want to thấy danh sách các vi phạm quy chế (đi muộn, về sớm, thiếu mốc quẹt, vắng mặt chưa xin phép) ngay tại màn hình chính
+  So that tôi có thể thực hiện "Giải trình ngay" để đảm bảo quyền lợi giờ công của mình được cập nhật kịp thời.
+
+  Scenario: AC1 — Hiển thị Widget Cảnh báo
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị Widget Cảnh báo"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Logic Hiển thị Cảnh báo
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Logic Hiển thị Cảnh báo"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC3 — Phản hồi Web App
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Phản hồi Web App"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Nhiều loại vi phạm cùng ngày
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Nhiều loại vi phạm cùng ngày"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Ca thay đổi retroactively
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Ca thay đổi retroactively"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — NV nghỉ phép nửa ngày + cảnh báo
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "NV nghỉ phép nửa ngày + cảnh báo"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu thực**: Danh sách cảnh báo phải khớp hoàn toàn với Badge trạng thái trong Nhật ký (Module 01).

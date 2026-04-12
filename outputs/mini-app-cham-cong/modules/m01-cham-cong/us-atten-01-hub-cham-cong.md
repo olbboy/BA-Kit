@@ -71,6 +71,52 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-ATTEN-01
+  As a Nhân viên
+  I want to xem trạng thái chấm công, mốc giờ In/Out và thanh tiến độ thực tế ngay tại cụm trung tâm Trang chủ
+  So that tôi có thể xác định ngay lập tức tình trạng công của mình và chủ động điều phối thời gian làm việc để hoàn thành ca làm.
+
+  Scenario: AC1 — Hiển thị Badge Trạng thái & Mốc giờ (In/Out)
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị Badge Trạng thái & Mốc giờ (In/Out)"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Logic Thanh Tiến độ
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Logic Thanh Tiến độ"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Hiển thị mốc "Cập nhật lúc"
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị mốc "Cập nhật lúc""
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: Error1 — NV multi-site check-in
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "NV multi-site check-in"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Multiple check-in liên tiếp
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Multiple check-in liên tiếp"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Webhook delay > 60s SLA
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Webhook delay > 60s SLA"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Phần quyền**: Phân quyền RBAC (NV xem của mình) và ABAC (Lọc theo Team_ID đối với Manager) được áp dụng đúng.

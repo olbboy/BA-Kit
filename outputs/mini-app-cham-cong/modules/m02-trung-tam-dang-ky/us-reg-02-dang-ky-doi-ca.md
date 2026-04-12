@@ -64,6 +64,53 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-REG-02
+  As a Nhân viên
+  I want to gửi yêu cầu đổi ca làm việc cho một ngày cụ thể trên Mini App
+  So that tôi có thể chủ động sắp xếp lịch ca khi có việc đột xuất mà không cần liên hệ HR trực tiếp.
+
+  Scenario: AC1 — Hiển thị ca hiện tại
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị ca hiện tại"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Danh sách ca khả dụng
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Danh sách ca khả dụng"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC3 — Kiểm tra xung đột
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: AC4 — Phản hồi sau gửi
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Phản hồi sau gửi" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: Error1 — Đổi ca sau khi đã check-in
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Đổi ca sau khi đã check-in"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Đổi ca tương hỗ (swap)
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Đổi ca tương hỗ (swap)"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu:** Sau khi đơn APPROVED, ca của NV trong ngày đó phải thay đổi trong Database và hiển thị đúng trên Dashboard (Module 01).

@@ -83,3 +83,56 @@
 3. **Audit Trail**: Lịch sử sửa đổi (old_value → new_value) được lưu hoàn chỉnh.
 4. **Edge Cases Tested**: Ngày chốt công, trùng Manual Entry, DELETE ảnh hưởng OT.
 5. **Integration**: Hiển thị icon "✏️ Đã sửa" trên US-ATTEN-03 cho các mốc đã correction.
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EXPL-02
+  As a Nhân viên
+  I want to gửi yêu cầu điều chỉnh (thêm / sửa / xóa) mốc chấm công khi phát hiện dữ liệu sai và đính kèm minh chứng
+  So that bảng công của tôi phản ánh chính xác thực tế làm việc, đảm bảo quyền lợi lương không bị ảnh hưởng bởi lỗi hệ thống hoặc thao tác.
+
+  Scenario: AC1 — Loại điều chỉnh
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When Nhân viên thực hiện "Loại điều chỉnh"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC2 — Form yêu cầu
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Form yêu cầu"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Trạng thái theo dõi
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Trạng thái theo dõi"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Hiệu ứng sau Approve
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And có đơn chờ duyệt
+    When Nhân viên thực hiện "Hiệu ứng sau Approve"
+    Then trạng thái đơn chuyển thành APPROVED
+    And thông báo gửi đến người tạo đơn
+
+  Scenario: Error1 — Correction cho ngày đã chốt công
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Correction cho ngày đã chốt công"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Correction trùng Manual Entry
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Correction trùng Manual Entry"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — DELETE check-in duy nhất
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "DELETE check-in duy nhất"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

@@ -51,6 +51,45 @@ Hệ thống seed sẵn:
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EMP-06
+  As a HR Admin
+  I want to quản lý danh mục cấp bậc nhân sự (Nhân viên, Trưởng nhóm, Trưởng phòng...)
+  So that hệ thống có căn cứ phân quyền chính xác cho các luồng phê duyệt và báo cáo.
+
+  Scenario: AC1 — Danh sách cấp bậc mặc định
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Danh sách cấp bậc mặc định"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — CRUD cấp bậc
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "CRUD cấp bậc"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Mapping với phân quyền
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Mapping với phân quyền"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Xóa cấp bậc đang được sử dụng
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Xóa cấp bậc đang được sử dụng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Tên cấp bậc trùng
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Tên cấp bậc trùng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Chặn xóa:** Xóa cấp bậc đang có NV → Phải bị chặn.

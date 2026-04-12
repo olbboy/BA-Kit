@@ -53,6 +53,51 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-NOTIF-01
+  As a HR Admin
+  I want to cấu hình các kênh gửi thông báo (Push, Email, Popup) và thiết lập kênh ưu tiên cho từng loại sự kiện
+  So that nhân viên nhận được thông báo qua kênh ưu tiên theo cấu hình (Push > Email > In-App), đảm bảo không bỏ sót thông tin quan trọng.
+
+  Scenario: AC1 — Danh sách kênh
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Danh sách kênh"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Mapping kênh theo nhóm sự kiện
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Mapping kênh theo nhóm sự kiện"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Fallback logic
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Fallback logic"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — NV tắt Push Permission
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV tắt Push Permission"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Email bounce
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Email bounce"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Kênh bị disable toàn hệ thống
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Kênh bị disable toàn hệ thống"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Kết nối:** Toggle bật kênh → Hệ thống kiểm tra kết nối (Push/SMTP) → Hiển thị trạng thái.

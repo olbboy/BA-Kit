@@ -65,6 +65,58 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-APPR-01
+  As a Quản lý / HR Admin
+  I want to xem danh sách tất cả đơn chờ phê duyệt tại một giao diện tập trung, duyệt hoặc từ chối trong ≤ 2 tap trên mobile kèm lý do
+  So that tôi không bỏ sót đơn từ của nhân viên và xử lý kịp thời để không ảnh hưởng đến quyền lợi của họ.
+
+  Scenario: AC1 — Hiển thị Inbox
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Quản lý / HR Admin truy cập màn hình "Hiển thị Inbox"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Chi tiết đơn
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Chi tiết đơn"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Duyệt / Từ chối
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    And có đơn chờ duyệt
+    When Quản lý / HR Admin thực hiện "Duyệt / Từ chối"
+    Then trạng thái đơn chuyển thành APPROVED
+    And thông báo gửi đến người tạo đơn
+
+  Scenario: AC4 — Multi-level approval
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Multi-level approval"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Approver bị terminated
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Approver bị terminated"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Self-approve
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Self-approve"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Approver offline > 7 ngày
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Approver offline > 7 ngày"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Đúng quyền:** Manager chỉ thấy đơn team mình; SITE_HR thấy đơn toàn site.

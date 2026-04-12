@@ -51,6 +51,52 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EXPL-01
+  As a Nhân viên
+  I want to xem danh sách các lỗi chấm công (quên check-out, vào muộn, về sớm) kèm theo thông tin hạn định giải trình trước ngày chốt công
+  So that tôi nắm được ngày công nào đang bị lỗi và xử lý kịp thời trước khi hệ thống tự động khóa và ghi nhận vi phạm quy chế vĩnh viễn.
+
+  Scenario: AC1 — Hiển thị Trạng thái theo Thời gian (Timeline Status Logic)
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị Trạng thái theo Thời gian (Timeline Status Logic)"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Logic Hiển thị Widget Cảnh báo (Compliance Summary)
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Logic Hiển thị Widget Cảnh báo (Compliance Summary)"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC3 — Ghi nhận vi phạm vĩnh viễn (Audit Log)
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Ghi nhận vi phạm vĩnh viễn (Audit Log)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Ngày chốt công vào T7/CN/Lễ
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Ngày chốt công vào T7/CN/Lễ"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — HR đã sửa công trước khi NV giải trình
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "HR đã sửa công trước khi NV giải trình"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Giải trình cho ngày chưa kết thúc
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Giải trình cho ngày chưa kết thúc"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 ### **EDGE CASES & ERROR HANDLING**

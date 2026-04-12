@@ -62,6 +62,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SHIFT-07
+  As a Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD)
+  I want to xem lịch phân ca của tất cả nhân viên thuộc team/phòng ban trên giao diện calendar trực quan
+  So that tôi có thể nắm bắt lịch làm việc team trong tuần/tháng, phát hiện thiếu hụt nhân lực sớm, và phối hợp với HR khi cần điều chỉnh phân ca.
+
+  Scenario: AC1 — Calendar Grid
+    Given Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) đã đăng nhập vào hệ thống
+    When Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) thực hiện "Calendar Grid"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Nhân sự summary per ngày
+    Given Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) đã đăng nhập vào hệ thống
+    When Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) thực hiện "Nhân sự summary per ngày"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Gap Detection (Understaffing Alert)
+    Given Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) đã đăng nhập vào hệ thống
+    When Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) thực hiện "Gap Detection (Understaffing Alert)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Đề xuất đổi ca (Request)
+    Given Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) đã đăng nhập vào hệ thống
+    When Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) yêu cầu "Đề xuất đổi ca (Request)"
+    Then hệ thống tạo file đúng định dạng
+    And file chứa đầy đủ dữ liệu theo filter
+
+  Scenario: Error1 — NV chưa được gán ca
+    Given Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) đã đăng nhập
+    When xảy ra điều kiện "NV chưa được gán ca"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Team > 50 NV
+    Given Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) đã đăng nhập
+    When xảy ra điều kiện "Team > 50 NV"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — NV thuộc 2 ca cùng ngày
+    Given Quản lý / Trưởng phòng (MANAGER, DEPT_HEAD) đã đăng nhập
+    When xảy ra điều kiện "NV thuộc 2 ca cùng ngày"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **RBAC**: Manager chỉ thấy NV team mình. DEPT_HEAD thấy toàn phòng. Không sửa trực tiếp.

@@ -60,6 +60,63 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SHIFT-02
+  As a HR
+  I want to thiết lập tên ca, chọn ngày làm việc, các mốc giờ làm/nghỉ và giới hạn chấm công chi tiết cho từng ca
+  So that hệ thống có căn cứ tự động so khớp dữ liệu quét thực tế để tính toán chính xác trạng thái chuyên cần (Đúng giờ/Sớm/Trễ) và tổng giờ công.
+
+  Scenario: AC1 — Nhập thông tin & Ngày làm việc
+    Given HR đã đăng nhập vào hệ thống
+    When HR thực hiện "Nhập thông tin & Ngày làm việc" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC2 — Logic Cấu hình Giờ Làm & Xử lý Ca đêm
+    Given HR đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR thực hiện "Logic Cấu hình Giờ Làm & Xử lý Ca đêm"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC3 — Giới hạn thời gian chấm công
+    Given HR đã đăng nhập vào hệ thống
+    When HR thực hiện "Giới hạn thời gian chấm công"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Ngày bắt đầu & Ngày kết thúc
+    Given HR đã đăng nhập vào hệ thống
+    When HR thực hiện "Ngày bắt đầu & Ngày kết thúc"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC5 — Quản lý Thời gian Nghỉ
+    Given HR đã đăng nhập vào hệ thống
+    When HR thực hiện "Quản lý Thời gian Nghỉ"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Giờ kết thúc < Giờ bắt đầu
+    Given HR đã đăng nhập
+    When xảy ra điều kiện "Giờ kết thúc < Giờ bắt đầu"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Giờ trùng với ca khác
+    Given HR đã đăng nhập
+    When xảy ra điều kiện "Giờ trùng với ca khác"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Ca có 0h working
+    Given HR đã đăng nhập
+    When xảy ra điều kiện "Ca có 0h working"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. Validation: Chặn lưu đơn nếu giờ nghỉ nằm ngoài khung giờ làm việc.

@@ -48,6 +48,53 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-HOL-02
+  As a HR Admin
+  I want to cấu hình các tham số luật cho các chế độ đãi ngộ đặc thù
+  So that hệ thống tự động hóa được việc gán ngày nghỉ/WFH và ứng phó khẩn cấp mà không cần can thiệp thủ công.
+
+  Scenario: AC1 — Quản lý Toggle & Trạng thái Widget
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Quản lý Toggle & Trạng thái Widget"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Logic Ràng buộc nghỉ sinh nhật
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: AC3 — Cấu hình Vùng địa lý
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Cấu hình Vùng địa lý"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: Error1 — Policy trùng date range
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Policy trùng date range"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Rule nghỉ circular
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Rule nghỉ circular"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Policy áp dụng retroactive
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Policy áp dụng retroactive"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu chính xác:** Khi gạt Toggle, giá trị trong Database phải thay đổi tương ứng ngay lập tức.

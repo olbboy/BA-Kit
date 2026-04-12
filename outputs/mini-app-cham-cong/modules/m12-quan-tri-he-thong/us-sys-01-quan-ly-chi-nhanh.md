@@ -63,3 +63,52 @@
 3. **Data Integrity**: Deactivate không xóa dữ liệu lịch sử.
 4. **Edge Cases Tested**: Site có NV, mã trùng, sửa timezone.
 5. **Integration**: Site mới xuất hiện trong dropdown trên toàn hệ thống.
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SYS-01
+  As a System Admin
+  I want to thêm, sửa, deactivate chi nhánh trên hệ thống mà không cần can thiệp kỹ thuật
+  So that công ty có thể mở rộng hoặc thu hẹp quy mô hoạt động mà hệ thống luôn phản ánh đúng cấu trúc tổ chức thực tế.
+
+  Scenario: AC1 — Thêm Site
+    Given System Admin đã đăng nhập vào hệ thống
+    When System Admin thực hiện "Thêm Site" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC2 — Sửa Site
+    Given System Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When System Admin thực hiện "Sửa Site"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC3 — Deactivate Site
+    Given System Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại
+    When System Admin thực hiện "Deactivate Site"
+    Then hệ thống thực hiện soft-delete
+    And dữ liệu liên quan được xử lý đúng
+
+  Scenario: Error1 — Deactivate site có NV active
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Deactivate site có NV active"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Mã site trùng
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Mã site trùng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Sửa timezone
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Sửa timezone"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

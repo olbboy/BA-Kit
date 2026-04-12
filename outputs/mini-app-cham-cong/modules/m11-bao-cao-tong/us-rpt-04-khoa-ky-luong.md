@@ -70,6 +70,57 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-RPT-04
+  As a HR Admin
+  I want to tự động khóa dữ liệu chấm công khi xuất payroll và quản lý kỳ bổ sung cho các thay đổi sau khi khóa
+  So that dữ liệu payroll đã xuất không bị thay đổi ngầm, đảm bảo tính toàn vẹn tài chính và tuân thủ quy trình kiểm toán nội bộ.
+
+  Scenario: AC1 — Auto-lock khi xuất payroll
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin yêu cầu "Auto-lock khi xuất payroll"
+    Then hệ thống tạo file đúng định dạng
+    And file chứa đầy đủ dữ liệu theo filter
+
+  Scenario: AC2 — Cảnh báo thay đổi sau lock
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Cảnh báo thay đổi sau lock"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Supplementary Payroll Report
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Supplementary Payroll Report"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Re-export & Versioning
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin yêu cầu "Re-export & Versioning"
+    Then hệ thống tạo file đúng định dạng
+    And file chứa đầy đủ dữ liệu theo filter
+
+  Scenario: Error1 — HR xuất payroll 2 lần
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "HR xuất payroll 2 lần"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Correction approved TRƯỚC khi HR xuất
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Correction approved TRƯỚC khi HR xuất"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — 2 site cùng tháng, 1 locked 1 open
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "2 site cùng tháng, 1 locked 1 open"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Auto-lock:** Xuất payroll → kỳ LOCKED tự động. Badge hiển thị đúng.

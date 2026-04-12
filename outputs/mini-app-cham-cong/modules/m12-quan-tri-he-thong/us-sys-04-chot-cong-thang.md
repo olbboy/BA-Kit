@@ -71,6 +71,58 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SYS-04
+  As a HR Admin
+  I want to cấu hình và thực hiện chốt công hàng tháng để khóa dữ liệu chấm công sau ngày chốt
+  So that dữ liệu payroll không bị thay đổi ngoài kiểm soát, và mọi điều chỉnh sau chốt phải qua quy trình Exception Approval có audit trail.
+
+  Scenario: AC1 — Cấu hình chốt công per-site
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Cấu hình chốt công per-site"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC2 — Auto-closing trigger
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Auto-closing trigger"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Exception Unlock
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Exception Unlock"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Dashboard trạng thái chốt
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Dashboard trạng thái chốt"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: Error1 — Closing day = T7/CN
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Closing day = T7/CN"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV gửi giải trình sát giờ chốt
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV gửi giải trình sát giờ chốt"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Cron job fail
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Cron job fail"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **End-to-end:** Kỳ chuyển OPEN → GRACE → LOCKED đúng timeline. Giải trình bị disabled sau LOCKED.

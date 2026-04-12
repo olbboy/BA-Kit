@@ -75,6 +75,59 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-REG-03
+  As a Nhân viên
+  I want to đăng ký làm tăng ca (OT) trước hoặc sau khi đã làm thêm giờ, kèm mốc thời gian cụ thể
+  So that giờ OT của tôi được ghi nhận chính thức, tính đúng hệ số lương và không vượt giới hạn pháp luật.
+
+  Scenario: AC1 — Hiển thị thông tin OT hiện tại
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị thông tin OT hiện tại"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Nhập mốc thời gian OT
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Nhập mốc thời gian OT" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC3 — Kiểm tra giới hạn OT
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: AC4 — Đăng ký sau (POST_APPROVED)
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Đăng ký sau (POST_APPROVED)" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: Error1 — OT thực tế khác đăng ký
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "OT thực tế khác đăng ký"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — OT ngày lễ trùng cuối tuần
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "OT ngày lễ trùng cuối tuần"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — OT liên tiếp nhiều ngày
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "OT liên tiếp nhiều ngày"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Giới hạn OT:** Kiểm thử tất cả ngưỡng (ngày/tuần/tháng/năm) → Đảm bảo chặn chính xác.

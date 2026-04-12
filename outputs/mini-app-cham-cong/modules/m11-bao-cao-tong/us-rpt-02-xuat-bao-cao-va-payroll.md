@@ -74,6 +74,57 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-RPT-02
+  As a HR Admin
+  I want to xuất các loại báo cáo chấm công và file payroll chuẩn định dạng Excel/CSV
+  So that tôi có dữ liệu sẵn sàng để tính lương, nộp cho kế toán và lưu trữ hồ sơ theo quy định.
+
+  Scenario: AC1 — Các loại báo cáo
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Các loại báo cáo"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Cấu trúc file Payroll (13 cột)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Cấu trúc file Payroll (13 cột)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Preview trước khi xuất
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin yêu cầu "Preview trước khi xuất"
+    Then hệ thống tạo file đúng định dạng
+    And file chứa đầy đủ dữ liệu theo filter
+
+  Scenario: AC4 — Xuất file
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin yêu cầu "Xuất file"
+    Then hệ thống tạo file đúng định dạng
+    And file chứa đầy đủ dữ liệu theo filter
+
+  Scenario: Error1 — Export file > 10MB
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Export file > 10MB"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Template payroll không khớp
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Template payroll không khớp"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Export dữ liệu chưa chốt công
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Export dữ liệu chưa chốt công"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu:** File payroll phải khớp 100% với dữ liệu trên Dashboard.

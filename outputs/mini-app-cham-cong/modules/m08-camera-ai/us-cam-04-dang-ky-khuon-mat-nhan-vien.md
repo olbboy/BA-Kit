@@ -79,6 +79,55 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-CAM-04
+  As a Nhân viên mới
+  I want to tự đăng ký khuôn mặt cho hệ thống chấm công AI thông qua quy trình 3 bước trên Mini App
+  So that tôi có thể chấm công bằng nhận diện khuôn mặt ngay từ ngày đầu đi làm mà không cần nhờ bộ phận IT.
+
+  Scenario: AC1 — Bước 1 — Xác nhận thông tin
+    Given Nhân viên mới đã đăng nhập vào hệ thống
+    When Nhân viên mới thực hiện "Bước 1 — Xác nhận thông tin"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Bước 2 — Chụp ảnh khuôn mặt
+    Given Nhân viên mới đã đăng nhập vào hệ thống
+    When Nhân viên mới thực hiện "Bước 2 — Chụp ảnh khuôn mặt"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Bước 3 — Đồng bộ C-Vision
+    Given Nhân viên mới đã đăng nhập vào hệ thống
+    When Nhân viên mới thực hiện "Bước 3 — Đồng bộ C-Vision"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Trạng thái Enrollment
+    Given Nhân viên mới đã đăng nhập vào hệ thống
+    When Nhân viên mới thực hiện "Trạng thái Enrollment"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — C-Vision API timeout
+    Given Nhân viên mới đã đăng nhập
+    When xảy ra điều kiện "C-Vision API timeout"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Ảnh trùng với NV khác
+    Given Nhân viên mới đã đăng nhập
+    When xảy ra điều kiện "Ảnh trùng với NV khác"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — NV thay đổi ngoại hình
+    Given Nhân viên mới đã đăng nhập
+    When xảy ra điều kiện "NV thay đổi ngoại hình"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **End-to-end:** NV mới đăng ký Face ID → ra cổng quẹt camera → AttendanceRecord tạo đúng.

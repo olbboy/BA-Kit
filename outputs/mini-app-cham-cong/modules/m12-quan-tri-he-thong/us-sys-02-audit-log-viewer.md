@@ -74,3 +74,47 @@
 3. **Security**: Sensitive data masked. Log append-only (no delete).
 4. **Retention**: Auto-purge records > 3 năm.
 5. **Edge Cases Tested**: Large dataset, async export, sensitive masking.
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SYS-02
+  As a System Admin
+  I want to xem toàn bộ nhật ký hoạt động của hệ thống (ai làm gì, khi nào, dữ liệu gì thay đổi) với bộ lọc đa tiêu chí (User, Module, Action, Date range)
+  So that tôi có thể điều tra sự cố, đảm bảo compliance, và truy vết mọi thay đổi dữ liệu nhạy cảm trong hệ thống.
+
+  Scenario: AC1 — Bảng log chính
+    Given System Admin đã đăng nhập vào hệ thống
+    When System Admin thực hiện "Bảng log chính"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Bộ lọc
+    Given System Admin đã đăng nhập vào hệ thống
+    When System Admin thực hiện "Bộ lọc"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Chi tiết record
+    Given System Admin đã đăng nhập vào hệ thống
+    When System Admin thực hiện "Chi tiết record"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Log > 1 triệu records
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Log > 1 triệu records"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Export > 100,000 records
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Export > 100,000 records"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Log sensitive data
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Log sensitive data"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

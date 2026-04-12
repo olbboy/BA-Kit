@@ -59,6 +59,60 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-RPTPRS-01
+  As a Nhân viên
+  I want to xem dashboard tổng hợp hiệu suất chuyên cần cá nhân gồm Score, tổng giờ làm, ngày nghỉ và giờ OT trong tháng
+  So that tôi có thể tự đánh giá và chủ động cải thiện hiệu suất làm việc mà không cần hỏi HR.
+
+  Scenario: AC1 — Widget Score chuyên cần
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Widget Score chuyên cần"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Widget Tổng giờ làm
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Widget Tổng giờ làm"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Widget Ngày nghỉ & OT
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Widget Ngày nghỉ & OT"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Biểu đồ Trend 4 tuần
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Biểu đồ Trend 4 tuần"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC5 — Chọn kỳ báo cáo
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Chọn kỳ báo cáo"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — NV mới < 1 tháng
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "NV mới < 1 tháng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV chuyển site giữa tháng
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "NV chuyển site giữa tháng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Ca đêm ảnh hưởng tính toán ngày công
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Ca đêm ảnh hưởng tính toán ngày công"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Độ chính xác:** Score phải khớp 100% với dữ liệu nhật ký chấm công (US-ATTEN-03).

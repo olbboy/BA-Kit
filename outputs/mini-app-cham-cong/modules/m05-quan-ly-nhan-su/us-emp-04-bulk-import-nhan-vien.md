@@ -67,6 +67,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EMP-04
+  As a HR Admin
+  I want to import danh sách nhân viên mới từ file Excel mẫu vào hệ thống
+  So that tôi có thể onboard hàng trăm nhân viên khi mở chi nhánh mới mà không nhập thủ công từng người.
+
+  Scenario: AC1 — File mẫu (Template)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "File mẫu (Template)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Validation Rules
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: AC3 — Kết quả Import
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Kết quả Import"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Giới hạn
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Giới hạn"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Email trùng
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Email trùng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Phòng ban không tồn tại
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Phòng ban không tồn tại"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — File > 5000 dòng
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "File > 5000 dòng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu:** Sau import, NV mới xuất hiện đúng trong danh sách và sơ đồ tổ chức.

@@ -91,3 +91,47 @@ Offboarding Workflow (auto, ≤ 5 phút):
 4. **Audit Trail**: Log chi tiết mỗi bước (action, timestamp, result).
 5. **Edge Cases Tested**: Manager offboarding, ca đêm, revert.
 6. **Integration**: Tích hợp đúng với Module 01 (Chấm công), 07 (Lịch nghỉ), 08 (Camera), 10 (Phê duyệt).
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SYS-03
+  As a HR Admin
+  I want to trigger quy trình offboarding tự động khi nhân viên nghỉ việc để hệ thống tự hủy đơn từ, freeze phép, deactivate C-Vision mapping, và re-route approval chain
+  So that không có bước nào bị bỏ sót, dữ liệu được xử lý nhất quán, và quyền lợi NV (quyết toán phép, lương) được tính đúng.
+
+  Scenario: AC1 — Impact Report (Preview)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Impact Report (Preview)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Workflow Execution
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Workflow Execution"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Revert (Undo)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Revert (Undo)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — NV là Manager đang approve đơn
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV là Manager đang approve đơn"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV có leave approved tuần sau
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV có leave approved tuần sau"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Offboarding NV đang trong ca đêm
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Offboarding NV đang trong ca đêm"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

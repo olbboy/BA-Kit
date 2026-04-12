@@ -76,3 +76,49 @@
 3. **Carryover Logic**: Hết hạn tự động theo cấu hình.
 4. **Edge Cases Tested**: Balance âm, NV chuyển site, policy conflict.
 5. **Audit Trail**: Log thay đổi policy (old_value → new_value, changed_by).
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-REG-05
+  As a HR Admin
+  I want to cấu hình chính sách phép năm bao gồm số ngày cơ bản, thâm niên, carryover và pro-rata cho nhân viên mới
+  So that hệ thống tự động tính đúng số dư phép cho từng nhân viên theo quy định công ty và Luật Lao động Việt Nam.
+
+  Scenario: AC1 — Cấu hình phép cơ bản
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Cấu hình phép cơ bản"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC2 — Công thức tính
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Công thức tính"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Batch Recalculate
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Batch Recalculate"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Giảm phép khi NV đã dùng hết
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Giảm phép khi NV đã dùng hết"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Carryover đã hết hạn
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Carryover đã hết hạn"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — NV chuyển site có policy khác
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV chuyển site có policy khác"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

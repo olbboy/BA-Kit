@@ -59,6 +59,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-CAM-03
+  As a IT Admin
+  I want to giám sát trạng thái hoạt động (Online/Offline) của tất cả camera AI trong thời gian thực
+  So that tôi có thể phát hiện và xử lý camera mất kết nối trước khi ảnh hưởng đến chấm công của nhân viên.
+
+  Scenario: AC1 — Dashboard trạng thái
+    Given IT Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When IT Admin truy cập màn hình "Dashboard trạng thái"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Cảnh báo tự động
+    Given IT Admin đã đăng nhập vào hệ thống
+    When IT Admin thực hiện "Cảnh báo tự động"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Lịch sử Uptime
+    Given IT Admin đã đăng nhập vào hệ thống
+    When IT Admin thực hiện "Lịch sử Uptime"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — De-duplication
+    Given IT Admin đã đăng nhập vào hệ thống
+    When IT Admin thực hiện "De-duplication"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Camera offline > 1 giờ
+    Given IT Admin đã đăng nhập
+    When xảy ra điều kiện "Camera offline > 1 giờ"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — False offline
+    Given IT Admin đã đăng nhập
+    When xảy ra điều kiện "False offline"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Tất cả camera cùng site offline
+    Given IT Admin đã đăng nhập
+    When xảy ra điều kiện "Tất cả camera cùng site offline"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Độ trễ:** Trạng thái camera cập nhật trên dashboard ≤ 1 phút.

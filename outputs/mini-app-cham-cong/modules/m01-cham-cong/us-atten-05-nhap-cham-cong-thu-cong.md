@@ -73,3 +73,49 @@
 3. **Audit Trail**: Mọi Manual Entry có đầy đủ log (created_by, reason, approval chain).
 4. **Edge Cases Tested**: Tất cả edge cases pass.
 5. **Integration**: Record Manual Entry hiển thị đúng trên US-ATTEN-01 (Hub) và US-ATTEN-03 (Nhật ký).
+
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-ATTEN-05
+  As a HR Admin
+  I want to nhập thủ công mốc chấm công cho nhân viên khi hệ thống C-Vision gặp sự cố hoặc NV không thể quét khuôn mặt
+  So that dữ liệu chấm công được ghi nhận đầy đủ, đảm bảo quyền lợi lương cho NV và không thiếu công trong kỳ tính lương.
+
+  Scenario: AC1 — Form nhập liệu
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Form nhập liệu" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC2 — Validation
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: AC3 — Audit Trail
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Audit Trail"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — HR nhập cho NV đã nghỉ việc
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "HR nhập cho NV đã nghỉ việc"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — HR nhập cho NV khác site
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "HR nhập cho NV khác site"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Batch manual entry
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Batch manual entry"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```

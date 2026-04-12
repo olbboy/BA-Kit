@@ -78,6 +78,62 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SYS-06
+  As a System Admin
+  I want to cấu hình chính sách lưu trữ dữ liệu (Data Retention Policy) cho từng loại dữ liệu trong hệ thống — bao gồm thời hạn lưu trữ, quy tắc xóa/archive, và cảnh báo compliance
+  So that hệ thống tuân thủ quy định pháp luật Việt Nam (Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân), tiết kiệm chi phí lưu trữ, và có audit trail cho mọi thao tác xóa dữ liệu.
+
+  Scenario: AC1 — Data Categories & Default Retention
+    Given System Admin đã đăng nhập vào hệ thống
+    When System Admin thực hiện "Data Categories & Default Retention"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Retention Configuration Dashboard
+    Given System Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When System Admin truy cập màn hình "Retention Configuration Dashboard"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC3 — Archive vs. Purge
+    Given System Admin đã đăng nhập vào hệ thống
+    When System Admin thực hiện "Archive vs. Purge"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Automated Enforcement (Cron Job)
+    Given System Admin đã đăng nhập vào hệ thống
+    When System Admin thực hiện "Automated Enforcement (Cron Job)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC5 — Legal Compliance Dashboard
+    Given System Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When System Admin truy cập màn hình "Legal Compliance Dashboard"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: Error1 — Purge nhầm dữ liệu active
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Purge nhầm dữ liệu active"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Cron job fail
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Cron job fail"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Retention config conflict
+    Given System Admin đã đăng nhập
+    When xảy ra điều kiện "Retention config conflict"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **9 categories**: Tất cả data categories có retention config mặc định.

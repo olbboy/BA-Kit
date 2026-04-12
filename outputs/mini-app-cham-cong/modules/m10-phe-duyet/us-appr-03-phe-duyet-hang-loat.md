@@ -59,6 +59,55 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-APPR-03
+  As a Quản lý / HR Admin
+  I want to chọn nhiều đơn cùng loại và duyệt hoặc từ chối hàng loạt trong một thao tác
+  So that tôi có thể xử lý ≤ 50 đơn/lần trong ≤ 3 giây khi có nhiều đơn tồn đọng, đặc biệt cuối tháng trước ngày chốt công.
+
+  Scenario: AC1 — Chọn đơn hàng loạt
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Chọn đơn hàng loạt"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Xử lý Batch
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Xử lý Batch"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Kết quả Batch
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Kết quả Batch"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Giới hạn
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Giới hạn"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Batch approve lỗi giữa chừng
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Batch approve lỗi giữa chừng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Batch quá lớn
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Batch quá lớn"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Đơn bị cancel khi đang trong batch
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Đơn bị cancel khi đang trong batch"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Partial success:** Batch 10 đơn, 2 thất bại → 8 đơn APPROVED + 2 báo lỗi.

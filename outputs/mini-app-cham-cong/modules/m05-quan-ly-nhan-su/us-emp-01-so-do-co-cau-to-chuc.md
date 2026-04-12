@@ -60,6 +60,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EMP-01
+  As a HR Admin
+  I want to xem sơ đồ cơ cấu tổ chức dạng cây trực quan với khả năng mở rộng/thu gọn và kéo thả điều chuyển
+  So that tôi có thể nắm bắt toàn cảnh cấu trúc nhân sự và thực hiện điều chuyển tổ chức bằng drag-and-drop trực quan.
+
+  Scenario: AC1 — Hiển thị cây tổ chức
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Hiển thị cây tổ chức"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Expand/Collapse
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Expand/Collapse"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Tìm kiếm nhân viên
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Tìm kiếm nhân viên"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Kéo thả điều chuyển
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Kéo thả điều chuyển"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Sơ đồ > 1000 node
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Sơ đồ > 1000 node"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV thuộc nhiều phòng ban
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV thuộc nhiều phòng ban"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Drag-drop vào chính nó
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Drag-drop vào chính nó"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Hiệu năng:** Render cây ≤ 2 giây cho 5,000+ NV.

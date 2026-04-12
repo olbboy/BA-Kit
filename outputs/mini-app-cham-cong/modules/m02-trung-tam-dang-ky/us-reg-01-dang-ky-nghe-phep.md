@@ -74,6 +74,58 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-REG-01
+  As a Nhân viên
+  I want to tạo đơn xin nghỉ phép trực tiếp trên Mini App với đầy đủ loại phép và kiểm tra hạn mức tự động
+  So that tôi không cần gửi đơn giấy hoặc email, đồng thời biết ngay số ngày phép còn lại để chủ động sắp xếp.
+
+  Scenario: AC1 — Hiển thị hạn mức phép
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị hạn mức phép"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Chọn loại phép & Validation
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: AC3 — Tính số ngày nghỉ thực tế
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Tính số ngày nghỉ thực tế"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Xác nhận & Gửi đơn
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Xác nhận & Gửi đơn" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: Error1 — Nghỉ phép trùng OT đã duyệt
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Nghỉ phép trùng OT đã duyệt"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Nghỉ phép xuyên 2 tháng
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Nghỉ phép xuyên 2 tháng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Carryover hết hạn
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Carryover hết hạn"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Race condition:** Kiểm thử 2 request đồng thời cho cùng NV → Chỉ 1 request thành công (pessimistic lock).

@@ -68,6 +68,51 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-ATTEN-03
+  As a Nhân viên
+  I want to tra cứu danh sách nhật ký chấm công hàng ngày và mở xem ảnh Face ID thu được từ Camera
+  So that tôi có thể chủ động đối soát dữ liệu thực tế và có minh chứng chính xác khi cần gửi giải trình.
+
+  Scenario: AC1 — Hiển thị danh sách Nhật ký
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị danh sách Nhật ký"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Tương tác Accordion
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Tương tác Accordion"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Xử lý Trạng thái đặc biệt
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Xử lý Trạng thái đặc biệt"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Ảnh Face ID không khả dụng
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Ảnh Face ID không khả dụng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Giải trình đang PENDING
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Giải trình đang PENDING"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Data retention
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Data retention"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Chất lượng ảnh**: Ảnh snapshot từ Camera AI phải được hiển thị rõ nét, tốc độ tải ảnh ≤ 2 giây trên 3G, không block rendering trang (lazy-load).

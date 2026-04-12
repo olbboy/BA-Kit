@@ -69,6 +69,53 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-REG-04
+  As a Nhân viên
+  I want to xem danh sách tất cả đơn đã gửi (nghỉ phép, đổi ca, OT) kèm trạng thái và hạn mức phép/OT còn lại
+  So that tôi có thể theo dõi tiến độ phê duyệt và chủ động quản lý quyền lợi cá nhân.
+
+  Scenario: AC1 — Hiển thị danh sách đơn
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Hiển thị danh sách đơn"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Xem chi tiết đơn
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Xem chi tiết đơn"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC3 — Hủy đơn
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại
+    When Nhân viên thực hiện "Hủy đơn"
+    Then hệ thống thực hiện soft-delete
+    And dữ liệu liên quan được xử lý đúng
+
+  Scenario: AC4 — Widget hạn mức
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Widget hạn mức"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Self-approval
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Self-approval"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Approver đi nghỉ
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Approver đi nghỉ"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Hủy đơn:** Kiểm thử hủy đơn PENDING → Balance phải hoàn lại đúng. Hủy đơn APPROVED → Phải bị chặn.

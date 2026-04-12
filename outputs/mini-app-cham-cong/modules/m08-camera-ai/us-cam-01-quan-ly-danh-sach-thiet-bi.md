@@ -57,6 +57,57 @@ Hệ thống xác định CHECK_IN/CHECK_OUT theo thứ tự ưu tiên:
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-CAM-01
+  As a IT Admin
+  I want to đăng ký, cấu hình và quản lý danh sách camera AI (C-Vision) trong hệ thống
+  So that mỗi camera được gán đúng chi nhánh, hướng In/Out và ngưỡng confidence để dữ liệu chấm công chính xác.
+
+  Scenario: AC1 — Hiển thị danh sách camera
+    Given IT Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When IT Admin truy cập màn hình "Hiển thị danh sách camera"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Thêm/Sửa camera
+    Given IT Admin đã đăng nhập vào hệ thống
+    When IT Admin thực hiện "Thêm/Sửa camera" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC3 — Vô hiệu hóa camera
+    Given IT Admin đã đăng nhập vào hệ thống
+    When IT Admin thực hiện "Vô hiệu hóa camera"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Xác định hướng chấm công
+    Given IT Admin đã đăng nhập vào hệ thống
+    When IT Admin thực hiện "Xác định hướng chấm công"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Device ID trùng
+    Given IT Admin đã đăng nhập
+    When xảy ra điều kiện "Device ID trùng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Xóa camera đang active
+    Given IT Admin đã đăng nhập
+    When xảy ra điều kiện "Xóa camera đang active"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Camera chưa có trên C-Vision
+    Given IT Admin đã đăng nhập
+    When xảy ra điều kiện "Camera chưa có trên C-Vision"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Webhook:** Sau khi thêm camera, webhook từ C-Vision phải được xử lý đúng.

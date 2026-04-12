@@ -59,6 +59,61 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-NOTIF-03
+  As a HR Admin
+  I want to cấu hình policy gửi thông báo (Batching, Throttle, Schedule) và cho phép nhân viên tùy chỉnh preference cá nhân
+  So that hệ thống gửi ≤ 3 thông báo/giờ cho mỗi NV, không spam, và nhân viên có thể tắt thông báo nhắc nhở nhưng vẫn nhận thông báo bắt buộc.
+
+  Scenario: AC1 — Cấu hình Batching
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Cấu hình Batching"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC2 — Cấu hình Throttle
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Cấu hình Throttle"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC3 — Cấu hình Schedule
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Cấu hình Schedule"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: AC4 — Preference cá nhân NV
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Preference cá nhân NV"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — NV tắt thông báo bắt buộc
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV tắt thông báo bắt buộc"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Quiet hours conflict với ca đêm
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Quiet hours conflict với ca đêm"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Batch digest quá lớn
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Batch digest quá lớn"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Batching:** 5 event trong 15 phút → NV nhận 1 thông báo tổng hợp (không phải 5).

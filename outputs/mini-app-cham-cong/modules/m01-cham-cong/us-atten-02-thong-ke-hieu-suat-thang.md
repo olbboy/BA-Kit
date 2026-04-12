@@ -65,6 +65,45 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-ATTEN-02
+  As a Nhân viên
+  I want to xem các thẻ thống kê tóm tắt về tỷ lệ đúng giờ, số ngày nghỉ và giờ tăng ca lũy kế trong tháng hiện tại
+  So that tôi có thể tự đánh giá hiệu suất chuyên cần và chủ động theo dõi quỹ lương/phép dự kiến mà không cần hỏi bộ phận Nhân sự.
+
+  Scenario: AC1 — Thẻ "Đúng giờ (%)"
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Thẻ "Đúng giờ (%)""
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Tương thích Giao diện Web
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Tương thích Giao diện Web"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Ngày đầu tháng
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Ngày đầu tháng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV gia nhập giữa tháng
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "NV gia nhập giữa tháng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — NV nghỉ dài hạn (thai sản 6 tháng)
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "NV nghỉ dài hạn (thai sản 6 tháng)"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Phân quyền**: Đảm bảo nhân viên không xem được thống kê của đồng nghiệp qua Web Inspect.

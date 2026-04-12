@@ -50,6 +50,51 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EMP-05
+  As a Quản lý
+  I want to xem dashboard hiển thị số lượng nhân viên On-site, WFH, Vắng mặt và Nghỉ phép trong thời gian thực
+  So that tôi có thể nắm bắt ngay tình hình nhân lực hiện tại để điều phối công việc.
+
+  Scenario: AC1 — Counter Cards
+    Given Quản lý đã đăng nhập vào hệ thống
+    When Quản lý thực hiện "Counter Cards"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Danh sách chi tiết
+    Given Quản lý đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Quản lý truy cập màn hình "Danh sách chi tiết"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC3 — Real-time update
+    Given Quản lý đã đăng nhập vào hệ thống
+    When Quản lý thực hiện "Real-time update"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Camera offline
+    Given Quản lý đã đăng nhập
+    When xảy ra điều kiện "Camera offline"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Toàn bộ NV WFH
+    Given Quản lý đã đăng nhập
+    When xảy ra điều kiện "Toàn bộ NV WFH"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Timezone khác nhau
+    Given Quản lý đã đăng nhập
+    When xảy ra điều kiện "Timezone khác nhau"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu:** Counter phải khớp với tổng NV active trong hệ thống.

@@ -55,6 +55,51 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-NOTIF-02
+  As a HR Admin
+  I want to cấu hình danh sách sự kiện kích hoạt thông báo và tùy chỉnh nội dung template cho từng event
+  So that hệ thống gửi đúng thông báo, đúng nội dung cho đúng đối tượng khi có sự kiện xảy ra.
+
+  Scenario: AC1 — Danh sách sự kiện theo nhóm
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Danh sách sự kiện theo nhóm"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Template thông báo
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Template thông báo"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Preview
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Preview"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Trigger event spike
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Trigger event spike"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Trigger cho NV đã nghỉ việc
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Trigger cho NV đã nghỉ việc"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Duplicate trigger
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Duplicate trigger"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **36 events:** Tất cả event được seed mặc định khi khởi tạo tenant.

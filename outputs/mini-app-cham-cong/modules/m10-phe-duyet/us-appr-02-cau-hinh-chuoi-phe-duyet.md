@@ -69,6 +69,59 @@ Hệ thống tự động xác định người duyệt:
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-APPR-02
+  As a HR Admin
+  I want to thiết lập chuỗi phê duyệt (Approval Chain) cho từng loại đơn tại mỗi chi nhánh
+  So that đơn từ được duyệt đúng cấp, đúng quy trình theo chính sách riêng của từng site.
+
+  Scenario: AC1 — Thiết lập Approval Chain
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Thiết lập Approval Chain"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Xác định Approver (Approver Resolution)
+    Given HR Admin đã đăng nhập vào hệ thống
+    And có đơn chờ duyệt
+    When HR Admin thực hiện "Xác định Approver (Approver Resolution)"
+    Then trạng thái đơn chuyển thành APPROVED
+    And thông báo gửi đến người tạo đơn
+
+  Scenario: AC3 — Chuỗi Fallback
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Chuỗi Fallback"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Cấu hình ngày chốt công
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Cấu hình ngày chốt công"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: Error1 — Tổ chức thay đổi giữa approval
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Tổ chức thay đổi giữa approval"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Config approval chain rỗng
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Config approval chain rỗng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Circular approval
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Circular approval"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Chain hoạt động:** Tạo đơn → Đúng approver nhận đơn theo chain.

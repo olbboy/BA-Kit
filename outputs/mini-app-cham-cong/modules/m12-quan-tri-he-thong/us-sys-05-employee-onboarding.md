@@ -78,6 +78,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SYS-05
+  As a HR Admin
+  I want to thực hiện quy trình onboarding tập trung qua wizard 7 bước khi nhân viên mới gia nhập
+  So that mọi cài đặt cần thiết (profile, site, shift, Face ID, phép, approval chain, thông báo) được hoàn thành trong ≤ 5 phút/NV, đồng bộ, tránh bỏ sót bước khi onboard hàng loạt.
+
+  Scenario: AC1 — Wizard UI 7 bước
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Wizard UI 7 bước"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Bulk Onboarding
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Bulk Onboarding"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Onboarding Dashboard
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Onboarding Dashboard"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC4 — Integration với các module
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Integration với các module"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Bulk onboard 500 NV
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Bulk onboard 500 NV"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV thuộc 2 site
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV thuộc 2 site"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Face ID enrollment fail
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Face ID enrollment fail"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **End-to-end:** NV mới onboard qua wizard → chấm công Face ID ngày đầu → record đúng ca + site.

@@ -71,6 +71,56 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-NOTIF-04
+  As a HR Admin
+  I want to tạo, chỉnh sửa và quản lý các template email HTML cho từng loại thông báo hệ thống (approval, alert, reminder, welcome)
+  So that tất cả email gửi từ hệ thống có giao diện thống nhất, thương hiệu công ty, và nội dung phù hợp với ngữ cảnh — thay vì gửi email plain-text không chuyên nghiệp.
+
+  Scenario: AC1 — Danh sách templates theo nhóm
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Danh sách templates theo nhóm"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Email Template Editor (WYSIWYG)
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Email Template Editor (WYSIWYG)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Preview & Test Send
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Preview & Test Send"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Version History
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Version History"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — HTML injection
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "HTML injection"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Logo URL broken
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Logo URL broken"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Biến không tồn tại
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Biến không tồn tại"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Templates**: Tất cả template mặc định (≥12) được seed khi khởi tạo tenant. Giao diện chuyên nghiệp.

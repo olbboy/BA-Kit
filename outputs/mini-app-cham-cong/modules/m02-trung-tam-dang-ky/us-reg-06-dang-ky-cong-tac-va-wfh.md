@@ -80,6 +80,58 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-REG-06
+  As a Nhân viên
+  I want to gửi yêu cầu đăng ký Công tác (Business Travel) hoặc Làm việc tại nhà (WFH) trên Mini App
+  So that tôi được ghi nhận "Có mặt hợp lệ" mà không cần chấm công tại văn phòng, và quản lý nắm được vị trí làm việc thực tế của tôi.
+
+  Scenario: AC1 — Form Đăng ký Công tác
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Form Đăng ký Công tác" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC2 — Form Đăng ký WFH
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Form Đăng ký WFH" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC3 — Tích hợp Dashboard Hiện diện (US-EMP-05)
+    Given Nhân viên đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When Nhân viên truy cập màn hình "Tích hợp Dashboard Hiện diện (US-EMP-05)"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC4 — Auto-marking attendance
+    Given Nhân viên đã đăng nhập vào hệ thống
+    When Nhân viên thực hiện "Auto-marking attendance"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — WFH vượt hạn mức
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "WFH vượt hạn mức"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Công tác trùng ngày nghỉ phép
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Công tác trùng ngày nghỉ phép"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Toàn team WFH cùng ngày
+    Given Nhân viên đã đăng nhập
+    When xảy ra điều kiện "Toàn team WFH cùng ngày"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **End-to-end WFH:** NV đăng ký WFH → Manager duyệt → ngày WFH hiển thị "PRESENT" trên dashboard.

@@ -56,6 +56,56 @@ Hệ thống hiển thị Modal thông báo kết quả chi tiết:
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-SHIFT-05
+  As a HR
+  I want to tải tệp Excel danh sách nhân viên và tải lên hệ thống để gán vào ca làm việc hiện tại hàng loạt
+  So that tôi có thể triển khai lịch phân ca cho quy mô nhân sự lớn trong ≤ 30 giây cho 500 bản ghi và chính xác (0 sai sót format), tránh sai sót khi nhập liệu thủ công từng người.
+
+  Scenario: AC1 — Cung cấp File mẫu (Template Download)
+    Given HR đã đăng nhập vào hệ thống
+    When HR thực hiện "Cung cấp File mẫu (Template Download)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Quy tắc Kiểm tra Hợp lệ (Validation Rules)
+    Given HR đã đăng nhập vào hệ thống
+    When HR nhập dữ liệu không hợp lệ
+    Then hệ thống hiển thị thông báo lỗi cụ thể
+    And không cho phép lưu dữ liệu
+
+  Scenario: AC3 — Phản hồi Kết quả Import (Batch Result Feedback)
+    Given HR đã đăng nhập vào hệ thống
+    When HR thực hiện "Phản hồi Kết quả Import (Batch Result Feedback)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Đồng bộ Dữ liệu (Real-time Sync)
+    Given HR đã đăng nhập vào hệ thống
+    When HR thực hiện "Đồng bộ Dữ liệu (Real-time Sync)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — File Excel lỗi format
+    Given HR đã đăng nhập
+    When xảy ra điều kiện "File Excel lỗi format"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — NV đã thuộc ca khác
+    Given HR đã đăng nhập
+    When xảy ra điều kiện "NV đã thuộc ca khác"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Mã NV không tồn tại
+    Given HR đã đăng nhập
+    When xảy ra điều kiện "Mã NV không tồn tại"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dung lượng**: Hệ thống hỗ trợ xử lý file Excel lên đến 5,000 bản ghi/lần Import mà không bị đơ trình duyệt.

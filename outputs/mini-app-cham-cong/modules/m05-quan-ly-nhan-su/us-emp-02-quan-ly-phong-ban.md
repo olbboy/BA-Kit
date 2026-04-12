@@ -47,6 +47,55 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-EMP-02
+  As a HR Admin
+  I want to thêm, sửa, xóa các đơn vị tổ chức (Khối/Phòng ban/Đội nhóm)
+  So that cơ cấu tổ chức luôn cập nhật khi công ty có thay đổi bộ máy.
+
+  Scenario: AC1 — Tạo mới đơn vị
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Tạo mới đơn vị" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC2 — Cơ chế chặn xóa
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại
+    When HR Admin thực hiện "Cơ chế chặn xóa"
+    Then hệ thống thực hiện soft-delete
+    And dữ liệu liên quan được xử lý đúng
+
+  Scenario: AC3 — Chỉnh sửa & Di chuyển
+    Given HR Admin đã đăng nhập vào hệ thống
+    And bản ghi đã tồn tại trong hệ thống
+    When HR Admin thực hiện "Chỉnh sửa & Di chuyển"
+    Then hệ thống cập nhật thành công
+    And audit log ghi nhận thay đổi
+
+  Scenario: Error1 — Xóa phòng ban có NV
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Xóa phòng ban có NV"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Tên phòng ban trùng
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Tên phòng ban trùng"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Xóa phòng ban cha
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Xóa phòng ban cha"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Chặn xóa:** Kiểm thử xóa phòng ban có NV → Phải bị chặn.

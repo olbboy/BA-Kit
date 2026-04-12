@@ -65,6 +65,60 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-RPT-01
+  As a Quản lý / HR Admin
+  I want to xem dashboard tổng hợp chuyên cần toàn phòng ban/chi nhánh với biểu đồ trực quan
+  So that tôi có thể nắm bắt tình hình nhân sự, phát hiện vấn đề sớm và ra quyết định quản trị dựa trên dữ liệu.
+
+  Scenario: AC1 — Counter Cards (6 metrics)
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Counter Cards (6 metrics)"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC2 — Biểu đồ chuyên cần theo phòng ban
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Biểu đồ chuyên cần theo phòng ban"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC3 — Top NV vi phạm
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Top NV vi phạm"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Xu hướng 7/30 ngày
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Xu hướng 7/30 ngày"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC5 — Drill-down
+    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
+    When Quản lý / HR Admin thực hiện "Drill-down"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — Phòng ban không có dữ liệu
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Phòng ban không có dữ liệu"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — Dữ liệu chưa chốt
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "Dữ liệu chưa chốt"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — RBAC filter
+    Given Quản lý / HR Admin đã đăng nhập
+    When xảy ra điều kiện "RBAC filter"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **Dữ liệu:** Counter phải khớp: Tổng = Có mặt + Trễ + Vắng + Nghỉ phép.

@@ -56,6 +56,57 @@
 
 ---
 
+---
+
+### **GHERKIN SCENARIOS**
+
+```gherkin
+Feature: US-CAM-02
+  As a HR Admin
+  I want to mapping giữa personId của C-Vision và employeeId trong EAMS
+  So that khi camera nhận diện khuôn mặt, hệ thống biết đó là nhân viên nào để ghi nhận chấm công đúng người.
+
+  Scenario: AC1 — Hiển thị danh sách mapping
+    Given HR Admin đã đăng nhập vào hệ thống
+    And dữ liệu đã tồn tại trong hệ thống
+    When HR Admin truy cập màn hình "Hiển thị danh sách mapping"
+    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+
+  Scenario: AC2 — Tạo mapping đơn lẻ
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Tạo mapping đơn lẻ" với dữ liệu hợp lệ
+    Then hệ thống lưu thành công và trả về xác nhận
+    And thông báo được gửi đến người phê duyệt
+
+  Scenario: AC3 — Bulk-create mapping
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Bulk-create mapping"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: AC4 — Xử lý mapping thất bại
+    Given HR Admin đã đăng nhập vào hệ thống
+    When HR Admin thực hiện "Xử lý mapping thất bại"
+    Then hệ thống xử lý đúng theo yêu cầu
+
+  Scenario: Error1 — NV chưa có ảnh khuôn mặt
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "NV chưa có ảnh khuôn mặt"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error2 — 1 NV map nhiều C-Vision ID
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "1 NV map nhiều C-Vision ID"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+
+  Scenario: Error3 — Bulk mapping file lỗi
+    Given HR Admin đã đăng nhập
+    When xảy ra điều kiện "Bulk mapping file lỗi"
+    Then hệ thống hiển thị thông báo lỗi phù hợp
+    And không có dữ liệu bị mất hoặc sai lệch
+```
+
 ### **4. DEFINITION OF DONE (DOD)**
 
 1. **End-to-end:** Tạo mapping → NV quẹt camera → Attendance record tạo đúng NV.
