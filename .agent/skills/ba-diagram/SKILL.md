@@ -377,6 +377,33 @@ def mermaid_to_confluence(mermaid_code):
 
 ---
 
+## 🚨 HARD RULES — Confluence DC Compatibility (Discovered 2026-04-12)
+
+> These rules are non-negotiable. Violating them causes rendering errors on Confluence Data Center.
+
+### R1: NEVER use HTML macro
+`ac:name="html"` is **BLOCKED** on Confluence DC by default. Do NOT attempt client-side JS rendering via HTML macro. It will silently strip the body content.
+
+### R2: Plugin macro names are plugin-specific
+The Stratus "Mermaid Diagrams for Confluence" plugin uses `ac:name="mermaid-macro"`. NOT `mermaid`, NOT `mermaid-cloud`. **Always verify via test page before bulk upload.**
+
+### R3: Code macro language whitelist
+```
+SAFE:    text, javascript, java, python, sql, xml, html, css, bash, ruby, 
+         groovy, csharp, c++, diff, php, scala, perl, yaml, powershell, none
+BROKEN:  json, gherkin, typescript, mermaid, go, rust, kotlin, swift, toml
+```
+**Mapping:** `json→javascript`, `gherkin→text`, `typescript→javascript`
+**Always add** `title="ORIGINAL_LANG"` param when mapping.
+
+### R4: Validate via `body.view`, NEVER `body.storage`
+Storage API accepts invalid params silently. The renderer throws errors at view time. After upload, scan `body.view` for `"Error rendering"` and `"Unknown macro"`.
+
+### R5: Cloud ≠ Data Center
+Same plugin may use different macro names across hosting types. Test on the actual target instance.
+
+---
+
 ## 🔍 Knowledge Search
 Before drafting, search for relevant knowledge:
 *   `run_command`: `python3 .agent/scripts/ba_search.py "<topic keywords>" --multi-domain`

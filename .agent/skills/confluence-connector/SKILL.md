@@ -38,6 +38,22 @@ Target this base path for all calls:
 
 Use XHTML-based storage format when creating or updating pages. Pass content in the `body.storage` field with `"representation": "storage"`. Read `references/confluence-api-reference.md` for full storage format syntax, macros, and element reference.
 
+### ⚠️ CRITICAL: Data Center Rendering Traps
+
+**Code Macro Language Whitelist** — These are the ONLY safe `language` values:
+```
+SAFE:    text, javascript, java, python, sql, xml, html, css, bash, ruby, 
+         groovy, csharp, c++, diff, php, scala, perl, yaml, powershell, none
+BROKEN:  json, gherkin, typescript, mermaid, go, rust, kotlin, swift, toml
+```
+Map: `json→javascript`, `gherkin→text`, `typescript→javascript`. Add `title="JSON"` etc.
+
+**Blocked Macros** — `ac:name="html"` is BLOCKED on DC. Never use it.
+
+**Mermaid Plugin** — Use `ac:name="mermaid-macro"` (Stratus plugin). NOT `mermaid` or `mermaid-cloud`.
+
+**Post-Upload Validation** — Always scan `body.view` (not `body.storage`) for `"Error rendering"` after upload. Storage accepts invalid params silently.
+
 ## Core Operations
 
 Use these endpoints for page CRUD, search, spaces, comments, attachments, labels, and permissions.
