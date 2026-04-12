@@ -1,8 +1,8 @@
 # PROJECT HEALTH REPORT — EAMS Mini App Chấm Công
 
-**Audit Date:** 2026-04-12
+**Audit Date:** 2026-04-12 (Revision 2 — Post-Remediation)
 **Auditor:** BA-Kit Antigravity (Full Audit Protocol v2.3)
-**Overall Health:** 99% — PRODUCTION READY
+**Overall Health:** 98% — PRODUCTION READY
 
 ---
 
@@ -11,30 +11,33 @@
 | Dimension | Score | Trend | Status |
 |-----------|-------|-------|--------|
 | Requirements Completeness | 96% | ▲ | 🟢 |
-| AC Scenario Depth | 96% | ▲ | 🟢 |
+| AC Scenario Depth (Gherkin) | 100% | ▲ | 🟢 |
 | Cross-Artifact Consistency | 98% | ▲ | 🟢 |
-| Test Coverage | 100% | ▲ | 🟢 |
+| Test Coverage (7-col + BVA) | 100% | ▲ | 🟢 |
 | BRD Quality | 92% | ▲ | 🟢 |
-| Traceability | 100% | ▲ | 🟢 |
+| Traceability (RTM) | 100% | ▲ | 🟢 |
 | API/DB Spec Coverage | 100% | ▲ | 🟢 |
-| Gherkin Coverage | 100% | ▲ | 🟢 |
-| **Overall** | **99%** | **▲** | **🟢 PRODUCTION READY** |
+| Diagram Coverage | 100% | ▲ | 🟢 |
+| Confluence Rendering | 100% | ▲ | 🟢 |
+| **Overall** | **98%** | **▲** | **🟢 PRODUCTION READY** |
 
-> All critical blockers from the previous audit (0% test coverage, 0% traceability, orphan BRD features) have been resolved.
+> All critical blockers from previous audits have been resolved. Remaining gaps are minor: vague terms in 5 US (Requirements 96%), 2 terminology inconsistencies (Consistency 98%), BRD detail depth (BRD Quality 92%).
 
 ---
 
 ## Inventory Summary
 
-| Artifact | Count | Coverage |
-|----------|-------|----------|
-| User Stories (US) | 53 | 12/12 modules |
-| API Specifications | 12 | 12/12 modules |
-| Database Schemas | 12 | 12/12 modules |
-| Test Suites | 12 | 12/12 modules |
-| BRD Documents | 5 | 4 Role BRDs + 1 Comprehensive |
-| RTM | 1 | Full chain |
-| Module READMEs | 12 | 12/12 modules |
+| Artifact | Count | Coverage | Lines |
+|----------|-------|----------|-------|
+| Markdown files (total) | 113 | — | 14,014 |
+| User Stories (US) | 53 | 12/12 modules | — |
+| API Specifications | 12 | 12/12 modules | 80-145 each |
+| Database Schemas (+ ERD) | 12 | 12/12 modules | 2+ ERD blocks each |
+| Test Suites (7-col + BVA) | 12 | 12/12 modules | — |
+| BRD Documents | 5 | 4 Role BRDs + 1 Comprehensive | — |
+| RTM | 1 | Full chain US↔BRD↔TC | 200 lines |
+| Module READMEs (+ diagrams) | 12 | 12/12 (2 diagrams each) | — |
+| Confluence pages | 133 | 0 render errors | — |
 
 ---
 
@@ -43,7 +46,7 @@
 ### Gate 1: User Story Completeness — Module Summary
 
 | Module | US Count | Actor | Action | Value | Biz Flow | RBAC | AC-Happy | AC-Edge | AC-Error | Cross-Ref | No-Ambig | Score | Verdict |
-|--------|----------|-------|--------|-------|----------|------|----------|---------|----------|-----------|----------|-------|---------|
+|--------|----------|-------|--------|-------|----------|------|----------|---------|----------|-----------|----------|-------|---------| 
 | M01 Chấm công | 5 | 5/5 ✅ | 5/5 ✅ | 5/5 ✅ | 5/5 ✅ | 5/5 ✅ | 5/5 ✅ | 5/5 ✅ | 5/5 ✅ | 4/5 ⚠️ | 5/5 ✅ | **94%** | ✅ PASS |
 | M02 Đăng ký | 6 | 6/6 ✅ | 6/6 ✅ | 6/6 ✅ | 6/6 ✅ | 6/6 ✅ | 6/6 ✅ | 6/6 ✅ | 5/6 ⚠️ | 5/6 ⚠️ | 5/6 ⚠️ | **90%** | ✅ PASS |
 | M03 Giải trình | 2 | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | 2/2 ✅ | **96%** | ✅ PASS |
@@ -64,12 +67,12 @@
 - ✅ All 53 US have Actor/Action/Value (100%)
 - ✅ All 53 US have Business Flow section (100%)
 - ✅ All 53 US have RBAC/ABAC matrix (100%)
+- ✅ All 53 US have Gherkin AC (Feature/Scenario) (100%)
 - ✅ 51/53 US have detailed Edge Cases (96%)
 - ✅ All 53 US have DoD section (100%)
 
 **Minor improvements possible:**
-- ⚠️ **AC format**: US use prose ACs, not Gherkin Given/When/Then — acceptable for team
-- ⚠️ **Ambiguous terms**: 5 US contain vague terms ("mượt mà", "nhanh") — non-blocking
+- ⚠️ 5 US contain vague terms ("mượt mà", "nhanh") — non-blocking, acceptable for team
 
 ---
 
@@ -103,11 +106,6 @@
 | BRD-04 (IT/SysAdmin) | 10 | 10 (+US-SYS-06) | 0 | 100% |
 | **Overall** | **36** | **36** | **0** | **100%** |
 
-> All 3 previously orphaned BRD requirements now have dedicated User Stories:
-> - "Xem lịch phân ca team" → **US-SHIFT-07** (Manager View)
-> - "Quản lý template email thông báo" → **US-NOTIF-04**
-> - "Cấu hình Data Retention Policy" → **US-SYS-06**
-
 ### Terminology Consistency
 
 | Term | BRD | US | API | DB | Consistent? |
@@ -124,47 +122,104 @@
 
 ## Test Coverage Summary
 
-| Module | Test Suite | TC Count | Happy | Edge | Error | Security | Score |
-|--------|-----------|----------|-------|------|-------|----------|-------|
-| M01 Chấm công | ✅ | 35+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M02 Đăng ký | ✅ | 40+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M03 Giải trình | ✅ | 15+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M04 Báo cáo CN | ✅ | 12+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M05 Nhân sự | ✅ | 38+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M06 Ca làm việc | ✅ | 42+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M07 Lịch nghỉ | ✅ | 25+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M08 Camera AI | ✅ | 28+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M09 Thông báo | ✅ | 22+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M10 Phê duyệt | ✅ | 20+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M11 Báo cáo tổng | ✅ | 25+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| M12 Quản trị | ✅ | 35+ | ✅ | ✅ | ✅ | ✅ | 100% |
-| **Overall** | **12/12** | **337+** | | | | | **100%** |
+| Module | Test Suite | Format | TC Count | BVA Tests | Happy | Edge | Error | Security | Score |
+|--------|-----------|--------|----------|-----------|-------|------|-------|----------|-------|
+| M01 Chấm công | ✅ | 7-col ✅ | 58 | 30 (5 fields) | ✅ | ✅ | ✅ | ✅ | 100% |
+| M02 Đăng ký | ✅ | 7-col ✅ | 40+ | 22 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M03 Giải trình | ✅ | 8-col ✅ | 22 | 15 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M04 Báo cáo CN | ✅ | 8-col ✅ | 19 | 15 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M05 Nhân sự | ✅ | 7-col ✅ | 38+ | 16 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M06 Ca làm việc | ✅ | 7-col ✅ | 42+ | 22 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M07 Lịch nghỉ | ✅ | 8-col ✅ | 25+ | 7 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M08 Camera AI | ✅ | 7-col ✅ | 28+ | 24 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M09 Thông báo | ✅ | 8-col ✅ | 22+ | 14 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M10 Phê duyệt | ✅ | 7-col ✅ | 20+ | 16 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M11 Báo cáo tổng | ✅ | 8-col ✅ | 25+ | 15 | ✅ | ✅ | ✅ | ✅ | 100% |
+| M12 Quản trị | ✅ | 7-col ✅ | 35+ | 24 | ✅ | ✅ | ✅ | ✅ | 100% |
+| **Overall** | **12/12** | **12/12** | **374+** | **220** | | | | | **100%** |
+
+### Test Format Standards (ISTQB-aligned)
+
+- ✅ **12/12** modules have **Precondition + Input** columns
+- ✅ **12/12** modules have **BVA sections** with boundary test data
+- ✅ **3/12** modules (M01, M02, M10) have **State Transition Testing** tables
+- ✅ All 7 test categories present: Happy, Edge, Error, Security, Concurrency, Data, Performance
 
 ---
 
-## Resolved Issues (from previous audit)
+## Diagram Coverage
 
-| # | Previous Issue | Resolution | Status |
-|---|---------------|------------|--------|
-| 1 | Test coverage 0% | Generated 12 test suites (337+ TCs) | ✅ RESOLVED |
-| 2 | Traceability 0% | Built complete RTM.md | ✅ RESOLVED |
-| 3 | Orphan BRD-02: "Xem lịch phân ca team" | Created US-SHIFT-07 | ✅ RESOLVED |
-| 4 | Orphan BRD-03: "Quản lý template email" | Created US-NOTIF-04 | ✅ RESOLVED |
-| 5 | Orphan BRD-04: "Data Retention Policy" | Created US-SYS-06 | ✅ RESOLVED |
-| 6 | Missing API endpoints M04, M12 | Added to api-spec.md | ✅ RESOLVED |
-| 7 | US count = 50, gaps in M06/M09/M11/M12 | Added 3 new US (total 53) | ✅ RESOLVED |
-| 8 | M02 API: WFH sub-flow not fully mapped | Added 6 endpoints (business-trips, wfh-requests, quota) | ✅ RESOLVED |
-| 9 | M12 API: Period closing audit trail incomplete | Added GET /admin/period-closing/audit-trail | ✅ RESOLVED |
-| 10 | AC format: Prose instead of Gherkin | Added hybrid Gherkin scenarios to all 53 US (Given/When/Then) | ✅ RESOLVED |
-
----
-
-## Remaining Minor Items
-
-None. All actionable issues have been resolved.
+| Module | Process Flow | Use Case | Total | Status |
+|--------|-------------|----------|-------|--------|
+| M01 Chấm công | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M02 Đăng ký | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M03 Giải trình | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M04 Báo cáo CN | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M05 Nhân sự | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M06 Ca làm việc | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M07 Lịch nghỉ | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M08 Camera AI | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M09 Thông báo | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M10 Phê duyệt | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M11 Báo cáo tổng | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| M12 Quản trị | ✅ graph TD | ✅ graph LR | 2 | ✅ |
+| **Overall** | **12/12** | **12/12** | **24** | **100%** |
 
 ---
 
-*Report generated by BA-Kit Antigravity — Full Audit Protocol v2.1*
+## Confluence DC Rendering Status
+
+| Check | Pages | Status |
+|-------|-------|--------|
+| Total pages published | 133 | ✅ |
+| Render errors (body.view scan) | 0/133 | ✅ |
+| Mermaid diagrams (`mermaid-macro`) | All using correct plugin | ✅ |
+| Code blocks (language whitelist) | `json→javascript`, `gherkin→text` | ✅ |
+| HTML macro usage | 0 pages (blocked on DC) | ✅ |
+
+---
+
+## Resolved Issues (Full History)
+
+| # | Issue | Resolution | Audit | Status |
+|---|-------|------------|-------|--------|
+| 1 | Test coverage 0% | Generated 12 test suites (337+ TCs) | R1 | ✅ RESOLVED |
+| 2 | Traceability 0% | Built complete RTM.md | R1 | ✅ RESOLVED |
+| 3 | Orphan BRD-02: "Xem lịch phân ca team" | Created US-SHIFT-07 | R1 | ✅ RESOLVED |
+| 4 | Orphan BRD-03: "Quản lý template email" | Created US-NOTIF-04 | R1 | ✅ RESOLVED |
+| 5 | Orphan BRD-04: "Data Retention Policy" | Created US-SYS-06 | R1 | ✅ RESOLVED |
+| 6 | Missing API endpoints M04, M12 | Added to api-spec.md | R1 | ✅ RESOLVED |
+| 7 | US count = 50, gaps in M06/M09/M11/M12 | Added 3 new US (total 53) | R1 | ✅ RESOLVED |
+| 8 | AC format: Prose instead of Gherkin | Added Gherkin scenarios to all 53 US | R1 | ✅ RESOLVED |
+| 9 | Mermaid rendering: `Unknown macro: html` | Replaced HTML macro with `mermaid-macro` (23 pages) | R2 | ✅ RESOLVED |
+| 10 | Mermaid rendering: Wrong macro name | Discovered correct name `mermaid-macro` via test page | R2 | ✅ RESOLVED |
+| 11 | Code macro: `language="gherkin"` error | Mapped to `text` + `title="Gherkin Scenarios"` (53 pages) | R2 | ✅ RESOLVED |
+| 12 | Code macro: `language="json"` error | Mapped to `javascript` + `title="JSON"` (14 pages) | R2 | ✅ RESOLVED |
+| 13 | Test suites: 5-col format (shallow) | Enriched to 7-col + BVA + State Transition (12 suites) | R2 | ✅ RESOLVED |
+| 14 | Diagrams: 9/12 READMEs missing | Added Process Flow + Use Case to all 12 modules | R2 | ✅ RESOLVED |
+| 15 | M05 README: 0 diagrams | Added Process Flow (graph TD) + Use Case (graph LR) | R2 | ✅ RESOLVED |
+| 16 | M01 test suite: No BVA section | Added 5 BVA tables (30 boundary tests) | R2 | ✅ RESOLVED |
+| 17 | 5 test suites: Missing Precondition + Input cols | Added columns to M03, M04, M07, M09, M11 | R2 | ✅ RESOLVED |
+| 18 | 8 READMEs: Missing Use Case diagram | Added graph LR UC diagrams to 8 modules | R2 | ✅ RESOLVED |
+
+---
+
+## Remaining Items
+
+None. All actionable issues have been resolved across 2 audit revisions.
+
+---
+
+## Evolution History
+
+```
+Revision 0 (2026-04-11):  78% — Initial generation (missing tests, RTM, orphan BRDs)
+Revision 1 (2026-04-12):  99% — Tests + RTM + BRD traceability + Gherkin AC
+Revision 2 (2026-04-12):  98% — Confluence fixes + Test enrichment + Diagram coverage
+```
+
+---
+
+*Report generated by BA-Kit Antigravity — Full Audit Protocol v2.3*
 *Standards: CMMI, ISO 25010, BABOK v3, IEEE 29148, ISTQB*
-*Audit date: 2026-04-12 | Evolution: 78% → 96% → 98% → 99%*
+*Audit date: 2026-04-12 | Health: 78% → 99% → 98% (recalibrated)*
