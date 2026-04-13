@@ -29,6 +29,16 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Functional requirements drafted, need quality constraints defined
+- Compliance regulations identified (GDPR, PCI-DSS, labor law) — need NFRs mapped
+- Architecture decision required — need performance/reliability baselines first
+
+**When NOT to use:**
+- No functional requirements exist yet (go to @ba-writing)
+- Need to validate existing NFRs for testability (use @ba-validation)
+
 ## System Instructions
 
 When activated via `@ba-nfr`, perform the following cognitive loop:
@@ -60,6 +70,36 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-solution` to calculate the cost of these NFRs."
 *   "Handover: Summon `@ba-validation` to verify if the architecture meets these constraints."
 *   "Handover: Summon `@ba-quality-gate` to include NFRs in the quality gate scoring."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Dev team will figure out performance targets" | They'll pick 200ms because that's what they remember. Your SLA demands 50ms. Write the number or own the incident. |
+| "ISO 25010 is overkill for this project" | Skipping Reliability = production incidents. Skipping Maintainability = 6-month tech debt. "Overkill" costs less than downtime. |
+| "NFRs are nice-to-have" | NFR failures cause 80% of post-launch incidents. Non-functional is a misnomer — they are critical functions. |
+| "Just copy NFRs from last project" | Last project's NFRs reflected last project's load, compliance, and users. Current context differs. Copy = unverified assumptions. |
+| "Performance testing is QA's job, not mine" | QA can't test what wasn't specified. If you don't write the target, there is no test. |
+
+## Red Flags
+
+- Vague terms in NFRs: "fast", "secure", "user-friendly", "scalable" — no metric attached
+- Only 2–3 of 8 ISO 25010 categories addressed (full coverage: Functional Suitability, Performance Efficiency, Compatibility, Usability, Reliability, Security, Maintainability, Portability)
+- NFR written without measurement method ("how do we test this?")
+- Performance target stated without load profile (at what concurrency? what data volume?)
+- Compliance regulations listed by name only, with no NFR derived from them
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] ≥5 of 8 ISO 25010 categories addressed (cite category names explicitly)
+- [ ] Every NFR has measurable threshold AND measurement method (tool + scenario)
+- [ ] Compliance regulations identified with source citation (GDPR Art. XX, PCI-DSS v4.0.1, etc.)
+- [ ] Load profile defined for every Performance NFR (concurrent users, request rate, data volume)
+- [ ] Handoff to @ba-validation for testability check
 
 ---
 

@@ -29,6 +29,16 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Multiple solution options exist and a business case is needed to choose
+- ROI or NPV analysis required before budget approval
+- Post-implementation review comparing projected vs actual results
+
+**When NOT to use:**
+- Solution already decided and approved (proceed to @ba-writing)
+- Just need feature ranking, not financial analysis (use @ba-prioritization)
+
 ## System Instructions
 
 When activated via `@ba-solution`, perform the following cognitive loop:
@@ -58,6 +68,37 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-prioritization` to de-prioritize features with negative ROI."
 *   "Handover: Summon `@ba-innovation` to find a cheaper way to achieve the same goal."
 *   "Handover: Summon `@ba-metrics` to track ROI realization after deployment."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Exact numbers don't matter, this is directional analysis" | Directional = ±50% accuracy. Finance needs ±10%. Compute NPV with real discount rate or own the budget overrun. |
+| "NPV is too academic, ROI is enough" | ROI ignores time value of money. When cash flows span >1 year, NPV beats ROI. Your CFO uses NPV — so should you. |
+| "We can't predict benefits accurately enough to model" | You can predict ranges. Pessimistic/Expected/Optimistic scenarios + sensitivity analysis handle uncertainty correctly. |
+| "Excel is fine for ROI calculation" | Excel hides formula errors in hidden cells. Use Python and print every intermediate value. Auditable and reproducible. |
+| "Do Nothing isn't a real option" | Do Nothing is always the baseline. Without it, you have no comparison point and no cost of inaction. |
+
+## Red Flags
+
+- ROI reported without formula, discount rate, or listed assumptions
+- No sensitivity analysis (only single-point estimate, no ±20% scenarios)
+- Benefits benchmarked from vendor marketing materials with no independent validation
+- Cost model excludes: ongoing maintenance, training, change management, integration effort
+- NPV computed without discount rate (r=0 is incorrect for multi-year projects)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] NPV computed with explicit discount rate (cite source: company hurdle rate, WACC, or industry benchmark)
+- [ ] Sensitivity analysis run: Pessimistic / Expected / Optimistic scenarios with different benefit assumptions
+- [ ] Cost model includes: development + training + support + maintenance + change management
+- [ ] All benefit figures cite data source (usage logs, benchmarks, signed stakeholder commitments)
+- [ ] Python script printed with intermediate values (not just final number)
+- [ ] Handoff to @ba-prioritization for ranking this option against alternatives
 
 ---
 

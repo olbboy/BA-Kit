@@ -2,6 +2,37 @@
 
 All notable changes to BA-Kit Antigravity.
 
+## v3.3.0 — 2026-04-13
+
+### Added — Full Anti-Rationalization Pattern Coverage
+
+Complete rollout of anti-rationalization pattern to all remaining 28 BA agents. All 33 agents now have the 4 anti-slack sections.
+
+**28 agents updated** (organized by thematic batches):
+
+- **Batch A — Core Workflow** (7): ba-identity, ba-nfr, ba-process, ba-prioritization, ba-solution, ba-conflict, ba-export
+- **Batch B — Advanced Analysis** (7): ba-metrics, ba-root-cause, ba-innovation, ba-strategy, ba-facilitation, ba-systems, ba-agile
+- **Batch C — Quality & Modeling** (7): ba-test-gen, ba-quality-gate, ba-consistency, ba-auditor, ba-traceability, ba-data, ba-business-rules
+- **Batch D — UX/Delivery/Integration** (7): ba-ux, ba-communication, ba-change, ba-diagram, ba-jira, ba-confluence, ba-wiki
+
+Each updated SKILL.md now includes:
+- `## When to Use` — explicit triggers + exclusions
+- `## Common Rationalizations` — ≥4 domain-specific excuses with factual rebuttals
+- `## Red Flags` — ≥4 observable signs the skill is being violated
+- `## Verification` — ≥4 evidence-based exit criteria with handoff reference
+
+### Stats
+- **Pattern coverage:** 5/33 → **33/33** (100%)
+- **New rationalizations:** 140+ (28 × 5 average)
+- **New red flags:** 140+
+- **New verification items:** 140+
+- **All rationalizations pass specificity test** (no copy-pasteable generic filler)
+
+### Methodology
+Delivered via 4 parallel subagents working on 7 files each, with domain seeds packed into prompts (realistic BA anti-patterns per agent). Quality review: automated section count check + manual specificity/observability/evidence checks on sample files.
+
+---
+
 ## v3.2.0 — 2026-04-13
 
 ### Added — Anti-Rationalization Framework

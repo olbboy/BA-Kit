@@ -31,6 +31,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Need to run a requirements discovery, prioritization, or decision-making workshop
+- Stakeholders need to reach consensus and group dynamics risk bias or dominance
+- Planning pre-work, agenda, and follow-up materials for a structured session
+- Designing activities for diverge-then-converge requirements gathering
+
+**When NOT to use:**
+- Just need to document what was already decided (use @ba-writing)
+- Need to analyze requirements quality after a workshop (use @ba-validation)
+- One-on-one elicitation interview (use @ba-elicitation)
+
 ## System Instructions
 
 When activated via `@ba-facilitation`, perform the following cognitive loop:
@@ -74,6 +86,35 @@ Provide a complete facilitation pack:
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-writing` to convert workshop outputs into User Stories."
 *   "Handover: Summon `@ba-conflict` if stakeholders disagree during the session."
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Participants will prepare if the topic is important" | They won't. Send pre-work 48h before or the workshop opens with people catching up. Time wasted. |
+| "A detailed agenda is too rigid — we need flexibility" | No agenda means 2-hour debate about unrelated topics. Agenda prevents sprawl; parking lot handles exceptions. |
+| "I'll send notes later this week" | 24 hours is the limit. After that, action items lose owner and context. Silent consensus becomes disputed memory. |
+| "Dominant voices will naturally sort out through discussion" | Dominant voices silence junior staff. Silent brainstorm + round robin ensures equal input before discussion opens. |
+| "We don't need silent brainstorm, we're a high-trust team" | Anchoring is cognitive, not cultural. First idea spoken biases all subsequent ideas regardless of trust level. |
+
+## Red Flags
+
+- Workshop called with no clear objective ("we'll discuss the system")
+- Agenda items have no time boxes (no structure = no convergence)
+- No silent brainstorm phase before group discussion (anchoring risk high)
+- Parking lot missing from facilitation plan (off-topic derails focus)
+- Follow-up notes not sent within 24h after session
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] ONE clear objective stated: "After this workshop, we will decide [X]"
+- [ ] Agenda follows ODEC structure with explicit time boxes per phase
+- [ ] Pre-work material sent ≥48h before the workshop
+- [ ] Silent brainstorm activity included before group discussion phase
+- [ ] Follow-up notes sent within 24h (decisions, action items with owners, parking lot)
+- [ ] Handoff to @ba-writing to convert workshop outputs into User Stories
 
 ---
 

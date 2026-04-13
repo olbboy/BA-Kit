@@ -31,6 +31,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Defining or slicing a product backlog into release-ready thin vertical slices
+- Creating or validating an MVP scope against "smallest learning vehicle" criterion
+- Need a User Story Map with backbone to clarify user journey before sprint planning
+- Formulating hypothesis statements for outcome-based acceptance
+
+**When NOT to use:**
+- Writing detailed User Story specs (use @ba-writing for that step)
+- Need quality validation of already-written stories (use @ba-validation)
+- Need to set up metrics for measuring MVP outcomes (use @ba-metrics)
+
 ## System Instructions
 
 When activated via `@ba-agile`, perform the following cognitive loop:
@@ -86,6 +98,35 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-metrics` to establish quality baselines for the MVP."
 *   "Handover: Summon `@ba-test-gen` to generate acceptance test cases from stories."
 *   "Handover: Summon `@ba-jira` to export stories to sprint backlog."
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "We know what MVP means — it's the must-have features" | MVP means Minimum Viable — the smallest thing that creates a learning loop. Your 20-feature 'MVP' is a minimum pile, not a learning vehicle. |
+| "User Story Mapping is overhead for a small team" | Story mapping prevents the release-of-death (everything at once). 1 hour of mapping saves multiple sprints of confusion. |
+| "Our MVP includes all P0 features from the backlog" | If everything is P0, nothing is. MVP is one thin vertical slice. Apply the Robertson test: cut scope until it hurts. |
+| "Hypothesis-driven development is for startups or product teams" | It's for anyone who doesn't want to build wrong things. That's everyone in every context, including enterprise BA. |
+| "We measure success by whether we shipped on time" | On-time shipping of the wrong thing is a failure. MVP success is measured by what users do, not what the team delivered. |
+
+## Red Flags
+
+- "MVP" scope spanning more than one release cycle of features
+- Story map has no backbone (user journey row is missing)
+- Release slices are horizontal (infrastructure, then UI, then logic — no end-to-end value)
+- No hypothesis statement written for the MVP
+- Success defined as "did we ship" rather than "did users achieve [outcome]"
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Story map has a clear backbone (user journey steps across the top row)
+- [ ] MVP defined as ONE thin vertical slice that delivers end-to-end value
+- [ ] Hypothesis statement written: "We believe [feature] will [outcome] for [user], known true when [metric]"
+- [ ] All release slices are vertical (each slice delivers value independently)
+- [ ] Learn goals explicitly stated for each release (what question does this release answer?)
+- [ ] Handoff to @ba-writing for User Stories covering the MVP slice
 
 ---
 

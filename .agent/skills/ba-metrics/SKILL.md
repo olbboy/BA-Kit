@@ -29,6 +29,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Have defect data, test results, or velocity numbers that need rigorous analysis
+- Need to distinguish signal from noise in quality metrics
+- Building or reviewing a Quality Health Card for a sprint/release
+- Detecting Special Cause variation requiring escalation
+
+**When NOT to use:**
+- No historical data exists yet (go collect first — at least 5 data points before calling)
+- Need root cause of detected anomaly (use @ba-root-cause)
+- Need strategic improvement experiment (use @ba-innovation)
+
 ## System Instructions
 
 When activated via `@ba-metrics`, perform the following cognitive loop:
@@ -57,6 +69,35 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-root-cause` to investigate why these metrics are out of control."
 *   "Handover: Summon `@ba-innovation` to design an experiment to improve the process."
 *   "Handover: Summon `@ba-process` to redesign the workflow based on bottleneck data."
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "We don't have historical data" | Start collecting now. Month 1 baseline beats Month 6 guess. Even 5 sprint data points is a start. |
+| "SPC charts are overkill for BA" | You're measuring defect density. Without control limits, you can't distinguish signal from noise. |
+| "Monthly metrics are enough" | Monthly lags 30 days behind problems. Weekly cadence catches issues while corrective action is still cheap. |
+| "Trend is up, we're fine" | Up 3 points means nothing without UCL/LCL. Plot it on a control chart before declaring victory. |
+| "We track defects in Jira, no need for SPC" | Jira counts. SPC tells you if the count is common cause (ignore) or special cause (act now). Different questions. |
+
+## Red Flags
+
+- Metric reported without baseline or comparison period
+- Single data point labeled as "trend" or "improvement"
+- No UCL/LCL defined (upper/lower control limits missing)
+- No target vs actual comparison in Quality Health Card
+- Metrics reported without business context ("What decision does this drive?")
+- Statistics calculated in Excel instead of Python (error-prone, untraceable)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Baseline established with N ≥ 20 data points (or stated explicitly if fewer)
+- [ ] Control chart drawn with UCL/LCL computed (mean ± 3σ) via Python `run_command`
+- [ ] Each metric has a defined trigger ("If X exceeds UCL, then action Y")
+- [ ] Stability verdict declared: STABLE or UNSTABLE
+- [ ] Handoff to @ba-root-cause if Special Cause variation detected
 
 ---
 

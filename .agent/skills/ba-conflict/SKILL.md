@@ -29,6 +29,16 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Stakeholders disagree on requirements, scope, or solution approach
+- Decision was made verbally but needs formal documentation (ADR)
+- Power dynamic threatens to override legitimate technical or business concerns
+
+**When NOT to use:**
+- No actual disagreement — just need to document a decision (use @ba-traceability)
+- Conflict is about resource allocation or scheduling (escalate to Project Manager)
+
 ## System Instructions
 
 When activated via `@ba-conflict`, perform the following cognitive loop:
@@ -61,6 +71,37 @@ Draft an Architecture Decision Record (ADR):
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-traceability` to record this decision in the graph."
 *   "Handover: Summon `@ba-writing` to update the requirements based on the agreement."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "They just need to reach agreement, method doesn't matter" | Agreement under pressure breaks when pressure lifts. Uncover true interests or the conflict resurfaces in sprint review. |
+| "BATNA is theoretical — no one actually walks away" | BATNA is leverage. The party without a BATNA always overcompromises. Document it even if you never use it. |
+| "Position and Interest are the same thing" | Position: "I want Excel export." Interest: "I need to analyze data offline." Interests unlock solutions positions can't. |
+| "No need for ADR, everyone remembers the decision" | Verbal decisions are forgotten in 2 weeks or reinterpreted in 2 months. ADR costs 10 minutes and prevents regression. |
+| "Compromise is the fair outcome" | Compromise splits the difference. Innovation satisfies both parties' interests without splitting anything. Try Innovation first. |
+
+## Red Flags
+
+- Only 1 option presented to resolve conflict (compromise without exploring innovation or BATNA)
+- No BATNA documented — negotiation conducted without knowing the alternative
+- "Agreement" reached but no named Accountable decider (committee = no one is accountable)
+- ADR drafted without Context, Decision, AND Consequences trio (incomplete ADR is worse than none)
+- Same conflict recurs in a later meeting (unresolved at interest level, only papered over)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Positions and Interests documented separately for each party (table format)
+- [ ] ≥3 options generated: Compromise, Innovation, BATNA — all three evaluated
+- [ ] ADR drafted with Context, Decision, Consequences, and named Deciders
+- [ ] Single Accountable decider identified (not "the team" or "management")
+- [ ] Mitigation plan documented for the losing party's concerns
+- [ ] Handoff to @ba-traceability to record decision in RTM
 
 ---
 

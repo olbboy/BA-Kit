@@ -29,6 +29,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Have a pain point with measurable current-state metric and need improvement options
+- Need to design a controlled experiment (A/B test, pilot, MVP pilot)
+- @ba-metrics detected degradation and escalated for improvement design
+- Need to evaluate multiple improvement concepts with ICE scoring before committing
+
+**When NOT to use:**
+- Root cause not yet identified (go to @ba-root-cause first)
+- Idea is already decided — no experimentation, just implementation (go to @ba-writing)
+- Need to measure experiment results (use @ba-metrics for result verification)
+
 ## System Instructions
 
 When activated via `@ba-innovation`, perform the following cognitive loop:
@@ -59,6 +71,35 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-solution` to perform a rigorous financial audit of this pilot."
 *   "Handover: Summon `@ba-elicitation` to interview users during the beta test."
 *   "Handover: Summon `@ba-metrics` to verify experiment results with statistical rigor."
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "A/B testing is for big tech, we're too small" | A/B is for anyone with ≥2 users. Small teams need it MORE — less margin for error, every wrong decision is proportionally more costly. |
+| "We know what users want" | You know what 2-3 users said in interviews. A/B tells you what 1000 users do under real conditions. Different signal. |
+| "The hypothesis is obvious, we don't need to write it" | If it's obvious, write it in 1 minute. If you can't state it clearly → it's not obvious, it's an assumption. |
+| "Sample size is too small for statistical significance" | Then don't A/B. Pick a testable question with enough users, or shrink the experiment. Don't run underpowered tests. |
+| "SCAMPER is too structured, we prefer free ideation" | Free ideation generates 10 ideas, all similar. SCAMPER generates 7 idea categories, surfacing concepts free thinking misses. |
+
+## Red Flags
+
+- Hypothesis stated without null hypothesis (unfalsifiable test)
+- A/B test designed without a control group (can't attribute change to intervention)
+- Sample size not calculated before launch (underpowered test = wasted effort)
+- Success metric defined after launch or after seeing results (p-hacking)
+- "Pilot" that is actually a full rollout with no comparison group
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Hypothesis written: "We believe [change] will [outcome] measured by [metric]"
+- [ ] Null hypothesis explicitly stated
+- [ ] Control group defined (what stays unchanged)
+- [ ] Sample size calculated for 95% confidence, 80% power via Python `run_command`
+- [ ] Success metric and early-stopping criterion agreed BEFORE launch
+- [ ] Handoff to @ba-metrics for measurement setup and result verification
 
 ---
 

@@ -29,6 +29,16 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Backlog exceeds capacity and trade-off decisions are required
+- Stakeholders disagree on which features matter most — need data-driven ranking
+- Sprint planning imminent and no objective prioritization exists
+
+**When NOT to use:**
+- Only 1–2 features to rank (common sense is faster than a framework)
+- Prioritization already done and stakeholders aligned (proceed to @ba-agile)
+
 ## System Instructions
 
 When activated via `@ba-prioritization`, perform the following cognitive loop:
@@ -58,6 +68,36 @@ Present the Forced Rank list.
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-writing` to start drafting the 'MUST HAVE' items."
 *   "Handover: Summon `@ba-conflict` if stakeholders refuse to accept the cutline."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Everything is a Must Have" | If everything is Must, nothing is. Enforce the 20% rule — force at least 20% into Won't Have this release. |
+| "I'll estimate RICE scores from experience" | Experience is biased toward recent, visible work. Use real data: usage logs, support ticket volume, survey NPS scores. |
+| "WSJF is too complex for this project" | WSJF = (Value + Time Criticality + Risk Reduction) / Job Size. Five numbers. 15 minutes. Do it. |
+| "The loudest stakeholder wins" | That's politics, not prioritization. Apply the framework consistently — data defends the ranking in any stakeholder meeting. |
+| "We'll reprioritize later based on feedback" | "Later" is after sprint commitments are made. Reprioritization mid-sprint = rework + morale damage. Do it now. |
+
+## Red Flags
+
+- MoSCoW where >40% of items are classified "Must Have" (mathematical impossibility of delivering all)
+- RICE scores are round numbers: 1, 2, 3 — sign of subjective guessing, not data
+- WSJF applied without computing delay cost (CoD component missing = WSJF is just effort-ranking)
+- No "Won't Have This Release" column explicitly documented in the backlog
+- Ranking shifts based on which stakeholder spoke last in the meeting
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] MoSCoW distribution enforced: ≤30% Must, explicit Won't Have list with ≥20% of total items
+- [ ] RICE or WSJF scores cite data source (log file, ticket count, survey — not "gut feel")
+- [ ] WSJF: delay cost explicitly computed per item (not left blank or set to 1 across the board)
+- [ ] Top 20% items have written rationale defending their rank
+- [ ] Handoff to @ba-agile for sprint planning
 
 ---
 

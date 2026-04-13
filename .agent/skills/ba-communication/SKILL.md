@@ -31,6 +31,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Need to write status reports, executive summaries, or meeting minutes
+- Communicating BA artifacts to a specific audience (C-suite, Dev, Regulators)
+- Translating technical findings into business language for decision-makers
+- Drafting escalations, scope change notices, or sprint review prep
+
+**When NOT to use:**
+- Audience not yet identified (run @ba-identity first to map stakeholders)
+- Content not yet ready (go back to @ba-writing or @ba-validation first)
+- Formal document export needed (use @ba-export for DOCX compliance)
+
 ## System Instructions
 
 When activated via `@ba-communication`, perform the following cognitive loop:
@@ -73,6 +85,36 @@ Present the communication artifact, formatted for the target audience.
 *   "Handover: Summon `@ba-questioning` to prepare Q&A for a presentation."
 *   "Handover: Summon `@ba-export` to format this as DOCX for formal submission."
 *   "Handover: Summon `@ba-metrics` to add quantitative data to the status report."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "One report fits all audiences" | C-suite scans in 30 seconds. Dev reads every detail. Same content in different formats — never the same document sent unchanged. |
+| "RAG status is self-explanatory" | Red/Yellow/Green without rationale is decoration. Include WHY the color: which risk, which metric, which deadline. |
+| "Executives understand technical terms" | They understand business impact. Translate "microservice outage" → "customers unable to complete checkout for 2 hours." |
+| "I'll add action items if they ask" | Every communication needs a next action. Without it, the report is noise — it informs but doesn't move anything forward. |
+
+## Red Flags
+
+- Same report sent to Dev team and C-suite unchanged
+- RAG status present but no rationale explaining why the color was chosen
+- Technical jargon ("microservice", "K8s", "CDN") appears in an executive summary
+- No action items or next steps — report ends without directing anyone to do anything
+- Distribution list not reviewed: wrong audience receives wrong detail level
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Audience identified explicitly (C-suite / PM / Dev / End User / Regulator)
+- [ ] Format matches audience (1-page exec summary vs. detailed dev report)
+- [ ] RAG status includes rationale (why Red/Yellow/Green, not just the color)
+- [ ] Jargon adapted to audience level (technical terms translated for business audiences)
+- [ ] Action items listed with owner and deadline
+- [ ] Handoff to @ba-identity for distribution list validation before sending
 
 ---
 

@@ -29,6 +29,16 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Requirement documents finalized and need to be delivered to client (DOCX, PDF)
+- Bank, government, or enterprise client has specific branding/compliance template requirements
+- Delivery milestone reached and formal document package must be assembled
+
+**When NOT to use:**
+- Content still has open placeholders or unresolved requirements (go back to @ba-writing)
+- Just need to share draft internally (use raw Markdown — export only for external delivery)
+
 ## System Instructions
 
 When activated via `@ba-export`, perform the following cognitive loop:
@@ -57,6 +67,37 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-master` to close the project."
 *   "Handover: Summon `@ba-quality-gate` to verify export readiness before publishing."
 *   "Handover: Summon `@ba-confluence` to publish to Confluence wiki."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Client won't notice a few placeholders" | They will. `[TBD]` in a signed BRD = unprofessional + contract ambiguity. Scan before every export. |
+| "Pandoc output is good enough as-is" | Good enough = broken table borders, lost diagrams, and wrong font encoding for Vietnamese. QA the output file before sending. |
+| "We'll fix formatting manually in DOCX after export" | Manual DOCX edits are lost the next time you re-export from source. Fix in Markdown so every export is clean. |
+| "Version control is git — no need for version in the document" | Client doesn't have git access. Version number + date in the footer is the only way they know what revision they're reading. |
+| "Mermaid diagrams are fine as code blocks in DOCX" | Code blocks in a DOCX delivered to a bank reviewer = immediate credibility loss. Render to images before export. |
+
+## Red Flags
+
+- `{{TODO}}`, `[TBD]`, `XXX`, or `FIXME` present in exported document (grep check failed or skipped)
+- Mermaid diagrams appear as raw code text in DOCX output (not converted to images)
+- Tables with complex merged cells broken or misaligned after Pandoc conversion
+- No version number, date, or author in document footer or cover page
+- Missing client-required branding: logo, confidentiality notice, watermark
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Automated placeholder scan passed: 0 results for `{{TODO}}|TBD|XXX|FIXME` (grep command run)
+- [ ] All Mermaid/diagram blocks rendered as embedded images (not code) in output file
+- [ ] Table of Contents auto-generated and links to correct sections
+- [ ] Version + date + author present in footer or cover page metadata
+- [ ] Compliance check passed per client spec (branding, confidentiality notice, classification label)
+- [ ] Handoff to @ba-confluence for publishing (if applicable) or @ba-traceability for baselining
 
 ---
 

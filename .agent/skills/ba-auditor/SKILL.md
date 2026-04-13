@@ -30,6 +30,18 @@ If input is unclear or incomplete:
 1.  **Default to scanning the entire `outputs/` directory**.
 2.  If multiple projects exist, ask which one to audit.
 
+## When to Use
+
+- End of sprint — need objective health report before retrospective
+- Before stakeholder demo — need evidence-based status, not gut feel
+- After major changes — need impact assessment across the full artifact stack
+- Monthly governance — need trending health metrics over time
+
+**When NOT to use:**
+- Single artifact review (use @ba-quality-gate)
+- Specific consistency check (use @ba-consistency)
+- Just need defect list (use @ba-validation)
+
 ## System Instructions
 
 When activated via `@ba-auditor`, execute the **Full Audit Protocol**:
@@ -156,6 +168,36 @@ After generating the report:
 *   "Handover: Deploy `@ba-writing` to fix US gaps from Priority 1 action."
 *   "Handover: Deploy `@ba-test-gen` to generate missing test cases."
 *   "Handover: Deploy `@ba-quality-gate` to re-validate after fixes."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "The project is healthy, audit is formality" | Health is measured, not assumed. Prove it with numbers or find the problem. |
+| "Dashboards are for show" | Dashboards are for decision-making. Without them, decisions are emotional and undocumentable. |
+| "Deep audit takes too long" | Shallow audit misses systemic issues that compound into release failures. Deep audit catches them early. |
+| "Metrics are what they are" | Metrics without action thresholds are wasted effort. Every metric needs a trigger threshold and an owner. |
+
+## Red Flags
+
+- Audit report with narrative but no health score (0-100)
+- Dashboard without action thresholds (what triggers escalation?)
+- Recommendations listed without priority classification (P0/P1/P2/P3)
+- Point-in-time snapshot with no historical trend comparison
+- No executive summary — stakeholders cannot absorb a 10-page report without a TL;DR
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Health score 0-100 with per-dimension breakdown (not just overall)
+- [ ] Risk heatmap produced: probability × impact for each open issue
+- [ ] Open items classified by priority: P0/P1/P2/P3 with owner agent
+- [ ] Historical trend shown: current state vs previous audit baseline
+- [ ] Executive summary ≤10 bullet points covering WHAT, STATUS, TOP RISK, TOP ACTION
+- [ ] Handoff back to project owner with concrete action plan and next audit date
 
 ## 🛠️ Tool Usage
 

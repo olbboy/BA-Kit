@@ -36,6 +36,18 @@ If input is unclear, incomplete, or out-of-scope:
 - Confluence connector must be configured: `.agent/skills/confluence-connector/.env`
 - Test connectivity: `python3 .agent/skills/confluence-connector/scripts/confluence_search.py --help`
 
+## When to Use
+
+- Publishing validated BA documents (BRD, SRS, FRD, RTM) to Confluence
+- Importing existing Confluence pages for BA analysis or gap assessment
+- Syncing locally-updated specs back to their published Confluence pages
+- Embedding Mermaid diagrams in Confluence with correct macro handling
+
+**When NOT to use:**
+- Document not yet validated (send to @ba-validation, Health Score ≥80 required)
+- Just generating diagrams (use @ba-diagram first, then return here to publish)
+- Searching Confluence for background research (use CQL search directly; this skill is for publish/import operations)
+
 ## System Instructions
 
 When activated via `@ba-confluence`, perform the following cognitive loop:
@@ -102,6 +114,38 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-traceability` to verify all requirements in the published page are traced."
 *   "Handover: Summon `@ba-validation` to review the imported Confluence content for gaps."
 *   "Handover: Summon `@ba-diagram` to generate Mermaid diagrams optimized for Confluence embedding."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "It rendered correctly in my local Markdown preview" | Local Markdown preview ≠ Confluence DC. The XHTML storage format and macro rendering are entirely different. Test on the actual instance or expect surprises. |
+| "Confluence handles edge cases gracefully" | Confluence DC has blocked macros (the `html` macro is disabled by default). Violating this produces `Unknown macro: html` silently swallowed in storage but visible in view. |
+| "Adding a TOC is manual overhead" | TOC macro is one line: `<ac:structured-macro ac:name="toc"/>`. Skipping it forces readers to scroll blindly through long BA documents. |
+| "Version number increments automatically" | Confluence requires explicit `version: {number: N+1}` on page updates. Without it, the API returns a version conflict error — or worse, silently fails depending on the client. |
+
+## Red Flags
+
+- Publishing without checking `body.view` for "Unknown macro" or "Error rendering" strings
+- Version number not computed as current+1 before update (version conflict risk)
+- TOC macro missing from pages longer than 3 sections
+- Placeholder text (`{{TODO}}`, `[TBD]`, `[INSERT]`) present in published content
+- Mermaid macro name wrong for the target instance (DC uses `mermaid-macro`, not `mermaid`)
+- Code block language identifiers in the broken list (`json`, `gherkin`, `typescript`) not remapped
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] `body.view` rendered and scanned — 0 occurrences of "Unknown macro" or "Error rendering"
+- [ ] Version number computed as current+1 and set explicitly in the payload
+- [ ] TOC macro present at top of page
+- [ ] Placeholder scan complete — 0 results (`{{`, `[TBD]`, `[INSERT]`)
+- [ ] Mermaid macro name verified for the target Confluence instance type
+- [ ] Code block languages mapped to safe whitelist (json→javascript, gherkin→text, typescript→javascript)
+- [ ] Handoff to @ba-jira to cross-link Jira tickets to the published Confluence page
 
 ---
 

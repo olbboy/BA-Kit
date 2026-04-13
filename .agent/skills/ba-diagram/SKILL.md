@@ -31,6 +31,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Need to visualize a BA artifact (process, data model, journey, sequence, timeline)
+- Converting prose requirements into a diagram for Confluence publishing
+- Reviewing mockups by mapping flows into Mermaid for clarity
+- Generating Confluence-ready XHTML with correct macro embedding
+
+**When NOT to use:**
+- Content not yet structured (go back to @ba-writing or @ba-process first)
+- Diagram already exists and just needs publishing (use @ba-confluence)
+- Wireframe or UI mockup needed — not a BA flow diagram (use a design tool)
+
 ## System Instructions
 
 When activated via `@ba-diagram`, perform the following cognitive loop:
@@ -155,6 +167,37 @@ python3 .agent/skills/confluence-connector/scripts/confluence_crud.py \
 *   "Handover: Summon `@ba-process` for detailed BPMN waste analysis of this flow."
 *   "Handover: Summon `@ba-export` to include diagrams in DOCX export."
 *   "Handover: Summon `@ba-validation` to verify diagram matches requirements."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "Flowchart works for everything" | Using flowchart for a sequence interaction creates 3x the nodes and becomes unreadable. Match the tool to the job — sequence, ER, state, journey each exist for a reason. |
+| "ASCII art is simpler" | ASCII breaks in Confluence rendering, cannot be edited programmatically, and degrades in copy-paste. Mermaid renders everywhere and is version-controllable. |
+| "Mermaid syntax is hard to remember" | Reference `~/.claude/skills/mermaidjs-v11/references/diagram-types.md`. It takes 5 minutes and covers all 24+ types. |
+| "The diagram speaks for itself" | Diagrams without labels, titles, and edge descriptions force readers to guess. A node labeled "A" communicates nothing without surrounding text. |
+
+## Red Flags
+
+- Wrong diagram type chosen (flowchart used where sequence/ER/stateDiagram fits better)
+- More than 20 nodes in a single diagram (split into sub-diagrams)
+- Dead-end paths — flows with no labeled end state
+- ASCII art used instead of Mermaid v11 syntax
+- Decision diamond with only one output path (missing No/else branch)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Diagram type matches the BA artifact being visualized (per Diagram Selector table)
+- [ ] Node count ≤20 per diagram (split if exceeded)
+- [ ] Every decision path leads to a labeled end state
+- [ ] Mermaid v11 valid syntax used (not ASCII art, not deprecated patterns)
+- [ ] Node labels are descriptive — not "A", "Step 1", or other placeholders
+- [ ] Dual output provided: Mermaid source + Confluence embedding instructions
+- [ ] Handoff to @ba-confluence for publishing with correct macro embedding
 
 ---
 

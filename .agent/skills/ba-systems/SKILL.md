@@ -30,6 +30,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Problem recurs despite repeated fixes (whack-a-mole pattern)
+- Proposed solution has unknown or unintuitive side effects
+- Complex system with multiple interacting components needing boundary definition
+- Need to find high-leverage intervention point rather than symptomatic fix
+
+**When NOT to use:**
+- Problem is simple, linear, and fully understood (use @ba-root-cause directly)
+- Need to analyze a single-event incident (not a recurring system behavior)
+- Strategic context missing (establish with @ba-strategy first)
+
 ## System Instructions
 
 When activated via `@ba-systems`, perform the following cognitive loop:
@@ -83,6 +95,35 @@ Provide a Systems Analysis Report:
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-root-cause` to dig deeper into specific problem nodes."
 *   "Handover: Summon `@ba-strategy` to align interventions with strategic goals."
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Systems thinking is academic — we need fast answers" | Fast answers that ignore feedback loops produce whack-a-mole problem solving. You'll be back here in 2 sprints. |
+| "We just need to map the process, not draw feedback loops" | Process maps are linear. Causal loop diagrams show circularity. They answer different questions — you need both. |
+| "The feedback loops here are obvious" | Obvious loops are balanced (self-correcting). Subtle loops are reinforcing (self-amplifying). The dangerous ones are subtle. |
+| "Stocks and flows modeling is too abstract for BA work" | Stocks are the things that accumulate in your system: backlog, technical debt, customer trust. Naming them prevents invisible buildup. |
+| "We identified the archetype, we're done" | Archetype identification is the diagnosis. Leverage point ranking is the prescription. Diagnosis without prescription is incomplete analysis. |
+
+## Red Flags
+
+- Causal analysis is a linear chain (A → B → C) with no feedback loop drawn
+- Solution proposed without listing unintended consequences
+- No distinction made between stocks (accumulations) and flows (rates of change)
+- No archetype matched against Senge's list of common patterns
+- Intervention recommended at symptom level, not leverage point level (Meadows ranking missing)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Causal loop diagram drawn with ≥1 explicitly labeled feedback loop (R or B)
+- [ ] Stocks and flows distinguished for key system variables
+- [ ] ≥1 archetype identified from Senge's list with standard intervention noted
+- [ ] Leverage points ranked using Meadows' 12 levels (information flows > rules > goals)
+- [ ] Unintended consequences section explicitly listed for proposed intervention
+- [ ] Handoff to @ba-strategy or @ba-root-cause based on whether issue is systemic or causal
 
 ---
 

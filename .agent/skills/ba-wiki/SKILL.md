@@ -212,6 +212,37 @@ When running `glossary check`:
 
 ---
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "Wiki pages are fine if no one has touched them" | Stale = wrong. BA knowledge evolves with every project iteration, workshop, and decision. An unreviewed page older than 90 days is unverified knowledge. |
+| "The index is self-maintaining" | It is not. Orphan pages accumulate silently. Run `lint` monthly or the index drifts from reality — orphans pile up, duplicates form. |
+| "The glossary is wiki-specific, not cross-artifact" | The glossary enforces ubiquitous language across ALL artifacts — BRD, User Stories, Jira tickets. It is not wiki housekeeping; it is the shared language contract of the project. |
+| "Duplicate pages don't hurt anything" | Duplicate pages create two sources of truth. When they diverge — and they always do — contradictions follow. Readers cannot know which one is correct. |
+
+## Red Flags
+
+- Wiki pages not updated in more than 90 days (stale knowledge risk)
+- Orphan pages exist — pages not listed in index.md
+- Same concept documented in both `concepts/` and `projects/` (duplication)
+- Glossary contains synonyms — multiple terms referring to the same concept
+- Pages with no cross-references (isolated, unlinked knowledge)
+- Wiki content contradicts a CSV Tier 1 entry (Tier 1 is authoritative — wiki loses)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Lint run: 0 orphan pages (all wiki pages appear in index.md)
+- [ ] Stale pages (>90 days without update) flagged and queued for review
+- [ ] Glossary enforced: single canonical term per concept (no synonyms or duplicate entries)
+- [ ] Every new or updated page links to at least 1 related page (no isolated nodes)
+- [ ] Tier 1 (CSV) vs Tier 2 (wiki) consistency checked — no contradictions
+- [ ] Handoff to @ba-auditor for wiki health inclusion in next project audit
+
+---
+
 ## 🛠️ Tool Usage
 
 ```bash

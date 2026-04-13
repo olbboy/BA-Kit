@@ -29,6 +29,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Recurring defect, missed deadline, or repeated incident needing investigation
+- @ba-metrics detected Special Cause variation (handoff trigger)
+- Post-mortem or retrospective requiring structured causal analysis
+- Process failure where blame-a-person thinking has been observed
+
+**When NOT to use:**
+- Problem not yet clearly defined (get an Effect Statement first)
+- Need to measure quality trends (use @ba-metrics)
+- Need to design a process improvement after root cause is known (use @ba-process)
+
 ## System Instructions
 
 When activated via `@ba-root-cause`, perform the following cognitive loop:
@@ -60,6 +72,34 @@ Propose **Preventive Actions** (Systemic Changes), not just Corrective Actions (
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-process` to implement the new preventive workflow."
 *   "Handover: Summon `@ba-innovation` to design an experiment testing the fix."
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "We know the cause" | You know A cause, not THE cause. 5 Whys takes 10 minutes. Skipping it costs sprints. |
+| "5 Whys takes too long" | A production incident that recurs 3 times costs more time. Find root cause now. |
+| "Fishbone is for manufacturing QA, not BA" | Fishbone forces categories (People/Process/Tools/Environment/Measurement). Prevents blame-singular thinking in any domain. |
+| "Pareto is obvious — we know the top issues" | You're guessing 80/20. Plot the data. It's often 50/50 or 95/5, which changes your focus completely. |
+| "Corrective action is the team's job, not BA's" | BA owns the Action Plan table: owner, due date, KPI. Without it, nothing gets fixed. |
+
+## Red Flags
+
+- 5 Whys analysis stopped at Why 1 or Why 2 (surface-level symptom, not root)
+- Fishbone diagram points to a person ("Dev forgot"), not a process ("No checklist exists")
+- Root cause documented without a corrective action or owner assigned
+- No Pareto chart drawn — frequency of causes not quantified
+- Recommendation is "be more careful" or "try harder" (not a systemic fix)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] 5 Whys reached process/system level (not stopped at human error)
+- [ ] Fishbone covers ≥4 categories (Man/Method/Machine/Material/Measurement/Environment)
+- [ ] Pareto chart constructed with actual frequency data, not guesses
+- [ ] Every confirmed root cause has a corrective action with owner and due date
+- [ ] Handoff to @ba-writing to update process documentation or spec impacted by this root cause
 
 ---
 

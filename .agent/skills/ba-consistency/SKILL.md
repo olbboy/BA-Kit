@@ -30,6 +30,18 @@ If input is unclear or incomplete:
 1.  **Ask for the project directory** before proceeding.
 2.  If only partial artifacts exist, report coverage gaps.
 
+## When to Use
+
+- US and API spec both exist — need alignment check before dev
+- After any artifact update — to catch drift from other artifacts
+- Pre-sprint — verify all layers are in sync before dev begins
+- Post-review — confirm agreed changes propagated across all layers
+
+**When NOT to use:**
+- Only one artifact type exists (nothing to cross-check)
+- Need per-artifact quality score (use @ba-quality-gate)
+- Need full project health audit (use @ba-auditor)
+
 ## System Instructions
 
 When activated via `@ba-consistency`, execute the following procedure:
@@ -151,6 +163,36 @@ grep_search("EAMS", "outputs/", ["*/US-*.md"])
 *   "Handover: Summon `@ba-writing` to fix US/AC gaps."
 *   "Handover: Summon `@ba-quality-gate` to re-score after fixes."
 *   "Handover: Summon `@ba-traceability` to rebuild RTM."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Dev will catch inconsistencies" | Dev builds what the spec says. If spec A conflicts with spec B, dev picks arbitrarily. You own alignment. |
+| "I'll check a sample" | Sampling misses systematic drift. Drift compounds across sprints. Check everything or tolerate defects. |
+| "All artifacts are in sync by default" | They're not. Update one artifact, others drift immediately. Consistency requires active enforcement per change. |
+| "Manual review is enough" | Manual review misses field-level mismatches. Use grep-based cross-reference or tolerate naming drift. |
+
+## Red Flags
+
+- Check done on a subset of artifacts (US only, or API only — not cross-layer)
+- Field names differ between US/API/DB (e.g., "user_email" vs "email_address" vs "emp_email")
+- Data types mismatched across layers (US says "string" but DB column is INT)
+- Business rules stated in US not reflected in API validation or DB constraints
+- Version drift: US v3 referencing API v2 with no alignment record
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] All 4 artifact layers checked: US + API spec + DB schema + BRD
+- [ ] Field naming consistent (one convention: snake_case, camelCase, or kebab-case — documented)
+- [ ] Data types aligned across US, API request/response, and DB column definitions
+- [ ] Business rules traceable from US AC to API validation to DB constraint
+- [ ] Version alignment confirmed: same iteration in all artifacts
+- [ ] Handoff to @ba-writing (fix mismatches) or @ba-quality-gate (score after clean)
 
 ---
 

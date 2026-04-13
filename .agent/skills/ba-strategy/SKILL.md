@@ -29,6 +29,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- New initiative or product without clear strategic context
+- Requirements lack a "Why" traceable to business objectives
+- Need to evaluate Go/No-Go before committing to a development phase
+- Stakeholders ask "What are our risks?" or "How do we fit in the market?"
+
+**When NOT to use:**
+- Strategic context is already documented and validated (proceed to @ba-elicitation)
+- Just need to define scope (use context diagram from @ba-systems)
+- Project is purely technical with no business strategy component
+
 ## System Instructions
 
 When activated via `@ba-strategy`, perform the following cognitive loop:
@@ -64,6 +76,36 @@ Present a concise Strategic Context document:
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-elicitation` to interview stakeholders about the identified risks."
 *   "Handover: Summon `@ba-prioritization` to rank features based on strategic alignment."
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "SWOT is Management 101, skip it for a BA" | Management 101 is skipped 90% of the time. Do it properly with data. Without SWOT, your requirements have no strategic anchor. |
+| "Our strengths are obvious to everyone" | Obvious strengths often include wishful thinking. 'Strong brand' needs data to back it — market share %, NPS score, repeat rate. |
+| "PESTLE is macro environment, not our scope" | Regulatory and legal PESTLE kills projects. Labor law changes, data privacy deadlines, import restrictions — all real project killers. |
+| "Strategy is the CEO's job, BA just captures requirements" | BA translates strategy to requirements. Without strategic context, requirements lack WHY and can't be prioritized correctly. |
+| "BMC is for startups, not enterprise BA" | BMC forces you to articulate value proposition and customer segments. Without it, enterprise projects build for internal politics, not customer value. |
+
+## Red Flags
+
+- SWOT Strengths listed without cited evidence (data source or metric)
+- PESTLE analysis missing Legal or Environmental factors
+- Business Model Canvas filled without customer interview validation source
+- "Opportunities" that are hopes or wishes, not market-based observations
+- No SO/ST/WO/WT strategic options derived from the SWOT (analysis ends without actionable options)
+- Recommendation is "investigate further" with no criteria for what would trigger Go/No-Go
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Every Strength has a cited evidence source (data, report, or validated interview)
+- [ ] All 6 PESTLE factors analyzed (Political/Economic/Social/Technological/Legal/Environmental)
+- [ ] BMC includes customer validation source (interviews, survey, or usage data)
+- [ ] ≥4 strategic options generated (SO/ST/WO/WT combinations)
+- [ ] Explicit Go/No-Go/Investigate recommendation with rationale tracing to analysis
+- [ ] Handoff to @ba-elicitation to validate strategic assumptions with stakeholders
 
 ---
 

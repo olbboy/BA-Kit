@@ -31,6 +31,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Policy or regulation needs to be translated into testable business rules
+- Decision logic has multiple conditions — need exhaustive decision table
+- Rules are scattered across stories/email/SME heads — need a catalog
+- Before sprint — need to ensure dev has unambiguous rule statements
+
+**When NOT to use:**
+- Rules already cataloged and stable — reference existing catalog
+- Just need user story AC (rules belong in @ba-writing's AC section)
+- Need data constraints only (use @ba-data for schema-level constraints)
+
 ## System Instructions
 
 When activated via `@ba-business-rules`, perform the following cognitive loop:
@@ -72,6 +84,36 @@ Present the validated rule artifact with completeness status.
 *   "Handover: Summon `@ba-test-gen` to generate test cases covering all decision table rows."
 *   "Handover: Summon `@ba-data` to ensure database constraints match business rules."
 *   "Handover: Summon `@ba-consistency` to check rules across artifacts."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Business rules are obvious" | Obvious rules hide edge cases. Decision table forces enumeration of all combinations, including the ones "everyone knows." |
+| "Decision tables are too complex" | Complexity you avoid becomes complexity your code inherits — untested, undocumented, and wrong at 2am. |
+| "Rules change too often to document" | High change velocity is the reason to catalog, not the excuse to skip it. Every change needs before/after snapshots. |
+| "Rules are embedded in stories" | Embedded = scattered across 30 AC bullets. Catalog = single source of truth for dev, QA, legal, and auditors. |
+
+## Red Flags
+
+- Decision table with fewer rows than 2^N (N = number of binary conditions) — combinations are missing
+- Rule conflicts not detected: Rule A and Rule B can both fire on the same input
+- Rules have no effective date or version — impossible to know which applies to historical data
+- Rules catalog lives in code comments or story descriptions, not a dedicated artifact
+- Rules not classified by type (Constraint / Computation / Inference / Authorization) — leads to wrong handling
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Decision table: all condition combinations covered (2^N rows for N binary conditions, documented if fewer)
+- [ ] Conflict detection run: no rule pairs produce contradictory outcomes on the same input
+- [ ] Every rule has: ID, type, source, effective date, and status (Draft/Active/Deprecated)
+- [ ] Rules classified per Ross taxonomy: Constraint / Computation / Inference / Derivation / Authorization
+- [ ] Test cases generated or referenced from every decision table row
+- [ ] Handoff to @ba-test-gen for rule-based test coverage
 
 ---
 

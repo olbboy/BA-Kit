@@ -31,6 +31,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Need to model entities from BRD or User Stories into ERD
+- Feature requires DB schema — need data dictionary before dev
+- Data flows between systems — need DFD to clarify source/target
+- Migration or integration — need field-level mapping
+
+**When NOT to use:**
+- Business rules already captured separately (use @ba-business-rules to document constraints)
+- Just need API schema (use @ba-writing or API spec section)
+- Data quality audit of existing system (scope this separately)
+
 ## System Instructions
 
 When activated via `@ba-data`, perform the following cognitive loop:
@@ -77,6 +89,36 @@ Present the validated data artifact with clear notation.
 *   "Handover: Summon `@ba-consistency` to verify data model aligns with API spec and US."
 *   "Handover: Summon `@ba-business-rules` to document rules governing data transformations."
 *   "Handover: Summon `@ba-validation` to review the data dictionary for completeness."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Dev will add constraints" | Dev adds what works. Business constraints (uniqueness, value ranges, FK cascade rules) come from you and must be explicit. |
+| "Data dictionary is documentation overhead" | It's specification. Without it, two devs build different validation rules for the same field. |
+| "Audit fields slow performance" | Adding created_at/updated_by costs microseconds. Missing them = no audit trail = compliance failure. |
+| "Schema is obvious from the use cases" | Obvious schemas lack normalization. Normalization requires explicit design decisions that must be documented. |
+
+## Red Flags
+
+- ERD without PK/FK/UNIQUE constraints labeled (diagram shows boxes with no relationship rules)
+- Data dictionary missing any of: data type, max length, nullable, default value, or validation constraint
+- Mutable entities without audit fields (created_at, created_by, updated_at, updated_by, deleted_at for soft-delete)
+- Enum values not listed in the dictionary (just says "ENUM" with no values)
+- No indexing strategy documented (query performance is a spec concern, not a dev guess)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] ERD: all entities show PK, FK relationships labeled with cardinality (1:1, 1:N, M:N)
+- [ ] Data dictionary: every field has type, max length, nullable flag, default, and constraint
+- [ ] Audit fields present on all mutable entities (created_at, created_by, updated_at, updated_by)
+- [ ] All ENUM/lookup field values listed in the dictionary with descriptions
+- [ ] Indexing strategy documented: which fields, index type, and rationale
+- [ ] Handoff to @ba-consistency to verify data model aligns with API spec
 
 ---
 

@@ -32,6 +32,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- System deployment or process change affecting real users
+- Assessing change readiness before go-live (ADKAR per stakeholder group)
+- Designing training plan, go-live checklist, or rollback strategy
+- Tracking post-launch adoption and benefits realization
+
+**When NOT to use:**
+- Pure technical deployment with zero user behavior change (no people-side plan needed)
+- Communication drafting only (use @ba-communication)
+- Stakeholder mapping not yet done (run @ba-identity first)
+
 ## System Instructions
 
 When activated via `@ba-change`, perform the following cognitive loop:
@@ -76,6 +88,36 @@ Present the change management artifact with clear actions, owners, and timelines
 *   "Handover: Summon `@ba-facilitation` to design change readiness workshops."
 *   "Handover: Summon `@ba-questioning` to prepare interview questions for resistance discovery."
 *   "Handover: Summon `@ba-metrics` to define adoption KPIs and tracking dashboards."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "Users will adapt on their own" | 20% will adapt. 80% resist without active change management. Adoption is not the same as installation. |
+| "Training after go-live is fine" | Training after go-live means firefighting. Training before go-live builds confidence before the moment of truth. |
+| "ADKAR is HR theory, not BA work" | ADKAR identifies exactly which of the 5 gates your users are stuck at. Skip the assessment = managing change blind. |
+| "Rollback plan is pessimistic" | Rollback plan is professional. Every change carries risk — documenting rollback is how you contain it, not how you signal doubt. |
+
+## Red Flags
+
+- Technical deployment plan exists but no people-side change plan
+- ADKAR assessment completed but barrier point not addressed first (jumping to later elements)
+- Training scheduled after go-live date
+- No rollback plan documented or tested
+- Change announcement sent less than 48 hours before go-live
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] ADKAR assessment done per stakeholder group (not just overall project)
+- [ ] Barrier point (first element scoring ≤2) identified and addressed before later ADKAR elements
+- [ ] Training plan documented with schedule, method, and target audience — scheduled before go-live
+- [ ] Go-live checklist covers pre/during/post phases with named owners
+- [ ] Rollback plan documented and tested (not just written)
+- [ ] Handoff to @ba-communication for change announcement drafting per audience
 
 ---
 

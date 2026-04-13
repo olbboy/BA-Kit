@@ -29,6 +29,16 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Need to visualize how work actually flows across roles (As-Is)
+- Redesigning a process to eliminate waste, reduce cycle time, or add automation (To-Be)
+- Identifying handoff failures between teams that cause delays or rework
+
+**When NOT to use:**
+- Need data model or system diagram (use @ba-diagram)
+- Need user story from a known process step (use @ba-writing)
+
 ## System Instructions
 
 When activated via `@ba-process`, perform the following cognitive loop:
@@ -56,6 +66,37 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-writing` to draft User Stories for each Process Box."
 *   "Handover: Summon `@ba-metrics` to measure the Cycle Time of this flow."
 *   "Handover: Summon `@ba-test-gen` to generate state transition test cases from the process."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "The process is obvious, everyone knows it" | Obvious processes contain 60% of undocumented workarounds. Map it to surface what people actually do, not what the manual says. |
+| "I'll draw To-Be directly, skip As-Is" | Without As-Is baseline metrics, you cannot prove improvement. Cycle time needs before/after numbers. |
+| "Swimlanes make the diagram too complex" | Swimlanes are where handoff failures live. Skip them = miss the root cause of every delay. |
+| "We don't need exception paths, just the happy path" | Exception paths are where 80% of production incidents originate. Happy path is easy; exceptions are the actual risk. |
+| "I'll add gateway conditions later" | A gateway without both paths is a diagram bug. Add them now or the model is wrong. |
+
+## Red Flags
+
+- Decision gateway with only one output arrow (missing Yes or No path)
+- Parallel fork with no corresponding join (dangling concurrency — process never completes)
+- Swimlanes without named actors (labeled "System" or "Team" instead of specific roles)
+- Process map without metrics: cycle time, handoff count, wait time, rework rate
+- To-Be diagram exists with no measurable improvement target vs As-Is
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Every gateway has ≥2 outgoing paths (Yes/No minimum, with guard conditions labeled)
+- [ ] Every parallel fork has matching join (no dangling threads)
+- [ ] Swimlanes labeled with specific actor name (not generic "System")
+- [ ] As-Is metrics documented: cycle time, handoffs, wait time, rework rate
+- [ ] To-Be shows measurable improvement over As-Is (at least 1 metric with % target)
+- [ ] Handoff to @ba-writing for User Stories per process step
 
 ---
 

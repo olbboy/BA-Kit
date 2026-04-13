@@ -31,6 +31,18 @@ If input is unclear or incomplete:
 1.  **Ask for the artifact path** before proceeding.
 2.  If the artifact type is unrecognized, request clarification.
 
+## When to Use
+
+- Artifact drafted — need PASS/CONDITIONAL/REJECT verdict before handoff
+- Sprint review — need objective quality score per module
+- Pre-release checkpoint — all artifacts must pass gates
+- After @ba-writing fixes — need re-score to confirm improvement
+
+**When NOT to use:**
+- Artifact not yet written (go to @ba-writing)
+- Need defect-level detail (use @ba-validation)
+- Need full project health audit (use @ba-auditor)
+
 ## System Instructions
 
 When activated via `@ba-quality-gate`, execute the Quality Pipeline:
@@ -171,6 +183,36 @@ PASS: ≥ 80   CONDITIONAL: 60-79   REJECT: < 60
 *   REJECT → "Handover: Summon `@ba-writing` to fix defects."
 *   PASS → "Handover: Summon `@ba-test-gen` to generate test cases."
 *   After all gates → "Handover: Summon `@ba-export` for final packaging."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "The spec looks good" | Looking good is not measuring good. Score the 8 dimensions explicitly with evidence. |
+| "Quality gate slows delivery" | Quality gate prevents rework. Rework costs 10x the gate time. |
+| "We can fix issues in dev" | Spec defects caught in dev = 10x cost. In QA = 100x. In prod = 1000x. Fix at spec time. |
+| "Score is subjective anyway" | Score is reproducible. If 2 reviewers get different scores, the criteria are unclear — fix the criteria, not the score. |
+
+## Red Flags
+
+- Score reported without per-dimension breakdown (single number with no evidence)
+- Everything scores 90%+ with no notes (soft scoring = noise)
+- Gate status stated without measurements ("Pass" without citing dimension percentages)
+- All dimensions given equal weight with no rationale
+- Score used as approval rubber-stamp rather than improvement trigger
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] 8 dimensions scored independently: Stakeholder Coverage, Functional Scope, AC Depth, NFR, Business Rules, Traceability, Glossary, Compliance
+- [ ] Each dimension cites evidence (count, percentage, source reference)
+- [ ] Weighted score computed with rationale for weight distribution
+- [ ] Gate status explicit: PASS (≥80) / CONDITIONAL (60-79) / REJECT (<60)
+- [ ] Action items listed for every CONDITIONAL or REJECT finding
+- [ ] Handoff to @ba-writing (fix) or @ba-export (ship if PASS)
 
 ---
 

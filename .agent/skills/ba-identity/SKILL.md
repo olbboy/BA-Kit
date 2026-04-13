@@ -29,6 +29,16 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Starting a new project and need to know who matters
+- Conflict detected — need to understand power dynamics before resolving
+- Project charter exists but stakeholder list is missing or incomplete
+
+**When NOT to use:**
+- Stakeholder map already complete and validated (go to @ba-elicitation)
+- Need to resolve an active conflict (use @ba-conflict)
+
 ## System Instructions
 
 When activated via `@ba-identity`, perform the following cognitive loop:
@@ -56,6 +66,36 @@ Present the validated Stakeholder Strategy.
 Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-elicitation` to interview the High Power/High Interest stakeholders."
 *   "Handover: Summon `@ba-conflict` if you detect political misalignment."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "I already know who the stakeholders are" | You know the vocal ones. Silent stakeholders (regulators, downstream users, legal) are always missed on first pass. |
+| "RACI is bureaucratic overhead" | The hour you save skipping RACI = 10 hours in handoff confusion later. |
+| "We'll add more stakeholders later" | Late-discovered stakeholders cause mid-project scope changes. Map fully upfront. |
+| "Power/Interest doesn't change" | Stakeholder attention shifts weekly. Reorg, budget cuts, new executive sponsors — re-evaluate every sprint. |
+| "Job title tells me the stakeholder's role" | Title ≠ influence. The "Junior Analyst" who controls the data feed has more power than their title suggests. |
+
+## Red Flags
+
+- RACI with 2+ Accountables per task (violates single-accountability rule)
+- No indirect users listed (downstream teams, regulators, external partners)
+- Power/Interest grid unchanged since project kickoff
+- Stakeholders listed by job title only, no engagement strategy per quadrant
+- "Manage Closely" quadrant empty (every project has at least one high-power, high-interest stakeholder)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] All 6 stakeholder categories covered (Customers, Direct Users, Indirect Users, Advisors, Sponsors, Champions)
+- [ ] Power/Interest grid plotted for every named stakeholder (score 1–5 on both axes)
+- [ ] RACI: exactly 1 Accountable per row (no A/A conflicts)
+- [ ] Engagement strategy defined per quadrant (frequency, channel, owner)
+- [ ] Handoff to @ba-elicitation identified for Manage Closely stakeholders
 
 ---
 

@@ -33,6 +33,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If input belongs to another agent's domain, recommend a handoff.
 
+## When to Use
+
+- Need to define who users are before writing requirements
+- Creating Persona, Journey Map, Empathy Map, or JTBD artifact
+- Evaluating mockups/prototypes against actual user needs
+- Adding accessibility considerations to a feature or flow
+
+**When NOT to use:**
+- No user context available yet (go back to @ba-elicitation to gather data first)
+- Just need to write stories from existing personas (use @ba-writing)
+- Conducting stakeholder analysis, not user research (use @ba-identity)
+
 ## System Instructions
 
 When activated via `@ba-ux`, perform the following cognitive loop:
@@ -72,6 +84,36 @@ Present the validated UX research artifact.
 *   "Handover: Summon `@ba-questioning` to prepare user interview questions."
 *   "Handover: Summon `@ba-nfr` to define accessibility NFRs from WCAG findings."
 *   "Handover: Summon `@ba-validation` to validate UI against persona needs."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "We already know our users" | You know loud users. Silent users (elderly, low-tech, edge personas) always surprise. |
+| "UX research takes too long" | Rule of 5: 5 users = 80% of usability issues found in 1 day. Cheaper than post-release rework. |
+| "Accessibility is nice-to-have" | 1 in 4 users have some disability. Ignoring them = 25% of market lost + legal risk (ADA/WCAG). |
+| "PM knows users" | PM knows what PM asks. Research reveals what users don't volunteer and what they can't articulate. |
+
+## Red Flags
+
+- Persona created from PM imagination rather than interviews, surveys, or analytics data
+- Journey map shows only the happy path — no frustration points or breakdown moments
+- JTBD statement without outcome measures (Minimize/Maximize + importance + satisfaction scores)
+- No accessibility considerations listed per persona (WCAG AA minimum absent)
+- Edge personas ignored — only the "average user" documented (elderly, non-native speakers, low-tech users missing)
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Persona backed by real data (interviews, surveys, analytics) — source cited explicitly
+- [ ] Journey map includes frustration moments and labeled "moments of truth"
+- [ ] JTBD includes outcome expectations (direction + outcome + importance rating)
+- [ ] Accessibility needs listed per persona (WCAG AA minimum)
+- [ ] At least 1 edge persona documented (not just the "average user")
+- [ ] Handoff to @ba-writing to convert research insights into User Stories
 
 ---
 

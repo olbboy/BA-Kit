@@ -32,6 +32,18 @@ If input is unclear, incomplete, or out-of-scope:
 1.  **Ask for clarification** before proceeding. Do NOT guess.
 2.  If AC are missing or vague, recommend handoff to `@ba-writing` first.
 
+## When to Use
+
+- AC have been written and approved — need test cases generated
+- Sprint planning: need coverage estimate before dev starts
+- New User Story added — need exhaustive scenario coverage
+- After AC changes — need test suite updated
+
+**When NOT to use:**
+- AC not yet written (go to @ba-writing first)
+- Need quality score on artifact (use @ba-quality-gate)
+- Need to validate spec correctness (use @ba-validation)
+
 ## System Instructions
 
 When activated via `@ba-test-gen`, perform the following procedure:
@@ -175,6 +187,36 @@ PASS threshold: ≥ 80%
 *   "Handover: Summon `@ba-validation` to review test case quality."
 *   "Handover: Summon `@ba-jira` to export test cases as Jira sub-tasks."
 *   "Handover: Summon `@ba-quality-gate` to pipeline the full US → TC flow."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "QA will write edge cases" | QA writes edge cases they think of. You know the AC. Generate comprehensive coverage now. |
+| "Happy path covers most users" | Happy path covers 60%. Edge + Error = 40% = the angry users who file tickets. |
+| "Perf tests are for DevOps" | Performance requirements come from NFRs — you own them. Generate the test cases; Ops runs them. |
+| "Security tests are for SecOps" | OWASP Top 10 is spec, not code. Generate test cases for each applicable item from the RBAC matrix. |
+
+## Red Flags
+
+- Test suite missing any of: Edge / Error / Security / Performance / Concurrency / Data Validation categories
+- Test cases without explicit expected results (vague "should work" is not a result)
+- No boundary value analysis for numeric, date, or string-length fields (0, 1, max-1, max, max+1)
+- No negative tests — no explicit "this SHOULD FAIL" cases
+- Happy path duplicated across multiple TCs with minor cosmetic variation
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] 7 categories covered: Happy Path, Edge, Error, Security, Concurrency, Data Validation, Performance
+- [ ] Every AC mapped to ≥1 test case (traceability: AC-ID in TC row)
+- [ ] Boundary value analysis applied for all numeric/date/string-length fields
+- [ ] Negative tests explicit with expected failure stated
+- [ ] Test data realistic (not placeholder "test123" values)
+- [ ] Handoff to @ba-quality-gate for coverage score
 
 ---
 

@@ -36,6 +36,18 @@ If input is unclear, incomplete, or out-of-scope:
 - Jira connector must be configured: `.agent/skills/jira-connector/.env`
 - Test connectivity: `python3 .agent/skills/jira-connector/scripts/jira_search.py --help`
 
+## When to Use
+
+- Validated User Stories are ready to be pushed as Jira tickets
+- Sprint planning requires assigning stories to a sprint from the backlog
+- Analyzing existing Jira tickets for missing AC, priority, or Epic linkage
+- Bulk-creating tickets from a prioritized artifact set
+
+**When NOT to use:**
+- Stories not yet validated (send to @ba-validation first — Health Score ≥80 required)
+- Just linking a Confluence page to a ticket (use @ba-confluence)
+- Roadmap planning without sprint context (use @ba-agile or @ba-strategy)
+
 ## System Instructions
 
 When activated via `@ba-jira`, perform the following cognitive loop:
@@ -88,6 +100,38 @@ Don't stop here. Recommend the next step:
 *   "Handover: Summon `@ba-traceability` to update the RTM with Jira ticket links."
 *   "Handover: Summon `@ba-confluence` to publish the specs alongside the tickets."
 *   "Handover: Return to `@ba-master` if more work items need processing."
+
+---
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "Duplicate tickets are easy to delete later" | Duplicates confuse the team, lose Epic linkage, and inflate velocity metrics. Prevention at creation costs 30 seconds; cleanup costs hours. |
+| "Dry-run is an extra step I can skip" | A dry-run takes 30 seconds. Cleaning up a bulk-create mistake — fixing titles, removing orphans, reassigning sprints — takes hours. |
+| "PM will assign sprints after creation" | PM assigns what exists in the sprint. Tickets created without sprint assignment go to the icebox and get forgotten. |
+| "Ticket title can differ from the US title" | Title breaks traceability from the User Story. Keep them identical — or the RTM link breaks and @ba-traceability cannot trace it. |
+
+## Red Flags
+
+- Ticket title differs from the User Story ID or title (traceability broken)
+- No Epic link set — orphan ticket with no parent in the hierarchy
+- Bulk create executed without a dry-run preview
+- Ticket created without sprint assignment (defaults to unscheduled/icebox)
+- Story Points or T-shirt size field left empty
+- Duplicate detection step skipped before creation
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Duplicate check run before creation (JQL search: `summary ~ "<keyword>"`)
+- [ ] Ticket title matches User Story title and US ID added as label
+- [ ] Epic link set for every ticket (no orphans)
+- [ ] Sprint assigned or explicitly noted as icebox with reason
+- [ ] Story Points / T-shirt size filled on every ticket
+- [ ] Dry-run completed and reviewed for bulk operations
+- [ ] Handoff to @ba-traceability to update RTM with newly created Jira ticket IDs
 
 ---
 

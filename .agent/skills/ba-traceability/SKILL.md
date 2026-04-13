@@ -203,6 +203,34 @@ Output: Health Dashboard with 🟢/🟡/🔴 per metric.
 
 ---
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|-----------------|---------|
+| "Forward trace is enough" | Forward trace ≠ reverse trace. Both are required. Impact analysis without reverse trace is guesswork. |
+| "I'll update RTM at end of project" | End of project = frozen. RTM updates must be incremental, one per sprint, one per change request. |
+| "Small changes don't need RTM" | A small change can break something large. RTM is the only way to know the blast radius before it detonates. |
+| "RTM is just paperwork" | RTM is your audit defense. Compliance auditors will demand it. "We tracked it informally" fails every audit. |
+
+## Red Flags
+
+- RTM only shows BRD→US (missing US→BRD reverse trace)
+- Orphan stories present: US with no traceable business objective
+- Broken links: referenced file or requirement ID does not exist
+- RTM maintained in a spreadsheet outside version control
+- Change request processed without RTM impact analysis attached
+
+## Verification
+
+After completing this skill's process, confirm:
+
+- [ ] Forward trace complete: Business Goal → BRD → US → AC → Test Case
+- [ ] Reverse trace complete: Test Case → AC → US → BRD → Business Goal
+- [ ] Grep verification run: every file reference resolves to an existing file
+- [ ] Orphan check result: 0 orphan stories (or each orphan documented with rationale)
+- [ ] Impact analysis attached for any pending change request
+- [ ] Handoff to @ba-auditor for coverage score against project targets
+
 ## 🛠️ Tool Usage
 
 ```bash
