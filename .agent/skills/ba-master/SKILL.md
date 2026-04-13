@@ -1,6 +1,6 @@
 ---
 name: ba-master
-description: [Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Squad (33 Agents)
+description: "[Agentic] Master Dispatcher - The Orchestrator of the BA-Kit Squad (43 Agents)"
 version: 1.0.0
 ---
 
@@ -91,6 +91,24 @@ When activated via `@ba-master` or asked to "coordinate", perform the following 
 | "diagram", "flowchart", "Mermaid", "visualize", "draw" | `@ba-diagram` | `@ba-process` |
 | "sequence diagram", "state diagram", "mindmap", "gantt chart" | `@ba-diagram` | `@ba-confluence` |
 | "stakeholder map diagram", "journey diagram", "architecture diagram" | `@ba-diagram` | `@ba-ux` |
+| "drift", "spec vs code", "as-built", "git diff spec", "spec rot" | `@ba-as-built` | `@ba-traceability` |
+| "what changed since", "code diverged", "undocumented feature" | `@ba-as-built` | `@ba-consistency` |
+| "review all", "full validation", "run all checks", "autoreview" | `@ba-autoreview` | `@ba-auditor` |
+| "retro", "sprint retrospective", "what shipped this week", "velocity" | `@ba-retro` | `@ba-metrics` |
+| "churn", "cycle time", "gate rejection trend" | `@ba-retro` | `@ba-auditor` |
+| "remember that", "save this pattern", "what did we learn" | `@ba-learn` | `@ba-wiki` |
+| "project memory", "recall preference", "stakeholder habit" | `@ba-learn` | `@ba-identity` |
+| "save session", "resume later", "checkpoint", "pick up where I left off" | `@ba-checkpoint` | `@ba-master` |
+| "challenge this", "red team", "devil's advocate", "poke holes" | `@ba-challenger` | `@ba-validation` |
+| "what could go wrong", "adversarial", "attack this spec" | `@ba-challenger` | `@ba-nfr` |
+| "second opinion", "dual voice", "cross-model review", "independent review" | `@ba-second-opinion` | `@ba-autoreview` |
+| "baseline this", "lock approved BRD", "CCB baseline", "version lock" | `@ba-baseline` | `@ba-traceability` |
+| "change control", "CCB approval needed", "supersede baseline" | `@ba-baseline` | `@ba-conflict` |
+| "is this locked", "guard check", "did anyone edit baseline" | `@ba-guard` | `@ba-baseline` |
+| "3 options", "variants", "give me alternatives", "shotgun", "pick best" | `@ba-shotgun` | `@ba-writing` |
+| "different AC styles", "alternative user stories", "multiple priorities" | `@ba-shotgun` | `@ba-prioritization` |
+| "setup", "configure jira", "connect confluence", "wizard", "first time" | `@ba-setup` | `@ba-master` |
+| "set up credentials", "PAT", "access token", "env file", "configure provider" | `@ba-setup` | `@ba-jira` |
 | (Unrecognized intent) | `@ba-elicitation` | `@ba-master` |
 
 ### 2. Reflection Mode (System 2: The Strategist)
@@ -117,7 +135,7 @@ After each agent completes, return to ba-master for the next step:
 
 ---
 
-## 🗺️ Agent Registry (33 Agents)
+## 🗺️ Agent Registry (43 Agents)
 
 ### Core BA Skills
 | Agent | Proficiency |
@@ -182,6 +200,24 @@ After each agent completes, return to ba-master for the next step:
 | Agent | Proficiency | Key Output |
 | :--- | :--- | :--- |
 | **@ba-wiki** | 2-tier knowledge ingest (CSV curated + wiki living), query, lint, glossary | Wiki pages, knowledge synthesis, domain glossary |
+
+### Sprint Spine Agents (NEW in v3.2 — Gstack Distillation)
+| Agent | Phase | Proficiency | Key Output |
+| :--- | :--- | :--- | :--- |
+| **@ba-as-built** | Reflect | Spec drift detector — git diff vs BRD/SRS/RTM | Drift report, proposed spec updates |
+| **@ba-autoreview** | Validate | Strict-sequential meta: consistency→gate→trace→audit, dual-voice optional | Aggregate verdict + action plan |
+| **@ba-retro** | Reflect | Sprint retro: churn, gate rejection trends, cycle time | Time-series retro report + JSON snapshot |
+| **@ba-learn** | Reflect | Per-project JSONL emergent memory (patterns, pitfalls, preferences) | Project-scoped learnings queryable by type |
+| **@ba-checkpoint** | any | Session save/resume for long-running BA work | Timestamped state markdown with resume prompt |
+| **@ba-challenger** | Validate | 5-vector adversarial red team (unstated/incentive/adversarial/scale/sunset) | Challenge report with mitigations |
+| **@ba-second-opinion** | Validate | Cross-model review (Gemini/GPT/Ollama), reconciles disagreements | Independent verdict + reconciliation |
+| **@ba-baseline** | Publish | Lock approved artifacts with sha256 + CCB rationale, version history | Baseline manifest + audit trail |
+| **@ba-guard** | any | Pre-flight change control: warn/strict mode, optional git hook | Drift alerts + audit log |
+| **@ba-shotgun** | Define | N-variant generator (stories/AC/priority/emails) with trade-offs | Side-by-side comparison + preference capture |
+| **@ba-setup** | any | One-time setup wizard for Jira/Confluence/second-opinion — BA-friendly natural-language flow, hides .env/CLI/PAT details | Configured `.env` files (chmod 0600) + connectivity test + plain-language confirmation |
+
+**Spine reference**: `docs/sprint-spine.md` — 7-phase loop (Discover→Elicit→Define→Validate→Prioritize→Publish→Reflect)
+**Total agents in v3.2**: 44 (33 existing + 10 new from gstack distillation + 1 BA-fit setup wizard)
 
 ---
 
