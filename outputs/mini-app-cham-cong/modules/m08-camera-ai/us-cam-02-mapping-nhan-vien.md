@@ -66,45 +66,47 @@ Feature: US-CAM-02
   I want to mapping giữa personId của C-Vision và employeeId trong EAMS
   So that khi camera nhận diện khuôn mặt, hệ thống biết đó là nhân viên nào để ghi nhận chấm công đúng người.
 
-  Scenario: AC1 — Hiển thị danh sách mapping
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Hiển thị danh sách mapping"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị danh sách mapping ---
+  Scenario: AC1.1 — Hiển thị danh sách mapping
+    Given HR Admin truy cập module
+    When thực hiện "Hiển thị danh sách mapping"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Tạo mapping đơn lẻ
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Tạo mapping đơn lẻ" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC2: Tạo mapping đơn lẻ ---
+  Scenario: AC2.1 — Tạo mapping đơn lẻ
+    Given HR Admin truy cập module
+    When thực hiện "Tạo mapping đơn lẻ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Bulk-create mapping
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Bulk-create mapping"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Bulk-create mapping ---
+  Scenario: AC3.1 — Bulk-create mapping
+    Given HR Admin truy cập module
+    When thực hiện "Bulk-create mapping"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Xử lý mapping thất bại
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Xử lý mapping thất bại"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Xử lý mapping thất bại ---
+  Scenario: AC4.1 — Xử lý mapping thất bại
+    Given HR Admin truy cập module
+    When thực hiện "Xử lý mapping thất bại"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — NV chưa có ảnh khuôn mặt
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV chưa có ảnh khuôn mặt"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — NV chưa có ảnh khuôn mặt
+    Given Mapping NV mới chưa enroll face
+    When hệ thống kiểm tra
+    Then Trạng thái mapping: PENDING_ENROLLMENT. Alert: "NV [Tên] cần chụp ảnh khuôn mặt tại bộ phận IT."
 
-  Scenario: Error2 — 1 NV map nhiều C-Vision ID
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "1 NV map nhiều C-Vision ID"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — 1 NV map nhiều C-Vision ID
+    Given NV enroll trên 2 device khác nhau
+    When hệ thống kiểm tra
+    Then Cho phép (multi-device). Bảng mapping hiển thị tất cả. De-dup attendance dựa trên employeeId.
 
-  Scenario: Error3 — Bulk mapping file lỗi
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Bulk mapping file lỗi"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Bulk mapping file lỗi
+    Given CSV chứa employeeCode không tồn tại
+    When hệ thống kiểm tra
+    Then Trả file lỗi kèm cột ghi chú. Không tạo mapping cho dòng lỗi.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

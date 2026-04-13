@@ -74,41 +74,41 @@ Feature: US-REG-02
   I want to gửi yêu cầu đổi ca làm việc cho một ngày cụ thể trên Mini App
   So that tôi có thể chủ động sắp xếp lịch ca khi có việc đột xuất mà không cần liên hệ HR trực tiếp.
 
-  Scenario: AC1 — Hiển thị ca hiện tại
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị ca hiện tại"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị ca hiện tại ---
+  Scenario: AC1.1 — Hiển thị ca hiện tại
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị ca hiện tại"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Danh sách ca khả dụng
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Danh sách ca khả dụng"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC2: Danh sách ca khả dụng ---
+  Scenario: AC2.1 — Danh sách ca khả dụng
+    Given Nhân viên truy cập module
+    When thực hiện "Danh sách ca khả dụng"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Kiểm tra xung đột
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC3: Kiểm tra xung đột ---
+  Scenario: AC3.1 — Kiểm tra xung đột
+    Given Nhân viên truy cập module
+    When thực hiện "Kiểm tra xung đột"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Phản hồi sau gửi
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Phản hồi sau gửi" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC4: Phản hồi sau gửi ---
+  Scenario: AC4.1 — Phản hồi sau gửi
+    Given Nhân viên truy cập module
+    When thực hiện "Phản hồi sau gửi"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Đổi ca sau khi đã check-in
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Đổi ca sau khi đã check-in"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Đổi ca sau khi đã check-in
+    Given NV check-in 8:00 (ca Sáng), đơn đổi sang ca Chiều được duyệt
+    When hệ thống kiểm tra
+    Then Chặn đổi ca cho ngày đã có dữ liệu chấm công. Hiển thị lỗi: "Không thể đổi ca — đã có mốc chấm công ngày [dd/MM]. Vui lòng giải trình thay vì đổi ca."
 
-  Scenario: Error2 — Đổi ca tương hỗ (swap)
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Đổi ca tương hỗ (swap)"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Đổi ca tương hỗ (swap)
+    Given NV A muốn đổi ca với NV B
+    When hệ thống kiểm tra
+    Then Phase 1: chưa hỗ trợ swap. Hiển thị note: "Để đổi ca với đồng nghiệp, cả 2 cần gửi đơn đổi ca riêng". Phase 2 (future): form Swap Request linking 2 NV.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

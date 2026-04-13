@@ -84,46 +84,47 @@ Feature: US-REG-01
   I want to tạo đơn xin nghỉ phép trực tiếp trên Mini App với đầy đủ loại phép và kiểm tra hạn mức tự động
   So that tôi không cần gửi đơn giấy hoặc email, đồng thời biết ngay số ngày phép còn lại để chủ động sắp xếp.
 
-  Scenario: AC1 — Hiển thị hạn mức phép
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị hạn mức phép"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị hạn mức phép ---
+  Scenario: AC1.1 — Hiển thị hạn mức phép
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị hạn mức phép"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Chọn loại phép & Validation
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC2: Chọn loại phép & Validation ---
+  Scenario: AC2.1 — Chọn loại phép & Validation
+    Given Nhân viên truy cập module
+    When thực hiện "Chọn loại phép & Validation"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Tính số ngày nghỉ thực tế
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Tính số ngày nghỉ thực tế"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Tính số ngày nghỉ thực tế ---
+  Scenario: AC3.1 — Tính số ngày nghỉ thực tế
+    Given Nhân viên truy cập module
+    When thực hiện "Tính số ngày nghỉ thực tế"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Xác nhận & Gửi đơn
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Xác nhận & Gửi đơn" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC4: Xác nhận & Gửi đơn ---
+  Scenario: AC4.1 — Xác nhận & Gửi đơn
+    Given Nhân viên truy cập module
+    When thực hiện "Xác nhận & Gửi đơn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Nghỉ phép trùng OT đã duyệt
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Nghỉ phép trùng OT đã duyệt"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Nghỉ phép trùng OT đã duyệt
+    Given NV có OT approved ngày 20/05, sau đó đăng ký nghỉ phép ngày 20/05
+    When hệ thống kiểm tra
+    Then Cross-check OvertimeRequest. Hiển thị cảnh báo: "Bạn có OT đã duyệt ngày 20/05 (18:00-20:00). Nghỉ phép sẽ hủy OT. Xác nhận?". Nếu confirm → tạo đơn nghỉ + auto-cancel OT.
 
-  Scenario: Error2 — Nghỉ phép xuyên 2 tháng
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Nghỉ phép xuyên 2 tháng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Nghỉ phép xuyên 2 tháng
+    Given Nghỉ 28/03 đến 02/04
+    When hệ thống kiểm tra
+    Then Balance trừ theo tháng thực tế: 2 ngày tháng 3 + 1 ngày tháng 4 (trừ T7/CN). Hệ thống split balance deduction. Hiển thị: "Tháng 3: -2 ngày, Tháng 4: -1 ngày".
 
-  Scenario: Error3 — Carryover hết hạn
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Carryover hết hạn"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Carryover hết hạn
+    Given NV còn 5 ngày carryover, hết hạn 31/03. Đăng ký nghỉ 01/04
+    When hệ thống kiểm tra
+    Then Batch job chạy 00:01 ngày 01/04: carryover balance → 0. Đơn nghỉ ngày 01/04+ trừ vào phép năm mới. Nếu hết phép → chặn. Gửi Push trước 7 ngày: "Bạn còn X ngày carryover sắp hết hạn 31/03".
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

@@ -74,40 +74,41 @@ Feature: US-ATTEN-04
   I want to thấy danh sách các vi phạm quy chế (đi muộn, về sớm, thiếu mốc quẹt, vắng mặt chưa xin phép) ngay tại màn hình chính
   So that tôi có thể thực hiện "Giải trình ngay" để đảm bảo quyền lợi giờ công của mình được cập nhật kịp thời.
 
-  Scenario: AC1 — Hiển thị Widget Cảnh báo
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị Widget Cảnh báo"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị Widget Cảnh báo ---
+  Scenario: AC1.1 — Hiển thị Widget Cảnh báo
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị Widget Cảnh báo"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic Hiển thị Cảnh báo
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Logic Hiển thị Cảnh báo"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC2: Logic Hiển thị Cảnh báo ---
+  Scenario: AC2.1 — Logic Hiển thị Cảnh báo
+    Given Nhân viên truy cập module
+    When thực hiện "Logic Hiển thị Cảnh báo"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Phản hồi Web App
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Phản hồi Web App"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Phản hồi Web App ---
+  Scenario: AC3.1 — Phản hồi Web App
+    Given Nhân viên truy cập module
+    When thực hiện "Phản hồi Web App"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Nhiều loại vi phạm cùng ngày
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Nhiều loại vi phạm cùng ngày"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Nhiều loại vi phạm cùng ngày
+    Given NV vừa "Đi muộn" vừa "Thiếu quẹt"
+    When hệ thống kiểm tra
+    Then Hiển thị tất cả vi phạm (mỗi loại 1 dòng). Ưu tiên hiển thị: Vắng mặt > Thiếu quẹt > Đi muộn > Về sớm. Giới hạn 3 cảnh báo mới nhất → "Xem tất cả" cho phần còn lại.
 
-  Scenario: Error2 — Ca thay đổi retroactively
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Ca thay đổi retroactively"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Ca thay đổi retroactively
+    Given HR đổi ca cho NV sau khi cảnh báo đã tạo
+    When hệ thống kiểm tra
+    Then Khi ca thay đổi → batch job re-evaluate toàn bộ anomalies của NV trong ngày. Cảnh báo cũ bị xóa/cập nhật nếu không còn vi phạm với ca mới. Ghi audit log "Cảnh báo tự động xóa do thay đổi ca".
 
-  Scenario: Error3 — NV nghỉ phép nửa ngày + cảnh báo
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "NV nghỉ phép nửa ngày + cảnh báo"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — NV nghỉ phép nửa ngày + cảnh báo
+    Given NV nghỉ AM, làm PM. Hệ thống báo "Vắng mặt" sáng
+    When hệ thống kiểm tra
+    Then Cross-check đơn nghỉ phép APPROVED trước khi tạo cảnh báo. Nếu có đơn nghỉ AM/PM → chỉ quét buổi còn lại. Nếu có đơn cả ngày → không tạo cảnh báo.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

@@ -85,47 +85,47 @@ Feature: US-REG-03
   I want to đăng ký làm tăng ca (OT) trước hoặc sau khi đã làm thêm giờ, kèm mốc thời gian cụ thể
   So that giờ OT của tôi được ghi nhận chính thức, tính đúng hệ số lương và không vượt giới hạn pháp luật.
 
-  Scenario: AC1 — Hiển thị thông tin OT hiện tại
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị thông tin OT hiện tại"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị thông tin OT hiện tại ---
+  Scenario: AC1.1 — Hiển thị thông tin OT hiện tại
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị thông tin OT hiện tại"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Nhập mốc thời gian OT
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Nhập mốc thời gian OT" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC2: Nhập mốc thời gian OT ---
+  Scenario: AC2.1 — Nhập mốc thời gian OT
+    Given Nhân viên truy cập module
+    When thực hiện "Nhập mốc thời gian OT"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Kiểm tra giới hạn OT
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC3: Kiểm tra giới hạn OT ---
+  Scenario: AC3.1 — Kiểm tra giới hạn OT
+    Given Nhân viên truy cập module
+    When thực hiện "Kiểm tra giới hạn OT"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Đăng ký sau (POST_APPROVED)
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Đăng ký sau (POST_APPROVED)" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC4: Đăng ký sau (POST_APPROVED) ---
+  Scenario: AC4.1 — Đăng ký sau (POST_APPROVED)
+    Given Nhân viên truy cập module
+    When thực hiện "Đăng ký sau (POST_APPROVED)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — OT thực tế khác đăng ký
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "OT thực tế khác đăng ký"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — OT thực tế khác đăng ký
+    Given Đăng ký 18:00-20:00 nhưng check-out 21:00
+    When hệ thống kiểm tra
+    Then Giờ OT tính theo MIN(đăng ký, thực tế). Phần dư (20:00-21:00) → tạo auto-detected OT request riêng cần duyệt thêm. Không tự động ghi nhận phần chênh.
 
-  Scenario: Error2 — OT ngày lễ trùng cuối tuần
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "OT ngày lễ trùng cuối tuần"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — OT ngày lễ trùng cuối tuần
+    Given 01/05 rơi vào Chủ nhật
+    When hệ thống kiểm tra
+    Then Theo Luật Lao động VN: áp dụng hệ số cao nhất. Holiday (3.0x) > Weekend (2.0x) → tính 3.0x. Logic: check holiday calendar trước, nếu là ngày lễ → luôn dùng 3.0x bất kể thứ trong tuần.
 
-  Scenario: Error3 — OT liên tiếp nhiều ngày
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "OT liên tiếp nhiều ngày"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — OT liên tiếp nhiều ngày
+    Given NV đăng ký OT 7 ngày liên tiếp (mỗi ngày 2h = 14h/tuần)
+    When hệ thống kiểm tra
+    Then Validate tổng tuần: SUM(approved + pending OT trong tuần) + đơn mới > 12h → chặn. Hiển thị: "Vượt giới hạn OT tuần (tối đa 12 giờ). Đã sử dụng Xh, còn lại Yh."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

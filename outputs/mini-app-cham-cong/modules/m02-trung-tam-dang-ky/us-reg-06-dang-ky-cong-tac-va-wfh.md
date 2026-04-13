@@ -90,46 +90,47 @@ Feature: US-REG-06
   I want to gửi yêu cầu đăng ký Công tác (Business Travel) hoặc Làm việc tại nhà (WFH) trên Mini App
   So that tôi được ghi nhận "Có mặt hợp lệ" mà không cần chấm công tại văn phòng, và quản lý nắm được vị trí làm việc thực tế của tôi.
 
-  Scenario: AC1 — Form Đăng ký Công tác
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Form Đăng ký Công tác" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC1: Form Đăng ký Công tác ---
+  Scenario: AC1.1 — Form Đăng ký Công tác
+    Given Nhân viên truy cập module
+    When thực hiện "Form Đăng ký Công tác"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Form Đăng ký WFH
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Form Đăng ký WFH" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC2: Form Đăng ký WFH ---
+  Scenario: AC2.1 — Form Đăng ký WFH
+    Given Nhân viên truy cập module
+    When thực hiện "Form Đăng ký WFH"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Tích hợp Dashboard Hiện diện (US-EMP-05)
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Tích hợp Dashboard Hiện diện (US-EMP-05)"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC3: Tích hợp Dashboard Hiện diện (US-EMP-05) ---
+  Scenario: AC3.1 — Tích hợp Dashboard Hiện diện (US-EMP-05)
+    Given Nhân viên truy cập module
+    When thực hiện "Tích hợp Dashboard Hiện diện (US-EMP-05)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Auto-marking attendance
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Auto-marking attendance"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Auto-marking attendance ---
+  Scenario: AC4.1 — Auto-marking attendance
+    Given Nhân viên truy cập module
+    When thực hiện "Auto-marking attendance"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — WFH vượt hạn mức
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "WFH vượt hạn mức"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — WFH vượt hạn mức
+    Given NV đăng ký ngày thứ 3 trong tuần khi limit = 2
+    When hệ thống kiểm tra
+    Then Cảnh báo: "Vượt hạn mức (2/tuần)". Đơn vẫn submit nhưng route đến HR thay vì Manager. HR duyệt = exception.
 
-  Scenario: Error2 — Công tác trùng ngày nghỉ phép
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Công tác trùng ngày nghỉ phép"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Công tác trùng ngày nghỉ phép
+    Given NV đã có APPROVED leave ngày 15-17, đăng ký công tác 16-20
+    When hệ thống kiểm tra
+    Then Chặn ngày trùng: "Ngày 16-17 đã có đơn nghỉ phép. Vui lòng hủy nghỉ phép trước hoặc chọn ngày khác." Cho phép đăng ký 18-20.
 
-  Scenario: Error3 — Toàn team WFH cùng ngày
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Toàn team WFH cùng ngày"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Toàn team WFH cùng ngày
+    Given 100% team đăng ký WFH thứ 6
+    When hệ thống kiểm tra
+    Then Cảnh báo Manager khi duyệt: "Nếu duyệt, 100% team sẽ WFH ngày này. On-site = 0." Manager vẫn có thể duyệt (tùy chính sách).
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

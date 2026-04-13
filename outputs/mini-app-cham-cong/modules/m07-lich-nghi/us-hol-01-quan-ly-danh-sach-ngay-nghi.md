@@ -74,50 +74,53 @@ Feature: US-HOL-01
   I want to thiết lập và quản lý danh sách các ngày nghỉ lễ chính thức và nội bộ của công ty
   So that hệ thống có căn cứ để tự động tính công "Hợp lệ" cho nhân viên mà họ không cần phải chấm công vào những ngày này.
 
-  Scenario: AC1 — Hiển thị Calendar & Badge
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Hiển thị Calendar & Badge"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị Calendar & Badge ---
+  Scenario: AC1.1 — Hiển thị Calendar & Badge
+    Given HR Admin truy cập module
+    When thực hiện "Hiển thị Calendar & Badge"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Quản lý Card List (Lịch lễ)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Quản lý Card List (Lịch lễ)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Quản lý Card List (Lịch lễ) ---
+  Scenario: AC2.1 — Quản lý Card List (Lịch lễ)
+    Given HR Admin truy cập module
+    When thực hiện "Quản lý Card List (Lịch lễ)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Logic tham số Chế độ (Side Widgets)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Logic tham số Chế độ (Side Widgets)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Logic tham số Chế độ (Side Widgets) ---
+  Scenario: AC3.1 — Logic tham số Chế độ (Side Widgets)
+    Given HR Admin truy cập module
+    When thực hiện "Logic tham số Chế độ (Side Widgets)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Logic Tự động gán Công (Auto-Attendance Logic)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Logic Tự động gán Công (Auto-Attendance Logic)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Logic Tự động gán Công (Auto-Attendance Logic) ---
+  Scenario: AC4.1 — Logic Tự động gán Công (Auto-Attendance Logic)
+    Given HR Admin truy cập module
+    When thực hiện "Logic Tự động gán Công (Auto-Attendance Logic)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC5 — Ràng buộc dữ liệu (Validation Rules)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC5: Ràng buộc dữ liệu (Validation Rules) ---
+  Scenario: AC5.1 — Ràng buộc dữ liệu (Validation Rules)
+    Given HR Admin truy cập module
+    When thực hiện "Ràng buộc dữ liệu (Validation Rules)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Ngày nghỉ trùng cuối tuần
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Ngày nghỉ trùng cuối tuần"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Ngày nghỉ trùng cuối tuần
+    Given VD: 30/4 rơi vào Chủ nhật
+    When hệ thống kiểm tra
+    Then HR quyết định: (A) Nghỉ bù T2, (B) Không nghỉ bù. Hệ thống hiển thị cảnh báo khi tạo.
 
-  Scenario: Error2 — Xóa ngày nghỉ đã có đơn nghỉ phép
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Xóa ngày nghỉ đã có đơn nghỉ phép"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Xóa ngày nghỉ đã có đơn nghỉ phép
+    Given NV đã approved leave trùng ngày
+    When hệ thống kiểm tra
+    Then Chặn xóa. Hiển thị: "[N] đơn nghỉ phép đã approved trùng ngày này. Hủy đơn trước khi xóa."
 
-  Scenario: Error3 — Ngày nghỉ thiên tai
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Ngày nghỉ thiên tai"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Ngày nghỉ thiên tai — scope vùng
+    Given Chỉ áp dụng 1 số tỉnh
+    When hệ thống kiểm tra
+    Then Chọn scope: Toàn quốc / Tỉnh cụ thể. Chỉ NV có Primary Site tại tỉnh đó mới bị ảnh hưởng.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

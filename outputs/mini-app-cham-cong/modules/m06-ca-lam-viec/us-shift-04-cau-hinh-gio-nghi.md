@@ -51,35 +51,35 @@ Feature: US-SHIFT-04
   I want to thiết lập khung giờ nghỉ (Bắt đầu nghỉ - Kết thúc nghỉ) cho từng ca làm việc
   So that hệ thống có thể tự động trừ đi thời gian này khi tính toán "Tổng giờ làm việc thực tế" của nhân viên, giúp bảng công chính xác và minh bạch.
 
-  Scenario: AC1 — Cấu hình mốc giờ Nghỉ
-    Given HR đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR thực hiện "Cấu hình mốc giờ Nghỉ"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC1: Cấu hình mốc giờ Nghỉ ---
+  Scenario: AC1.1 — Cấu hình mốc giờ Nghỉ
+    Given HR truy cập module
+    When thực hiện "Cấu hình mốc giờ Nghỉ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic tính toán Giờ làm thực tế (Work Hours Calculation)
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Logic tính toán Giờ làm thực tế (Work Hours Calculation)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Logic tính toán Giờ làm thực tế (Work Hours Calculation) ---
+  Scenario: AC2.1 — Logic tính toán Giờ làm thực tế (Work Hours Calculation)
+    Given HR truy cập module
+    When thực hiện "Logic tính toán Giờ làm thực tế (Work Hours Calculation)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Giờ nghỉ lớn hơn giờ làm
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Giờ nghỉ lớn hơn giờ làm"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Giờ nghỉ lớn hơn giờ làm
+    Given Nghỉ trưa 5h trong ca 8h
+    When hệ thống kiểm tra
+    Then Validation: "Tổng giờ nghỉ ([N]h) không được ≥ tổng giờ làm ([M]h)." Chặn lưu.
 
-  Scenario: Error2 — Giờ nghỉ ngoài khung ca
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Giờ nghỉ ngoài khung ca"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Giờ nghỉ ngoài khung ca
+    Given Nghỉ 18:00-19:00 nhưng ca kết thúc 17:00
+    When hệ thống kiểm tra
+    Then Validation: "Giờ nghỉ phải nằm trong khung ca làm việc [HH:MM - HH:MM]."
 
-  Scenario: Error3 — Nhiều khoảng nghỉ overlap
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Nhiều khoảng nghỉ overlap"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Nhiều khoảng nghỉ overlap
+    Given Nghỉ 12:00-13:00 và 12:30-13:30
+    When hệ thống kiểm tra
+    Then Validation: "Khoảng nghỉ bị trùng lắp. Vui lòng điều chỉnh."
 ```
 
 ### **3. DEFINITION OF DONE (DOD)**

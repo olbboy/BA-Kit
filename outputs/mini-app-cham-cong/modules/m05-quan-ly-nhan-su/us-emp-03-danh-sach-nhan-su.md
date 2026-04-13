@@ -68,44 +68,47 @@ Feature: US-EMP-03
   I want to xem danh sách toàn bộ nhân sự kèm thông tin cơ bản và tìm kiếm (kết quả ≤ 0.5 giây)
   So that tôi có thể tra cứu nhân viên trong ≤ 3 thao tác và quản lý thông tin chính xác.
 
-  Scenario: AC1 — Hiển thị bảng danh sách
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Hiển thị bảng danh sách"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị bảng danh sách ---
+  Scenario: AC1.1 — Hiển thị bảng danh sách
+    Given HR Admin truy cập module
+    When thực hiện "Hiển thị bảng danh sách"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Tìm kiếm nhân viên
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Tìm kiếm nhân viên"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Tìm kiếm nhân viên ---
+  Scenario: AC2.1 — Tìm kiếm nhân viên
+    Given HR Admin truy cập module
+    When thực hiện "Tìm kiếm nhân viên"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Bộ lọc
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Bộ lọc"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Bộ lọc ---
+  Scenario: AC3.1 — Bộ lọc
+    Given HR Admin truy cập module
+    When thực hiện "Bộ lọc"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Validate ảnh chân dung
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Validate ảnh chân dung"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Validate ảnh chân dung ---
+  Scenario: AC4.1 — Validate ảnh chân dung
+    Given HR Admin truy cập module
+    When thực hiện "Validate ảnh chân dung"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Tìm kiếm không dấu
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Tìm kiếm không dấu"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Tìm kiếm không dấu
+    Given VD: "Nguyen" tìm "Nguyễn"
+    When hệ thống kiểm tra
+    Then Full-text search không phân biệt dấu, hoa/thường. Sử dụng unaccent + ILIKE.
 
-  Scenario: Error2 — Danh sách > 5000 NV
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Danh sách > 5000 NV"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Danh sách > 5000 NV
+    Given Load time
+    When hệ thống kiểm tra
+    Then Phân trang server-side (50 NV/trang). Virtual scroll cho smooth UX.
 
-  Scenario: Error3 — NV status TRANSFERRED
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV status TRANSFERRED"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — NV status TRANSFERRED
+    Given Đang chuyển chi nhánh
+    When hệ thống kiểm tra
+    Then Hiển thị badge "Đang chuyển" màu vàng. Cho phép xem nhưng không chỉnh sửa.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

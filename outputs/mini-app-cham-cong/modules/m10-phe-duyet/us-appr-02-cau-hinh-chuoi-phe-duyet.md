@@ -79,47 +79,47 @@ Feature: US-APPR-02
   I want to thiết lập chuỗi phê duyệt (Approval Chain) cho từng loại đơn tại mỗi chi nhánh
   So that đơn từ được duyệt đúng cấp, đúng quy trình theo chính sách riêng của từng site.
 
-  Scenario: AC1 — Thiết lập Approval Chain
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Thiết lập Approval Chain"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Thiết lập Approval Chain ---
+  Scenario: AC1.1 — Thiết lập Approval Chain
+    Given HR Admin truy cập module
+    When thực hiện "Thiết lập Approval Chain"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Xác định Approver (Approver Resolution)
-    Given HR Admin đã đăng nhập vào hệ thống
-    And có đơn chờ duyệt
-    When HR Admin thực hiện "Xác định Approver (Approver Resolution)"
-    Then trạng thái đơn chuyển thành APPROVED
-    And thông báo gửi đến người tạo đơn
+  # --- AC2: Xác định Approver (Approver Resolution) ---
+  Scenario: AC2.1 — Xác định Approver (Approver Resolution)
+    Given HR Admin truy cập module
+    When thực hiện "Xác định Approver (Approver Resolution)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Chuỗi Fallback
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Chuỗi Fallback"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Chuỗi Fallback ---
+  Scenario: AC3.1 — Chuỗi Fallback
+    Given HR Admin truy cập module
+    When thực hiện "Chuỗi Fallback"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Cấu hình ngày chốt công
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR Admin thực hiện "Cấu hình ngày chốt công"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC4: Cấu hình ngày chốt công ---
+  Scenario: AC4.1 — Cấu hình ngày chốt công
+    Given HR Admin truy cập module
+    When thực hiện "Cấu hình ngày chốt công"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Tổ chức thay đổi giữa approval
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Tổ chức thay đổi giữa approval"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Tổ chức thay đổi giữa approval
+    Given NV chuyển phòng khi đơn đang xử lý
+    When hệ thống kiểm tra
+    Then Snapshot approver chain tại thời điểm tạo đơn. Thay đổi tổ chức KHÔNG ảnh hưởng đơn đang pending.
 
-  Scenario: Error2 — Config approval chain rỗng
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Config approval chain rỗng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Config approval chain rỗng
+    Given Site mới chưa cấu hình
+    When hệ thống kiểm tra
+    Then Chặn NV tạo đơn. Hiển thị: "Chưa cấu hình quy trình phê duyệt. Liên hệ HR chi nhánh."
 
-  Scenario: Error3 — Circular approval
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Circular approval"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Circular approval
+    Given Manager A approve cho Manager B và ngược lại
+    When hệ thống kiểm tra
+    Then Validate chain: không cho phép circular. Chặn lưu config nếu phát hiện loop.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

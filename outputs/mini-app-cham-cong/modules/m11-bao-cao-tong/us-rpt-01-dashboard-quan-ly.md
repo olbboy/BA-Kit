@@ -75,48 +75,53 @@ Feature: US-RPT-01
   I want to xem dashboard tổng hợp chuyên cần toàn phòng ban/chi nhánh với biểu đồ trực quan
   So that tôi có thể nắm bắt tình hình nhân sự, phát hiện vấn đề sớm và ra quyết định quản trị dựa trên dữ liệu.
 
-  Scenario: AC1 — Counter Cards (6 metrics)
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Counter Cards (6 metrics)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Counter Cards (6 metrics) ---
+  Scenario: AC1.1 — Counter Cards (6 metrics)
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Counter Cards (6 metrics)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Biểu đồ chuyên cần theo phòng ban
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Biểu đồ chuyên cần theo phòng ban"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Biểu đồ chuyên cần theo phòng ban ---
+  Scenario: AC2.1 — Biểu đồ chuyên cần theo phòng ban
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Biểu đồ chuyên cần theo phòng ban"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Top NV vi phạm
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Top NV vi phạm"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Top NV vi phạm ---
+  Scenario: AC3.1 — Top NV vi phạm
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Top NV vi phạm"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Xu hướng 7/30 ngày
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Xu hướng 7/30 ngày"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Xu hướng 7/30 ngày ---
+  Scenario: AC4.1 — Xu hướng 7/30 ngày
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Xu hướng 7/30 ngày"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC5 — Drill-down
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Drill-down"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC5: Drill-down ---
+  Scenario: AC5.1 — Drill-down
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Drill-down"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Phòng ban không có dữ liệu
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Phòng ban không có dữ liệu"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Phòng ban không có dữ liệu
+    Given Phòng ban mới tạo, chưa có NV chấm công
+    When hệ thống kiểm tra
+    Then Hiển thị "Chưa có dữ liệu" thay vì 0%. Không tính vào average.
 
-  Scenario: Error2 — Dữ liệu chưa chốt
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Dữ liệu chưa chốt"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Dữ liệu chưa chốt
+    Given Xem dashboard tháng chưa đến ngày chốt
+    When hệ thống kiểm tra
+    Then Badge: "Dữ liệu tạm tính (chưa chốt công)." Màu cam thay vì xanh. Số liệu live update.
 
-  Scenario: Error3 — RBAC filter
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "RBAC filter"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — RBAC filter
+    Given Manager xem báo cáo phòng ban khác
+    When hệ thống kiểm tra
+    Then Chặn: chỉ hiển thị phòng ban mà user có quyền. SITE_HR xem toàn site. GLOBAL_HR xem toàn bộ.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

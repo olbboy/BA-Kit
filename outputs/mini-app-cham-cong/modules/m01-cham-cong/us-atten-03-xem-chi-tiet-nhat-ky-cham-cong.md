@@ -78,39 +78,41 @@ Feature: US-ATTEN-03
   I want to tra cứu danh sách nhật ký chấm công hàng ngày và mở xem ảnh Face ID thu được từ Camera
   So that tôi có thể chủ động đối soát dữ liệu thực tế và có minh chứng chính xác khi cần gửi giải trình.
 
-  Scenario: AC1 — Hiển thị danh sách Nhật ký
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị danh sách Nhật ký"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị danh sách Nhật ký ---
+  Scenario: AC1.1 — Hiển thị danh sách Nhật ký
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị danh sách Nhật ký"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Tương tác Accordion
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Tương tác Accordion"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Tương tác Accordion ---
+  Scenario: AC2.1 — Tương tác Accordion
+    Given Nhân viên truy cập module
+    When thực hiện "Tương tác Accordion"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Xử lý Trạng thái đặc biệt
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Xử lý Trạng thái đặc biệt"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Xử lý Trạng thái đặc biệt ---
+  Scenario: AC3.1 — Xử lý Trạng thái đặc biệt
+    Given Nhân viên truy cập module
+    When thực hiện "Xử lý Trạng thái đặc biệt"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Ảnh Face ID không khả dụng
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Ảnh Face ID không khả dụng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Ảnh Face ID không khả dụng
+    Given C-Vision không trả ảnh (lỗi mạng, hết dung lượng)
+    When hệ thống kiểm tra
+    Then Hiển thị placeholder "Ảnh không khả dụng" + icon retry. Không block hiển thị mốc giờ. Lazy-load ảnh riêng biệt.
 
-  Scenario: Error2 — Giải trình đang PENDING
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Giải trình đang PENDING"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Giải trình đang PENDING
+    Given Ngày có đơn giải trình chưa duyệt
+    When hệ thống kiểm tra
+    Then Hiển thị Badge phụ "Đang giải trình" (Vàng) bên cạnh Badge trạng thái chính. Tooltip: "Đơn giải trình đang chờ duyệt".
 
-  Scenario: Error3 — Data retention
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Data retention"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Data retention — Ảnh Face ID
+    Given Thời gian lưu trữ ảnh cá nhân
+    When hệ thống kiểm tra
+    Then Chính sách bắt buộc: Ảnh Face ID lưu tối đa 90 ngày kể từ ngày chấm công (tuân thủ NĐ 13/2023 về BVDL cá nhân). Sau 90 ngày: ảnh bị xóa, Accordion hiển thị "Ảnh đã hết hạn lưu trữ". Mốc giờ + metadata vẫn giữ.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

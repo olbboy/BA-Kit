@@ -60,39 +60,41 @@ Feature: US-EMP-05
   I want to xem dashboard hiển thị số lượng nhân viên On-site, WFH, Vắng mặt và Nghỉ phép trong thời gian thực
   So that tôi có thể nắm bắt ngay tình hình nhân lực hiện tại để điều phối công việc.
 
-  Scenario: AC1 — Counter Cards
-    Given Quản lý đã đăng nhập vào hệ thống
-    When Quản lý thực hiện "Counter Cards"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Counter Cards ---
+  Scenario: AC1.1 — Counter Cards
+    Given Quản lý truy cập module
+    When thực hiện "Counter Cards"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Danh sách chi tiết
-    Given Quản lý đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Quản lý truy cập màn hình "Danh sách chi tiết"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC2: Danh sách chi tiết ---
+  Scenario: AC2.1 — Danh sách chi tiết
+    Given Quản lý truy cập module
+    When thực hiện "Danh sách chi tiết"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Real-time update
-    Given Quản lý đã đăng nhập vào hệ thống
-    When Quản lý thực hiện "Real-time update"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Real-time update ---
+  Scenario: AC3.1 — Real-time update
+    Given Quản lý truy cập module
+    When thực hiện "Real-time update"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Camera offline
-    Given Quản lý đã đăng nhập
-    When xảy ra điều kiện "Camera offline"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Camera offline
+    Given Không có dữ liệu real-time từ site
+    When hệ thống kiểm tra
+    Then Badge "Offline" trên site card. Hiển thị dữ liệu cuối cùng kèm timestamp "Cập nhật lúc [HH:MM]."
 
-  Scenario: Error2 — Toàn bộ NV WFH
-    Given Quản lý đã đăng nhập
-    When xảy ra điều kiện "Toàn bộ NV WFH"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Toàn bộ NV WFH
+    Given On-site = 0
+    When hệ thống kiểm tra
+    Then Hiển thị đúng "0 on-site". Không ẩn dashboard. Hiển thị chi tiết WFH breakdown.
 
-  Scenario: Error3 — Timezone khác nhau
-    Given Quản lý đã đăng nhập
-    When xảy ra điều kiện "Timezone khác nhau"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Timezone khác nhau
+    Given Site ở HCM (UTC+7) vs Site ở HN (UTC+7) nhưng server UTC
+    When hệ thống kiểm tra
+    Then Tất cả giờ hiển thị theo timezone site. Server store UTC, client convert theo site timezone.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

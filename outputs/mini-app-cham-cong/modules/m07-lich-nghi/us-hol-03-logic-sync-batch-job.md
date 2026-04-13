@@ -67,40 +67,42 @@
 ```gherkin
 Feature: US-HOL-03
   As a người dùng
-
+  I want to 
   So that dữ liệu chấm công và ngày nghỉ của nhân viên luôn được cập nhật chính xác tuyệt đối mà không cần HR phải can thiệp thủ công.
 
-  Scenario: AC1 — Đồng bộ Ngày nghỉ lễ
-    Given người dùng đã đăng nhập vào hệ thống
-    When người dùng thực hiện "Đồng bộ Ngày nghỉ lễ"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Đồng bộ Ngày nghỉ lễ ---
+  Scenario: AC1.1 — Đồng bộ Ngày nghỉ lễ
+    Given người dùng truy cập module
+    When thực hiện "Đồng bộ Ngày nghỉ lễ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic Cộng phép sinh nhật
-    Given người dùng đã đăng nhập vào hệ thống
-    When người dùng thực hiện "Logic Cộng phép sinh nhật"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Logic Cộng phép sinh nhật ---
+  Scenario: AC2.1 — Logic Cộng phép sinh nhật
+    Given người dùng truy cập module
+    When thực hiện "Logic Cộng phép sinh nhật"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Hiệu năng & Ràng buộc đồng bộ
-    Given người dùng đã đăng nhập vào hệ thống
-    When người dùng nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC3: Hiệu năng & Ràng buộc đồng bộ ---
+  Scenario: AC3.1 — Hiệu năng & Ràng buộc đồng bộ
+    Given người dùng truy cập module
+    When thực hiện "Hiệu năng & Ràng buộc đồng bộ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Batch job fail giữa chừng
-    Given người dùng đã đăng nhập
-    When xảy ra điều kiện "Batch job fail giữa chừng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Batch job fail giữa chừng
+    Given Sync 1000 NV, lỗi tại NV thứ 500
+    When hệ thống kiểm tra
+    Then Ghi log chi tiết. Đánh dấu NV lỗi. Tiếp tục xử lý NV còn lại. Retry failed batch sau 15 phút.
 
-  Scenario: Error2 — Duplicate sync event
-    Given người dùng đã đăng nhập
-    When xảy ra điều kiện "Duplicate sync event"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Duplicate sync event
+    Given 2 instance job chạy đồng thời
+    When hệ thống kiểm tra
+    Then Distributed lock (Redis). Instance thứ 2 skip nếu lock đã active. Log: "Sync already running, skipped."
 
-  Scenario: Error3 — Config thay đổi giữa batch
-    Given người dùng đã đăng nhập
-    When xảy ra điều kiện "Config thay đổi giữa batch"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Config thay đổi giữa batch
+    Given HR thay đổi policy khi batch đang chạy
+    When hệ thống kiểm tra
+    Then Batch dùng snapshot config tại thời điểm bắt đầu. Thay đổi áp dụng cho batch tiếp theo.
 ```

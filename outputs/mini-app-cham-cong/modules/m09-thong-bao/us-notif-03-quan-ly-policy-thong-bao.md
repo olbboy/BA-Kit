@@ -69,49 +69,47 @@ Feature: US-NOTIF-03
   I want to cấu hình policy gửi thông báo (Batching, Throttle, Schedule) và cho phép nhân viên tùy chỉnh preference cá nhân
   So that hệ thống gửi ≤ 3 thông báo/giờ cho mỗi NV, không spam, và nhân viên có thể tắt thông báo nhắc nhở nhưng vẫn nhận thông báo bắt buộc.
 
-  Scenario: AC1 — Cấu hình Batching
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR Admin thực hiện "Cấu hình Batching"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC1: Cấu hình Batching ---
+  Scenario: AC1.1 — Cấu hình Batching
+    Given HR Admin truy cập module
+    When thực hiện "Cấu hình Batching"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Cấu hình Throttle
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR Admin thực hiện "Cấu hình Throttle"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC2: Cấu hình Throttle ---
+  Scenario: AC2.1 — Cấu hình Throttle
+    Given HR Admin truy cập module
+    When thực hiện "Cấu hình Throttle"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Cấu hình Schedule
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR Admin thực hiện "Cấu hình Schedule"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC3: Cấu hình Schedule ---
+  Scenario: AC3.1 — Cấu hình Schedule
+    Given HR Admin truy cập module
+    When thực hiện "Cấu hình Schedule"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Preference cá nhân NV
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Preference cá nhân NV"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Preference cá nhân NV ---
+  Scenario: AC4.1 — Preference cá nhân NV
+    Given HR Admin truy cập module
+    When thực hiện "Preference cá nhân NV"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — NV tắt thông báo bắt buộc
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV tắt thông báo bắt buộc"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — NV tắt thông báo bắt buộc
+    Given Cố tắt notification phê duyệt
+    When hệ thống kiểm tra
+    Then UI disable toggle cho thông báo bắt buộc. Backend ignore "mute" request cho mandatory events.
 
-  Scenario: Error2 — Quiet hours conflict với ca đêm
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Quiet hours conflict với ca đêm"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Quiet hours conflict với ca đêm
+    Given Quiet hours 22:00-07:00, NV ca đêm cần check-in reminder
+    When hệ thống kiểm tra
+    Then Ca đêm NV: quiet hours auto-adjusted theo shift schedule. Chỉ mute khi NV KHÔNG có ca.
 
-  Scenario: Error3 — Batch digest quá lớn
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Batch digest quá lớn"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Batch digest quá lớn
+    Given Daily digest chứa > 50 items
+    When hệ thống kiểm tra
+    Then Truncate tại 20 items + link "Xem thêm [N] thông báo khác trên App."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

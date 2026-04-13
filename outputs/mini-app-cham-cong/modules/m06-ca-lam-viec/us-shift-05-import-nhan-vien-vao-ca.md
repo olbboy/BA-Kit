@@ -66,44 +66,47 @@ Feature: US-SHIFT-05
   I want to tải tệp Excel danh sách nhân viên và tải lên hệ thống để gán vào ca làm việc hiện tại hàng loạt
   So that tôi có thể triển khai lịch phân ca cho quy mô nhân sự lớn trong ≤ 30 giây cho 500 bản ghi và chính xác (0 sai sót format), tránh sai sót khi nhập liệu thủ công từng người.
 
-  Scenario: AC1 — Cung cấp File mẫu (Template Download)
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Cung cấp File mẫu (Template Download)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Cung cấp File mẫu (Template Download) ---
+  Scenario: AC1.1 — Cung cấp File mẫu (Template Download)
+    Given HR truy cập module
+    When thực hiện "Cung cấp File mẫu (Template Download)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Quy tắc Kiểm tra Hợp lệ (Validation Rules)
-    Given HR đã đăng nhập vào hệ thống
-    When HR nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC2: Quy tắc Kiểm tra Hợp lệ (Validation Rules) ---
+  Scenario: AC2.1 — Quy tắc Kiểm tra Hợp lệ (Validation Rules)
+    Given HR truy cập module
+    When thực hiện "Quy tắc Kiểm tra Hợp lệ (Validation Rules)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Phản hồi Kết quả Import (Batch Result Feedback)
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Phản hồi Kết quả Import (Batch Result Feedback)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Phản hồi Kết quả Import (Batch Result Feedback) ---
+  Scenario: AC3.1 — Phản hồi Kết quả Import (Batch Result Feedback)
+    Given HR truy cập module
+    When thực hiện "Phản hồi Kết quả Import (Batch Result Feedback)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Đồng bộ Dữ liệu (Real-time Sync)
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Đồng bộ Dữ liệu (Real-time Sync)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Đồng bộ Dữ liệu (Real-time Sync) ---
+  Scenario: AC4.1 — Đồng bộ Dữ liệu (Real-time Sync)
+    Given HR truy cập module
+    When thực hiện "Đồng bộ Dữ liệu (Real-time Sync)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — File Excel lỗi format
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "File Excel lỗi format"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — File Excel lỗi format
+    Given Cột thiếu, data type sai
+    When hệ thống kiểm tra
+    Then Trả file lỗi kèm cột "Lý do lỗi" cho mỗi dòng. Không import dòng lỗi. Hiển thị: "X/Y bản ghi thành công, Z lỗi."
 
-  Scenario: Error2 — NV đã thuộc ca khác
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "NV đã thuộc ca khác"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — NV đã thuộc ca khác
+    Given Import NV đang active ở ca cũ
+    When hệ thống kiểm tra
+    Then Cảnh báo: "[N] NV đang thuộc ca khác. Chọn: (A) Chuyển sang ca mới, (B) Bỏ qua, (C) Thêm ca phụ."
 
-  Scenario: Error3 — Mã NV không tồn tại
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Mã NV không tồn tại"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Mã NV không tồn tại
+    Given File chứa mã NV không có trong hệ thống
+    When hệ thống kiểm tra
+    Then Mark as ERROR. Ghi nhận vào file kết quả: "Mã NV [X] không tồn tại trong hệ thống."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

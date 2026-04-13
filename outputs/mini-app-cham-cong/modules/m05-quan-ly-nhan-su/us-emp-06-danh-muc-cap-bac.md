@@ -61,33 +61,35 @@ Feature: US-EMP-06
   I want to quản lý danh mục cấp bậc nhân sự (Nhân viên, Trưởng nhóm, Trưởng phòng...)
   So that hệ thống có căn cứ phân quyền chính xác cho các luồng phê duyệt và báo cáo.
 
-  Scenario: AC1 — Danh sách cấp bậc mặc định
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Danh sách cấp bậc mặc định"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Danh sách cấp bậc mặc định ---
+  Scenario: AC1.1 — Danh sách cấp bậc mặc định
+    Given HR Admin truy cập module
+    When thực hiện "Danh sách cấp bậc mặc định"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — CRUD cấp bậc
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "CRUD cấp bậc"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: CRUD cấp bậc ---
+  Scenario: AC2.1 — CRUD cấp bậc
+    Given HR Admin truy cập module
+    When thực hiện "CRUD cấp bậc"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Mapping với phân quyền
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Mapping với phân quyền"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Mapping với phân quyền ---
+  Scenario: AC3.1 — Mapping với phân quyền
+    Given HR Admin truy cập module
+    When thực hiện "Mapping với phân quyền"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Xóa cấp bậc đang được sử dụng
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Xóa cấp bậc đang được sử dụng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Xóa cấp bậc đang được sử dụng
+    Given 200 NV có cấp bậc "Nhân viên"
+    When hệ thống kiểm tra
+    Then Chặn xóa: "Cấp bậc đang được gán cho [200] NV. Chuyển NV sang cấp bậc khác trước."
 
-  Scenario: Error2 — Tên cấp bậc trùng
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Tên cấp bậc trùng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Tên cấp bậc trùng
+    Given điều kiện "Tên cấp bậc trùng" xảy ra
+    When hệ thống kiểm tra
+    Then Chặn: "Cấp bậc '[X]' đã tồn tại."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

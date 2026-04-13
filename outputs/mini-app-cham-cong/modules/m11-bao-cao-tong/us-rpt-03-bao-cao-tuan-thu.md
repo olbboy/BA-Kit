@@ -70,44 +70,47 @@ Feature: US-RPT-03
   I want to xem báo cáo tuân thủ quy chế lao động: vi phạm chuyên cần, giới hạn OT theo Nghị định 13/2023, và giải trình quá hạn
   So that tôi có thể đảm bảo công ty tuân thủ pháp luật lao động Việt Nam và xử lý kịp thời các trường hợp vi phạm.
 
-  Scenario: AC1 — Báo cáo vi phạm chuyên cần
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Báo cáo vi phạm chuyên cần"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Báo cáo vi phạm chuyên cần ---
+  Scenario: AC1.1 — Báo cáo vi phạm chuyên cần
+    Given HR Admin truy cập module
+    When thực hiện "Báo cáo vi phạm chuyên cần"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Giới hạn OT theo Nghị định 13/2023
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Giới hạn OT theo Nghị định 13/2023"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Giới hạn OT theo Nghị định 13/2023 ---
+  Scenario: AC2.1 — Giới hạn OT theo Nghị định 13/2023
+    Given HR Admin truy cập module
+    When thực hiện "Giới hạn OT theo Nghị định 13/2023"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Giải trình quá hạn
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Giải trình quá hạn"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Giải trình quá hạn ---
+  Scenario: AC3.1 — Giải trình quá hạn
+    Given HR Admin truy cập module
+    When thực hiện "Giải trình quá hạn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Xuất báo cáo tuân thủ
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin yêu cầu "Xuất báo cáo tuân thủ"
-    Then hệ thống tạo file đúng định dạng
-    And file chứa đầy đủ dữ liệu theo filter
+  # --- AC4: Xuất báo cáo tuân thủ ---
+  Scenario: AC4.1 — Xuất báo cáo tuân thủ
+    Given HR Admin truy cập module
+    When thực hiện "Xuất báo cáo tuân thủ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — OT vượt giới hạn pháp luật
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "OT vượt giới hạn pháp luật"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — OT vượt giới hạn pháp luật
+    Given NV > 200h/năm
+    When hệ thống kiểm tra
+    Then Highlight đỏ trong báo cáo. Alert HR + Ban Giám đốc. Ghi nhận risk: "Vi phạm ND 13/2023 Điều [X]."
 
-  Scenario: Error2 — Nghỉ phép vượt quota
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Nghỉ phép vượt quota"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Nghỉ phép vượt quota
+    Given NV nghỉ > số phép cho phép (do approved nhầm)
+    When hệ thống kiểm tra
+    Then Flag trong báo cáo: "Vượt hạn mức [N] ngày." Gợi ý: trừ lương hoặc chuyển sang nghỉ không lương.
 
-  Scenario: Error3 — Data discrepancy
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Data discrepancy"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Data discrepancy
+    Given Tổng ngày công dashboard ≠ file export
+    When hệ thống kiểm tra
+    Then Checksum validation trước khi export. Nếu khác biệt > 0.5 ngày → alert: "Dữ liệu không nhất quán. Liên hệ IT."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

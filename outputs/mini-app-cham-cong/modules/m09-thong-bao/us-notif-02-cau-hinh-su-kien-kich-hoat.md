@@ -65,39 +65,41 @@ Feature: US-NOTIF-02
   I want to cấu hình danh sách sự kiện kích hoạt thông báo và tùy chỉnh nội dung template cho từng event
   So that hệ thống gửi đúng thông báo, đúng nội dung cho đúng đối tượng khi có sự kiện xảy ra.
 
-  Scenario: AC1 — Danh sách sự kiện theo nhóm
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Danh sách sự kiện theo nhóm"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Danh sách sự kiện theo nhóm ---
+  Scenario: AC1.1 — Danh sách sự kiện theo nhóm
+    Given HR Admin truy cập module
+    When thực hiện "Danh sách sự kiện theo nhóm"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Template thông báo
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Template thông báo"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Template thông báo ---
+  Scenario: AC2.1 — Template thông báo
+    Given HR Admin truy cập module
+    When thực hiện "Template thông báo"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Preview
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Preview"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Preview ---
+  Scenario: AC3.1 — Preview
+    Given HR Admin truy cập module
+    When thực hiện "Preview"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Trigger event spike
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Trigger event spike"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Trigger event spike
+    Given 5000 NV check-in cùng lúc (đầu ca)
+    When hệ thống kiểm tra
+    Then Queue-based processing (BullMQ). Rate limit: 100 notification/giây. NV nhận trong ≤ 60s.
 
-  Scenario: Error2 — Trigger cho NV đã nghỉ việc
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Trigger cho NV đã nghỉ việc"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Trigger cho NV đã nghỉ việc
+    Given Event cho NV status INACTIVE
+    When hệ thống kiểm tra
+    Then Skip notification. Log: "Skipped notification for inactive employee [ID]."
 
-  Scenario: Error3 — Duplicate trigger
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Duplicate trigger"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Duplicate trigger
+    Given Cùng 1 event gửi 2 lần (webhook retry)
+    When hệ thống kiểm tra
+    Then Idempotency key per event. Lần 2 skip, log: "Duplicate event [key], ignored."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

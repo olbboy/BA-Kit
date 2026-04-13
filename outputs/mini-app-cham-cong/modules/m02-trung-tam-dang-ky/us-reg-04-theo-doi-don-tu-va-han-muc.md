@@ -79,41 +79,41 @@ Feature: US-REG-04
   I want to xem danh sách tất cả đơn đã gửi (nghỉ phép, đổi ca, OT) kèm trạng thái và hạn mức phép/OT còn lại
   So that tôi có thể theo dõi tiến độ phê duyệt và chủ động quản lý quyền lợi cá nhân.
 
-  Scenario: AC1 — Hiển thị danh sách đơn
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị danh sách đơn"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị danh sách đơn ---
+  Scenario: AC1.1 — Hiển thị danh sách đơn
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị danh sách đơn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Xem chi tiết đơn
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Xem chi tiết đơn"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC2: Xem chi tiết đơn ---
+  Scenario: AC2.1 — Xem chi tiết đơn
+    Given Nhân viên truy cập module
+    When thực hiện "Xem chi tiết đơn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Hủy đơn
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại
-    When Nhân viên thực hiện "Hủy đơn"
-    Then hệ thống thực hiện soft-delete
-    And dữ liệu liên quan được xử lý đúng
+  # --- AC3: Hủy đơn ---
+  Scenario: AC3.1 — Hủy đơn
+    Given Nhân viên truy cập module
+    When thực hiện "Hủy đơn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Widget hạn mức
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Widget hạn mức"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Widget hạn mức ---
+  Scenario: AC4.1 — Widget hạn mức
+    Given Nhân viên truy cập module
+    When thực hiện "Widget hạn mức"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Self-approval
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Self-approval"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Self-approval
+    Given NV đồng thời là Manager, gửi đơn và tự duyệt cho chính mình
+    When hệ thống kiểm tra
+    Then Chặn tuyệt đối. Backend validate: requestor.id !== approver.id. Nếu NV là Manager → đơn tự động skip level 1, chuyển lên DEPT_HEAD hoặc SITE_HR. Ghi audit: "Self-approval blocked — escalated to [approver]".
 
-  Scenario: Error2 — Approver đi nghỉ
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Approver đi nghỉ"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Approver đi nghỉ
+    Given Manager nghỉ phép 2 tuần, đơn team bị treo
+    When hệ thống kiểm tra
+    Then Auto-delegation: nếu approver có đơn nghỉ APPROVED trùng ngày → fallback chain tự động kích hoạt (EAMS §7.3): DIRECT_MANAGER → SITE_MANAGER → SITE_HR → GLOBAL_HR. Push cho NV: "Đơn đã chuyển đến [Tên approver mới] do quản lý đang nghỉ phép".
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

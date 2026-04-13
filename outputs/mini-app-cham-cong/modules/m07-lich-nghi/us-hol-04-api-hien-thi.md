@@ -73,38 +73,39 @@ Feature: US-HOL-04
   I want to xem lịch nghỉ lễ chính thức và các ngày nghỉ đặc thù của cá nhân qua điện thoại
   So that cá nhân tôi có thể chủ động nắm bắt lịch trình làm việc và sắp xếp kế hoạch nghỉ ngơi hợp lý.
 
-  Scenario: AC1 — Hiển thị Calendar trên Mobile UI
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị Calendar trên Mobile UI"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị Calendar trên Mobile UI ---
+  Scenario: AC1.1 — Hiển thị Calendar trên Mobile UI
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị Calendar trên Mobile UI"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — API cung cấp dữ liệu Lịch cá nhân
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "API cung cấp dữ liệu Lịch cá nhân"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: API cung cấp dữ liệu Lịch cá nhân ---
+  Scenario: AC2.1 — API cung cấp dữ liệu Lịch cá nhân
+    Given Nhân viên truy cập module
+    When thực hiện "API cung cấp dữ liệu Lịch cá nhân"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Hiển thị thông tin Chi tiết ngày nghỉ
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị thông tin Chi tiết ngày nghỉ"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC3: Hiển thị thông tin Chi tiết ngày nghỉ ---
+  Scenario: AC3.1 — Hiển thị thông tin Chi tiết ngày nghỉ
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị thông tin Chi tiết ngày nghỉ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — API query year = null
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "API query year = null"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — API query year = null
+    Given Client không gửi year param
+    When hệ thống kiểm tra
+    Then Default: năm hiện tại. Response header: `X-Default-Year: 2026`.
 
-  Scenario: Error2 — API rate limit
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "API rate limit"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — API rate limit
+    Given Client gọi > 100 req/phút
+    When hệ thống kiểm tra
+    Then 429 Too Many Requests. Header: `Retry-After: 60`.
 
-  Scenario: Error3 — Không có dữ liệu cho năm
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Không có dữ liệu cho năm"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Không có dữ liệu cho năm
+    Given Query năm chưa có policy
+    When hệ thống kiểm tra
+    Then Trả array rỗng `[]` với HTTP 200 (không phải 404).
 ```

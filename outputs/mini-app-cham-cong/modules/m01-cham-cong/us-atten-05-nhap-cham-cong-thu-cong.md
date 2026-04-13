@@ -84,38 +84,39 @@ Feature: US-ATTEN-05
   I want to nhập thủ công mốc chấm công cho nhân viên khi hệ thống C-Vision gặp sự cố hoặc NV không thể quét khuôn mặt
   So that dữ liệu chấm công được ghi nhận đầy đủ, đảm bảo quyền lợi lương cho NV và không thiếu công trong kỳ tính lương.
 
-  Scenario: AC1 — Form nhập liệu
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Form nhập liệu" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC1: Form nhập liệu ---
+  Scenario: AC1.1 — Form nhập liệu
+    Given HR Admin truy cập module
+    When thực hiện "Form nhập liệu"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Validation
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC2: Validation ---
+  Scenario: AC2.1 — Validation
+    Given HR Admin truy cập module
+    When thực hiện "Validation"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Audit Trail
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Audit Trail"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Audit Trail ---
+  Scenario: AC3.1 — Audit Trail
+    Given HR Admin truy cập module
+    When thực hiện "Audit Trail"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — HR nhập cho NV đã nghỉ việc
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "HR nhập cho NV đã nghỉ việc"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — HR nhập cho NV đã nghỉ việc
+    Given NV status TERMINATED
+    When hệ thống kiểm tra
+    Then Chặn: "NV [Tên] đã nghỉ việc từ [DD/MM]. Không thể tạo chấm công."
 
-  Scenario: Error2 — HR nhập cho NV khác site
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "HR nhập cho NV khác site"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — HR nhập cho NV khác site
+    Given NV thuộc Site B, HR is Site A
+    When hệ thống kiểm tra
+    Then Chặn: "NV thuộc chi nhánh [Site B]. Bạn chỉ có quyền nhập cho NV tại [Site A]." GLOBAL_HR không bị giới hạn.
 
-  Scenario: Error3 — Batch manual entry
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Batch manual entry"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Batch manual entry
+    Given Camera offline 2h, cần nhập cho 100 NV
+    When hệ thống kiểm tra
+    Then Hỗ trợ upload Excel: Mã NV, Loại, Giờ, Lý do. Validate từng dòng. Tạo batch approval.
 ```

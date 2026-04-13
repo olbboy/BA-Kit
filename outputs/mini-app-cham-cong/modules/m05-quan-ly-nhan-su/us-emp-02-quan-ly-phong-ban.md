@@ -57,43 +57,41 @@ Feature: US-EMP-02
   I want to thêm, sửa, xóa các đơn vị tổ chức (Khối/Phòng ban/Đội nhóm)
   So that cơ cấu tổ chức luôn cập nhật khi công ty có thay đổi bộ máy.
 
-  Scenario: AC1 — Tạo mới đơn vị
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Tạo mới đơn vị" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC1: Tạo mới đơn vị ---
+  Scenario: AC1.1 — Tạo mới đơn vị
+    Given HR Admin truy cập module
+    When thực hiện "Tạo mới đơn vị"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Cơ chế chặn xóa
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại
-    When HR Admin thực hiện "Cơ chế chặn xóa"
-    Then hệ thống thực hiện soft-delete
-    And dữ liệu liên quan được xử lý đúng
+  # --- AC2: Cơ chế chặn xóa ---
+  Scenario: AC2.1 — Cơ chế chặn xóa
+    Given HR Admin truy cập module
+    When thực hiện "Cơ chế chặn xóa"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Chỉnh sửa & Di chuyển
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR Admin thực hiện "Chỉnh sửa & Di chuyển"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC3: Chỉnh sửa & Di chuyển ---
+  Scenario: AC3.1 — Chỉnh sửa & Di chuyển
+    Given HR Admin truy cập module
+    When thực hiện "Chỉnh sửa & Di chuyển"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Xóa phòng ban có NV
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Xóa phòng ban có NV"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Xóa phòng ban có NV
+    Given Phòng ban còn 50 NV active
+    When hệ thống kiểm tra
+    Then Chặn xóa. Hiển thị: "Phòng ban còn [50] nhân viên. Chuyển NV trước khi xóa."
 
-  Scenario: Error2 — Tên phòng ban trùng
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Tên phòng ban trùng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Tên phòng ban trùng
+    Given Tạo 2 phòng ban cùng tên tại 1 site
+    When hệ thống kiểm tra
+    Then Cho phép nhưng cảnh báo: "Đã tồn tại phòng ban '[Tên]' tại chi nhánh này."
 
-  Scenario: Error3 — Xóa phòng ban cha
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Xóa phòng ban cha"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Xóa phòng ban cha
+    Given Phòng ban có sub-departments
+    When hệ thống kiểm tra
+    Then Chặn: "Phòng ban có [N] đơn vị con. Xóa hoặc chuyển đơn vị con trước."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

@@ -81,40 +81,41 @@ Feature: US-ATTEN-01
   I want to xem trạng thái chấm công, mốc giờ In/Out và thanh tiến độ thực tế ngay tại cụm trung tâm Trang chủ
   So that tôi có thể xác định ngay lập tức tình trạng công của mình và chủ động điều phối thời gian làm việc để hoàn thành ca làm.
 
-  Scenario: AC1 — Hiển thị Badge Trạng thái & Mốc giờ (In/Out)
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị Badge Trạng thái & Mốc giờ (In/Out)"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị Badge Trạng thái & Mốc giờ (In/Out) ---
+  Scenario: AC1.1 — Hiển thị Badge Trạng thái & Mốc giờ (In/Out)
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị Badge Trạng thái & Mốc giờ (In/Out)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic Thanh Tiến độ
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Logic Thanh Tiến độ"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Logic Thanh Tiến độ ---
+  Scenario: AC2.1 — Logic Thanh Tiến độ
+    Given Nhân viên truy cập module
+    When thực hiện "Logic Thanh Tiến độ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Hiển thị mốc "Cập nhật lúc"
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị mốc "Cập nhật lúc""
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC3: Hiển thị mốc "Cập nhật lúc" ---
+  Scenario: AC3.1 — Hiển thị mốc "Cập nhật lúc"
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị mốc "Cập nhật lúc""
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — NV multi-site check-in
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "NV multi-site check-in"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — NV multi-site check-in
+    Given NV thuộc 2 site (VD: IT hỗ trợ), check-in tại site không phải Primary
+    When hệ thống kiểm tra
+    Then Dashboard hiển thị ca của site nơi NV check-in (match siteId từ camera deviceId). Nếu không có ca tại site đó → Badge "Không có ca tại chi nhánh này".
 
-  Scenario: Error2 — Multiple check-in liên tiếp
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Multiple check-in liên tiếp"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Multiple check-in liên tiếp
+    Given Camera glitch gửi 3 check-in cách nhau > 30s nhưng không có check-out
+    When hệ thống kiểm tra
+    Then De-duplication 30s chỉ lọc trong 30s. Ngoài 30s: lấy mốc CHECK_IN sớm nhất trong ca. Các mốc sau được xử lý theo logic xen kẽ (toggle IN/OUT).
 
-  Scenario: Error3 — Webhook delay > 60s SLA
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Webhook delay > 60s SLA"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Webhook delay > 60s SLA
+    Given C-Vision webhook bị chậm
+    When hệ thống kiểm tra
+    Then App hiển thị mini-banner "Đang đồng bộ dữ liệu..." thay vì Badge xám "Chưa chấm công" gây hiểu lầm. Auto-retry mỗi 15s, timeout sau 5 phút.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

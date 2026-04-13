@@ -75,46 +75,47 @@ Feature: US-APPR-01
   I want to xem danh sách tất cả đơn chờ phê duyệt tại một giao diện tập trung, duyệt hoặc từ chối trong ≤ 2 tap trên mobile kèm lý do
   So that tôi không bỏ sót đơn từ của nhân viên và xử lý kịp thời để không ảnh hưởng đến quyền lợi của họ.
 
-  Scenario: AC1 — Hiển thị Inbox
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Quản lý / HR Admin truy cập màn hình "Hiển thị Inbox"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị Inbox ---
+  Scenario: AC1.1 — Hiển thị Inbox
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Hiển thị Inbox"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Chi tiết đơn
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Chi tiết đơn"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Chi tiết đơn ---
+  Scenario: AC2.1 — Chi tiết đơn
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Chi tiết đơn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Duyệt / Từ chối
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    And có đơn chờ duyệt
-    When Quản lý / HR Admin thực hiện "Duyệt / Từ chối"
-    Then trạng thái đơn chuyển thành APPROVED
-    And thông báo gửi đến người tạo đơn
+  # --- AC3: Duyệt / Từ chối ---
+  Scenario: AC3.1 — Duyệt / Từ chối
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Duyệt / Từ chối"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Multi-level approval
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Multi-level approval"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Multi-level approval ---
+  Scenario: AC4.1 — Multi-level approval
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Multi-level approval"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Approver bị terminated
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Approver bị terminated"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Approver bị terminated
+    Given Manager nghỉ việc khi có đơn PENDING
+    When hệ thống kiểm tra
+    Then Auto-reassign sang fallback chain (SITE_MANAGER → SITE_HR → GLOBAL_HR). Push NV: "Đơn đã chuyển đến [Approver mới]." Audit: "Auto-reassigned."
 
-  Scenario: Error2 — Self-approve
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Self-approve"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Self-approve
+    Given Manager gửi đơn nghỉ cho chính mình duyệt
+    When hệ thống kiểm tra
+    Then Chặn self-approve. Auto-route lên DEPT_HEAD hoặc SITE_HR.
 
-  Scenario: Error3 — Approver offline > 7 ngày
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Approver offline > 7 ngày"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Approver offline > 7 ngày
+    Given Không duyệt đơn nào trong 7 ngày
+    When hệ thống kiểm tra
+    Then Auto-escalate lên level tiếp. Alert HR: "[Tên] có [N] đơn quá hạn." Không auto-approve.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

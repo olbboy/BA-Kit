@@ -69,43 +69,47 @@ Feature: US-APPR-03
   I want to chọn nhiều đơn cùng loại và duyệt hoặc từ chối hàng loạt trong một thao tác
   So that tôi có thể xử lý ≤ 50 đơn/lần trong ≤ 3 giây khi có nhiều đơn tồn đọng, đặc biệt cuối tháng trước ngày chốt công.
 
-  Scenario: AC1 — Chọn đơn hàng loạt
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Chọn đơn hàng loạt"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Chọn đơn hàng loạt ---
+  Scenario: AC1.1 — Chọn đơn hàng loạt
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Chọn đơn hàng loạt"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Xử lý Batch
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Xử lý Batch"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Xử lý Batch ---
+  Scenario: AC2.1 — Xử lý Batch
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Xử lý Batch"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Kết quả Batch
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Kết quả Batch"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Kết quả Batch ---
+  Scenario: AC3.1 — Kết quả Batch
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Kết quả Batch"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Giới hạn
-    Given Quản lý / HR Admin đã đăng nhập vào hệ thống
-    When Quản lý / HR Admin thực hiện "Giới hạn"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Giới hạn ---
+  Scenario: AC4.1 — Giới hạn
+    Given Quản lý / HR Admin truy cập module
+    When thực hiện "Giới hạn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Batch approve lỗi giữa chừng
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Batch approve lỗi giữa chừng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Batch approve lỗi giữa chừng
+    Given Đơn thứ 25/50 bị lỗi
+    When hệ thống kiểm tra
+    Then Xử lý tuần tự, không rollback đã duyệt. Kết quả: "24 ✓, 1 ✗, 25 ○". Retry riêng đơn lỗi.
 
-  Scenario: Error2 — Batch quá lớn
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Batch quá lớn"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Batch quá lớn
+    Given Chọn > 50 đơn
+    When hệ thống kiểm tra
+    Then Chặn: "Tối đa 50 đơn/lần. Đã chọn [N]."
 
-  Scenario: Error3 — Đơn bị cancel khi đang trong batch
-    Given Quản lý / HR Admin đã đăng nhập
-    When xảy ra điều kiện "Đơn bị cancel khi đang trong batch"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Đơn bị cancel khi đang trong batch
+    Given NV hủy đơn ngay lúc manager batch approve
+    When hệ thống kiểm tra
+    Then Check status trước khi approve. Đơn CANCELLED → skip, ghi nhận "Đã bị hủy bởi NV."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

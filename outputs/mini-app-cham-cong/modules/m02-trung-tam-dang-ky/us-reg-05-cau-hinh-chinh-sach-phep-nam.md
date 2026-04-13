@@ -87,38 +87,39 @@ Feature: US-REG-05
   I want to cấu hình chính sách phép năm bao gồm số ngày cơ bản, thâm niên, carryover và pro-rata cho nhân viên mới
   So that hệ thống tự động tính đúng số dư phép cho từng nhân viên theo quy định công ty và Luật Lao động Việt Nam.
 
-  Scenario: AC1 — Cấu hình phép cơ bản
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR Admin thực hiện "Cấu hình phép cơ bản"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC1: Cấu hình phép cơ bản ---
+  Scenario: AC1.1 — Cấu hình phép cơ bản
+    Given HR Admin truy cập module
+    When thực hiện "Cấu hình phép cơ bản"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Công thức tính
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Công thức tính"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Công thức tính ---
+  Scenario: AC2.1 — Công thức tính
+    Given HR Admin truy cập module
+    When thực hiện "Công thức tính"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Batch Recalculate
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Batch Recalculate"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Batch Recalculate ---
+  Scenario: AC3.1 — Batch Recalculate
+    Given HR Admin truy cập module
+    When thực hiện "Batch Recalculate"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Giảm phép khi NV đã dùng hết
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Giảm phép khi NV đã dùng hết"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Giảm phép khi NV đã dùng hết
+    Given Policy cũ: 15 ngày, NV đã dùng 14. Policy mới: 12 ngày → Balance = -2
+    When hệ thống kiểm tra
+    Then Cảnh báo HR: "[N] NV có balance âm sau thay đổi." Cho phép: balance âm → trừ lương kỳ tới.
 
-  Scenario: Error2 — Carryover đã hết hạn
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Carryover đã hết hạn"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Carryover đã hết hạn
+    Given Ngày 01/04, carryover chưa bị xóa
+    When hệ thống kiểm tra
+    Then Batch job 01/04 00:01: auto-expire carryover. NV nhận thông báo: "Phép chuyển tiếp [N ngày] đã hết hạn."
 
-  Scenario: Error3 — NV chuyển site có policy khác
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV chuyển site có policy khác"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — NV chuyển site có policy khác
+    Given NV chuyển từ Site A (15 ngày) sang Site B (12 ngày)
+    When hệ thống kiểm tra
+    Then Áp dụng policy Site B từ ngày chuyển. Phép đã dùng tính cộng dồn. Pro-rata cho số tháng còn lại.
 ```

@@ -84,45 +84,47 @@ Feature: US-RPT-02
   I want to xuất các loại báo cáo chấm công và file payroll chuẩn định dạng Excel/CSV
   So that tôi có dữ liệu sẵn sàng để tính lương, nộp cho kế toán và lưu trữ hồ sơ theo quy định.
 
-  Scenario: AC1 — Các loại báo cáo
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Các loại báo cáo"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Các loại báo cáo ---
+  Scenario: AC1.1 — Các loại báo cáo
+    Given HR Admin truy cập module
+    When thực hiện "Các loại báo cáo"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Cấu trúc file Payroll (13 cột)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Cấu trúc file Payroll (13 cột)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Cấu trúc file Payroll (13 cột) ---
+  Scenario: AC2.1 — Cấu trúc file Payroll (13 cột)
+    Given HR Admin truy cập module
+    When thực hiện "Cấu trúc file Payroll (13 cột)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Preview trước khi xuất
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin yêu cầu "Preview trước khi xuất"
-    Then hệ thống tạo file đúng định dạng
-    And file chứa đầy đủ dữ liệu theo filter
+  # --- AC3: Preview trước khi xuất ---
+  Scenario: AC3.1 — Preview trước khi xuất
+    Given HR Admin truy cập module
+    When thực hiện "Preview trước khi xuất"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Xuất file
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin yêu cầu "Xuất file"
-    Then hệ thống tạo file đúng định dạng
-    And file chứa đầy đủ dữ liệu theo filter
+  # --- AC4: Xuất file ---
+  Scenario: AC4.1 — Xuất file
+    Given HR Admin truy cập module
+    When thực hiện "Xuất file"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Export file > 10MB
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Export file > 10MB"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Export file > 10MB
+    Given 5000 NV × 12 tháng
+    When hệ thống kiểm tra
+    Then Async export: "File đang được tạo. Bạn sẽ nhận email khi hoàn tất." Không block UI.
 
-  Scenario: Error2 — Template payroll không khớp
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Template payroll không khớp"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Template payroll không khớp
+    Given MISA format khác SAP format
+    When hệ thống kiểm tra
+    Then Dropdown chọn template: MISA / SAP / Oracle / Custom. Preview 5 dòng đầu trước khi export.
 
-  Scenario: Error3 — Export dữ liệu chưa chốt công
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Export dữ liệu chưa chốt công"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Export dữ liệu chưa chốt công
+    Given Tháng chưa complete
+    When hệ thống kiểm tra
+    Then Cảnh báo: "Dữ liệu tháng [MM] chưa chốt công. File export có thể thay đổi." Yêu cầu confirm.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

@@ -94,45 +94,45 @@ Feature: US-EXPL-02
   I want to gửi yêu cầu điều chỉnh (thêm / sửa / xóa) mốc chấm công khi phát hiện dữ liệu sai và đính kèm minh chứng
   So that bảng công của tôi phản ánh chính xác thực tế làm việc, đảm bảo quyền lợi lương không bị ảnh hưởng bởi lỗi hệ thống hoặc thao tác.
 
-  Scenario: AC1 — Loại điều chỉnh
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When Nhân viên thực hiện "Loại điều chỉnh"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC1: Loại điều chỉnh ---
+  Scenario: AC1.1 — Loại điều chỉnh
+    Given Nhân viên truy cập module
+    When thực hiện "Loại điều chỉnh"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Form yêu cầu
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Form yêu cầu"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Form yêu cầu ---
+  Scenario: AC2.1 — Form yêu cầu
+    Given Nhân viên truy cập module
+    When thực hiện "Form yêu cầu"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Trạng thái theo dõi
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Trạng thái theo dõi"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Trạng thái theo dõi ---
+  Scenario: AC3.1 — Trạng thái theo dõi
+    Given Nhân viên truy cập module
+    When thực hiện "Trạng thái theo dõi"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Hiệu ứng sau Approve
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And có đơn chờ duyệt
-    When Nhân viên thực hiện "Hiệu ứng sau Approve"
-    Then trạng thái đơn chuyển thành APPROVED
-    And thông báo gửi đến người tạo đơn
+  # --- AC4: Hiệu ứng sau Approve ---
+  Scenario: AC4.1 — Hiệu ứng sau Approve
+    Given Nhân viên truy cập module
+    When thực hiện "Hiệu ứng sau Approve"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Correction cho ngày đã chốt công
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Correction cho ngày đã chốt công"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Correction cho ngày đã chốt công
+    Given NV sửa ngày 20 nhưng chốt công ngày 25 đã qua
+    When hệ thống kiểm tra
+    Then Chặn: "Ngày [DD/MM] đã chốt công. Liên hệ HR để được hỗ trợ." HR có Exception Approval để sửa sau chốt.
 
-  Scenario: Error2 — Correction trùng Manual Entry
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Correction trùng Manual Entry"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Correction trùng Manual Entry
+    Given NV yêu cầu ADD nhưng HR đã tạo Manual Entry cùng mốc
+    When hệ thống kiểm tra
+    Then Cảnh báo: "Đã có mốc [HH:MM] được tạo bởi HR. Sử dụng MODIFY nếu cần sửa giờ."
 
-  Scenario: Error3 — DELETE check-in duy nhất
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "DELETE check-in duy nhất"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — DELETE check-in duy nhất
+    Given NV xóa mốc check-in duy nhất trong ngày có OT approved
+    When hệ thống kiểm tra
+    Then Cảnh báo: "Xóa mốc này sẽ ảnh hưởng OT đã duyệt ([N] giờ). OT request sẽ bị tính lại." Yêu cầu confirm.
 ```

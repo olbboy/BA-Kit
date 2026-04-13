@@ -89,43 +89,47 @@ Feature: US-CAM-04
   I want to tự đăng ký khuôn mặt cho hệ thống chấm công AI thông qua quy trình 3 bước trên Mini App
   So that tôi có thể chấm công bằng nhận diện khuôn mặt ngay từ ngày đầu đi làm mà không cần nhờ bộ phận IT.
 
-  Scenario: AC1 — Bước 1 — Xác nhận thông tin
-    Given Nhân viên mới đã đăng nhập vào hệ thống
-    When Nhân viên mới thực hiện "Bước 1 — Xác nhận thông tin"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Bước 1 — Xác nhận thông tin ---
+  Scenario: AC1.1 — Bước 1 — Xác nhận thông tin
+    Given Nhân viên mới truy cập module
+    When thực hiện "Bước 1 — Xác nhận thông tin"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Bước 2 — Chụp ảnh khuôn mặt
-    Given Nhân viên mới đã đăng nhập vào hệ thống
-    When Nhân viên mới thực hiện "Bước 2 — Chụp ảnh khuôn mặt"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Bước 2 — Chụp ảnh khuôn mặt ---
+  Scenario: AC2.1 — Bước 2 — Chụp ảnh khuôn mặt
+    Given Nhân viên mới truy cập module
+    When thực hiện "Bước 2 — Chụp ảnh khuôn mặt"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Bước 3 — Đồng bộ C-Vision
-    Given Nhân viên mới đã đăng nhập vào hệ thống
-    When Nhân viên mới thực hiện "Bước 3 — Đồng bộ C-Vision"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Bước 3 — Đồng bộ C-Vision ---
+  Scenario: AC3.1 — Bước 3 — Đồng bộ C-Vision
+    Given Nhân viên mới truy cập module
+    When thực hiện "Bước 3 — Đồng bộ C-Vision"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Trạng thái Enrollment
-    Given Nhân viên mới đã đăng nhập vào hệ thống
-    When Nhân viên mới thực hiện "Trạng thái Enrollment"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Trạng thái Enrollment ---
+  Scenario: AC4.1 — Trạng thái Enrollment
+    Given Nhân viên mới truy cập module
+    When thực hiện "Trạng thái Enrollment"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — C-Vision API timeout
-    Given Nhân viên mới đã đăng nhập
-    When xảy ra điều kiện "C-Vision API timeout"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — C-Vision API timeout
+    Given Không phản hồi trong 30 giây
+    When hệ thống kiểm tra
+    Then Retry tự động 1 lần. Nếu vẫn fail → "Hệ thống đang bận. Thử lại sau 5 phút." Lưu ảnh local để retry.
 
-  Scenario: Error2 — Ảnh trùng với NV khác
-    Given Nhân viên mới đã đăng nhập
-    When xảy ra điều kiện "Ảnh trùng với NV khác"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Ảnh trùng với NV khác
+    Given C-Vision phát hiện khuôn mặt đã đăng ký
+    When hệ thống kiểm tra
+    Then Chặn đăng ký. Alert HR: "Khuôn mặt trùng với NV [Mã]. Kiểm tra danh tính." Không tạo mapping.
 
-  Scenario: Error3 — NV thay đổi ngoại hình
-    Given Nhân viên mới đã đăng nhập
-    When xảy ra điều kiện "NV thay đổi ngoại hình"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — NV thay đổi ngoại hình
+    Given Giảm cân, để râu, phẫu thuật
+    When hệ thống kiểm tra
+    Then HR trigger re-enrollment. NV nhận push: "HR yêu cầu cập nhật ảnh Face ID." Wizard mở lại từ Bước 2. Mapping cũ deactivate, tạo mapping mới.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

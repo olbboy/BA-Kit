@@ -63,39 +63,41 @@ Feature: US-NOTIF-01
   I want to cấu hình các kênh gửi thông báo (Push, Email, Popup) và thiết lập kênh ưu tiên cho từng loại sự kiện
   So that nhân viên nhận được thông báo qua kênh ưu tiên theo cấu hình (Push > Email > In-App), đảm bảo không bỏ sót thông tin quan trọng.
 
-  Scenario: AC1 — Danh sách kênh
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Danh sách kênh"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Danh sách kênh ---
+  Scenario: AC1.1 — Danh sách kênh
+    Given HR Admin truy cập module
+    When thực hiện "Danh sách kênh"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Mapping kênh theo nhóm sự kiện
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Mapping kênh theo nhóm sự kiện"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Mapping kênh theo nhóm sự kiện ---
+  Scenario: AC2.1 — Mapping kênh theo nhóm sự kiện
+    Given HR Admin truy cập module
+    When thực hiện "Mapping kênh theo nhóm sự kiện"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Fallback logic
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Fallback logic"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Fallback logic ---
+  Scenario: AC3.1 — Fallback logic
+    Given HR Admin truy cập module
+    When thực hiện "Fallback logic"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — NV tắt Push Permission
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV tắt Push Permission"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — NV tắt Push Permission
+    Given iOS/Android block notification
+    When hệ thống kiểm tra
+    Then Fallback sang Email. Dashboard hiển thị: "Push bị tắt — đang dùng Email." Nhắc NV bật Push khi mở app.
 
-  Scenario: Error2 — Email bounce
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Email bounce"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Email bounce
+    Given Email NV không hợp lệ
+    When hệ thống kiểm tra
+    Then Mark as FAILED. Retry 1 lần. Log vào dead letter queue. HR dashboard: "[N] NV có email lỗi."
 
-  Scenario: Error3 — Kênh bị disable toàn hệ thống
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Kênh bị disable toàn hệ thống"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Kênh bị disable toàn hệ thống
+    Given Admin tắt kênh Push
+    When hệ thống kiểm tra
+    Then Cảnh báo admin: "Tắt kênh Push sẽ ảnh hưởng [N] loại thông báo. Thông báo bắt buộc sẽ chuyển sang Email."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

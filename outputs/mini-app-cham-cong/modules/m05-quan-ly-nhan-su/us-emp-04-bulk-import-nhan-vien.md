@@ -77,44 +77,47 @@ Feature: US-EMP-04
   I want to import danh sách nhân viên mới từ file Excel mẫu vào hệ thống
   So that tôi có thể onboard hàng trăm nhân viên khi mở chi nhánh mới mà không nhập thủ công từng người.
 
-  Scenario: AC1 — File mẫu (Template)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "File mẫu (Template)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: File mẫu (Template) ---
+  Scenario: AC1.1 — File mẫu (Template)
+    Given HR Admin truy cập module
+    When thực hiện "File mẫu (Template)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Validation Rules
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC2: Validation Rules ---
+  Scenario: AC2.1 — Validation Rules
+    Given HR Admin truy cập module
+    When thực hiện "Validation Rules"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Kết quả Import
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Kết quả Import"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Kết quả Import ---
+  Scenario: AC3.1 — Kết quả Import
+    Given HR Admin truy cập module
+    When thực hiện "Kết quả Import"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Giới hạn
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Giới hạn"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Giới hạn ---
+  Scenario: AC4.1 — Giới hạn
+    Given HR Admin truy cập module
+    When thực hiện "Giới hạn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Email trùng
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Email trùng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Email trùng
+    Given Import 2 NV cùng email
+    When hệ thống kiểm tra
+    Then Mark lỗi: "Email [X] đã tồn tại (NV: [Mã NV cũ])." Không import dòng trùng.
 
-  Scenario: Error2 — Phòng ban không tồn tại
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Phòng ban không tồn tại"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Phòng ban không tồn tại
+    Given File Excel chứa tên phòng ban sai
+    When hệ thống kiểm tra
+    Then Mark lỗi: "Phòng ban '[X]' không tồn tại. Tạo phòng ban trước hoặc sửa file."
 
-  Scenario: Error3 — File > 5000 dòng
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "File > 5000 dòng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — File > 5000 dòng
+    Given điều kiện "File > 5000 dòng" xảy ra
+    When hệ thống kiểm tra
+    Then Chặn: "File vượt 5,000 bản ghi. Vui lòng chia nhỏ."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

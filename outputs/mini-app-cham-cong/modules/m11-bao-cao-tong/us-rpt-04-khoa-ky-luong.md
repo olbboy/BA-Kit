@@ -80,45 +80,47 @@ Feature: US-RPT-04
   I want to tự động khóa dữ liệu chấm công khi xuất payroll và quản lý kỳ bổ sung cho các thay đổi sau khi khóa
   So that dữ liệu payroll đã xuất không bị thay đổi ngầm, đảm bảo tính toàn vẹn tài chính và tuân thủ quy trình kiểm toán nội bộ.
 
-  Scenario: AC1 — Auto-lock khi xuất payroll
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin yêu cầu "Auto-lock khi xuất payroll"
-    Then hệ thống tạo file đúng định dạng
-    And file chứa đầy đủ dữ liệu theo filter
+  # --- AC1: Auto-lock khi xuất payroll ---
+  Scenario: AC1.1 — Auto-lock khi xuất payroll
+    Given HR Admin truy cập module
+    When thực hiện "Auto-lock khi xuất payroll"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Cảnh báo thay đổi sau lock
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Cảnh báo thay đổi sau lock"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Cảnh báo thay đổi sau lock ---
+  Scenario: AC2.1 — Cảnh báo thay đổi sau lock
+    Given HR Admin truy cập module
+    When thực hiện "Cảnh báo thay đổi sau lock"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Supplementary Payroll Report
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Supplementary Payroll Report"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Supplementary Payroll Report ---
+  Scenario: AC3.1 — Supplementary Payroll Report
+    Given HR Admin truy cập module
+    When thực hiện "Supplementary Payroll Report"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Re-export & Versioning
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin yêu cầu "Re-export & Versioning"
-    Then hệ thống tạo file đúng định dạng
-    And file chứa đầy đủ dữ liệu theo filter
+  # --- AC4: Re-export & Versioning ---
+  Scenario: AC4.1 — Re-export & Versioning
+    Given HR Admin truy cập module
+    When thực hiện "Re-export & Versioning"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — HR xuất payroll 2 lần
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "HR xuất payroll 2 lần"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — HR xuất payroll 2 lần
+    Given Click "Xuất" 2 lần liên tiếp
+    When hệ thống kiểm tra
+    Then Idempotent: nếu kỳ đã LOCKED → không tạo version mới. Chỉ download lại file version hiện tại.
 
-  Scenario: Error2 — Correction approved TRƯỚC khi HR xuất
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Correction approved TRƯỚC khi HR xuất"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Correction approved TRƯỚC khi HR xuất
+    Given 23:59 approve, 00:01 export
+    When hệ thống kiểm tra
+    Then Correction đã apply trước lock → nằm trong file gốc (v1), KHÔNG ở supplementary. Dùng timestamp so sánh.
 
-  Scenario: Error3 — 2 site cùng tháng, 1 locked 1 open
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "2 site cùng tháng, 1 locked 1 open"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — 2 site cùng tháng, 1 locked 1 open
+    Given GLOBAL_HR quản lý cả 2
+    When hệ thống kiểm tra
+    Then Lock scope = per-site. Dashboard hiển thị rõ: Site A (LOCKED ✅), Site B (OPEN 🔓). Xuất payroll độc lập per-site.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

@@ -82,36 +82,39 @@ Feature: US-SHIFT-06
   I want to thiết lập lịch phân ca xoay tự động theo pattern (VD: Sáng → Chiều → Đêm → Nghỉ) lặp lại trong khoảng thời gian xác định
   So that tôi không phải gán ca thủ công từng ngày cho nhân viên làm ca luân phiên, giảm lỗi phân ca và tiết kiệm thời gian quản lý.
 
-  Scenario: AC1 — Pattern Builder
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Pattern Builder"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Pattern Builder ---
+  Scenario: AC1.1 — Pattern Builder
+    Given HR Admin truy cập module
+    When thực hiện "Pattern Builder"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Preview Calendar
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Preview Calendar"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Preview Calendar ---
+  Scenario: AC2.1 — Preview Calendar
+    Given HR Admin truy cập module
+    When thực hiện "Preview Calendar"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Conflict Resolution
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Conflict Resolution"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Conflict Resolution ---
+  Scenario: AC3.1 — Conflict Resolution
+    Given HR Admin truy cập module
+    When thực hiện "Conflict Resolution"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Pattern vượt ngày chốt công
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Pattern vượt ngày chốt công"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Pattern vượt ngày chốt công
+    Given Gán pattern từ ngày 20 (tháng N) qua ngày 25 (chốt)
+    When hệ thống kiểm tra
+    Then Cảnh báo: "Pattern bao gồm ngày sau chốt công [DD/MM]. Ca sau ngày chốt thuộc kỳ lương tháng sau."
 
-  Scenario: Error2 — NV nghỉ việc giữa pattern
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV nghỉ việc giữa pattern"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — NV nghỉ việc giữa pattern
+    Given NV terminate ngày 15, pattern đến ngày 30
+    When hệ thống kiểm tra
+    Then Hệ thống auto-delete ShiftAssignment từ terminationDate + 1. Log: "Đã hủy ca từ [DD/MM] do NV nghỉ việc."
 
-  Scenario: Error3 — Xóa pattern đang active
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Xóa pattern đang active"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Xóa pattern đang active
+    Given 200 NV đang dùng pattern này
+    When hệ thống kiểm tra
+    Then Confirm: "Pattern đang gán cho [200] NV. Xóa sẽ hủy tất cả ca tương lai (không ảnh hưởng quá khứ). Tiếp tục?"
 ```

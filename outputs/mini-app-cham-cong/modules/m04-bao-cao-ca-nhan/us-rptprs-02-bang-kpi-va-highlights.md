@@ -73,37 +73,41 @@ Feature: US-RPTPRS-02
   I want to xem bảng tổng hợp KPI chuyên cần theo quý kèm Performance Highlights so sánh với kỳ trước
   So that tôi có thể đánh giá xu hướng hiệu suất dài hạn và biết mình cần cải thiện ở đâu.
 
-  Scenario: AC1 — Bảng KPI Scorecard
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Bảng KPI Scorecard"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Bảng KPI Scorecard ---
+  Scenario: AC1.1 — Bảng KPI Scorecard
+    Given Nhân viên truy cập module
+    When thực hiện "Bảng KPI Scorecard"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Performance Highlights
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Performance Highlights"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Performance Highlights ---
+  Scenario: AC2.1 — Performance Highlights
+    Given Nhân viên truy cập module
+    When thực hiện "Performance Highlights"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — So sánh trung bình phòng ban
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "So sánh trung bình phòng ban"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: So sánh trung bình phòng ban ---
+  Scenario: AC3.1 — So sánh trung bình phòng ban
+    Given Nhân viên truy cập module
+    When thực hiện "So sánh trung bình phòng ban"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Chọn kỳ báo cáo
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Chọn kỳ báo cáo"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Chọn kỳ báo cáo ---
+  Scenario: AC4.1 — Chọn kỳ báo cáo
+    Given Nhân viên truy cập module
+    When thực hiện "Chọn kỳ báo cáo"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — KPI target chưa được cấu hình
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "KPI target chưa được cấu hình"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — KPI target chưa được cấu hình
+    Given HR chưa set target cho site
+    When hệ thống kiểm tra
+    Then Hiển thị actual values, cột target hiển thị "N/A". Badge: "Target chưa được thiết lập — liên hệ HR."
 
-  Scenario: Error2 — Dữ liệu OT bị điều chỉnh sau chốt công
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Dữ liệu OT bị điều chỉnh sau chốt công"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Dữ liệu OT bị điều chỉnh sau chốt công
+    Given Review lại số liệu sau correction
+    When hệ thống kiểm tra
+    Then Hiển thị giá trị sau correction kèm icon "Đã điều chỉnh". Tooltip: "Giá trị gốc: X, Sau điều chỉnh: Y."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

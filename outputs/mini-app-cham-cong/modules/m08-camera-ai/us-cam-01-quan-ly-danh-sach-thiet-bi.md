@@ -67,45 +67,47 @@ Feature: US-CAM-01
   I want to đăng ký, cấu hình và quản lý danh sách camera AI (C-Vision) trong hệ thống
   So that mỗi camera được gán đúng chi nhánh, hướng In/Out và ngưỡng confidence để dữ liệu chấm công chính xác.
 
-  Scenario: AC1 — Hiển thị danh sách camera
-    Given IT Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When IT Admin truy cập màn hình "Hiển thị danh sách camera"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị danh sách camera ---
+  Scenario: AC1.1 — Hiển thị danh sách camera
+    Given IT Admin truy cập module
+    When thực hiện "Hiển thị danh sách camera"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Thêm/Sửa camera
-    Given IT Admin đã đăng nhập vào hệ thống
-    When IT Admin thực hiện "Thêm/Sửa camera" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC2: Thêm/Sửa camera ---
+  Scenario: AC2.1 — Thêm/Sửa camera
+    Given IT Admin truy cập module
+    When thực hiện "Thêm/Sửa camera"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Vô hiệu hóa camera
-    Given IT Admin đã đăng nhập vào hệ thống
-    When IT Admin thực hiện "Vô hiệu hóa camera"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Vô hiệu hóa camera ---
+  Scenario: AC3.1 — Vô hiệu hóa camera
+    Given IT Admin truy cập module
+    When thực hiện "Vô hiệu hóa camera"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Xác định hướng chấm công
-    Given IT Admin đã đăng nhập vào hệ thống
-    When IT Admin thực hiện "Xác định hướng chấm công"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Xác định hướng chấm công ---
+  Scenario: AC4.1 — Xác định hướng chấm công
+    Given IT Admin truy cập module
+    When thực hiện "Xác định hướng chấm công"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Device ID trùng
-    Given IT Admin đã đăng nhập
-    When xảy ra điều kiện "Device ID trùng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Device ID trùng
+    Given Đăng ký camera đã có trong hệ thống
+    When hệ thống kiểm tra
+    Then Chặn: "Device ID [X] đã được đăng ký tại [Site Y]."
 
-  Scenario: Error2 — Xóa camera đang active
-    Given IT Admin đã đăng nhập
-    When xảy ra điều kiện "Xóa camera đang active"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Xóa camera đang active
+    Given Camera đang có NV check-in hằng ngày
+    When hệ thống kiểm tra
+    Then Soft-delete: set status INACTIVE. Dữ liệu lịch sử giữ nguyên. Cần confirm: "Camera sẽ ngừng nhận dữ liệu chấm công."
 
-  Scenario: Error3 — Camera chưa có trên C-Vision
-    Given IT Admin đã đăng nhập
-    When xảy ra điều kiện "Camera chưa có trên C-Vision"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Camera chưa có trên C-Vision
+    Given DeviceId không match C-Vision API
+    When hệ thống kiểm tra
+    Then Cảnh báo: "Thiết bị chưa được đăng ký trên C-Vision. Webhook sẽ bị reject." Cho phép lưu draft.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

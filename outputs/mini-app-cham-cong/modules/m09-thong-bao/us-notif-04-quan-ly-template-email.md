@@ -81,44 +81,47 @@ Feature: US-NOTIF-04
   I want to tạo, chỉnh sửa và quản lý các template email HTML cho từng loại thông báo hệ thống (approval, alert, reminder, welcome)
   So that tất cả email gửi từ hệ thống có giao diện thống nhất, thương hiệu công ty, và nội dung phù hợp với ngữ cảnh — thay vì gửi email plain-text không chuyên nghiệp.
 
-  Scenario: AC1 — Danh sách templates theo nhóm
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Danh sách templates theo nhóm"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Danh sách templates theo nhóm ---
+  Scenario: AC1.1 — Danh sách templates theo nhóm
+    Given HR Admin truy cập module
+    When thực hiện "Danh sách templates theo nhóm"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Email Template Editor (WYSIWYG)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Email Template Editor (WYSIWYG)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Email Template Editor (WYSIWYG) ---
+  Scenario: AC2.1 — Email Template Editor (WYSIWYG)
+    Given HR Admin truy cập module
+    When thực hiện "Email Template Editor (WYSIWYG)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Preview & Test Send
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Preview & Test Send"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Preview & Test Send ---
+  Scenario: AC3.1 — Preview & Test Send
+    Given HR Admin truy cập module
+    When thực hiện "Preview & Test Send"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Version History
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Version History"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Version History ---
+  Scenario: AC4.1 — Version History
+    Given HR Admin truy cập module
+    When thực hiện "Version History"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — HTML injection
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "HTML injection"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — HTML injection
+    Given HR nhập `<script>alert()</script>`
+    When hệ thống kiểm tra
+    Then Sanitize HTML. Strip `<script>`, `<iframe>`, `onclick`. Chỉ cho phép safe HTML tags.
 
-  Scenario: Error2 — Logo URL broken
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Logo URL broken"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Logo URL broken
+    Given Logo CDN hết hạn
+    When hệ thống kiểm tra
+    Then Fallback: hiển thị `{{company_name}}` text thay vì logo. Email vẫn gửi được.
 
-  Scenario: Error3 — Biến không tồn tại
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Biến không tồn tại"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Biến không tồn tại
+    Given HR sử dụng `{{salary}}` (không hỗ trợ)
+    When hệ thống kiểm tra
+    Then Validation trước khi lưu: "Biến `{{salary}}` không được hỗ trợ. Vui lòng xóa hoặc thay bằng biến hợp lệ."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

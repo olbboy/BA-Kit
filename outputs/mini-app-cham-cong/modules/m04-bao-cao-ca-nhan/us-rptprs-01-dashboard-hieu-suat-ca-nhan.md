@@ -69,48 +69,53 @@ Feature: US-RPTPRS-01
   I want to xem dashboard tổng hợp hiệu suất chuyên cần cá nhân gồm Score, tổng giờ làm, ngày nghỉ và giờ OT trong tháng
   So that tôi có thể tự đánh giá và chủ động cải thiện hiệu suất làm việc mà không cần hỏi HR.
 
-  Scenario: AC1 — Widget Score chuyên cần
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Widget Score chuyên cần"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Widget Score chuyên cần ---
+  Scenario: AC1.1 — Widget Score chuyên cần
+    Given Nhân viên truy cập module
+    When thực hiện "Widget Score chuyên cần"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Widget Tổng giờ làm
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Widget Tổng giờ làm"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Widget Tổng giờ làm ---
+  Scenario: AC2.1 — Widget Tổng giờ làm
+    Given Nhân viên truy cập module
+    When thực hiện "Widget Tổng giờ làm"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Widget Ngày nghỉ & OT
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Widget Ngày nghỉ & OT"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Widget Ngày nghỉ & OT ---
+  Scenario: AC3.1 — Widget Ngày nghỉ & OT
+    Given Nhân viên truy cập module
+    When thực hiện "Widget Ngày nghỉ & OT"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Biểu đồ Trend 4 tuần
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Biểu đồ Trend 4 tuần"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Biểu đồ Trend 4 tuần ---
+  Scenario: AC4.1 — Biểu đồ Trend 4 tuần
+    Given Nhân viên truy cập module
+    When thực hiện "Biểu đồ Trend 4 tuần"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC5 — Chọn kỳ báo cáo
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Chọn kỳ báo cáo"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC5: Chọn kỳ báo cáo ---
+  Scenario: AC5.1 — Chọn kỳ báo cáo
+    Given Nhân viên truy cập module
+    When thực hiện "Chọn kỳ báo cáo"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — NV mới < 1 tháng
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "NV mới < 1 tháng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — NV mới < 1 tháng
+    Given Chưa đủ dữ liệu tính score
+    When hệ thống kiểm tra
+    Then Dashboard hiển thị: "Chưa đủ dữ liệu (cần ≥ 1 tháng)." Ẩn biểu đồ trend. Hiển thị dữ liệu raw có sẵn.
 
-  Scenario: Error2 — NV chuyển site giữa tháng
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "NV chuyển site giữa tháng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — NV chuyển site giữa tháng
+    Given Dữ liệu thuộc 2 site
+    When hệ thống kiểm tra
+    Then Gộp dữ liệu cả 2 site cho tháng hiện tại. Ghi chú: "Bao gồm dữ liệu từ [Site A] (01-15) và [Site B] (16-30)."
 
-  Scenario: Error3 — Ca đêm ảnh hưởng tính toán ngày công
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Ca đêm ảnh hưởng tính toán ngày công"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Ca đêm ảnh hưởng tính toán ngày công
+    Given điều kiện "Ca đêm ảnh hưởng tính toán ngày công" xảy ra
+    When hệ thống kiểm tra
+    Then Ngày công tính theo ngày bắt đầu ca (VD: ca 22:00 T → 06:00 T+1 = ngày công T).
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

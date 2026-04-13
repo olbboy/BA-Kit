@@ -70,51 +70,53 @@ Feature: US-SHIFT-02
   I want to thiết lập tên ca, chọn ngày làm việc, các mốc giờ làm/nghỉ và giới hạn chấm công chi tiết cho từng ca
   So that hệ thống có căn cứ tự động so khớp dữ liệu quét thực tế để tính toán chính xác trạng thái chuyên cần (Đúng giờ/Sớm/Trễ) và tổng giờ công.
 
-  Scenario: AC1 — Nhập thông tin & Ngày làm việc
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Nhập thông tin & Ngày làm việc" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC1: Nhập thông tin & Ngày làm việc ---
+  Scenario: AC1.1 — Nhập thông tin & Ngày làm việc
+    Given HR truy cập module
+    When thực hiện "Nhập thông tin & Ngày làm việc"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic Cấu hình Giờ Làm & Xử lý Ca đêm
-    Given HR đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR thực hiện "Logic Cấu hình Giờ Làm & Xử lý Ca đêm"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC2: Logic Cấu hình Giờ Làm & Xử lý Ca đêm ---
+  Scenario: AC2.1 — Logic Cấu hình Giờ Làm & Xử lý Ca đêm
+    Given HR truy cập module
+    When thực hiện "Logic Cấu hình Giờ Làm & Xử lý Ca đêm"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Giới hạn thời gian chấm công
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Giới hạn thời gian chấm công"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Giới hạn thời gian chấm công ---
+  Scenario: AC3.1 — Giới hạn thời gian chấm công
+    Given HR truy cập module
+    When thực hiện "Giới hạn thời gian chấm công"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Ngày bắt đầu & Ngày kết thúc
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Ngày bắt đầu & Ngày kết thúc"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Ngày bắt đầu & Ngày kết thúc ---
+  Scenario: AC4.1 — Ngày bắt đầu & Ngày kết thúc
+    Given HR truy cập module
+    When thực hiện "Ngày bắt đầu & Ngày kết thúc"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC5 — Quản lý Thời gian Nghỉ
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Quản lý Thời gian Nghỉ"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC5: Quản lý Thời gian Nghỉ ---
+  Scenario: AC5.1 — Quản lý Thời gian Nghỉ
+    Given HR truy cập module
+    When thực hiện "Quản lý Thời gian Nghỉ"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Giờ kết thúc < Giờ bắt đầu
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Giờ kết thúc < Giờ bắt đầu"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Giờ kết thúc < Giờ bắt đầu
+    Given VD: 22:00 - 06:00 (Ca đêm)
+    When hệ thống kiểm tra
+    Then Hệ thống nhận diện ca đêm (cross-midnight). Tự động set endDate = startDate + 1. Hiển thị badge "Ca đêm".
 
-  Scenario: Error2 — Giờ trùng với ca khác
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Giờ trùng với ca khác"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Giờ trùng với ca khác
+    Given 2 ca có overlapping time window
+    When hệ thống kiểm tra
+    Then Cảnh báo (không chặn): "Khung giờ trùng với ca [Tên ca]. NV không thể thuộc cả 2 ca cùng ngày."
 
-  Scenario: Error3 — Ca có 0h working
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Ca có 0h working"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Ca có 0h working
+    Given Giờ bắt đầu = Giờ kết thúc
+    When hệ thống kiểm tra
+    Then Validation chặn: "Tổng giờ làm phải > 0. Vui lòng kiểm tra lại khung giờ."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

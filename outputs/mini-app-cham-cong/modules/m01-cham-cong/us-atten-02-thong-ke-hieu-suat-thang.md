@@ -75,33 +75,35 @@ Feature: US-ATTEN-02
   I want to xem các thẻ thống kê tóm tắt về tỷ lệ đúng giờ, số ngày nghỉ và giờ tăng ca lũy kế trong tháng hiện tại
   So that tôi có thể tự đánh giá hiệu suất chuyên cần và chủ động theo dõi quỹ lương/phép dự kiến mà không cần hỏi bộ phận Nhân sự.
 
-  Scenario: AC1 — Thẻ "Đúng giờ (%)"
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Thẻ "Đúng giờ (%)""
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Thẻ "Đúng giờ (%)" ---
+  Scenario: AC1.1 — Thẻ "Đúng giờ (%)"
+    Given Nhân viên truy cập module
+    When thực hiện "Thẻ "Đúng giờ (%)""
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Tương thích Giao diện Web
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Tương thích Giao diện Web"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Tương thích Giao diện Web ---
+  Scenario: AC2.1 — Tương thích Giao diện Web
+    Given Nhân viên truy cập module
+    When thực hiện "Tương thích Giao diện Web"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Ngày đầu tháng
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Ngày đầu tháng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Ngày đầu tháng — division by zero
+    Given Ngày 01 chưa có dữ liệu chấm công, mẫu số = 0
+    When hệ thống kiểm tra
+    Then Hiển thị "Chưa có dữ liệu" thay vì 0% hoặc NaN. Thẻ thống kê hiện "--" cho tất cả metrics.
 
-  Scenario: Error2 — NV gia nhập giữa tháng
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "NV gia nhập giữa tháng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — NV gia nhập giữa tháng
+    Given NV vào làm ngày 15, mẫu số chỉ tính từ ngày 15
+    When hệ thống kiểm tra
+    Then Mẫu số = số ngày làm việc kể từ `employee.joinDate` (không phải ngày 01). Hiển thị ghi chú "(Tính từ dd/MM)" bên cạnh tỷ lệ.
 
-  Scenario: Error3 — NV nghỉ dài hạn (thai sản 6 tháng)
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "NV nghỉ dài hạn (thai sản 6 tháng)"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — NV nghỉ dài hạn (thai sản 6 tháng)
+    Given Không có dữ liệu chấm công nhiều tháng liên tiếp
+    When hệ thống kiểm tra
+    Then Hiển thị trạng thái đặc biệt "Đang nghỉ dài hạn — Thai sản". Ẩn thẻ thống kê chuyên cần, chỉ hiển thị thông tin nghỉ phép.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

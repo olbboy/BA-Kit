@@ -70,44 +70,47 @@ Feature: US-EMP-01
   I want to xem sơ đồ cơ cấu tổ chức dạng cây trực quan với khả năng mở rộng/thu gọn và kéo thả điều chuyển
   So that tôi có thể nắm bắt toàn cảnh cấu trúc nhân sự và thực hiện điều chuyển tổ chức bằng drag-and-drop trực quan.
 
-  Scenario: AC1 — Hiển thị cây tổ chức
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Hiển thị cây tổ chức"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị cây tổ chức ---
+  Scenario: AC1.1 — Hiển thị cây tổ chức
+    Given HR Admin truy cập module
+    When thực hiện "Hiển thị cây tổ chức"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Expand/Collapse
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Expand/Collapse"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Expand/Collapse ---
+  Scenario: AC2.1 — Expand/Collapse
+    Given HR Admin truy cập module
+    When thực hiện "Expand/Collapse"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Tìm kiếm nhân viên
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Tìm kiếm nhân viên"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Tìm kiếm nhân viên ---
+  Scenario: AC3.1 — Tìm kiếm nhân viên
+    Given HR Admin truy cập module
+    When thực hiện "Tìm kiếm nhân viên"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Kéo thả điều chuyển
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Kéo thả điều chuyển"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Kéo thả điều chuyển ---
+  Scenario: AC4.1 — Kéo thả điều chuyển
+    Given HR Admin truy cập module
+    When thực hiện "Kéo thả điều chuyển"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Sơ đồ > 1000 node
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Sơ đồ > 1000 node"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Sơ đồ > 1000 node
+    Given Tổ chức lớn
+    When hệ thống kiểm tra
+    Then Lazy-load: chỉ render 3 cấp đầu tiên. Expand on-demand. Virtual rendering cho performance.
 
-  Scenario: Error2 — NV thuộc nhiều phòng ban
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV thuộc nhiều phòng ban"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — NV thuộc nhiều phòng ban
+    Given IT support multi-site
+    When hệ thống kiểm tra
+    Then Hiển thị tại Primary department. Icon link "→ Xem thêm" dẫn đến các department phụ.
 
-  Scenario: Error3 — Drag-drop vào chính nó
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Drag-drop vào chính nó"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Drag-drop vào chính nó
+    Given Kéo phòng ban vào chính nó hoặc child
+    When hệ thống kiểm tra
+    Then Chặn: "Không thể chuyển đơn vị vào chính nó hoặc đơn vị con."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

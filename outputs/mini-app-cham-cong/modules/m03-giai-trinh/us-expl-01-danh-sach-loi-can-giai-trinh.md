@@ -61,40 +61,41 @@ Feature: US-EXPL-01
   I want to xem danh sách các lỗi chấm công (quên check-out, vào muộn, về sớm) kèm theo thông tin hạn định giải trình trước ngày chốt công
   So that tôi nắm được ngày công nào đang bị lỗi và xử lý kịp thời trước khi hệ thống tự động khóa và ghi nhận vi phạm quy chế vĩnh viễn.
 
-  Scenario: AC1 — Hiển thị Trạng thái theo Thời gian (Timeline Status Logic)
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Hiển thị Trạng thái theo Thời gian (Timeline Status Logic)"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị Trạng thái theo Thời gian (Timeline Status Logic) ---
+  Scenario: AC1.1 — Hiển thị Trạng thái theo Thời gian (Timeline Status Logic)
+    Given Nhân viên truy cập module
+    When thực hiện "Hiển thị Trạng thái theo Thời gian (Timeline Status Logic)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic Hiển thị Widget Cảnh báo (Compliance Summary)
-    Given Nhân viên đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When Nhân viên truy cập màn hình "Logic Hiển thị Widget Cảnh báo (Compliance Summary)"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC2: Logic Hiển thị Widget Cảnh báo (Compliance Summary) ---
+  Scenario: AC2.1 — Logic Hiển thị Widget Cảnh báo (Compliance Summary)
+    Given Nhân viên truy cập module
+    When thực hiện "Logic Hiển thị Widget Cảnh báo (Compliance Summary)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Ghi nhận vi phạm vĩnh viễn (Audit Log)
-    Given Nhân viên đã đăng nhập vào hệ thống
-    When Nhân viên thực hiện "Ghi nhận vi phạm vĩnh viễn (Audit Log)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Ghi nhận vi phạm vĩnh viễn (Audit Log) ---
+  Scenario: AC3.1 — Ghi nhận vi phạm vĩnh viễn (Audit Log)
+    Given Nhân viên truy cập module
+    When thực hiện "Ghi nhận vi phạm vĩnh viễn (Audit Log)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Ngày chốt công vào T7/CN/Lễ
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Ngày chốt công vào T7/CN/Lễ"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Ngày chốt công vào T7/CN/Lễ
+    Given Ngày 25 là Chủ nhật
+    When hệ thống kiểm tra
+    Then Quy tắc: đẩy về ngày làm việc gần nhất TRƯỚC ngày chốt (tức thứ 6 ngày 24). Cấu hình tại Module 10 (Phê duyệt).
 
-  Scenario: Error2 — HR đã sửa công trước khi NV giải trình
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "HR đã sửa công trước khi NV giải trình"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — HR đã sửa công trước khi NV giải trình
+    Given HR nhập thủ công (Manual Entry) cho ngày X, NV vẫn thấy lỗi ngày X
+    When hệ thống kiểm tra
+    Then Cross-check: nếu ngày X đã có Manual Entry APPROVED → ẩn lỗi, hiển thị "Đã được HR điều chỉnh". Nếu NV đã tạo đơn giải trình → thông báo "Ngày công này đã được HR xử lý — đơn giải trình sẽ tự động hủy".
 
-  Scenario: Error3 — Giải trình cho ngày chưa kết thúc
-    Given Nhân viên đã đăng nhập
-    When xảy ra điều kiện "Giải trình cho ngày chưa kết thúc"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Giải trình cho ngày chưa kết thúc
+    Given NV thấy "Thiếu check-out" lúc 15:00 nhưng ca kết thúc 17:30
+    When hệ thống kiểm tra
+    Then Hệ thống chỉ tạo anomaly "Thiếu check-out" sau khi: ca kết thúc + lateCheckOutMinutes (punch limit) + 1 giờ buffer. Trước mốc đó → không hiển thị lỗi thiếu quẹt.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

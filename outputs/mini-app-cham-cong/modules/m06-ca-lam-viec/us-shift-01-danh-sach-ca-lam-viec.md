@@ -68,44 +68,47 @@ Feature: US-SHIFT-01
   I want to xem danh sách tổng hợp tất cả các ca làm việc hiện có kèm theo các thông số tóm tắt (Giờ làm, Giờ nghỉ, Số lượng nhân sự)
   So that tôi có thể nắm bắt hiện trạng trong ≤ 2 giây tải trang phân bổ khung giờ làm việc và thực hiện các điều chỉnh (Chỉnh sửa/Xóa/Thêm mới) khi cần thiết.
 
-  Scenario: AC1 — Hiển thị thông tin Thẻ ca
-    Given HR đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR truy cập màn hình "Hiển thị thông tin Thẻ ca"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Hiển thị thông tin Thẻ ca ---
+  Scenario: AC1.1 — Hiển thị thông tin Thẻ ca
+    Given HR truy cập module
+    When thực hiện "Hiển thị thông tin Thẻ ca"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic Phân loại & Sắp xếp
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Logic Phân loại & Sắp xếp"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Logic Phân loại & Sắp xếp ---
+  Scenario: AC2.1 — Logic Phân loại & Sắp xếp
+    Given HR truy cập module
+    When thực hiện "Logic Phân loại & Sắp xếp"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Phản hồi Tương tác
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Phản hồi Tương tác"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Phản hồi Tương tác ---
+  Scenario: AC3.1 — Phản hồi Tương tác
+    Given HR truy cập module
+    When thực hiện "Phản hồi Tương tác"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — Advanced View
-    Given HR đã đăng nhập vào hệ thống
-    When HR thực hiện "Advanced View"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: Advanced View ---
+  Scenario: AC4.1 — Advanced View
+    Given HR truy cập module
+    When thực hiện "Advanced View"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Ca không có nhân viên
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Ca không có nhân viên"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Ca không có nhân viên
+    Given Ca mới tạo chưa gán NV
+    When hệ thống kiểm tra
+    Then Thẻ ca hiển thị "0 nhân viên", avatar section trống. Không ẩn thẻ.
 
-  Scenario: Error2 — Số lượng ca > 50
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Số lượng ca > 50"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Số lượng ca > 50
+    Given Doanh nghiệp lớn có nhiều ca
+    When hệ thống kiểm tra
+    Then Danh sách hỗ trợ virtual scroll, lazy load mỗi batch 20 thẻ. Search bar cho phép tìm theo tên ca.
 
-  Scenario: Error3 — Ca bị xóa khi đang có NV
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Ca bị xóa khi đang có NV"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Ca bị xóa khi đang có NV
+    Given HR xóa ca có 100 NV đang active
+    When hệ thống kiểm tra
+    Then Chặn xóa. Hiển thị: "Không thể xóa ca đang có [N] nhân viên. Vui lòng chuyển NV sang ca khác trước."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

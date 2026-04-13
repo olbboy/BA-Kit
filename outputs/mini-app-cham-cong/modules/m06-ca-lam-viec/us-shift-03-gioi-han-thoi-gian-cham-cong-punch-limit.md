@@ -51,36 +51,35 @@ Feature: US-SHIFT-03
   I want to giới hạn khung giờ cho phép Check-in sớm và Check-out muộn so với giờ ca chính thức
   So that hệ thống không ghi nhận dữ liệu "ngoại lai" (quẹt thẻ quá sớm hoặc quá muộn vô ích), giúp bảo vệ tính chính xác của dữ liệu báo cáo chuyên cần.
 
-  Scenario: AC1 — Cấu hình Tham số Giới hạn
-    Given HR đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR thực hiện "Cấu hình Tham số Giới hạn"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC1: Cấu hình Tham số Giới hạn ---
+  Scenario: AC1.1 — Cấu hình Tham số Giới hạn
+    Given HR truy cập module
+    When thực hiện "Cấu hình Tham số Giới hạn"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Logic xác thực mốc quẹt (Validation Logic)
-    Given HR đã đăng nhập vào hệ thống
-    When HR nhập dữ liệu không hợp lệ
-    Then hệ thống hiển thị thông báo lỗi cụ thể
-    And không cho phép lưu dữ liệu
+  # --- AC2: Logic xác thực mốc quẹt (Validation Logic) ---
+  Scenario: AC2.1 — Logic xác thực mốc quẹt (Validation Logic)
+    Given HR truy cập module
+    When thực hiện "Logic xác thực mốc quẹt (Validation Logic)"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Punch limit = 0
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Punch limit = 0"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Punch limit = 0
+    Given HR set giờ giới hạn = 0 phút
+    When hệ thống kiểm tra
+    Then Validation: "Giới hạn chấm công phải ≥ 30 phút." Chặn lưu.
 
-  Scenario: Error2 — Punch limit > 24h
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "Punch limit > 24h"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — Punch limit > 24h
+    Given Nhập giá trị vô lý
+    When hệ thống kiểm tra
+    Then Validation: "Giới hạn chấm công không được vượt quá 24 giờ."
 
-  Scenario: Error3 — NV quẹt ngoài punch limit
-    Given HR đã đăng nhập
-    When xảy ra điều kiện "NV quẹt ngoài punch limit"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — NV quẹt ngoài punch limit
+    Given Quẹt trước giờ cho phép
+    When hệ thống kiểm tra
+    Then Mốc quẹt bị reject với status OUTSIDE_PUNCH_LIMIT. NV nhận thông báo: "Chấm công ngoài giới hạn thời gian cho phép."
 ```
 
 ### **3. DEFINITION OF DONE (DOD)**

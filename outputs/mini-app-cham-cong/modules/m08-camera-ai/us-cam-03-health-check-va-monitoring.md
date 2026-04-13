@@ -69,44 +69,47 @@ Feature: US-CAM-03
   I want to giám sát trạng thái hoạt động (Online/Offline) của tất cả camera AI trong thời gian thực
   So that tôi có thể phát hiện và xử lý camera mất kết nối trước khi ảnh hưởng đến chấm công của nhân viên.
 
-  Scenario: AC1 — Dashboard trạng thái
-    Given IT Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When IT Admin truy cập màn hình "Dashboard trạng thái"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC1: Dashboard trạng thái ---
+  Scenario: AC1.1 — Dashboard trạng thái
+    Given IT Admin truy cập module
+    When thực hiện "Dashboard trạng thái"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC2 — Cảnh báo tự động
-    Given IT Admin đã đăng nhập vào hệ thống
-    When IT Admin thực hiện "Cảnh báo tự động"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Cảnh báo tự động ---
+  Scenario: AC2.1 — Cảnh báo tự động
+    Given IT Admin truy cập module
+    When thực hiện "Cảnh báo tự động"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC3 — Lịch sử Uptime
-    Given IT Admin đã đăng nhập vào hệ thống
-    When IT Admin thực hiện "Lịch sử Uptime"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Lịch sử Uptime ---
+  Scenario: AC3.1 — Lịch sử Uptime
+    Given IT Admin truy cập module
+    When thực hiện "Lịch sử Uptime"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: AC4 — De-duplication
-    Given IT Admin đã đăng nhập vào hệ thống
-    When IT Admin thực hiện "De-duplication"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC4: De-duplication ---
+  Scenario: AC4.1 — De-duplication
+    Given IT Admin truy cập module
+    When thực hiện "De-duplication"
+    Then hiển thị kết quả chính xác. Dữ liệu phân quyền đúng RBAC.
 
-  Scenario: Error1 — Camera offline > 1 giờ
-    Given IT Admin đã đăng nhập
-    When xảy ra điều kiện "Camera offline > 1 giờ"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge1 — Camera offline > 1 giờ
+    Given Health check fail liên tục
+    When hệ thống kiểm tra
+    Then Escalate: Email IT Manager + Push notification. Dashboard badge đỏ. Log incident.
 
-  Scenario: Error2 — False offline
-    Given IT Admin đã đăng nhập
-    When xảy ra điều kiện "False offline"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge2 — False offline
+    Given Network hiccup 30 giây
+    When hệ thống kiểm tra
+    Then Grace period: 3 consecutive fails (15 phút) mới đánh dấu offline. Tránh alert spam.
 
-  Scenario: Error3 — Tất cả camera cùng site offline
-    Given IT Admin đã đăng nhập
-    When xảy ra điều kiện "Tất cả camera cùng site offline"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Case ---
+  Scenario: Edge3 — Tất cả camera cùng site offline
+    Given Mất mạng toàn site
+    When hệ thống kiểm tra
+    Then Alert đặc biệt cho SITE_MANAGER + IT. Fallback: cho phép manual check-in. Banner toàn app: "Hệ thống camera tại [Site] đang bảo trì."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**
