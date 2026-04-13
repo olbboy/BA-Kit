@@ -1,6 +1,6 @@
 # BA-Kit Agent Cheat Sheet
 
-Tham chiếu nhanh 33 agents — phân loại, khi nào dùng, output chính.
+Tham chiếu nhanh 43 agents — phân loại, khi nào dùng, output chính.
 
 ---
 
@@ -83,6 +83,25 @@ Tham chiếu nhanh 33 agents — phân loại, khi nào dùng, output chính.
 | Agent | Vai trò | Khi nào dùng | Output chính |
 |-------|---------|--------------|--------------|
 | **@ba-wiki** | Quản lý tri thức | Nạp kiến thức mới, truy vấn context dự án, kiểm tra wiki | Wiki pages, knowledge synthesis |
+
+---
+
+## Sprint Spine (MỚI trong v3.2 — Gstack Distillation)
+
+10 agents mới đóng vòng lặp Sprint 7-phase: **Discover → Elicit → Define → Validate → Prioritize → Publish → Reflect**. Xem `docs/sprint-spine.md` để biết mapping đầy đủ.
+
+| Agent | Phase | Khi nào dùng | Output chính |
+|-------|-------|--------------|--------------|
+| **@ba-as-built** | Reflect | Sau khi dev ship xong, so sánh BRD/SRS/RTM với delivery evidence (UAT reports, release notes, demo notes) | Drift report (3 buckets: spec-only, evidence-only, both-differ) + đề xuất sửa spec |
+| **@ba-autoreview** | Validate | Muốn chạy 1 lệnh để review toàn bộ pipeline (consistency → gate → trace → audit) | Aggregate verdict (PASS/CONDITIONAL/REJECT) + audit trail |
+| **@ba-retro** | Reflect | Cuối sprint, cần báo cáo gate pass rate, churn, stakeholder responsiveness | Retro report + JSON snapshot cho trend deltas (đọc từ BA-Kit metrics, không cần git) |
+| **@ba-learn** | Reflect | Lưu pattern / pitfall / preference của project để session sau ghi nhớ | Per-project JSONL memory (PII filter built-in) |
+| **@ba-checkpoint** | any | Lưu state mid-workshop để session sau resume (workshop nhiều ngày) | YAML markdown + 4 sections (decisions, next steps, gotchas) |
+| **@ba-challenger** | Validate | Cần red team / devil's advocate trước khi sign-off (5 vector tấn công) | Challenge report với mitigation cho từng attack |
+| **@ba-second-opinion** | Validate | Critical artifact, cần model khác Claude review độc lập (Gemini/GPT/Ollama) | Reconciliation report — KHÔNG average disagreement |
+| **@ba-baseline** | Publish | Lock BRD/SRS sau CCB approval — agent hỏi natural language: "doc/version/signer/rationale" | Versioned baseline với approval history (BA không thấy hash, chỉ thấy version + signer + date) |
+| **@ba-guard** | any | Pre-flight check trước CCB meeting: "doc nào đã edit sau sign-off?" | Drift alert in BA language (3 modes: off/warn/strict) — git hook là opt-in advanced |
+| **@ba-shotgun** | Define | Cần 3-5 variant để compare side-by-side trước khi pick (stories/AC/priority/email) | N variant + trade-off table + capture preference |
 
 ---
 
@@ -171,6 +190,16 @@ Tham chiếu nhanh 33 agents — phân loại, khi nào dùng, output chính.
 | Cần decision table / rule catalog | `@ba-business-rules` | `@ba-validation` |
 | Cần vẽ diagram cho Confluence | `@ba-diagram` | `@ba-confluence` |
 | Cần flowchart / sequence / ERD | `@ba-diagram` | `@ba-process` |
+| Phát hiện code không khớp spec | `@ba-as-built` | `@ba-traceability` |
+| Chạy full review 1 lệnh | `@ba-autoreview` | `@ba-auditor` |
+| Sprint retro / churn / velocity | `@ba-retro` | `@ba-metrics` |
+| Lưu / recall project memory | `@ba-learn` | `@ba-wiki` |
+| Lưu / resume session dài | `@ba-checkpoint` | `@ba-master` |
+| Devil's advocate / red team | `@ba-challenger` | `@ba-validation` |
+| Second opinion từ model khác | `@ba-second-opinion` | `@ba-autoreview` |
+| Lock CCB baseline | `@ba-baseline` | `@ba-traceability` |
+| Pre-flight change control | `@ba-guard` | `@ba-baseline` |
+| Sinh N variant để compare | `@ba-shotgun` | `@ba-writing` |
 
 ---
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.png?v=3.1.0" alt="BA-Kit Logo" width="200">
+  <img src="docs/assets/logo.png?v=3.2.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -9,8 +9,8 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-3.1.0-blue?style=for-the-badge" alt="Version 3.1.0">
-  <img src="https://img.shields.io/badge/Agents-33-green?style=for-the-badge" alt="33 Agents">
+  <img src="https://img.shields.io/badge/Version-3.2.0-blue?style=for-the-badge" alt="Version 3.2.0">
+  <img src="https://img.shields.io/badge/Agents-43-green?style=for-the-badge" alt="43 Agents">
   <img src="https://img.shields.io/badge/Platforms-Antigravity%20%7C%20Claude%20Code%20%7C%20CoWork-orange?style=for-the-badge" alt="3 Platforms">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
 </p>
@@ -19,7 +19,7 @@
 <h3 align="center">Biệt Đội Chuyên Gia Phân Tích Nghiệp Vụ</h3>
 
 <p align="center">
-  <strong>33 Chuyên gia cho Phân tích Yêu cầu Nghiệp vụ</strong><br>
+  <strong>43 Chuyên gia cho Phân tích Yêu cầu Nghiệp vụ</strong><br>
   Tư duy Hệ thống 2 • Đa Nền tảng (Antigravity • Claude Code • Claude CoWork)
 </p>
 
@@ -29,7 +29,7 @@
 
 BA-Kit không chỉ là một kho prompt; đây là một **Biệt đội Agent** cho các **nền tảng agentic AI**.
 
-Nó thay thế mô hình "Một Chatbot duy nhất" bằng **33 Chuyên gia** chạy trên:
+Nó thay thế mô hình "Một Chatbot duy nhất" bằng **43 Chuyên gia** chạy trên:
 *   **Antigravity IDE** (Google DeepMind) — Agent Skills, MCP, System 2
 *   **Claude Code** (Anthropic) — CLI: project-level reasoning, CI/CD, Git
 *   **Claude CoWork** (Anthropic) — Desktop: non-technical BA, document synthesis
@@ -40,7 +40,7 @@ Mỗi chuyên gia sử dụng **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư
 
 ---
 
-## 🤖 Biệt Đội Chuyên Gia (33 Agents + 2 Connectors)
+## 🤖 Biệt Đội Chuyên Gia (43 Agents + 2 Connectors)
 
 ### 🔴 Bộ Chỉ Huy
 | Agent | Vai trò | Năng lực |
@@ -105,6 +105,22 @@ Mỗi chuyên gia sử dụng **Tư duy Hệ thống 2** (Vòng Lặp Phản Tư
 | :--- | :--- | :--- |
 | **`@ba-wiki`** | Quản lý tri thức | Nạp kiến thức 2 tầng, truy vấn wiki, tài liệu sống, **quản lý glossary**. |
 
+### 🌀 Sprint Spine Agents (MỚI trong v3.2 — Gstack Distillation)
+| Agent | Phase | Khả năng |
+| :--- | :--- | :--- |
+| **`@ba-as-built`** | Reflect | **Phát hiện lệch spec** — so sánh BRD/SRS/RTM với delivery evidence (UAT reports, release notes, demo notes) để tìm chỗ "thực tế ≠ spec". |
+| **`@ba-autoreview`** | Validate | Meta tuần tự nghiêm ngặt: `consistency → quality-gate → traceability → auditor`, tùy chọn `--dual-voice`. |
+| **`@ba-retro`** | Reflect | Sprint retro: gate pass rate, churn, stakeholder responsiveness — đọc từ BA-Kit metric streams (không cần git). |
+| **`@ba-learn`** | Reflect | Bộ nhớ JSONL theo project (5 loại, lọc PII, API auto-capture). |
+| **`@ba-checkpoint`** | any | Lưu/tiếp tục session cho BA workflow dài (workshop nhiều ngày). |
+| **`@ba-challenger`** | Validate | Red team 5 vector (unstated / incentive / adversarial / scale-break / sunset). |
+| **`@ba-second-opinion`** | Validate | Review từ model khác — Gemini / OpenAI / Ollama / manual (zero-dep `urllib`). |
+| **`@ba-baseline`** | Publish | CCB baseline với version + signer + date + rationale. Agent hỏi BA bằng natural language; integrity check chạy ngầm. |
+| **`@ba-guard`** | any | Cảnh báo change-control bằng BA language: "BRD-HR đã edit 2 ngày sau sign-off — có re-approve không?" 3 modes (off / warn / strict). |
+| **`@ba-shotgun`** | Define | Sinh N variant cho stories / AC / priority / emails (capture preference vào `@ba-learn`). |
+
+> 📐 **Sprint Spine** — toàn bộ 43 agents map vào vòng lặp 7 phase: **Discover → Elicit → Define → Validate → Prioritize → Publish → Reflect**. Xem [`docs/sprint-spine.md`](docs/sprint-spine.md) để biết chi tiết mapping agent → phase.
+
 ---
 
 ## 🚀 Bắt Đầu Nhanh
@@ -156,13 +172,13 @@ Tất cả các agent đều tuân theo **Vòng Lặp Nhận Thức Phản Tư**
 ```
 ba-kit/
 │
-├── .agent/skills/                # 33 Agent Skills + 2 Connectors
+├── .agent/skills/                # 43 Agent Skills + 2 Connectors
 ├── .agent/scripts/               # BM25+ Knowledge Search Engine
 ├── .agent/data/                  # 831 Indexed Knowledge Entries (23 domains)
 │
 ├── docs/                         # Tài liệu & Hướng dẫn
 │   ├── README.md                 # Mục lục tài liệu
-│   ├── agent-cheat-sheet.md      # 33 agents tổng quan
+│   ├── agent-cheat-sheet.md      # 43 agents tổng quan
 │   ├── prompt-library.md         # 48 prompt theo workflow phase
 │   ├── design-prototype-guide.md # Stitch MCP, Figma, vibe coding
 │   ├── ai-foundation-for-ba.md   # Nền tảng AI cho BA

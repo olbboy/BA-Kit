@@ -97,6 +97,14 @@ scratch/
 *.mmd.pdf
 
 # ============================================
+# BA-Kit v3.2 — runtime state (per-dev, not team-shared by default)
+# ============================================
+# Full .ba-kit/ is gitignored by default. Teams wanting to share baselines
+# or retros across developers can selectively un-ignore subdirectories via
+# local .git/info/exclude or a project-specific override.
+.ba-kit/
+
+# ============================================
 # Legacy / Archived content
 # ============================================
 legacy/

@@ -26,7 +26,7 @@ Agents are no longer isolated. They form a **Collaborative Network (DAG)**.
 ### 3. 📒 Mission Log (The Memory)
 The Squad shares a "Working Brain" via `CONTINUITY.md` (derived from `.agent/templates/continuity-template.md`).
 *   **Problem**: "I told `@ba-elicitation` we are an Agile team, but `@ba-nfr` thinks we are Waterfall."
-*   **Solution**: You define the Context ONCE in the Mission Log. All 33 agents read it before acting.
+*   **Solution**: You define the Context ONCE in the Mission Log. All 43 agents read it before acting.
 
 ---
 

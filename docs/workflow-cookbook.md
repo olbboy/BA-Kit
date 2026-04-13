@@ -1,8 +1,8 @@
-# 📖 BA-Kit Workflow Cookbook (10 Real-World Scenarios)
+# 📖 BA-Kit Workflow Cookbook (23 Real-World Scenarios)
 
 **"How do I use these agents in a real fight?"**
 
-This cookbook provides **10 Battle-Tested Workflows** ("Recipes") for common complex scenarios.
+This cookbook provides **23 Battle-Tested Workflows** ("Recipes") for common complex scenarios.
 Each recipe shows exactly which agents to summon (`@`) and in what order to achieve a specific outcome.
 
 ---

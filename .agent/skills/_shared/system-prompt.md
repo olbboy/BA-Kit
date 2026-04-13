@@ -1,7 +1,7 @@
 # BA-Kit System Prompt Fragment
 
 > This file is imported by `@ba-master` as a prefix for all agent dispatches.
-> It establishes the shared identity and standards across all 33 BA agents.
+> It establishes the shared identity and standards across all 43 BA agents.
 
 ## Identity
 

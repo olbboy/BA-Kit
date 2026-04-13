@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/logo.png?v=3.1.0" alt="BA-Kit Logo" width="200">
+  <img src="docs/assets/logo.png?v=3.2.0" alt="BA-Kit Logo" width="200">
 </p>
 
 <div align="center">
@@ -9,8 +9,8 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-3.1.0-blue?style=for-the-badge" alt="Version 3.1.0">
-  <img src="https://img.shields.io/badge/Agents-33-green?style=for-the-badge" alt="33 Agents">
+  <img src="https://img.shields.io/badge/Version-3.2.0-blue?style=for-the-badge" alt="Version 3.2.0">
+  <img src="https://img.shields.io/badge/Agents-43-green?style=for-the-badge" alt="43 Agents">
   <img src="https://img.shields.io/badge/Platforms-Antigravity%20%7C%20Claude%20Code%20%7C%20CoWork-orange?style=for-the-badge" alt="3 Platforms">
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
   <img src="https://img.shields.io/badge/Knowledge-831%20Entries-teal?style=for-the-badge" alt="831 Knowledge Entries">
@@ -20,7 +20,7 @@
 <h1 align="center">BA-Kit</h1>
 <h3 align="center">Agent Squad for Requirements Engineering</h3>
 
-  <strong>33 Agent Specialists for Requirements Engineering</strong><br>
+  <strong>43 Agent Specialists for Requirements Engineering</strong><br>
   System 2 Reflection • Multi-Platform (Antigravity • Claude Code • Claude CoWork)
 </p>
 
@@ -31,7 +31,7 @@
 
 BA-Kit is not a library of prompts. It is an **agent squad** for **agentic AI platforms**.
 
-It replaces the single-chatbot approach with **33 specialists** running on:
+It replaces the single-chatbot approach with **43 specialists** running on:
 *   **Antigravity IDE** (Google DeepMind) — Agent Skills, MCP, System 2
 *   **Claude Code** (Anthropic) — CLI: project-level reasoning, CI/CD, Git
 *   **Claude CoWork** (Anthropic) — Desktop: non-technical BA, document synthesis
@@ -42,7 +42,7 @@ Each agent uses **System 2 Thinking** (Reflective Loops) — self-critique befor
 
 ---
 
-## 🤖 The Agent Squad (33 Agents)
+## 🤖 The Agent Squad (43 Agents)
 
 ### 🔴 The Orchestrator
 | Agent | Role | Capability |
@@ -113,6 +113,22 @@ Each agent uses **System 2 Thinking** (Reflective Loops) — self-critique befor
 | :--- | :--- | :--- |
 | **`@ba-wiki`** | Knowledge Curator | 2-tier knowledge ingest, wiki query, living documentation, **glossary management**. |
 
+### 🌀 Sprint Spine Agents (NEW in v3.2 — Gstack Distillation)
+| Agent | Phase | Capability |
+| :--- | :--- | :--- |
+| **`@ba-as-built`** | Reflect | **Spec drift detector** — compares BRD/SRS/RTM against delivered evidence (UAT reports, release notes, demo notes) to find what was built ≠ what was specified. |
+| **`@ba-autoreview`** | Validate | Strict-sequential meta: `consistency → quality-gate → traceability → auditor`, with optional `--dual-voice`. |
+| **`@ba-retro`** | Reflect | Time-windowed sprint retro: gate pass rate, churn, stakeholder responsiveness — primary input is BA-Kit metric streams (no git required). |
+| **`@ba-learn`** | Reflect | Per-project JSONL emergent memory (5 types, PII filter, auto-capture API). |
+| **`@ba-checkpoint`** | any | Session save/resume for long-running BA work (workshops spanning multiple days). |
+| **`@ba-challenger`** | Validate | 5-vector adversarial red team (unstated / incentive / adversarial / scale-break / sunset). |
+| **`@ba-second-opinion`** | Validate | Cross-model independent review — Gemini / OpenAI / Ollama / manual (zero-dep `urllib`). |
+| **`@ba-baseline`** | Publish | CCB baselines with version + signer + date + rationale. Agent prompts BA in plain language; integrity check happens silently. |
+| **`@ba-guard`** | any | Pre-flight change-control alert in BA language: "BRD-HR was edited 2 days after sign-off — was this re-approved?" 3 modes (off / warn / strict). |
+| **`@ba-shotgun`** | Define | N-variant generator for stories / AC / priority / emails (preference capture to `@ba-learn`). |
+
+> 📐 **Sprint Spine** — all 43 agents map into a unified 7-phase loop: **Discover → Elicit → Define → Validate → Prioritize → Publish → Reflect**. See [`docs/sprint-spine.md`](docs/sprint-spine.md) for the full agent → phase mapping.
+
 ---
 
 ## 🚀 Quick Start
@@ -154,13 +170,13 @@ All agents now follow a **Reflective Cognitive Loop**:
 ```
 ba-kit/
 │
-├── .agent/skills/                # 33 Agent Skills + 2 Connectors
+├── .agent/skills/                # 43 Agent Skills + 2 Connectors
 ├── .agent/scripts/               # BM25+ Knowledge Search Engine
 ├── .agent/data/                  # 831 Indexed Knowledge Entries (23 domains)
 │
 ├── docs/                         # Documentation & Guides
 │   ├── README.md                 # Documentation index
-│   ├── agent-cheat-sheet.md      # All 33 agents at a glance
+│   ├── agent-cheat-sheet.md      # All 43 agents at a glance
 │   ├── prompt-library.md         # 48 copy-paste prompts by phase
 │   ├── ai-foundation-for-ba.md   # AI Foundation primer (bilingual)
 │   ├── ai-tools-guide.md         # Tool selection matrix
