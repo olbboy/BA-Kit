@@ -130,8 +130,12 @@ def scan_project(project_dir):
         # Or direct: 2.11-Mini-app/2.11.1-xxx/US-xxx.md
         module_key = None
         if len(parts) >= 2:
-            # Find the module directory
+            # Find the module DIRECTORY (not a file with similar name).
+            # A directory part must not be the final element and must not end with .md
             for i, part in enumerate(parts):
+                is_directory = i < len(parts) - 1 and not part.endswith('.md')
+                if not is_directory:
+                    continue
                 if part.startswith('m') and '-' in part and i > 0:
                     module_key = part
                     break
@@ -160,7 +164,8 @@ def scan_project(project_dir):
                 mod['has_api_spec'] = True
             elif md.name == 'db-schema.md':
                 mod['has_db_schema'] = True
-            elif md.name.startswith('US-') or re.match(r'US-\w+-\d+', md.stem):
+            elif md.name.lower().startswith('us-') or re.match(r'us-\w+-\d+', md.stem, re.IGNORECASE):
+                # Accepts both "US-ATTEN-01.md" (legacy) and "us-atten-01-slug.md" (v3.4 convention)
                 ac_info = count_acceptance_criteria(md)
                 ambiguous = scan_ambiguous_terms(md)
                 us_info = {
@@ -171,7 +176,8 @@ def scan_project(project_dir):
                     'ambiguous_terms': ambiguous,
                 }
                 mod['user_stories'].append(us_info)
-            elif md.name.startswith('TC-'):
+            elif md.name.lower().startswith('tc-') or md.name == 'test-cases.md':
+                # Accepts "TC-ATTEN-01.md" (one file per case) and "test-cases.md" (one file per module)
                 report['test_cases'].append(str(rel))
 
     return report
@@ -236,9 +242,19 @@ def calculate_scores(report):
 
         scores['modules'][mod_key] = mod_score
 
-    # Overall scores
+    # Overall scores — always populated (inventory counts live even when health is N/A)
+    scores['overall'] = {
+        'total_us': total_us,
+        'total_modules': total_modules,
+        'total_brds': len(report['brds']),
+        'total_test_cases': len(report['test_cases']),
+        'api_coverage': round(total_modules_with_api / total_modules * 100) if total_modules > 0 else 0,
+        'db_coverage': round(total_modules_with_db / total_modules * 100) if total_modules > 0 else 0,
+    }
+
     if total_us > 0:
-        scores['overall'] = {
+        # Defensive re-init to include US-derived metrics; keeps inventory counts from above
+        scores['overall'].update({
             'total_us': total_us,
             'total_modules': total_modules,
             'total_brds': len(report['brds']),
@@ -252,7 +268,7 @@ def calculate_scores(report):
             'error_case_coverage': round(total_us_with_error / total_us * 100),
             'security_coverage': round(total_us_with_security / total_us * 100),
             'total_ambiguous_terms': total_ambiguous,
-        }
+        })
 
         # Calculate overall health score
         health = (
