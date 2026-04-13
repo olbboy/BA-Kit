@@ -1211,6 +1211,60 @@ def run_all(layers: list[str], fixture: Path, verbose: bool) -> AggregateVerdict
 
 
 # ---------------------------------------------------------------------------
+# JSON reporter (stable schema for CI consumption)
+# ---------------------------------------------------------------------------
+
+JSON_SCHEMA_VERSION = "1.0.0"
+
+
+def emit_json(agg: AggregateVerdict) -> str:
+    """Structured JSON for CI integration. Stable schema v1.0.0."""
+    payload = {
+        "$schema_version": JSON_SCHEMA_VERSION,
+        "fixture": agg.fixture,
+        "repo_branch": agg.repo_branch,
+        "repo_commit": agg.repo_commit,
+        "started_at": agg.started_at,
+        "duration_ms": round(agg.duration_ms, 1),
+        "exit_code": agg.exit_code,
+        "verdict": agg.verdict,
+        "totals": {
+            "passed": sum(l.passed for l in agg.layers),
+            "warned": sum(l.warned for l in agg.layers),
+            "failed": sum(l.failed for l in agg.layers),
+            "skipped": sum(l.skipped for l in agg.layers),
+            "total": sum(l.total for l in agg.layers),
+        },
+        "layers": [
+            {
+                "layer": l.layer,
+                "description": l.description,
+                "duration_ms": round(l.duration_ms, 1),
+                "totals": {
+                    "passed": l.passed,
+                    "warned": l.warned,
+                    "failed": l.failed,
+                    "skipped": l.skipped,
+                    "total": l.total,
+                },
+                "checks": [
+                    {
+                        "name": c.name,
+                        "target": c.target,
+                        "severity": c.severity,
+                        "message": c.message,
+                        "duration_ms": round(c.duration_ms, 2),
+                    }
+                    for c in l.checks
+                ],
+            }
+            for l in agg.layers
+        ],
+    }
+    return json.dumps(payload, indent=2, ensure_ascii=False)
+
+
+# ---------------------------------------------------------------------------
 # Markdown reporter
 # ---------------------------------------------------------------------------
 
@@ -1300,6 +1354,8 @@ def main(argv: list[str] | None = None) -> int:
                    help="Fixture project path (default: outputs/mini-app-cham-cong)")
     p.add_argument("--report", default=None,
                    help="Markdown report output path (default: print to stdout)")
+    p.add_argument("--json", dest="json_out", default=None,
+                   help="JSON report output path (for CI integration)")
     p.add_argument("--verbose", "-v", action="store_true")
     args = p.parse_args(argv)
 
@@ -1308,14 +1364,21 @@ def main(argv: list[str] | None = None) -> int:
 
     agg = run_all(layers, fixture, args.verbose)
     report = emit_markdown(agg)
+    json_payload = emit_json(agg)
 
     if args.report:
         out = Path(args.report)
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(report, encoding="utf-8")
         print(f"Report: {out}", file=sys.stderr)
-    else:
+    elif not args.json_out:
         print(report)
+
+    if args.json_out:
+        out = Path(args.json_out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json_payload, encoding="utf-8")
+        print(f"JSON: {out}", file=sys.stderr)
 
     print(f"Verdict: {agg.verdict} (exit {agg.exit_code}) — "
           f"{agg.duration_ms / 1000:.1f}s", file=sys.stderr)

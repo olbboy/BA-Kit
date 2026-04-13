@@ -15,6 +15,12 @@
   <img src="https://img.shields.io/badge/Capability-CMMI%20Level%205%20Enabler-purple?style=for-the-badge" alt="CMMI Level 5 Enabler">
 </p>
 
+<p align="center">
+  <a href="https://github.com/olbboy/BA-Kit/actions/workflows/e2e-skills.yml">
+    <img src="https://github.com/olbboy/BA-Kit/actions/workflows/e2e-skills.yml/badge.svg?branch=feat/mini-app-cham-cong-docs" alt="E2E Skills Test">
+  </a>
+</p>
+
 <h1 align="center">BA-Kit</h1>
 <h3 align="center">Biệt Đội Chuyên Gia Phân Tích Nghiệp Vụ</h3>
 

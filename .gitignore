@@ -104,6 +104,10 @@ scratch/
 # local .git/info/exclude or a project-specific override.
 .ba-kit/
 
+# E2E test runner output (generated per-run)
+reports/
+!plans/reports/
+
 # ============================================
 # Legacy / Archived content
 # ============================================

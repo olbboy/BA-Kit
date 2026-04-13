@@ -1,0 +1,103 @@
+name: E2E Skills Test
+
+# BA-Kit skill quality gate. Runs the ba_e2e_test.py orchestrator on every
+# PR touching agent skills, scripts, docs, or the fixture. Uses zero external
+# dependencies (Python stdlib only) so CI is fast and stable.
+
+on:
+  pull_request:
+    paths:
+      - '.agent/**'
+      - 'docs/sprint-spine.md'
+      - 'docs/workflow-cookbook.md'
+      - 'outputs/**'
+      - '.github/workflows/e2e-skills.yml'
+  push:
+    branches:
+      - main
+      - 'feat/**'
+    paths:
+      - '.agent/**'
+      - 'docs/sprint-spine.md'
+      - 'docs/workflow-cookbook.md'
+      - 'outputs/**'
+      - '.github/workflows/e2e-skills.yml'
+  workflow_dispatch: {}
+
+jobs:
+  e2e:
+    name: E2E Skills Suite (L1 → L5)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # ba_retro needs git history; shallow breaks it
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Show environment
+        run: |
+          python3 --version
+          git rev-parse --short HEAD
+          find .agent/skills -maxdepth 1 -type d | wc -l
+          find outputs -name '*.md' | wc -l
+
+      - name: Run E2E suite
+        id: e2e
+        run: |
+          mkdir -p reports
+          python3 .agent/scripts/ba_e2e_test.py \
+            --report reports/e2e-report.md \
+            --json reports/e2e-report.json \
+            --verbose
+        continue-on-error: true
+
+      - name: Display report in summary
+        if: always()
+        run: |
+          if [ -f reports/e2e-report.md ]; then
+            echo "## BA-Kit E2E Report" >> "$GITHUB_STEP_SUMMARY"
+            cat reports/e2e-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Parse verdict
+        if: always()
+        id: verdict
+        run: |
+          if [ -f reports/e2e-report.json ]; then
+            VERDICT=$(python3 -c "import json; print(json.load(open('reports/e2e-report.json'))['verdict'])")
+            EXIT=$(python3 -c "import json; print(json.load(open('reports/e2e-report.json'))['exit_code'])")
+            echo "verdict=$VERDICT" >> "$GITHUB_OUTPUT"
+            echo "exit=$EXIT" >> "$GITHUB_OUTPUT"
+            echo "Verdict: $VERDICT (exit $EXIT)"
+          else
+            echo "verdict=CRASH" >> "$GITHUB_OUTPUT"
+            echo "exit=99" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload reports as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-reports-${{ github.sha }}
+          path: reports/
+          retention-days: 14
+
+      - name: Post sticky PR comment
+        if: github.event_name == 'pull_request' && always()
+        uses: marocchino/sticky-pull-request-comment@v2
+        continue-on-error: true
+        with:
+          header: e2e-skills
+          path: reports/e2e-report.md
+
+      - name: Fail if verdict is FAIL
+        if: steps.verdict.outputs.verdict == 'FAIL' || steps.verdict.outputs.verdict == 'CRASH'
+        run: |
+          echo "E2E suite failed — exit ${{ steps.verdict.outputs.exit }}"
+          exit 2

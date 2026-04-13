@@ -17,6 +17,12 @@
   <img src="https://img.shields.io/badge/Integration-Jira%20%2B%20Confluence-blue?style=for-the-badge" alt="Jira + Confluence">
 </p>
 
+<p align="center">
+  <a href="https://github.com/olbboy/BA-Kit/actions/workflows/e2e-skills.yml">
+    <img src="https://github.com/olbboy/BA-Kit/actions/workflows/e2e-skills.yml/badge.svg?branch=feat/mini-app-cham-cong-docs" alt="E2E Skills Test">
+  </a>
+</p>
+
 <h1 align="center">BA-Kit</h1>
 <h3 align="center">Agent Squad for Requirements Engineering</h3>
 
