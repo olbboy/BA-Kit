@@ -29,14 +29,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Literal
+from typing import Callable, Literal
 
 
 # ---------------------------------------------------------------------------
@@ -360,18 +363,258 @@ def run_l1_static() -> LayerVerdict:
 
 
 # ---------------------------------------------------------------------------
-# L2 — Script helper smoke tests (STUB, future session)
+# L2 — Script helper smoke tests
 # ---------------------------------------------------------------------------
 
+@dataclass
+class HelperTest:
+    """One subprocess smoke test. cmd strings support ${FIXTURE}, ${REPO},
+    ${SCRIPT_DIR} substitution. setup() returns additional substitutions."""
+    name: str
+    cmd: list[str]
+    expected_exit: int = 0
+    stdout_contains: list[str] = field(default_factory=list)
+    stderr_contains: list[str] = field(default_factory=list)
+    cwd_temp: bool = False          # Run in an isolated temp dir
+    env_unset: list[str] = field(default_factory=list)  # e.g., ["GEMINI_API_KEY"]
+    setup: Callable | None = None   # Optional setup; returns None or dict
+    timeout_sec: int = 30
+    description: str = ""
+
+
+def _substitute(cmd: list[str], fixture: Path) -> list[str]:
+    """Replace placeholders in the command template."""
+    repo = str(REPO_ROOT)
+    script_dir = str(SCRIPT_ROOT)
+    fix = str(fixture)
+    return [
+        token.replace("${FIXTURE}", fix)
+             .replace("${REPO}", repo)
+             .replace("${SCRIPT_DIR}", script_dir)
+        for token in cmd
+    ]
+
+
+def run_helper_test(test: HelperTest, fixture: Path) -> Check:
+    start = time.perf_counter()
+    target = test.description or " ".join(test.cmd[:3])
+
+    # Optional setup (e.g., create a sample file in temp dir)
+    tmp_dir_ctx = None
+    cwd = str(REPO_ROOT)
+    if test.cwd_temp:
+        tmp_dir_ctx = tempfile.TemporaryDirectory(prefix="ba-e2e-")
+        cwd = tmp_dir_ctx.name
+
+    env = os.environ.copy()
+    for key in test.env_unset:
+        env.pop(key, None)
+    if test.cwd_temp:
+        # Isolate HOME for helpers that write to ~/.ba-kit/
+        env["HOME"] = cwd
+
+    try:
+        if test.setup is not None:
+            test.setup(Path(cwd))
+        cmd = _substitute(test.cmd, fixture)
+        proc = subprocess.run(
+            cmd,
+            capture_output=True, text=True,
+            cwd=cwd, env=env, timeout=test.timeout_sec,
+        )
+    except subprocess.TimeoutExpired:
+        if tmp_dir_ctx:
+            tmp_dir_ctx.cleanup()
+        return Check(test.name, target, "fail",
+                     f"timeout after {test.timeout_sec}s",
+                     (time.perf_counter() - start) * 1000)
+    except Exception as e:
+        if tmp_dir_ctx:
+            tmp_dir_ctx.cleanup()
+        return Check(test.name, target, "fail",
+                     f"launch error: {e}",
+                     (time.perf_counter() - start) * 1000)
+
+    # Verdict
+    details: list[str] = []
+    ok = True
+
+    if proc.returncode != test.expected_exit:
+        ok = False
+        details.append(
+            f"exit {proc.returncode} != {test.expected_exit}")
+        if proc.stderr:
+            details.append(f"stderr: {proc.stderr.strip()[:200]}")
+
+    for needle in test.stdout_contains:
+        if needle not in proc.stdout:
+            ok = False
+            details.append(f"stdout missing '{needle}'")
+
+    for needle in test.stderr_contains:
+        if needle not in proc.stderr:
+            ok = False
+            details.append(f"stderr missing '{needle}'")
+
+    if tmp_dir_ctx:
+        tmp_dir_ctx.cleanup()
+
+    if ok:
+        return Check(test.name, target, "pass",
+                     f"exit {proc.returncode}",
+                     (time.perf_counter() - start) * 1000)
+    return Check(test.name, target, "fail", "; ".join(details),
+                 (time.perf_counter() - start) * 1000)
+
+
+def _setup_sample_file(cwd: Path) -> None:
+    """Create a minimal markdown file for baseline smoke test."""
+    (cwd / "sample.md").write_text("# Sample BRD\n\nRequirement: login.\n")
+    # Also init git so ba_baseline history doesn't care
+    subprocess.run(["git", "init", "-q"], cwd=str(cwd), check=False)
+
+
+def _setup_git_init(cwd: Path) -> None:
+    """Just git init, no extra files."""
+    subprocess.run(["git", "init", "-q"], cwd=str(cwd), check=False)
+
+
+def _build_l2_tests(fixture: Path) -> list[HelperTest]:
+    """Conservative test matrix. Covers the 6 new v3.4 helpers + setup.sh
+    + 3 legacy helpers. ba_core/batch_remediate/gen_docx are compile-only
+    (covered by L1)."""
+    py = sys.executable
+    scripts = str(SCRIPT_ROOT)
+    return [
+        # --- Legacy helpers (smoke-only) ---
+        HelperTest(
+            name="ba_search_stats",
+            cmd=[py, f"{scripts}/ba_search.py", "--stats"],
+            stdout_contains=["domain"],
+            description="ba_search.py --stats",
+        ),
+        HelperTest(
+            name="coverage_checker_on_fixture",
+            cmd=[py, f"{scripts}/coverage_checker.py", "${FIXTURE}"],
+            stdout_contains=["HEALTHY", "User Stories: 53", "Modules: 12"],
+            description="coverage_checker.py on fixture",
+        ),
+
+        # --- v3.4 helpers ---
+        HelperTest(
+            name="ba_as_built_scan",
+            cmd=[py, f"{scripts}/ba_as_built.py", "scan",
+                 "--project", "${FIXTURE}", "--base", "main"],
+            stdout_contains=['"commits":', '"specs":'],
+            description="ba_as_built.py scan on fixture",
+        ),
+        HelperTest(
+            name="ba_baseline_empty_list",
+            cmd=[py, f"{scripts}/ba_baseline.py", "list"],
+            cwd_temp=True,
+            stdout_contains=["No baselines yet"],
+            description="ba_baseline.py list (empty)",
+        ),
+        HelperTest(
+            name="ba_baseline_add_roundtrip",
+            cmd=[py, f"{scripts}/ba_baseline.py", "add", "sample.md",
+                 "--version", "v1.0", "--by", "e2e-tester",
+                 "--rationale", "e2e smoke test baseline"],
+            cwd_temp=True,
+            setup=_setup_sample_file,
+            stdout_contains=["Baselined sample.md as v1.0"],
+            description="ba_baseline.py add (temp dir)",
+        ),
+        HelperTest(
+            name="ba_baseline_reject_thin_rationale",
+            cmd=[py, f"{scripts}/ba_baseline.py", "add", "sample.md",
+                 "--version", "v1.0", "--by", "x", "--rationale", "ok"],
+            cwd_temp=True,
+            setup=_setup_sample_file,
+            expected_exit=2,
+            stderr_contains=["Rationale too thin"],
+            description="ba_baseline.py rejects short rationale",
+        ),
+        HelperTest(
+            name="ba_learn_stats_empty",
+            cmd=[py, f"{scripts}/ba_learn.py", "stats"],
+            cwd_temp=True,
+            stdout_contains=["No learnings yet"],
+            description="ba_learn.py stats (empty project)",
+        ),
+        HelperTest(
+            name="ba_learn_add_show_roundtrip",
+            cmd=[py, f"{scripts}/ba_learn.py", "add",
+                 "--type", "pattern", "--key", "E2E_TEST",
+                 "--insight", "Smoke test entry for runner verification",
+                 "--confidence", "8"],
+            cwd_temp=True,
+            stdout_contains=["Added pattern/E2E_TEST"],
+            description="ba_learn.py add (temp HOME)",
+        ),
+        HelperTest(
+            name="ba_retro_on_repo",
+            cmd=[py, f"{scripts}/ba_retro.py", "--window", "30d",
+                 "--project", "ba-kit-antigravity"],
+            stdout_contains=["Sprint Retro"],
+            description="ba_retro.py on current repo",
+            timeout_sec=20,
+        ),
+        HelperTest(
+            name="ba_second_opinion_prompt",
+            cmd=[py, f"{scripts}/ba_second_opinion.py", "prompt",
+                 "--artifact", ".agent/skills/ba-shotgun/SKILL.md"],
+            env_unset=["GEMINI_API_KEY", "OPENAI_API_KEY", "OLLAMA_HOST"],
+            stdout_contains=["STRICT JSON", "ARTIFACT"],
+            description="ba_second_opinion.py prompt mode",
+        ),
+        HelperTest(
+            name="ba_setup_status",
+            cmd=[py, f"{scripts}/ba_setup.py", "status"],
+            stdout_contains=["BA-Kit Setup Status"],
+            description="ba_setup.py status",
+        ),
+        HelperTest(
+            name="ba_setup_reject_bad_url",
+            cmd=[py, f"{scripts}/ba_setup.py", "jira",
+                 "--url", "not-a-url",
+                 "--token", "abcdefghijklmnopqrstuvwxyz123",
+                 "--project", "PROJ"],
+            expected_exit=2,
+            stderr_contains=["must start with http"],
+            description="ba_setup.py rejects malformed URL",
+        ),
+        HelperTest(
+            name="ba_setup_reject_short_token",
+            cmd=[py, f"{scripts}/ba_setup.py", "jira",
+                 "--url", "https://jira.test.com",
+                 "--token", "short",
+                 "--project", "PROJ"],
+            expected_exit=2,
+            stderr_contains=["too short"],
+            description="ba_setup.py rejects short token",
+        ),
+
+        # --- Shell ---
+        HelperTest(
+            name="setup_sh_list",
+            cmd=["bash", f"{scripts}/setup.sh", "--list"],
+            stdout_contains=["Detected BA-Kit host candidates"],
+            description="setup.sh --list (no side effects)",
+        ),
+    ]
+
+
 def run_l2_scripts(fixture: Path) -> LayerVerdict:
+    """L2 — run smoke tests against each helper script."""
     start = time.perf_counter()
     verdict = LayerVerdict("L2", "Script helper smoke tests")
-    verdict.checks.append(Check(
-        "l2_implementation",
-        "ba_e2e_test.py::run_l2_scripts",
-        "skip",
-        "not implemented yet — see plan phase-03",
-    ))
+
+    tests = _build_l2_tests(fixture)
+    for test in tests:
+        check = run_helper_test(test, fixture)
+        verdict.checks.append(check)
+
     verdict.duration_ms = (time.perf_counter() - start) * 1000
     return verdict
 
