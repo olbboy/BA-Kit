@@ -686,50 +686,339 @@ def run_l3_structure() -> LayerVerdict:
 
 
 # ---------------------------------------------------------------------------
-# L4 — Cross-artifact consistency (STUB, future session)
+# L4 — Cross-artifact consistency (deep lints on fixture)
 # ---------------------------------------------------------------------------
 
+US_ID_CONTENT = re.compile(r"^#\s+(US-[A-Z]+-\d+)\b", re.MULTILINE)
+US_ID_INLINE = re.compile(r"\bUS-[A-Z]+-\d+\b")
+
+
+@dataclass
+class FixtureInventory:
+    """Single-pass inventory of fixture artifacts + cross-references."""
+    fixture: Path
+    us_files: dict[str, Path] = field(default_factory=dict)      # US-ID → file path
+    us_filename_slugs: dict[str, Path] = field(default_factory=dict)  # filename → path
+    brd_files: list[Path] = field(default_factory=list)
+    api_spec_files: list[Path] = field(default_factory=list)
+    db_schema_files: list[Path] = field(default_factory=list)
+    test_case_files: list[Path] = field(default_factory=list)
+    rtm_file: Path | None = None
+
+    brd_us_refs: dict[Path, set[str]] = field(default_factory=dict)
+    api_spec_us_refs: dict[Path, set[str]] = field(default_factory=dict)
+    test_case_us_refs: dict[Path, set[str]] = field(default_factory=dict)
+    rtm_us_refs: set[str] = field(default_factory=set)
+
+    duplicate_us_ids: dict[str, list[Path]] = field(default_factory=dict)
+
+    @property
+    def all_us_ids(self) -> set[str]:
+        return set(self.us_files.keys())
+
+    @property
+    def has_content(self) -> bool:
+        return bool(self.us_files or self.brd_files or self.api_spec_files)
+
+
+def _extract_us_ids_from_text(text: str) -> set[str]:
+    return set(US_ID_INLINE.findall(text))
+
+
+def _extract_us_id_header(md_path: Path) -> str | None:
+    """First '# US-X-Y: Title' line or None."""
+    try:
+        for line in md_path.read_text(encoding="utf-8").splitlines()[:5]:
+            match = US_ID_CONTENT.match(line)
+            if match:
+                return match.group(1)
+    except Exception:
+        return None
+    return None
+
+
+def build_fixture_inventory(fixture: Path) -> FixtureInventory:
+    """Single-pass scan of fixture — builds the inventory used by all lints."""
+    inv = FixtureInventory(fixture=fixture)
+    if not fixture.exists():
+        return inv
+
+    # Walk once, classify by name pattern
+    for md in sorted(fixture.rglob("*.md")):
+        name = md.name
+        name_lower = name.lower()
+
+        # User stories
+        if name_lower.startswith("us-"):
+            stem = md.stem
+            us_id = _extract_us_id_header(md)
+            if us_id is None:
+                # Try deriving from filename (us-atten-01-slug.md → US-ATTEN-01)
+                m = re.match(r"us-([a-z]+)-(\d+)", stem)
+                if m:
+                    us_id = f"US-{m.group(1).upper()}-{m.group(2).zfill(2)}"
+            if us_id:
+                if us_id in inv.us_files:
+                    # Duplicate — record both paths
+                    inv.duplicate_us_ids.setdefault(us_id, []).append(inv.us_files[us_id])
+                    inv.duplicate_us_ids[us_id].append(md)
+                else:
+                    inv.us_files[us_id] = md
+            inv.us_filename_slugs[stem] = md
+            continue
+
+        # BRDs (overview/BRD-*.md)
+        if "BRD" in name or "overview" in str(md.parent):
+            if name.lower().startswith("brd") or name.startswith("BRD"):
+                inv.brd_files.append(md)
+                text = md.read_text(encoding="utf-8", errors="ignore")
+                inv.brd_us_refs[md] = _extract_us_ids_from_text(text)
+                continue
+
+        # API specs
+        if name == "api-spec.md":
+            inv.api_spec_files.append(md)
+            text = md.read_text(encoding="utf-8", errors="ignore")
+            inv.api_spec_us_refs[md] = _extract_us_ids_from_text(text)
+            continue
+
+        # DB schemas
+        if name == "db-schema.md":
+            inv.db_schema_files.append(md)
+            continue
+
+        # Test cases (one file per module)
+        if name == "test-cases.md":
+            inv.test_case_files.append(md)
+            text = md.read_text(encoding="utf-8", errors="ignore")
+            inv.test_case_us_refs[md] = _extract_us_ids_from_text(text)
+            continue
+
+        # RTM (single file at project root)
+        if name == "RTM.md" and md.parent == fixture:
+            inv.rtm_file = md
+            text = md.read_text(encoding="utf-8", errors="ignore")
+            inv.rtm_us_refs = _extract_us_ids_from_text(text)
+            continue
+
+    return inv
+
+
+def _rel(p: Path, fixture: Path) -> str:
+    try:
+        return str(p.relative_to(fixture))
+    except ValueError:
+        return str(p)
+
+
+def lint_us_id_uniqueness(inv: FixtureInventory) -> Check:
+    """No two US files should declare the same US ID."""
+    if not inv.us_files:
+        return Check("us_id_uniqueness", str(inv.fixture), "skip",
+                     "no US files")
+    if inv.duplicate_us_ids:
+        dup_summary = [
+            f"{us_id}: {len(paths)} files"
+            for us_id, paths in sorted(inv.duplicate_us_ids.items())
+        ]
+        return Check("us_id_uniqueness", str(inv.fixture), "fail",
+                     f"{len(inv.duplicate_us_ids)} duplicates — {dup_summary[:3]}")
+    return Check("us_id_uniqueness", str(inv.fixture), "pass",
+                 f"{len(inv.us_files)} unique US IDs")
+
+
+def lint_us_filename_alignment(inv: FixtureInventory) -> Check:
+    """us-xxxx-NN-slug.md should have '# US-XXXX-NN: Title' as first content line."""
+    mismatches: list[str] = []
+    for us_id, path in inv.us_files.items():
+        stem = path.stem  # e.g. us-atten-01-hub-cham-cong
+        m = re.match(r"us-([a-z]+)-(\d+)", stem)
+        if not m:
+            continue
+        expected_id = f"US-{m.group(1).upper()}-{m.group(2).zfill(2)}"
+        if us_id != expected_id:
+            mismatches.append(f"{path.name}→{us_id}!={expected_id}")
+    if not inv.us_files:
+        return Check("us_filename_alignment", str(inv.fixture), "skip",
+                     "no US files")
+    if mismatches:
+        return Check("us_filename_alignment", str(inv.fixture), "warn",
+                     f"{len(mismatches)} mismatches: {mismatches[:3]}")
+    return Check("us_filename_alignment", str(inv.fixture), "pass",
+                 f"{len(inv.us_files)} files aligned")
+
+
+def lint_brd_us_refs(inv: FixtureInventory) -> list[Check]:
+    """Every US-ID mentioned in a BRD must exist as a US file."""
+    checks: list[Check] = []
+    if not inv.brd_files:
+        checks.append(Check("brd_us_refs", str(inv.fixture), "skip",
+                            "no BRD files"))
+        return checks
+    all_us = inv.all_us_ids
+    for brd in inv.brd_files:
+        refs = inv.brd_us_refs.get(brd, set())
+        unknown = sorted(refs - all_us)
+        rel = _rel(brd, inv.fixture)
+        if unknown:
+            checks.append(Check("brd_us_refs", rel, "fail",
+                                f"unknown US: {unknown[:5]}"))
+        else:
+            checks.append(Check("brd_us_refs", rel, "pass",
+                                f"{len(refs)} refs ok"))
+    return checks
+
+
+def lint_api_spec_us_refs(inv: FixtureInventory) -> list[Check]:
+    """Every US mentioned in api-spec.md's Ref column must exist."""
+    checks: list[Check] = []
+    if not inv.api_spec_files:
+        checks.append(Check("api_spec_us_refs", str(inv.fixture), "skip",
+                            "no api-spec files"))
+        return checks
+    all_us = inv.all_us_ids
+    for spec in inv.api_spec_files:
+        refs = inv.api_spec_us_refs.get(spec, set())
+        unknown = sorted(refs - all_us)
+        rel = _rel(spec, inv.fixture)
+        if not refs:
+            checks.append(Check("api_spec_us_refs", rel, "warn",
+                                "no US refs in api-spec"))
+        elif unknown:
+            checks.append(Check("api_spec_us_refs", rel, "fail",
+                                f"unknown US: {unknown[:5]}"))
+        else:
+            checks.append(Check("api_spec_us_refs", rel, "pass",
+                                f"{len(refs)} refs ok"))
+    return checks
+
+
+def lint_test_case_us_refs(inv: FixtureInventory) -> list[Check]:
+    """Every US mentioned in test-cases.md must exist. Warn if a module's
+    US files have no test-case coverage."""
+    checks: list[Check] = []
+    if not inv.test_case_files:
+        checks.append(Check("test_case_us_refs", str(inv.fixture), "skip",
+                            "no test-case files"))
+        return checks
+    all_us = inv.all_us_ids
+
+    # Per-file: every ref must resolve
+    for tc in inv.test_case_files:
+        refs = inv.test_case_us_refs.get(tc, set())
+        unknown = sorted(refs - all_us)
+        rel = _rel(tc, inv.fixture)
+        if not refs:
+            checks.append(Check("test_case_us_refs", rel, "warn",
+                                "no US refs"))
+        elif unknown:
+            checks.append(Check("test_case_us_refs", rel, "fail",
+                                f"unknown US: {unknown[:5]}"))
+        else:
+            checks.append(Check("test_case_us_refs", rel, "pass",
+                                f"{len(refs)} refs ok"))
+
+    # Aggregate: which US have ANY test coverage?
+    all_tested = set()
+    for refs in inv.test_case_us_refs.values():
+        all_tested.update(refs)
+    untested = sorted(inv.all_us_ids - all_tested)
+    if untested:
+        checks.append(Check("us_test_coverage", str(inv.fixture), "warn",
+                            f"{len(untested)}/{len(inv.all_us_ids)} US "
+                            f"untested: {untested[:5]}"))
+    else:
+        checks.append(Check("us_test_coverage", str(inv.fixture), "pass",
+                            f"all {len(inv.all_us_ids)} US covered"))
+    return checks
+
+
+def lint_rtm_consistency(inv: FixtureInventory) -> list[Check]:
+    """RTM.md should reference every US file, and vice versa."""
+    checks: list[Check] = []
+    if inv.rtm_file is None:
+        checks.append(Check("rtm_consistency", str(inv.fixture), "skip",
+                            "no RTM.md"))
+        return checks
+    all_us = inv.all_us_ids
+
+    # Every US ref in RTM should resolve
+    unknown_in_rtm = sorted(inv.rtm_us_refs - all_us)
+    if unknown_in_rtm:
+        checks.append(Check("rtm_refs_valid", "RTM.md", "fail",
+                            f"unknown US: {unknown_in_rtm[:5]}"))
+    else:
+        checks.append(Check("rtm_refs_valid", "RTM.md", "pass",
+                            f"{len(inv.rtm_us_refs)} RTM refs ok"))
+
+    # Every US file should be mentioned in RTM
+    missing_from_rtm = sorted(all_us - inv.rtm_us_refs)
+    if missing_from_rtm:
+        checks.append(Check("rtm_us_coverage", "RTM.md", "warn",
+                            f"{len(missing_from_rtm)}/{len(all_us)} US not in RTM: "
+                            f"{missing_from_rtm[:5]}"))
+    else:
+        checks.append(Check("rtm_us_coverage", "RTM.md", "pass",
+                            "all US in RTM"))
+    return checks
+
+
 def run_l4_consistency(fixture: Path) -> LayerVerdict:
+    """L4 — cross-artifact consistency using coverage_checker + deep lints."""
     start = time.perf_counter()
     verdict = LayerVerdict("L4", "Cross-artifact consistency on fixture")
+
     if not fixture.exists():
         verdict.checks.append(Check(
             "fixture_exists", str(fixture), "skip",
             "fixture not present",
         ))
-    else:
-        # Delegate to existing coverage_checker (fixed in Phase 01)
-        proc = subprocess.run(
-            [sys.executable, str(SCRIPT_ROOT / "coverage_checker.py"),
-             str(fixture), "--json"],
-            capture_output=True, text=True,
-        )
-        if proc.returncode != 0:
-            verdict.checks.append(Check(
-                "coverage_checker_run", str(fixture), "fail",
-                f"exit {proc.returncode}: {proc.stderr[:200]}",
-            ))
-        else:
-            try:
-                data = json.loads(proc.stdout)
-                health = data["scores"]["overall"].get("health_score", 0)
-                status = data["scores"]["overall"].get("health_status", "?")
-                severity: Severity = "pass" if health >= 80 else (
-                    "warn" if health >= 60 else "fail")
-                verdict.checks.append(Check(
-                    "fixture_health_score", str(fixture), severity,
-                    f"{health}% {status}",
-                ))
-            except json.JSONDecodeError as e:
-                verdict.checks.append(Check(
-                    "coverage_checker_parse", str(fixture), "fail",
-                    f"JSON parse error: {e}",
-                ))
+        verdict.duration_ms = (time.perf_counter() - start) * 1000
+        return verdict
 
-    verdict.checks.append(Check(
-        "l4_deep_assertions", "ba_e2e_test.py::run_l4_consistency",
-        "skip", "deeper BRD↔US↔API↔DB lints not implemented — see plan phase-05",
-    ))
+    # Shallow: coverage_checker baseline
+    proc = subprocess.run(
+        [sys.executable, str(SCRIPT_ROOT / "coverage_checker.py"),
+         str(fixture), "--json"],
+        capture_output=True, text=True,
+    )
+    if proc.returncode != 0:
+        verdict.checks.append(Check(
+            "coverage_checker_run", str(fixture), "fail",
+            f"exit {proc.returncode}: {proc.stderr[:200]}",
+        ))
+    else:
+        try:
+            data = json.loads(proc.stdout)
+            health = data["scores"]["overall"].get("health_score", 0)
+            status = data["scores"]["overall"].get("health_status", "?")
+            severity: Severity = "pass" if health >= 80 else (
+                "warn" if health >= 60 else "fail")
+            verdict.checks.append(Check(
+                "fixture_health_score", str(fixture), severity,
+                f"{health}% {status}",
+            ))
+        except json.JSONDecodeError as e:
+            verdict.checks.append(Check(
+                "coverage_checker_parse", str(fixture), "fail",
+                f"JSON parse error: {e}",
+            ))
+
+    # Deep lints: build inventory once, run 6 lint families
+    inv = build_fixture_inventory(fixture)
+    if not inv.has_content:
+        verdict.checks.append(Check(
+            "fixture_empty", str(fixture), "skip",
+            "no US/BRD/API/test-case files found",
+        ))
+    else:
+        verdict.checks.append(lint_us_id_uniqueness(inv))
+        verdict.checks.append(lint_us_filename_alignment(inv))
+        verdict.checks.extend(lint_brd_us_refs(inv))
+        verdict.checks.extend(lint_api_spec_us_refs(inv))
+        verdict.checks.extend(lint_test_case_us_refs(inv))
+        verdict.checks.extend(lint_rtm_consistency(inv))
+
     verdict.duration_ms = (time.perf_counter() - start) * 1000
     return verdict
 
