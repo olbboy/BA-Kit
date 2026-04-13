@@ -39,19 +39,19 @@
       "title": "M01. Chấm công & Nhật ký"
     },
     {
-      "id": "196786909",
+      "id": "196793100",
       "title": "US-ATTEN-01: Hub chấm công"
     },
     {
-      "id": "196786910",
+      "id": "196793101",
       "title": "US-ATTEN-02: Thống kê hiệu suất tháng"
     },
     {
-      "id": "196786911",
+      "id": "196793102",
       "title": "US-ATTEN-03: Xem chi tiết nhật ký chấm công"
     },
     {
-      "id": "196786912",
+      "id": "196793103",
       "title": "US-ATTEN-04: Trung tâm cảnh báo và thông báo"
     },
     {
@@ -75,19 +75,19 @@
       "title": "M02. Trung tâm Đăng ký"
     },
     {
-      "id": "196786930",
+      "id": "196793104",
       "title": "US-REG-01: Đăng ký nghỉ phép"
     },
     {
-      "id": "196786931",
+      "id": "196793105",
       "title": "US-REG-02: Đăng ký đổi ca"
     },
     {
-      "id": "196786932",
+      "id": "196793106",
       "title": "US-REG-03: Đăng ký tăng ca (OT)"
     },
     {
-      "id": "196786933",
+      "id": "196793107",
       "title": "US-REG-04: Theo dõi đơn từ và hạn mức"
     },
     {
@@ -115,7 +115,7 @@
       "title": "M03. Giải trình công"
     },
     {
-      "id": "196786928",
+      "id": "196793108",
       "title": "US-EXPL-01: Danh sách lỗi cần giải trình"
     },
     {
@@ -139,11 +139,11 @@
       "title": "M04. Báo cáo cá nhân"
     },
     {
-      "id": "196786935",
+      "id": "196793109",
       "title": "US-RPTPRS-01: Dashboard hiệu suất cá nhân"
     },
     {
-      "id": "196786936",
+      "id": "196793110",
       "title": "US-RPTPRS-02: Bảng KPI và Highlights"
     },
     {
@@ -163,27 +163,27 @@
       "title": "M05. Quản lý Nhân sự"
     },
     {
-      "id": "196786938",
+      "id": "196793111",
       "title": "US-EMP-01: Sơ đồ cơ cấu tổ chức"
     },
     {
-      "id": "196786939",
+      "id": "196793112",
       "title": "US-EMP-02: Quản lý phòng ban (CRUD)"
     },
     {
-      "id": "196786940",
+      "id": "196793113",
       "title": "US-EMP-03: Danh sách nhân sự và tìm kiếm"
     },
     {
-      "id": "196786941",
+      "id": "196793114",
       "title": "US-EMP-04: Bulk Import nhân viên"
     },
     {
-      "id": "196786942",
+      "id": "196793115",
       "title": "US-EMP-05: Dashboard hiện diện real-time"
     },
     {
-      "id": "196786943",
+      "id": "196793116",
       "title": "US-EMP-06: Danh mục cấp bậc"
     },
     {
@@ -203,23 +203,23 @@
       "title": "M06. Ca làm việc & Phân ca"
     },
     {
-      "id": "196786922",
+      "id": "196793117",
       "title": "US-SHIFT-01: Danh sách ca làm việc"
     },
     {
-      "id": "196786923",
+      "id": "196793118",
       "title": "US-SHIFT-02: Cấu hình giờ và ngày làm việc"
     },
     {
-      "id": "196786924",
+      "id": "196793119",
       "title": "US-SHIFT-03: Giới hạn thời gian chấm công (punch limit)"
     },
     {
-      "id": "196786925",
+      "id": "196793120",
       "title": "US-SHIFT-04: Cấu hình giờ nghỉ"
     },
     {
-      "id": "196786926",
+      "id": "196793121",
       "title": "US-SHIFT-05: Import nhân viên vào ca"
     },
     {
@@ -247,19 +247,19 @@
       "title": "M07. Lịch nghỉ & Ngày lễ"
     },
     {
-      "id": "196786945",
+      "id": "196793122",
       "title": "US-HOL-01: Quản lý danh sách ngày nghỉ"
     },
     {
-      "id": "196786946",
+      "id": "196793123",
       "title": "US-HOL-02: Cấu hình policy nghỉ và rule nghỉ"
     },
     {
-      "id": "196786947",
+      "id": "196793124",
       "title": "US-HOL-03: Logic sync & batch job"
     },
     {
-      "id": "196786948",
+      "id": "196793125",
       "title": "US-HOL-04: API hiển thị"
     },
     {
@@ -279,15 +279,15 @@
       "title": "M08. Camera AI (C-Vision)"
     },
     {
-      "id": "196786950",
+      "id": "196793126",
       "title": "US-CAM-01: Quản lý danh sách thiết bị Camera"
     },
     {
-      "id": "196786951",
+      "id": "196793127",
       "title": "US-CAM-02: Mapping nhân viên - Camera"
     },
     {
-      "id": "196786952",
+      "id": "196793128",
       "title": "US-CAM-03: Health check và Monitoring"
     },
     {
@@ -311,15 +311,15 @@
       "title": "M09. Cấu hình Thông báo"
     },
     {
-      "id": "196786954",
+      "id": "196793129",
       "title": "US-NOTIF-01: Cấu hình kênh thông báo"
     },
     {
-      "id": "196786955",
+      "id": "196793130",
       "title": "US-NOTIF-02: Cấu hình sự kiện kích hoạt"
     },
     {
-      "id": "196786956",
+      "id": "196793131",
       "title": "US-NOTIF-03: Quản lý policy thông báo"
     },
     {
@@ -343,15 +343,15 @@
       "title": "M10. Trung tâm Phê duyệt"
     },
     {
-      "id": "196786914",
+      "id": "196793132",
       "title": "US-APPR-01: Inbox phê duyệt"
     },
     {
-      "id": "196786915",
+      "id": "196793133",
       "title": "US-APPR-02: Cấu hình chuỗi phê duyệt"
     },
     {
-      "id": "196786916",
+      "id": "196793134",
       "title": "US-APPR-03: Phê duyệt hàng loạt"
     },
     {
@@ -371,15 +371,15 @@
       "title": "M11. Báo cáo tổng & Xuất dữ liệu"
     },
     {
-      "id": "196786918",
+      "id": "196793135",
       "title": "US-RPT-01: Dashboard quản lý"
     },
     {
-      "id": "196786919",
+      "id": "196793136",
       "title": "US-RPT-02: Xuất báo cáo và Payroll"
     },
     {
-      "id": "196786920",
+      "id": "196793137",
       "title": "US-RPT-03: Báo cáo tuân thủ"
     },
     {
@@ -448,5 +448,5 @@
     }
   ],
   "total_pages": 111,
-  "pushed_at": "2026-04-12T09:17:54"
+  "pushed_at": "2026-04-13T15:13:00"
 }
