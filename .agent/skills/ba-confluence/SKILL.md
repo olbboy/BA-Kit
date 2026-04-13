@@ -32,9 +32,19 @@ If input is unclear, incomplete, or out-of-scope:
 2.  If content hasn't been through `@ba-export` compliance check, recommend: "Handover: Send to `@ba-export` first."
 3.  If input belongs to another agent's domain, recommend a handoff.
 
-## ⚠️ Prerequisites
-- Confluence connector must be configured: `.agent/skills/confluence-connector/.env`
-- Test connectivity: `python3 .agent/skills/confluence-connector/scripts/confluence_search.py --help`
+## ⚠️ Prerequisites (one-time IT setup, not your daily job)
+
+The Confluence connector needs to be configured ONCE by your IT/admin team. After that, the BA simply says *"publish this BRD to Confluence"* — the agent handles the rest.
+
+**One-time setup (ask IT/admin):**
+- A `.env` file at `.agent/skills/confluence-connector/.env` with:
+  - `CONFLUENCE_BASE_URL` — your Confluence instance URL (e.g., `https://confluence.company.com`)
+  - `CONFLUENCE_PAT` — a Personal Access Token (IT generates this in Confluence → Profile → PATs)
+- Confirm connectivity works (one-time): `python3 .agent/skills/confluence-connector/scripts/confluence_search.py --help`
+
+**Day-to-day BA workflow (after setup):**
+- Just talk naturally: *"Publish the HR BRD to the BA space, parent page 'Project Docs'"* — agent does the rest
+- The BA never needs to type curl commands, XHTML, CQL queries, or environment variables
 
 ## System Instructions
 

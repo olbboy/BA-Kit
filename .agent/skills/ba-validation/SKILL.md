@@ -1,6 +1,6 @@
 ---
 name: ba-validation
-description: [Agentic] Validation & Verification - ensure quality and correctness (SKILL-08)
+description: "[Agentic] Validation & Verification - ensure quality and correctness (SKILL-08)"
 version: 1.0.0
 ---
 

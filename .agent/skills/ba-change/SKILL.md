@@ -1,6 +1,6 @@
 ---
 name: ba-change
-description: [Agentic] Change Management - ADKAR, readiness assessment, training needs, go-live planning, benefits realization
+description: "[Agentic] Change Management - ADKAR, readiness assessment, training needs, go-live planning, benefits realization"
 version: 1.0.0
 ---
 

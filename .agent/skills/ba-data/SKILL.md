@@ -1,6 +1,6 @@
 ---
 name: ba-data
-description: [Agentic] Data Architecture - ERD, Data Dictionary, DFD, data mapping, migration planning, analytics requirements
+description: "[Agentic] Data Architecture - ERD, Data Dictionary, DFD, data mapping, migration planning, analytics requirements"
 version: 1.0.0
 ---
 

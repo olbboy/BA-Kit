@@ -1,6 +1,6 @@
 ---
 name: ba-communication
-description: [Agentic] Communication & Reporting - audience-adapted messaging, status reports, executive summaries
+description: "[Agentic] Communication & Reporting - audience-adapted messaging, status reports, executive summaries"
 version: 1.0.0
 ---
 

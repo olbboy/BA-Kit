@@ -6,6 +6,9 @@ version: 1.0.0
 
 # Confluence Data Center Connector
 
+> ⚙️ **Infrastructure skill — not for direct BA invocation.**
+> This skill is loaded automatically by `@ba-confluence` (the BA-facing wrapper). BAs should always use `@ba-confluence` for natural-language requests like *"publish this BRD to Confluence"*. This connector exists so the agent has a documented API surface to call into.
+
 Use this skill to connect to and operate on Confluence Data Center instances via REST API with Personal Access Token authentication.
 
 ## Configuration

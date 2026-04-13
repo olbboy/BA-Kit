@@ -1,6 +1,6 @@
 ---
 name: ba-process
-description: [Agentic] Process Modeling - BPMN and As-Is/To-Be analysis (SKILL-16)
+description: "[Agentic] Process Modeling - BPMN and As-Is/To-Be analysis (SKILL-16)"
 version: 1.0.0
 ---
 

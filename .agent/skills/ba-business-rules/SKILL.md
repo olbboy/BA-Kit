@@ -1,6 +1,6 @@
 ---
 name: ba-business-rules
-description: [Agentic] Business Rules Management - decision tables, decision trees, rule catalog, conflict detection
+description: "[Agentic] Business Rules Management - decision tables, decision trees, rule catalog, conflict detection"
 version: 1.0.0
 ---
 

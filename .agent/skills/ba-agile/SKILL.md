@@ -1,6 +1,6 @@
 ---
 name: ba-agile
-description: [Agentic] Agile BA Practices - User Story Mapping, MVP Definition, Hypothesis-Driven Development
+description: "[Agentic] Agile BA Practices - User Story Mapping, MVP Definition, Hypothesis-Driven Development"
 version: 1.0.0
 ---
 

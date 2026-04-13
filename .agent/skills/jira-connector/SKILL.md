@@ -14,6 +14,9 @@ version: 1.0.0
 
 # Jira Data Center Connector
 
+> ⚙️ **Infrastructure skill — not for direct BA invocation.**
+> This skill is loaded automatically by `@ba-jira` (the BA-facing wrapper). BAs should always use `@ba-jira` for natural-language requests like *"publish these stories to Jira"*. This connector exists so the agent has a documented API surface to call into.
+
 Connect to and operate on Jira Data Center instances using the REST API v2 with Personal Access Token authentication.
 
 ## Configuration

@@ -1,6 +1,6 @@
 ---
 name: ba-prioritization
-description: [Agentic] Prioritization Techniques - rank features and make trade-off decisions (SKILL-05)
+description: "[Agentic] Prioritization Techniques - rank features and make trade-off decisions (SKILL-05)"
 version: 1.0.0
 ---
 

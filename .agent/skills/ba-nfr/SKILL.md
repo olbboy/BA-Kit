@@ -1,6 +1,6 @@
 ---
 name: ba-nfr
-description: [Agentic] NFR Framework with ISO 25010 - specify quality attributes and non-functional requirements (SKILL-04)
+description: "[Agentic] NFR Framework with ISO 25010 - specify quality attributes and non-functional requirements (SKILL-04)"
 version: 1.0.0
 ---
 
@@ -46,7 +46,7 @@ Generate NFRs adhering to strict patterns:
 | **NFR-PERF-01** | Performance | API Response Time | < 200ms (p95) |
 | **NFR-SEC-01** | Security | Data at Rest | AES-256 Encryption |
 
-### 3. Review Mode (System 2: The Vagueness Check)
+### 3. Reflection Mode (System 2: The Vagueness Check)
 **STOP & THINK**.
 *   *Critic*: "I wrote '< 200ms'. Is that physically possible?"
 *   *Critic*: "Did I use an old ISO standard?"

@@ -1,6 +1,6 @@
 ---
 name: ba-strategy
-description: [Agentic] Strategic Analysis - PESTLE, SWOT, Business Model Canvas, Porter's Five Forces
+description: "[Agentic] Strategic Analysis - PESTLE, SWOT, Business Model Canvas, Porter's Five Forces"
 version: 1.0.0
 ---
 

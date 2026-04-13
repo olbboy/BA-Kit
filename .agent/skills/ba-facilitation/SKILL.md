@@ -1,6 +1,6 @@
 ---
 name: ba-facilitation
-description: [Agentic] Workshop Facilitation - plan, run, and follow-up on effective workshops
+description: "[Agentic] Workshop Facilitation - plan, run, and follow-up on effective workshops"
 version: 1.0.0
 ---
 

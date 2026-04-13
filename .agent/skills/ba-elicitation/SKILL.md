@@ -1,6 +1,6 @@
 ---
 name: ba-elicitation
-description: [Agentic] Elicitation & Questioning - extract hidden requirements (SKILL-02)
+description: "[Agentic] Elicitation & Questioning - extract hidden requirements (SKILL-02)"
 version: 1.0.0
 ---
 

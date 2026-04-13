@@ -1,6 +1,6 @@
 ---
 name: ba-systems
-description: [Agentic] Systems Thinking - analyze complex systems using Stocks, Flows, Loops, and Leverage Points
+description: "[Agentic] Systems Thinking - analyze complex systems using Stocks, Flows, Loops, and Leverage Points"
 version: 1.0.0
 ---
 

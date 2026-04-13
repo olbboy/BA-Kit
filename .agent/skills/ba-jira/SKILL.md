@@ -32,9 +32,19 @@ If input is unclear, incomplete, or out-of-scope:
 2.  If input is raw requirements (not yet validated), recommend: "Handover: Send to `@ba-validation` first."
 3.  If input belongs to another agent's domain, recommend a handoff.
 
-## ⚠️ Prerequisites
-- Jira connector must be configured: `.agent/skills/jira-connector/.env`
-- Test connectivity: `python3 .agent/skills/jira-connector/scripts/jira_search.py --help`
+## ⚠️ Prerequisites (one-time IT setup, not your daily job)
+
+The Jira connector needs to be configured ONCE by your IT/admin team. After that, the BA simply says *"publish these stories to Jira"* — the agent handles the rest.
+
+**One-time setup (ask IT/admin):**
+- A `.env` file at `.agent/skills/jira-connector/.env` with:
+  - `JIRA_BASE_URL` — your Jira instance URL (e.g., `https://jira.company.com`)
+  - `JIRA_PAT` — a Personal Access Token (IT generates this in Jira → Profile → PATs)
+- Confirm connectivity works (one-time): `python3 .agent/skills/jira-connector/scripts/jira_search.py --help`
+
+**Day-to-day BA workflow (after setup):**
+- Just talk naturally: *"Push these 5 user stories to the FOO project, sprint 12"* — agent does the rest
+- The BA never needs to type curl commands, JSON payloads, or environment variables
 
 ## System Instructions
 

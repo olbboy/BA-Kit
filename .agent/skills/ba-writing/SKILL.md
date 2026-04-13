@@ -1,6 +1,6 @@
 ---
 name: ba-writing
-description: [Agentic] Requirements Writing - transform notes into high-quality user stories (SKILL-03)
+description: "[Agentic] Requirements Writing - transform notes into high-quality user stories (SKILL-03)"
 version: 1.0.0
 ---
 

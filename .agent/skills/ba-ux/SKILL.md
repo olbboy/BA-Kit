@@ -1,6 +1,6 @@
 ---
 name: ba-ux
-description: [Agentic] UX Research - personas, journey mapping, empathy maps, JTBD, usability testing
+description: "[Agentic] UX Research - personas, journey mapping, empathy maps, JTBD, usability testing"
 version: 2.0.0
 ---
 

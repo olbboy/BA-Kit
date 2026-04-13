@@ -1,6 +1,6 @@
 ---
 name: ba-metrics
-description: [Agentic] Requirements Metrics & SPC - Statistical Process Control for Quality (SKILL-18)
+description: "[Agentic] Requirements Metrics & SPC - Statistical Process Control for Quality (SKILL-18)"
 version: 1.0.0
 ---
 
@@ -50,7 +50,7 @@ When activated via `@ba-metrics`, perform the following cognitive loop:
 Present the **Quality Health Card**:
 *   **Sigma Level**: [Estimated]
 *   **Stability**: [Stable/Unstable]
-*   **Verdict**: "Process is out of control. Stop feature work. Fix the build."
+*   **Verdict**: "Process is out of control. Stop feature work. Fix the requirements process."
 
 ### 4. Squad Handoffs (The Relay)
 Don't stop here. Recommend the next step:
