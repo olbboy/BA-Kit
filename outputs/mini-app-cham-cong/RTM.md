@@ -1,6 +1,6 @@
 # Requirements Traceability Matrix (RTM) — EAMS Mini App Chấm Công
 
-**Generated:** 2026-04-11 | **Agent:** @ba-traceability
+**Generated:** 2026-04-13 | **Agent:** @ba-traceability
 **Coverage Status:** ✅ 100% bidirectional traceability
 
 ---
@@ -12,6 +12,7 @@
 | BRD Features | 36 | 36 | 0 | 100% |
 | User Stories | 53 | 53 | 0 | 100% |
 | Acceptance Criteria | ~215 | ~215 | 0 | 100% |
+| Gherkin Scenarios | 454 | 454 | 0 | 100% |
 | Test Cases | 482 | 482 | 0 | 100% |
 | API Endpoints | 108 | 108 | 0 | 100% |
 | DB Tables | ~65 | ~65 | 0 | 100% |

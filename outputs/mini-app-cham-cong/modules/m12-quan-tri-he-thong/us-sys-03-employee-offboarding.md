@@ -97,41 +97,48 @@ Offboarding Workflow (auto, ≤ 5 phút):
 ### **GHERKIN SCENARIOS**
 
 ```gherkin
-Feature: US-SYS-03
+Feature: US-SYS-03 — Employee Offboarding
   As a HR Admin
-  I want to trigger quy trình offboarding tự động khi nhân viên nghỉ việc để hệ thống tự hủy đơn từ, freeze phép, deactivate C-Vision mapping, và re-route approval chain
-  So that không có bước nào bị bỏ sót, dữ liệu được xử lý nhất quán, và quyền lợi NV (quyết toán phép, lương) được tính đúng.
+  I want to trigger offboarding tự động (7 bước) khi NV nghỉ việc
+  So that không bỏ sót bước, dữ liệu xử lý nhất quán.
 
-  Scenario: AC1 — Impact Report (Preview)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Impact Report (Preview)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Impact Report ---
+  Scenario: AC1.1 — Preview trước execute
+    Given NV emp-001: 2 đơn Leave PENDING, 5 ngày phép còn, ca Sáng, 1 mapping camera
+    When HR nhấn "Offboarding"
+    Then impact: Đơn PENDING=2, Leave Balance=5, Shift=Ca Sáng, Mapping=1, Approval queue=0
 
-  Scenario: AC2 — Workflow Execution
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Workflow Execution"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Workflow ---
+  Scenario: AC2.1 — 7 bước tuần tự
+    Given HR xác nhận offboarding emp-001
+    When workflow chạy
+    Then 1.Cancel đơn → 2.Freeze phép → 3.Remove shift → 4.Deactivate mapping → 5.Re-route approval → 6.Deactivate push → 7.Status=TERMINATED
+    And hoàn tất ≤ 5 phút. Progress: "3/7 Xóa ca làm việc..."
 
-  Scenario: AC3 — Revert (Undo)
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Revert (Undo)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Revert ---
+  Scenario: AC3.1 — Hoàn tác trong 48h
+    Given offboarding emp-001 thực hiện 10h trước
+    When GLOBAL_HR nhấn "Hoàn tác"
+    Then restore: ACTIVE, re-create shift, re-activate mapping, refund phép
 
-  Scenario: Error1 — NV là Manager đang approve đơn
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV là Manager đang approve đơn"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: AC3.2 — Quá 48h → disabled
+    Given offboarding 50h trước
+    When HR xem
+    Then nút "Hoàn tác" disabled. Tooltip: "Hết thời hạn hoàn tác."
 
-  Scenario: Error2 — NV có leave approved tuần sau
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV có leave approved tuần sau"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Cases ---
+  Scenario: Edge1 — NV là Manager có 15 đơn PENDING
+    Given emp-001 là manager, 15 đơn team PENDING
+    When offboarding step 5
+    Then auto-reassign 15 đơn → fallback chain. Push NV bị ảnh hưởng.
 
-  Scenario: Error3 — Offboarding NV đang trong ca đêm
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Offboarding NV đang trong ca đêm"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge2 — Offboarding khi NV đang trong ca đêm
+    Given NV check-in 22:00, HR trigger offboarding 23:00
+    When hệ thống xử lý
+    Then cho phép ca hoàn thành. Offboarding effective = ngày tiếp theo.
+
+  Scenario: Edge3 — Double offboarding → chặn
+    Given emp-001 đã offboarding
+    When HR trigger lần 2
+    Then chặn: "NV emp-001 đã được offboarding ngày [DD/MM]."
 ```

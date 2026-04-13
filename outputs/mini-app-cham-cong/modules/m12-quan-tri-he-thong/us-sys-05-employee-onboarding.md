@@ -83,49 +83,46 @@
 ### **GHERKIN SCENARIOS**
 
 ```gherkin
-Feature: US-SYS-05
+Feature: US-SYS-05 — Employee Onboarding Wizard
   As a HR Admin
-  I want to thực hiện quy trình onboarding tập trung qua wizard 7 bước khi nhân viên mới gia nhập
-  So that mọi cài đặt cần thiết (profile, site, shift, Face ID, phép, approval chain, thông báo) được hoàn thành trong ≤ 5 phút/NV, đồng bộ, tránh bỏ sót bước khi onboard hàng loạt.
+  I want to onboard NV mới qua wizard 7 bước (≤ 5 phút/NV)
+  So that NV chấm công Face ID từ ngày đầu, không bỏ sót bước.
 
-  Scenario: AC1 — Wizard UI 7 bước
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Wizard UI 7 bước"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Wizard 7 bước ---
+  Scenario: AC1.1 — Single onboard thành công
+    Given HR mở wizard cho emp-new
+    When hoàn thành: 1.Profile → 2.Site=HCM → 3.Ca Sáng → 4.Face ID invitation → 5.Phép=8 ngày (pro-rata) → 6.Chain=IT Dept → 7.Welcome push
+    Then checklist 7/7 ✅. emp-new status=ACTIVE.
 
-  Scenario: AC2 — Bulk Onboarding
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Bulk Onboarding"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Bulk ---
+  Scenario: AC2.1 — Onboard 200 NV từ import
+    Given 200 NV từ Bulk Import (US-EMP-04)
+    When HR chạy wizard batch: Site=HCM, Shift=Ca Sáng
+    Then phép tính pro-rata riêng từng NV. Progress: "45/200 NV..."
+    And hoàn tất ≤ 15 phút. Each NV nhận welcome push.
 
-  Scenario: AC3 — Onboarding Dashboard
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Onboarding Dashboard"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC3: Dashboard ---
+  Scenario: AC3.1 — Tracker với status
+    Given 50 NV đang onboard: 30 Completed, 15 In Progress, 5 Stuck (>3 ngày)
+    When HR mở Onboarding Tracker
+    Then bảng: Mã NV, Tên, Bước hiện tại, Status, Ngày bắt đầu
+    And 5 NV stuck badge đỏ. Push HR nhắc nhở.
 
-  Scenario: AC4 — Integration với các module
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Integration với các module"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- Edge Cases ---
+  Scenario: Edge1 — NV thuộc 2 site
+    Given NV IT hỗ trợ HCM (primary) + BD (secondary)
+    When wizard bước 2
+    Then chọn primary=HCM + secondary=BD. Ca gán theo primary.
 
-  Scenario: Error1 — Bulk onboard 500 NV
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Bulk onboard 500 NV"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge2 — Face ID skip
+    Given NV emp-new không có smartphone
+    When bước 4 skip
+    Then status=SKIPPED. Dashboard ghi: "Face ID chưa đăng ký". Fallback=Manual Entry.
 
-  Scenario: Error2 — NV thuộc 2 site
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV thuộc 2 site"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
-
-  Scenario: Error3 — Face ID enrollment fail
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Face ID enrollment fail"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge3 — Wizard bị gián đoạn
+    Given HR đóng browser ở bước 4
+    When HR mở lại
+    Then resume từ bước 4 (auto-save mỗi bước). Draft tồn tại 7 ngày.
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

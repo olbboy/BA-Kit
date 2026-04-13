@@ -41,6 +41,7 @@
 | MF05 | Cảnh báo team | Xem danh sách vi phạm của NV trong team: muộn, sớm, vắng. Nhắc NV giải trình. | m01 | US-ATTEN-04 |
 | MF06 | Báo cáo phòng ban | Biểu đồ chuyên cần theo phòng ban. Top NV vi phạm. Không xuất payroll (chỉ HR). | m11 | US-RPT-01 |
 | MF07 | Delegation khi nghỉ | Khi Manager đi nghỉ → hệ thống tự chuyển đơn sang SITE_MANAGER hoặc SITE_HR (fallback chain). | m10 | US-APPR-02 |
+| MF08 | Xem đơn Công tác/WFH team | Xem request công tác hoặc WFH của NV thuộc team. Duyệt/từ chối kèm lý do. | m02 | US-REG-06 |
 
 ---
 

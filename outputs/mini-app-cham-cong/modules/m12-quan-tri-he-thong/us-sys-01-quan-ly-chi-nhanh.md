@@ -69,46 +69,42 @@
 ### **GHERKIN SCENARIOS**
 
 ```gherkin
-Feature: US-SYS-01
+Feature: US-SYS-01 — Quản lý chi nhánh
   As a System Admin
-  I want to thêm, sửa, deactivate chi nhánh trên hệ thống mà không cần can thiệp kỹ thuật
-  So that công ty có thể mở rộng hoặc thu hẹp quy mô hoạt động mà hệ thống luôn phản ánh đúng cấu trúc tổ chức thực tế.
+  I want to CRUD site mà không cần can thiệp kỹ thuật
+  So that hệ thống phản ánh đúng cấu trúc tổ chức thực tế.
 
-  Scenario: AC1 — Thêm Site
-    Given System Admin đã đăng nhập vào hệ thống
-    When System Admin thực hiện "Thêm Site" với dữ liệu hợp lệ
-    Then hệ thống lưu thành công và trả về xác nhận
-    And thông báo được gửi đến người phê duyệt
+  # --- AC1: Thêm Site ---
+  Scenario: AC1.1 — Tạo site mới
+    Given Admin nhấn "Thêm site"
+    When nhập: Mã="BD01", Tên="Bình Dương", Timezone=Asia/Ho_Chi_Minh, ClosingDay=25
+    Then site ACTIVE. Xuất hiện ngay trong dropdown chọn site toàn hệ thống.
 
-  Scenario: AC2 — Sửa Site
-    Given System Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When System Admin thực hiện "Sửa Site"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC2: Sửa Site ---
+  Scenario: AC2.1 — Sửa closing date → cảnh báo
+    Given site HCM có 200 NV, closingDay=25
+    When Admin sửa closingDay → 20
+    Then cảnh báo: "Thay đổi ngày chốt ảnh hưởng 200 NV." Mã site immutable.
 
-  Scenario: AC3 — Deactivate Site
-    Given System Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại
-    When System Admin thực hiện "Deactivate Site"
-    Then hệ thống thực hiện soft-delete
-    And dữ liệu liên quan được xử lý đúng
+  # --- AC3: Deactivate ---
+  Scenario: AC3.1 — Deactivate site không có NV
+    Given site "Test" có 0 NV active
+    When Admin deactivate
+    Then status=INACTIVE. Dữ liệu lịch sử giữ nguyên.
 
-  Scenario: Error1 — Deactivate site có NV active
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Deactivate site có NV active"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Cases ---
+  Scenario: Edge1 — Deactivate site có NV → chặn
+    Given site HCM có 200 NV active
+    When Admin deactivate
+    Then chặn: "Site HCM có 200 NV active. Chuyển NV sang site khác trước."
 
-  Scenario: Error2 — Mã site trùng
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Mã site trùng"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge2 — Mã site trùng
+    Given mã "HCM" đã tồn tại
+    When Admin tạo site mới mã "HCM"
+    Then chặn: "Mã site HCM đã tồn tại."
 
-  Scenario: Error3 — Sửa timezone
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Sửa timezone"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge3 — Sửa timezone site có dữ liệu
+    Given site HCM có 12 tháng dữ liệu
+    When Admin sửa timezone → Asia/Bangkok
+    Then cảnh báo: "Thay đổi timezone chỉ áp dụng cho dữ liệu mới."
 ```

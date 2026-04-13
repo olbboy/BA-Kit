@@ -76,51 +76,57 @@
 ### **GHERKIN SCENARIOS**
 
 ```gherkin
-Feature: US-SYS-04
+Feature: US-SYS-04 — Chốt công tháng (Period Closing)
   As a HR Admin
-  I want to cấu hình và thực hiện chốt công hàng tháng để khóa dữ liệu chấm công sau ngày chốt
-  So that dữ liệu payroll không bị thay đổi ngoài kiểm soát, và mọi điều chỉnh sau chốt phải qua quy trình Exception Approval có audit trail.
+  I want to cấu hình và thực hiện chốt công tự động
+  So that dữ liệu payroll không bị thay đổi ngoài kiểm soát.
 
-  Scenario: AC1 — Cấu hình chốt công per-site
-    Given HR Admin đã đăng nhập vào hệ thống
-    And bản ghi đã tồn tại trong hệ thống
-    When HR Admin thực hiện "Cấu hình chốt công per-site"
-    Then hệ thống cập nhật thành công
-    And audit log ghi nhận thay đổi
+  # --- AC1: Cấu hình ---
+  Scenario: AC1.1 — Thiết lập per-site
+    Given Admin chọn site HCM
+    When nhập: closingDay=25, graceDays=3, weekendRule=PREV_WORKDAY
+    Then lưu thành công. Validation: closingDay 1-28.
 
-  Scenario: AC2 — Auto-closing trigger
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Auto-closing trigger"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Auto-closing ---
+  Scenario: AC2.1 — State machine OPEN → GRACE → LOCKED
+    Given closingDay=25, graceDays=3
+    When ngày 25 → cron 00:00
+    Then kỳ = GRACE (25-27). Ngày 28 → LOCKED.
+    And trong GRACE: NV gửi giải trình được, nhưng KHÔNG tạo đơn mới cho tháng cũ.
 
-  Scenario: AC3 — Exception Unlock
-    Given HR Admin đã đăng nhập vào hệ thống
-    When HR Admin thực hiện "Exception Unlock"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Exception Unlock ---
+  Scenario: AC3.1 — Unlock 1 NV + 1 ngày
+    Given kỳ 04 LOCKED
+    When GLOBAL_HR unlock emp-001, ngày 10/04, lý do="Correction sai ca"
+    Then emp-001 có 24h gửi giải trình. Tự re-lock sau 24h.
+    And audit: {actor, employee, date, reason, timestamp} — immutable.
 
-  Scenario: AC4 — Dashboard trạng thái chốt
-    Given HR Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When HR Admin truy cập màn hình "Dashboard trạng thái chốt"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC4: Dashboard ---
+  Scenario: AC4.1 — Hiển thị trạng thái kỳ
+    Given kỳ 04 GRACE, 15 NV có lỗi tồn đọng
+    When HR mở dashboard
+    Then badge: GRACE, countdown: "Còn 2 ngày." Highlight đỏ: 15 NV.
 
-  Scenario: Error1 — Closing day = T7/CN
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Closing day = T7/CN"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Cases ---
+  Scenario: Edge1 — Ngày chốt rơi CN
+    Given closingDay=25, ngày 25 = Chủ nhật, weekendRule=PREV_WORKDAY
+    When hệ thống tính
+    Then chốt Thứ 6 (24). Push notification điều chỉnh.
 
-  Scenario: Error2 — NV gửi giải trình sát giờ chốt
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "NV gửi giải trình sát giờ chốt"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge2 — NV gửi giải trình 23:59
+    Given chốt 00:00, NV submit lúc 23:59:58
+    When server timestamp check
+    Then accept (submit < closing). DB transaction isolation.
 
-  Scenario: Error3 — Cron job fail
-    Given HR Admin đã đăng nhập
-    When xảy ra điều kiện "Cron job fail"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge3 — Cron job fail
+    Given server down vào 00:00 ngày chốt
+    When job monitor kiểm tra mỗi giờ
+    Then auto-trigger khi server up. Không bao giờ skip chốt. Alert SYS_ADMIN.
+
+  Scenario: Edge4 — 200 NV tồn đọng → confirm
+    Given GRACE → LOCKED sẽ khiến 200 NV bị "Vi phạm quy chế"
+    When dashboard cảnh báo
+    Then HR confirm hoặc extend grace +1-3 ngày (max 1 lần).
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

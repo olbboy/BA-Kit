@@ -792,6 +792,24 @@ Bước 3: Đồng bộ C-Vision
 | Ngày Quốc tế Lao động | 01/05 | 1 ngày |
 | Ngày Quốc khánh | 02/09 | 2 ngày (01-02/09) |
 
+### 15.3 Quyền của Nhân viên theo NĐ 13/2023/NĐ-CP
+
+EAMS triển khai đầy đủ 5 quyền cốt lõi của chủ thể dữ liệu theo Nghị định 13/2023 về Bảo vệ Dữ liệu Cá nhân:
+
+| Quyền | Mô tả | Triển khai trong EAMS |
+|-------|-------|------------------------|
+| **Quyền được biết** (Right to be Informed) | NV được thông báo về mục đích thu thập, loại dữ liệu, thời gian lưu trữ | Màn hình "Chính sách bảo mật" hiển thị khi onboarding. Email thông báo khi policy thay đổi. |
+| **Quyền truy cập** (Right to Access) | NV được xem toàn bộ dữ liệu cá nhân đã thu thập | API: `GET /employees/me/data-export` → file JSON/PDF chứa: chấm công, Face ID metadata (không ảnh gốc), đơn từ, phép. SLA: ≤ 48h. |
+| **Quyền chỉnh sửa** (Right to Rectification) | NV được yêu cầu sửa thông tin sai lệch | Flow: NV tạo request → HR review → approve/reject. Audit log ghi nhận mọi thay đổi. |
+| **Quyền xóa** (Right to Erasure) | NV được yêu cầu xóa dữ liệu sinh trắc học khi rút consent | API: `POST /employees/me/erasure-request` → xóa Face ID captures + C-Vision mapping trong 72h. Attendance records giữ theo Luật LĐ (5 năm). |
+| **Quyền phản đối** (Right to Object) | NV được từ chối thu thập sinh trắc học | NV có thể từ chối Face ID → fallback Manual Entry (US-ATTEN-05). HR ghi nhận trong hồ sơ. |
+
+**Quy trình xử lý yêu cầu:**
+1. NV gửi request qua Module 12 → GLOBAL_HR nhận thông báo.
+2. GLOBAL_HR review trong 15 ngày làm việc (theo NĐ 13/2023 Điều 14).
+3. Approve → hệ thống auto-execute. Reject → kèm lý do bằng văn bản.
+4. Audit log immutable ghi nhận toàn bộ quá trình.
+
 ---
 
 ## 16. MA TRẬN QUYỀN HẠN
@@ -895,6 +913,43 @@ EAMS áp dụng chính sách lưu trữ linh hoạt theo từng nhóm dữ liệ
 | HR sửa ca + NV gửi đơn đổi ca cùng lúc | Optimistic locking (version field trên ShiftAssignment). Ai save sau → nhận lỗi "Dữ liệu đã thay đổi, vui lòng tải lại". |
 | 2 HR cùng approve 1 đơn | Pessimistic lock trên ApprovalStep. Người approve sau → nhận thông báo "Đơn đã được [Tên] xử lý". |
 | NV hủy đơn + Manager approve cùng lúc | Approve có priority cao hơn. Nếu approve xong trước → NV nhận "Đơn đã được duyệt, không thể hủy". |
+
+### 17.5 Integration Patterns
+
+EAMS sử dụng các pattern tích hợp chuẩn enterprise cho giao tiếp giữa các module và hệ thống ngoài:
+
+| Pattern | Áp dụng | Cấu hình |
+|---------|---------|----------|
+| **Webhook Retry (Exponential Backoff)** | C-Vision → EAMS | Retry: 3 lần (5s, 30s, 120s). Sau 3 lần → Dead Letter Queue. Alert SYS_ADMIN. |
+| **Circuit Breaker** | EAMS → C-Vision API, EAMS → SMTP | State: CLOSED → OPEN (sau 5 lỗi liên tiếp) → HALF_OPEN (sau 60s). Threshold: 5 failures / 30s window. |
+| **Dead Letter Queue (DLQ)** | Webhook processing, Notification delivery | Redis-based BullMQ. TTL: 7 ngày. Admin UI: xem, retry, purge DLQ entries. |
+| **Idempotency Key** | Webhook receiver, Batch operations | Header: `X-Idempotency-Key`. Dedup window: 24h. Key = `{deviceId}_{personId}_{timestamp_rounded_60s}`. |
+| **Event Sourcing (Audit)** | Tất cả CUD operations | Mỗi mutation ghi event: `{aggregate, action, actor, payload, timestamp}`. Append-only. Không cho phép UPDATE/DELETE audit entries. |
+| **Saga Pattern** | Offboarding (7 steps), Onboarding (7 steps) | Compensating transactions cho mỗi step. Rollback toàn bộ nếu step fail. Timeout: 5 phút. |
+
+**Monitoring:**
+- Health check endpoint: `GET /health` → kiểm tra Redis, PostgreSQL, SMTP, C-Vision API.
+- Metrics: Prometheus exporters cho queue depth, circuit breaker state, retry count.
+- Alerting: PagerDuty/Slack webhook khi circuit breaker OPEN hoặc DLQ > 100 entries.
+
+### 17.6 Data Migration Strategy
+
+Khi triển khai EAMS thay thế hệ thống chấm công legacy:
+
+| Phase | Hoạt động | Duration | Rollback |
+|-------|----------|----------|----------|
+| **Phase 1: Schema Setup** | Tạo DB schema EAMS. Seed master data: sites, departments, holidays, shifts. | 1 tuần | DROP schema |
+| **Phase 2: Employee Import** | Import NV từ HRIS/Excel → EAMS. Validate: mã NV unique, phòng ban tồn tại, manager hợp lệ. | 1-2 tuần | DELETE FROM employees WHERE source='migration' |
+| **Phase 3: Historical Data** | Import chấm công 12 tháng gần nhất. Transform legacy format → EAMS schema. Checksums per-employee. | 2-3 tuần | Restore from backup |
+| **Phase 4: Parallel Run** | Chạy song song legacy + EAMS 1 tháng. So sánh output payroll hàng ngày. Delta report ≤ 0.1%. | 1 tháng | Continue legacy |
+| **Phase 5: Cutover** | Tắt legacy. EAMS = system of record. Legacy read-only 6 tháng. | 1 ngày | Re-enable legacy (2h RTO) |
+
+**Validation checklist:**
+- ☑️ Employee count: Legacy = EAMS
+- ☑️ Payroll output: Delta ≤ 0.1% cho 3 kỳ lương liên tiếp
+- ☑️ Leave balance: Khớp 100% (critical — ảnh hưởng quyền lợi NV)
+- ☑️ Shift assignment: Tất cả NV có ca hợp lệ
+- ☑️ Face ID enrollment: ≥ 95% NV active đã enroll
 
 ---
 

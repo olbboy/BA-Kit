@@ -84,7 +84,7 @@ graph LR
 | F03 | Trung tâm đăng ký | Form: Nghỉ phép, Đổi ca, OT, Nghỉ ko lương. Theo dõi hạn mức phép năm. | Là NV, tôi muốn gửi đơn xin nghỉ ngay trên điện thoại. |
 | F04 | Giải trình cá nhân | Case: Giải trình muộn/sớm kèm ảnh. Case: Tự động khóa nút giải trình sau ngày chốt công. | Là NV, tôi muốn giải trình lỗi công để giữ chuyên cần. |
 | F05 | Báo cáo cá nhân | Score chuyên cần, Tổng giờ làm tháng, Bảng KPI Highlights. | Là NV, tôi muốn theo dõi KPI năng lực quý của mình. |
-| F06 | Setup Hồ sơ & Face ID | Quy trình 3 bước: Xác nhận thông tin → Chụp ảnh khuôn mặt (kiểm tra chất lượng) → Đồng bộ C-Vision. Chi tiết: [US-CAM-04](../2.11.8.-Cấu-hình-Camera-AI/us-cam-04-dang-ky-khuon-mat-nhan-vien.md). | Là NV mới, tôi muốn tự đăng ký khuôn mặt để điểm danh. |
+| F06 | Setup Hồ sơ & Face ID | Quy trình 3 bước: Xác nhận thông tin → Chụp ảnh khuôn mặt (kiểm tra chất lượng) → Đồng bộ C-Vision. Chi tiết: [US-CAM-04](../modules/m08-camera-ai/us-cam-04-dang-ky-khuon-mat-nhan-vien.md). | Là NV mới, tôi muốn tự đăng ký khuôn mặt để điểm danh. |
 
 ### **6. YÊU CẦU PHI CHỨC NĂNG**
 

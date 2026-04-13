@@ -80,41 +80,48 @@
 ### **GHERKIN SCENARIOS**
 
 ```gherkin
-Feature: US-SYS-02
+Feature: US-SYS-02 — Audit Log Viewer
   As a System Admin
-  I want to xem toàn bộ nhật ký hoạt động của hệ thống (ai làm gì, khi nào, dữ liệu gì thay đổi) với bộ lọc đa tiêu chí (User, Module, Action, Date range)
-  So that tôi có thể điều tra sự cố, đảm bảo compliance, và truy vết mọi thay đổi dữ liệu nhạy cảm trong hệ thống.
+  I want to xem nhật ký hoạt động với bộ lọc đa tiêu chí
+  So that điều tra sự cố, đảm bảo compliance.
 
-  Scenario: AC1 — Bảng log chính
-    Given System Admin đã đăng nhập vào hệ thống
-    When System Admin thực hiện "Bảng log chính"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: Bảng log ---
+  Scenario: AC1.1 — Hiển thị 6 cột
+    Given 500 log entries 24h gần nhất
+    When Admin mở Audit Log
+    Then bảng: Timestamp | User | Module | Action | Target | Summary. 100/trang.
 
-  Scenario: AC2 — Bộ lọc
-    Given System Admin đã đăng nhập vào hệ thống
-    When System Admin thực hiện "Bộ lọc"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC2: Filter ---
+  Scenario: AC2.1 — Lọc theo module + date range
+    Given Admin chọn: Module=Attendance, DateRange=01/04-15/04
+    When apply filter
+    Then chỉ log module Attendance trong khoảng thời gian. ≤ 3 giây.
 
-  Scenario: AC3 — Chi tiết record
-    Given System Admin đã đăng nhập vào hệ thống
-    When System Admin thực hiện "Chi tiết record"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Chi tiết ---
+  Scenario: AC3.1 — JSON diff side-by-side
+    Given log: "Updated shift Ca Sáng: startTime 08:00 → 08:30"
+    When Admin click
+    Then old_value: {startTime: "08:00"}, new_value: {startTime: "08:30"}
+    And metadata: IP, User-Agent, Request ID
 
-  Scenario: Error1 — Log > 1 triệu records
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Log > 1 triệu records"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Cases ---
+  Scenario: Edge1 — Query > 1M records → paginate
+    Given date range = 90 ngày, 1.2M records
+    When query
+    Then server-side pagination 100/trang. Bắt buộc date range ≤ 90 ngày.
 
-  Scenario: Error2 — Export > 100,000 records
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Export > 100,000 records"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge2 — Export > 100K → async
+    Given filter trả 150K records
+    When Admin export
+    Then async: "File đang tạo. Email khi hoàn tất." Giới hạn 100K/file.
 
-  Scenario: Error3 — Log sensitive data
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Log sensitive data"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge3 — Sensitive data masked
+    Given log: password_change cho emp-001
+    When Admin xem detail
+    Then old/new = "***". Chỉ log field name.
+
+  Scenario: Edge4 — Audit log append-only
+    Given Admin cố xóa log entry
+    When API: DELETE /audit-log/{id}
+    Then 403 Forbidden. Audit log KHÔNG có nút Delete.
 ```

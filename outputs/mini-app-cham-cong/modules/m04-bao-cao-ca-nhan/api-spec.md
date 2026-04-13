@@ -13,7 +13,9 @@ Base URL: `/api/v1/reports/personal`
 ## Sample Request/Response
 
 ### GET /reports/personal/dashboard
-Query params: `?month=2025-05`
+Query params: `?month=2025-05` or `?fromDate=2025-05-01&toDate=2025-05-31`
+
+> **Time range:** Supports both `month` (shorthand) and explicit `fromDate`/`toDate` (ISO 8601). Max range: 12 months.
 
 Response `200`:
 ```json

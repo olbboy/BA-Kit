@@ -20,6 +20,8 @@ Base URL: `/api/v1`
 ### GET /reports/dashboard
 Query params: `?siteId=HN01&deptId=IT&date=2025-05-20`
 
+> **GET /reports/compliance** also supports: `?fromDate=2025-04-01&toDate=2025-04-30&siteId=HN01&page=1&limit=50` — Date range required (max 90 days). Pagination: `page` (default: 1), `limit` (default: 50, max: 200).
+
 Response `200`:
 ```json
 {

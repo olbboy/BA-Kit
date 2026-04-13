@@ -83,55 +83,62 @@
 ### **GHERKIN SCENARIOS**
 
 ```gherkin
-Feature: US-SYS-06
+Feature: US-SYS-06 — Cấu hình Data Retention Policy
   As a System Admin
-  I want to cấu hình chính sách lưu trữ dữ liệu (Data Retention Policy) cho từng loại dữ liệu trong hệ thống — bao gồm thời hạn lưu trữ, quy tắc xóa/archive, và cảnh báo compliance
-  So that hệ thống tuân thủ quy định pháp luật Việt Nam (Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân), tiết kiệm chi phí lưu trữ, và có audit trail cho mọi thao tác xóa dữ liệu.
+  I want to cấu hình retention per-category + auto enforcement
+  So that tuân thủ NĐ 13/2023, tiết kiệm lưu trữ.
 
-  Scenario: AC1 — Data Categories & Default Retention
-    Given System Admin đã đăng nhập vào hệ thống
-    When System Admin thực hiện "Data Categories & Default Retention"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC1: 9 Categories ---
+  Scenario: AC1.1 — Hiển thị bảng retention mặc định
+    Given tenant vừa setup
+    When Admin mở Data Retention
+    Then 9 categories: Attendance (5y), Leave (5y), OT (5y), Payroll (10y), AuditLog (3y), FaceID (90d after offboard), Notification (1y), File (2y), TempData (30d)
 
-  Scenario: AC2 — Retention Configuration Dashboard
-    Given System Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When System Admin truy cập màn hình "Retention Configuration Dashboard"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC2: Dashboard ---
+  Scenario: AC2.1 — Gantt timeline
+    Given 9 categories cấu hình xong
+    When dashboard render
+    Then Gantt chart: mỗi category = 1 bar, chiều dài = retention window
 
-  Scenario: AC3 — Archive vs. Purge
-    Given System Admin đã đăng nhập vào hệ thống
-    When System Admin thực hiện "Archive vs. Purge"
-    Then hệ thống xử lý đúng theo yêu cầu
+  # --- AC3: Archive vs Purge ---
+  Scenario: AC3.1 — Archive → cold storage
+    Given Attendance > 5 năm
+    When cron job tìm records hết hạn
+    Then ARCHIVE_COLD: move S3 Glacier. Audit: "Archived X records."
 
-  Scenario: AC4 — Automated Enforcement (Cron Job)
-    Given System Admin đã đăng nhập vào hệ thống
-    When System Admin thực hiện "Automated Enforcement (Cron Job)"
-    Then hệ thống xử lý đúng theo yêu cầu
+  Scenario: AC3.2 — Purge → hard delete
+    Given Face ID data, NV offboarded > 90 ngày
+    When cron job purge
+    Then confirm 2 lần + nhập reason. Hard delete. Audit: "Purged X records. Reason: [...]."
 
-  Scenario: AC5 — Legal Compliance Dashboard
-    Given System Admin đã đăng nhập vào hệ thống
-    And dữ liệu đã tồn tại trong hệ thống
-    When System Admin truy cập màn hình "Legal Compliance Dashboard"
-    Then hệ thống hiển thị đúng dữ liệu theo quyền truy cập
+  # --- AC4: Cron enforcement ---
+  Scenario: AC4.1 — Daily scan 02:00 AM
+    Given retention policies configured
+    When cron 02:00 chạy
+    Then scan → archive/purge. Report: "X archived, Y purged, Z errors."
+    And nếu purge > 10,000/ngày → DỪNG + alert SYS_ADMIN
 
-  Scenario: Error1 — Purge nhầm dữ liệu active
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Purge nhầm dữ liệu active"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- AC5: Compliance dashboard ---
+  Scenario: AC5.1 — Checklist per regulation
+    Given NĐ 13/2023, Luật LĐ, Luật Kế toán
+    When admin mở compliance
+    Then ☑️ FaceID deleted within 90d of offboard, ☑️ Attendance ≥ 5y, ☑️ Payroll ≥ 10y
 
-  Scenario: Error2 — Cron job fail
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Cron job fail"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  # --- Edge Cases ---
+  Scenario: Edge1 — Purge nhầm NV active
+    Given cron tìm NV active có Face ID data
+    When safety check
+    Then CHẶN purge. Chỉ purge NV TERMINATED + offboarded > retention period.
 
-  Scenario: Error3 — Retention config conflict
-    Given System Admin đã đăng nhập
-    When xảy ra điều kiện "Retention config conflict"
-    Then hệ thống hiển thị thông báo lỗi phù hợp
-    And không có dữ liệu bị mất hoặc sai lệch
+  Scenario: Edge2 — Cron fail
+    Given cron crash đêm qua
+    When monitor detect
+    Then retry + alert SYS_ADMIN. Không tự skip.
+
+  Scenario: Edge3 — Config conflict
+    Given Admin set Attendance = 3 năm (< Luật LĐ 5 năm)
+    When validate
+    Then chặn: "Vi phạm quy định Luật Lao động. Minimum = 5 năm."
 ```
 
 ### **4. DEFINITION OF DONE (DOD)**

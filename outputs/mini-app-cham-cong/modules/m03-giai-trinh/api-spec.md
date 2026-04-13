@@ -18,7 +18,9 @@ Base URL: `/api/v1`
 ## Sample Request/Response
 
 ### GET /anomalies
-Query params: `?month=2025-05&status=PENDING`
+Query params: `?month=2025-05&status=PENDING&page=1&limit=20`
+
+> **Pagination:** `page` (default: 1), `limit` (default: 20, max: 100). Response includes `total` and `totalPages`.
 
 Response `200`:
 ```json

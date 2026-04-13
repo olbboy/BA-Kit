@@ -30,6 +30,9 @@ Base URL: `/api/v1/notifications`
 ## Sample Request/Response
 
 ### GET /notifications/channels
+Query params: `?page=1&limit=20`
+
+> **Pagination (for `/notifications` history):** `page` (default: 1), `limit` (default: 20, max: 100). Channels endpoint returns all (no pagination needed — fixed set). History endpoint (`GET /notifications`) supports pagination.
 
 Response:
 ```json
