@@ -2,6 +2,40 @@
 
 All notable changes to BA-Kit Antigravity.
 
+## [1.5.0] - 2026-04-14 — E2E Quality Gate + Mini-App Chấm Công Showcase (Marketing v3.5.0)
+
+### Added
+- **Phase 08 — CI-integrated E2E quality gate**:
+  - `.agent/scripts/ba_e2e_test.py` (1,389 LOC) — 5-layer orchestrator runner (L1 script smoke → L2 helper smoke → L3 skill frontmatter/sections → L4 deep BRD↔US↔API↔test consistency → L5 fixture coverage), `--report` markdown output, `--json` stable schema v1.0.0 (ensure_ascii=False for Vietnamese round-trip), `--fixture` selector
+  - `.github/workflows/e2e-skills.yml` — GitHub Actions quality gate triggered on PR + push to `main`/`feat/**` touching `.agent/`, `docs/`, `outputs/`, or the workflow itself. Writes markdown to `GITHUB_STEP_SUMMARY`, uploads `reports/` artifact (14-day retention), posts sticky PR comment via `marocchino/sticky-pull-request-comment@v2`. Fails only on `FAIL`/`CRASH` verdict (warnings don't block). Python 3.11, stdlib only, 10-min timeout
+  - README badge: GitHub Actions status linked to the `e2e-skills` workflow
+  - L4 deep lints — single-pass `FixtureInventory` + 6 lint families (duplicate US IDs, BRD→US cross-refs, API-spec US refs, test-case US refs, RTM US refs, orphaned test cases). 34 checks on `mini-app-cham-cong` fixture
+  - L2 helper smoke — 14 test cases covering `ba_as_built`, `ba_retro`, `ba_learn`, `ba_baseline`, `ba_second_opinion`, `ba_setup` stdlib interfaces
+- **Mini-App Chấm Công — comprehensive BA dogfooding showcase** (`outputs/mini-app-cham-cong/`):
+  - 4 BRDs (Nhân viên, Quản lý, HR-Admin, IT/System-Admin) + Demo Plan Sprint-8 + modules overview + Confluence manifest
+  - 12 modules (M01-M12) with README + api-spec + db-schema + test-cases + US files each
+  - 47 US files across M01-M11 (chấm công, OT, nghỉ phép, công tác, phân ca, chính sách, mobile, báo cáo) rewritten R3 with concrete Gherkin scenarios sourced from Edge Cases tables
+  - 6 US files for M12 (quản trị hệ thống — chi nhánh, audit log, offboarding, chốt công, onboarding, data retention)
+  - EAMS v2.1 (Employee Attendance Management Specification) with §15.3/§17.5/§17.6 expanded
+  - RTM (Requirements Traceability Matrix) full cross-ref
+  - AUDIT-REPORT R3 + INDEX + 111/111 Confluence sync complete (0 rendering errors)
+- **`ba-wiki` canonical sections** — added `## Input Validation` + `## System Instructions` to the operation-based template so L3 frontmatter lint passes (6/8 → 8/8)
+
+### Changed
+- `coverage_checker.py` — recognizes lowercase `us-*` filenames + `test-cases.md` (case-insensitive US ID regex, dual filename patterns)
+- README badges point to `branch=main` (was `feat/mini-app-cham-cong-docs`)
+- Logo cache-bust v3.4.0 → v3.5.0 in both READMEs
+
+### Fixed
+- **Confluence DC rendering blockers**: added `json`/`gherkin` language mappings + `mermaid-macro` support to push scripts; fixed broken link in `overview/README`
+- **R3 Gherkin remediation**: 47 US files (M01-M11) rewritten from abstract "Given a user, When they submit, Then success" → concrete scenarios with table-driven Edge Cases
+- **M12 R3 remediation**: 6 US Gherkin rewrite + EAMS v2.1 §15.3/§17.5/§17.6 + API spec fixes (M03/M04/M09/M11) + BRD cross-ref fixes + Audit R3 + RTM update
+
+### Migration notes
+- No breaking changes. Existing v3.4.0 installs continue working
+- To enable the new E2E quality gate on forks: copy `.github/workflows/e2e-skills.yml` + ensure `.agent/scripts/ba_e2e_test.py` is present
+- Mini-app Chấm Công docs are a dogfooding showcase — reference material, not executable templates
+
 ## [1.4.0] - 2026-04-13 — Gstack Distillation (Marketing v3.4.0)
 
 ### Added
